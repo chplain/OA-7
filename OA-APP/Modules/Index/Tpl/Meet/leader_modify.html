@@ -1,0 +1,40 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/leader_modify')}">局领导调整</a></li>
+			
+		</ul>
+    </div>
+<div>
+	<a href="{:U('Index/Meet/outmeet_look')}"><button>返回</button></a>
+	<table class="bordered" id="tableNodifyManage">
+		<tr>
+			<th>序号</th>
+			<th>领导姓名</th>
+			<th>修改</th>
+			<th>操作</th>
+		</tr>
+		<volist name='leader' id='v' key='key'>
+			<form action="{:U('Index/Meet/leader_modify_handle',array('id'=>$v['id']))}" method='post'>
+				<tr>
+					<td>{$key}</td>
+					<td>{$v.name}</td>
+					<td>
+						重命名：<input type="text" name='rename' value='{$v.name}'>
+						点击选择：
+						<input type="text" class='contact_input_leader_{$v["id"]}'>
+						<input type="hidden" name='leader_{$v["id"]}' class='hidden'>
+					</td>
+					<td><button>保存修改</button>
+						<!-- <a href="{:U('Index/Meet/delete_leader',array('id'=>$v['id']))}" class='delete'>删除</a> -->
+					</td>
+				</tr>
+			</form>
+		</volist>
+	</table>
+</div>
+
+<include file='Common:footer'/>

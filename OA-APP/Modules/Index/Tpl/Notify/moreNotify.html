@@ -1,0 +1,62 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<!--
+<div class='moreDetail'>
+	<h3>通知公告</h3>
+	<div class='more_list'>
+		<ol>
+			<foreach name='notify' item='v'>
+				<u><li>
+					<a href="{:U('Index/Notify/detailNotify',array('id'=>$v['id']))}">
+						{$v.meeting_title|truncate_cn=30}
+					</a>
+					<span class="more_time">&nbsp;</span>
+					<span class="more_time">{$v.publish_time|date='Y-m-d H:i:s',###}</span>
+
+				</li>
+				</u>
+			</foreach>
+		</ol>
+		{$page}
+	</div>
+
+</div>
+-->
+
+
+<div class='moreDetail'>
+	<h3>通知公告</h3>
+	<div class='more_list'>
+		<table class="bordered" id="tableNodifyManage" align="center">
+			<tr>
+				<th>
+					标题
+				</th>
+				<th >
+					<span class="more_time">&nbsp;</span>
+					<div align="center">时间</div>
+				</th>
+			</tr>
+			<foreach name='notify' item='v'>
+				<tr>
+					<td>
+						<a href="{:U('Index/Notify/detailNotify',array('id'=>$v['id']))}">
+							{$v.meeting_title|truncate_cn=30}
+						</a>
+					</td>
+					<td>
+						<span class="more_time">&nbsp;</span>
+						<span class="more_time">{$v.publish_time|date='Y-m-d H:i:s',###}</span>
+					</td>
+				</tr>
+			</foreach>
+		</table>
+		<p>&nbsp;</p>
+		{$page}
+	</div>
+
+</div>
+
+
+
+<include file='Common:footer'/>

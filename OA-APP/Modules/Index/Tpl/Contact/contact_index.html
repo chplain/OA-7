@@ -1,0 +1,109 @@
+<include file='Common:header'/>
+<style>
+	#anchor a{
+		margin-right: 10px;
+	}
+</style>
+<include file='Common:top'/>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>日常公务</li>
+			<li><a href="{:U('Index/Contact/contact_index')}">通讯录</a></li>
+		</ul>
+    </div>
+	<div id='contact' >
+
+		
+		<br>
+		<div id='anchor'>
+			<a href="#0" class='even'>局领导</a> 
+			<volist name='dep' id='v' key='key'>
+				<if condition='isEven($key)'>
+					<a href="#{$v.id}" class='even'>
+					<else/>
+					<a href="#{$v.id}" class='odd'>
+				</if>
+					{$v.name}
+				</a> 
+			</volist>
+			<!-- <a href="#1" class='odd'>办公室</a> 
+			<a href="#2" class='even'>总量控制科</a> 
+			<a href="#3"class='odd'>大气污染防治办公室</a> 
+			<a href="#4" class='even'>综合管理科</a> 
+			<a href="#5"class='odd'>规划和环境影响评价科</a> 
+			<a href="#6" class='even'>监控中心</a> 
+			<a href="#7"class='odd'>辐射所</a> 
+			<a href="#8" class='even'>机关服务部</a> 
+			<a href="#9"class='odd'>环保协会</a> 
+			<a href="#10" class='even'>环境监察支队</a> 
+			<a href="#11"class='odd'>环境保护监测站</a> 
+			<a href="#12" class='even'>机动车排放管理站</a> -->
+		</div>
+		<div id='search' style='margin-left:20px;'>
+			<span>姓名：<input type="text" name='name'></span>
+			<button id='contact_search'>查询</button><br>
+			<span id='msg'></span>
+			<span class='contact_block'><a href="{:U('Index/Contact/downContact')}">下载通讯录</a></span>
+			<span class='contact_block'><a href="#" id='contact_manage'>管理通讯录</a></span>
+		</div>
+		<div id='contact_content'>
+			<div id='leader'>
+				<h3 align="center" id="0" >局领导</h3>
+				<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+					<tr>
+						<th width='15%'>职务</th>
+						<th width='15%'>姓名</th>
+						<th width='20%'>手机号码</th>
+						<th width='20%'>住宅号码</th>
+						<th width='15%'>办公号码</th>
+						<th width='15%'>备注</th>
+					</tr>
+					<foreach name='leader' item='v'>
+						<tr>
+							<td width='15%'>{$v.position|idToPosition}</td>
+							<td width='15%'>{$v.name}</td>
+							<td width='20%'>{$v.phone_number}</td>
+							<td width='20%'>{$v.home_number}</td>
+							<td width='15%'>{$v.office_number}</td>
+							<td width='15%'>{$v.remark|idToRemark}</td>
+						</tr>
+					</foreach>
+				</table>
+			</div>
+
+			<div >
+				<volist name='dep' id='v' key='key'>
+					<div class='group'>
+						<h3 align='center' id="{$v.id}">{$v.name}</h3>
+						<table  class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+							<tr>
+								<th width='15%'>科室</th>
+								<th width='15%'>姓名</th>
+								<th width='20%'>手机号码</th>
+								<th width='20%'>住宅号码</th>
+								<th width='15%'>办公号码</th>
+								<th width='15%'>备注</th>
+							</tr>
+							<volist name="group[$v['id']]" id='vv'>
+								<tr>
+									<td width='15%'>{$vv.department|idToDep}</td>
+									<td width='15%'>{$vv.name}</td>
+									<td width='20%'>{$vv.phone_number}</td>
+									<td width='20%'>{$vv.home_number}</td>
+									<td width='15%'>{$vv.office_number}</td>
+									<td width='15%'>{$vv.remark|idToRemark}</td>
+								</tr>
+							</volist>
+						</table>
+					</div>
+				</volist>
+				
+			</div>
+		</div>
+		<div id='fixed_foot'>
+			<a href="#contact"><img src="__PUBLIC__/images/toTop.png" alt=""></a>
+		</div>
+	</div>
+
+<include file='Common:footer'/>

@@ -1,0 +1,141 @@
+<include file='Common:header'/>
+<css file='__PUBLIC__/css/homePage.css'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li><a href="{:U('Index/Notify/show_message')}">待办事项</a></li>
+		</ul>
+    </div>
+
+<div style='width:1200px;'>
+	
+		<table class="bordered"  id="tableNodifyManage" style='width:103%;margin-bottom:0px;padding-bottom:0px;margin-left:0px;'>
+			<tr>
+				<th>
+					&nbsp;&nbsp;<span style='font:bold 15px "微软雅黑";'>当前状态：</span>
+					<span id='newMess' style='font:bold 16px "微软雅黑";'>【新消息[0]】</span>
+				</th>
+			</tr>
+			
+		</table>
+
+	<div id='showMessPage' style='margin-top:20px;'>
+		<div class="homePage"  >
+			<div class="homePage-head" >
+				<div class="mianleft-head-left">
+					<div class="mianleft-head-left2" id='mianleft-head-left2-1'>
+						会议活动
+					</div>
+				</div>
+				<div class="homePage-head-right" >
+					<a href="{:U('Index/Notify/moreMessage',array('from'=>'active'))}" >>>更多</a>
+				</div>
+			</div>
+			
+			<div class="mian-right-in">
+				 <ul>
+				 	<foreach name='meet'  item='v'>
+						<li>							
+							<a href="{:U('Index/Notify/detailMessage',array('id'=>$v['id']))}" title='{$v.mess_title}'>
+								<if condition='$v["isHandled"] eq 0'>
+									<b>{$v.mess_title|truncate_cn=70}</b>
+								<else/>
+									{$v.mess_title|truncate_cn=70}
+								</if>
+							</a>
+							<em >{$v.mess_time|date='y/m/d',###}</em>
+						</li>
+					</foreach>
+				 </ul>
+				 <if condition='$meet eq NULL'>
+	                【暂无会议活动】
+	              </if>
+			 </div>
+		</div>
+		<div class="homePage">
+			<div class="homePage-head">
+				<div class="mianleft-head-left">
+					<div class="mianleft-head-left2" id='mianleft-head-left2-2'>事务待处理</div>
+				</div>
+				<div class="homePage-head-right" >
+					<a href="{:U('Index/Notify/moreMessage',array('from'=>'other'))}" >>>更多</a>
+				</div>
+			</div>
+			
+			<div class="mian-right-in">
+				<ul>
+				 	<foreach name='trans'  item='v'>
+						<li>
+							
+							<a href="{:U('Index/Notify/detailMessage',array('id'=>$v['id']))}" title='{$v.mess_title}'>
+								<if condition='$v["isHandled"] eq 0'>
+									<b>{$v.mess_title|truncate_cn=70}</b>
+								<else/>
+									{$v.mess_title|truncate_cn=70}
+								</if>
+							</a>
+							<em >{$v.mess_time|date='y/m/d',###}</em>
+						</li>
+					</foreach>
+				 </ul>
+				 <if condition='$trans eq NULL'>
+	                【暂无事务处理】
+	              </if>
+			 </div>
+		</div>
+		<div class="homePage">
+			<div class="homePage-head">
+				<div class="mianleft-head-left">
+					<div class="mianleft-head-left2" id='mianleft-head-left2-3'>备忘事件</div>
+				</div>
+				<div class="homePage-head-right" ><a href="#" ></a></div>
+			</div>
+			
+			<div class="mian-right-in">
+				 <ul>
+				 	<foreach name='memo'  item='v'>
+						<li>
+							
+							<a href="{:U('Index/Notify/detailMemo',array('id'=>$v['id']))}" title='{$v.title}'>
+								{$v.title|truncate_cn=70}
+							</a>
+							<em >{$v.time|date='y/m/d',###}</em>
+						</li>
+					</foreach>
+				 </ul>
+				 <if condition='$trans eq NULL'>
+	                【暂无事务处理】
+	              </if>
+			 </div>
+		</div>
+		<div class="homePage">
+			<div class="homePage-head" >
+				<div class="mianleft-head-left">
+					<div class="mianleft-head-left2" id='mianleft-head-left2-4'>新邮件</div>
+				</div>
+				<!-- <div class="homePage-head-right" style='margin-right:0px;'><a href="#" style='margin-right:0px;'>>>更多</a></div> -->
+			</div>
+			
+			<div class="mian-right-in">
+				 <ul>
+	              <foreach name='mail' item='v'>
+	                <li>
+	                   <!--  <a href="{:U('Index/Mail/detailMail',array('id'=>$v['id'],'from'=>'receive'))}">
+	                      <b>{$v.mail_subject|truncate_cn=25}</b>
+	                    </a> -->
+	                    <a href="/OA/index.php/Index/Mail/index.html?id={$v['id']}&from=receive" target='_blank' title='{$v.mail_subject}'>
+	                       <b>{$v.mail_subject|truncate_cn=70}</b>
+	                    </a>
+	                </li>
+	              </foreach>
+	              <if condition='$mail eq NULL'>
+	                【暂无新邮件】
+	              </if>
+	            </ul>
+			 </div>
+		</div>
+	</div>
+
+<include file='Common:footer'/>

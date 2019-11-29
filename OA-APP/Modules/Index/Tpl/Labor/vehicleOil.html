@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/labor.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/labor.js'/>
+	<css file='__PUBLIC__/css/showDialog.css'/>
+	<js file='__PUBLIC__/js/showDialog.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>
+	<title>添加油料充值单</title>
+</head>
+<body>
+	<div id='itemApply'>
+		<form action="{:U('Index/Labor/vehicleOilHandle')}" method='post'>
+			<table>
+				<tr>
+					<th colspan='2' align='center'>油料充值统计</th>
+				</tr>
+				
+				<tr>
+					<td align='right'>车牌号</td>
+					<td>
+						<input type="text" name='platenum'/>
+						<a href="#" id='selectPlate'>点击选择</a>
+						<a href="#" id='plateManage'>车牌管理</a>
+					</td>
+				</tr>
+				<tr>
+					<td align='right'>充值时间</td>
+					<td>
+						<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td align='right'>充值金额</td>
+					<td>
+						<input type="text" name='money'/>
+					</td>
+				</tr>
+				<tr>
+					<td align='right'>使用科室</td>
+					<td>
+						<select name="dep">
+						  <option value="0">======请选择======</option>
+						  <option value="1">办公室</option>
+						  <option value="2">总量控制科</option>
+						  <option value="3">大气污染防治办公室</option>
+						  <option value="4">综合管理科</option>
+						  <option value="5">规划和环境影响评价科</option>
+						  <option value="6">监控中心</option>
+						  <option value="7">辐射所</option>
+						  <option value="8">机关服务部</option>
+						  <option value="9">环保协会</option>
+						  <option value="10">环境监查支队</option>
+						  <option value="11">环境保护检测站</option>
+						  <option value="12">机动车排放管理站</option>
+					    </select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2' align='center'>
+						<input type="submit" value='提交'>
+						<input type="reset" value='重置'>
+						<button id='close'>关闭窗口</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

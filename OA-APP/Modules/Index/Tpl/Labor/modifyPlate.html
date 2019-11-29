@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/labor.css'/>
+	<title>修改车牌</title>
+</head>
+<body>
+	<div id='addStockClass_table'>
+		<br>
+		&nbsp;<a href="javascript:history.go(-1);"><button>&lt;&lt;返回</button></a>
+		<div id='addStockClass-in'>
+		<form action="{:U('Index/Labor/modifyPlateHandle',array('id'=>$plate['id']))}" method='post'>
+			<table>
+				<tr>
+					<th colspan='2' align='center'>修改车牌号</th>
+				</tr>
+				<tr>
+					<td align='right'>原车牌号：</td>
+					<td align='left' style='font:normal 15px "宋体"'>{$plate.platenum}</td>
+				</tr>
+				<tr>
+					<td align='right'>新车牌号：</td>
+					<td align='center'>
+						<input type="text" name='platenum' value=''/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2' align='center'>
+						<input type="submit" value='修改'/>
+					</td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+</body>
+</html>

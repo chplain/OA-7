@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file="__PUBLIC__/js/SimpleTree/jquery-1.6.min.js"/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/style.css"/>
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js"/>
+	<script type="text/javascript">
+		$(function(){
+			$(".st_tree").SimpleTree({
+				
+			});
+		});
+	</script>
+	<script type="text/javascript">
+	$(function(){	
+		//导航切换
+		$(".menuson li").click(function(){
+			$(".menuson li.active").removeClass("active")
+			$(this).addClass("active");
+		});
+		
+		$('.title').click(function(){
+			var $ul = $(this).next('ul');
+			$('dd').find('ul').slideUp();
+			if($ul.is(':visible')){
+				$(this).next('ul').slideUp();
+			}else{
+				$(this).next('ul').slideDown();
+			}
+		});
+		$(".leftmenu dd div div").click(function(){
+            $(".yijibeijing").removeClass("yijibeijing");
+            $(this).addClass("yijibeijing");
+        });
+	})	
+	</script>
+	<title>left</title>
+</head>
+<body style="background:#D1EEEE;">
+	<div class="lefttop"><span></span>督查事项</div>
+	<dl class="leftmenu">
+		
+		<dd>
+			<div class="title">
+            <div>
+            <div class="yijibeijing">
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico01.png" /></span>局折子工程
+			</div>
+			</div>
+            </div>
+			<ul class="menuson">
+				<li class="active"><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>1))}" target='right'>办公室</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>2))}" target='right'>总量控制科</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>3))}" target='right'>大气污染防治办公室</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>4))}" target='right'>综合管理科</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>5))}" target='right'>规划和环境影响评价科</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>7))}" target='right'>辐射所</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>15))}" target='right'>大气污染防治督查小组</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>10))}" target='right'>环境监察支队</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>11))}" target='right'>环境保护监测站</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>'1','dep'=>12))}" target='right'>机动车排放管理站</a><i></i></li>
+				
+				<!-- <li ><cite></cite><a href="{:U('Index/Profile/lookProfile',array('type'=>2))}" target='right'>传送文档</a><i></i></li> -->
+			</ul>
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico02.png" /></span><a href="{:U('Index/Inspect/show_inspect',array('flag'=>'1'))}" target='right'>市折子工程</a>
+			</div>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico03.png" /></span><a href="{:U('Index/Inspect/show_inspect',array('flag'=>'2'))}" target='right'>区折子工程</a>
+			</div>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico04.png" /></span><a href="{:U('Index/Inspect/show_inspect',array('flag'=>'4'))}" target='right'>其他重要事项</a>
+			</div>
+			</div>	
+		</dd>
+	</dl>
+</body>
+</html>

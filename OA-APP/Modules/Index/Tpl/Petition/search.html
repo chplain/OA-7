@@ -1,0 +1,503 @@
+<include file='Common:header'/>
+<link rel="stylesheet"  href="__PUBLIC__/js/tab_style/css/webwidget_scroller_tab.css" type="text/css" />
+<script>
+	$(document).ready(function(){
+		var reurl = window.location.href;		
+		var index = reurl.lastIndexOf('flag');
+		var last = reurl.substr(index,reurl.length);
+		var arr = last.split('.');
+		var arr2 = arr[0].split('/');
+		var i = arr2[1] - 1;
+		$('.webwidget_scroller_tab .tabContainer li').eq(i).addClass('currentBtn');
+		$('.webwidget_scroller_tab .tabContainer li').click(function(){
+			
+			$('.webwidget_scroller_tab .tabContainer li').removeClass('currentBtn');
+			$(this).addClass('currentBtn');
+		});
+	});
+</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信访管理</li>
+			<li><a href="{:U('Index/Petition/search')}">信访统计</a></li>
+		</ul>
+    </div>
+<div id='petition_search'>
+	<!-- <h3>信访单查询</h3> -->
+	<!-- <div id='p_search'>
+		<table id='search_table' >
+			<tr>
+				<td>责任科室：</td>
+				<td>
+					<select name="department">
+						<option value="0">======请选择======</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}">{$v.name}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>信访方式：</td>
+				<td>
+					<select name="method">
+						<option value="0">===请选择===</option>
+						<option value="1">人大政协</option>
+						<option value="2">12345</option>
+						<option value="3">12345非紧急救助中心</option>
+						<option value="4">政风行风</option>
+						<option value="5">12369热线</option>
+						<option value="6">来电</option>
+						<option value="7">来访</option>
+						<option value="8">来信</option>
+						<option value="9">区转</option>
+						<option value="10">局长信箱</option>
+						<option value="11">其他信访</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>接件时间：</td>
+				<td>
+					<input type="text" name='recv_time' ><span class='hint'>格式：2015-01-01</span>
+				</td>
+			</tr>
+			<tr>
+				<td>转办时间：</td>
+				<td>
+					<input type="text" name='turn_time'  ><span class='hint'>格式：2015-01-01</span>
+				</td>
+			</tr>
+			<tr>
+				<td>应办结日期：</td>
+				<td>
+					<input type="text" name='should_time'  ><span class='hint'>格式：2015-01-01</span>
+				</td>
+			</tr>
+			<tr>
+				<td>办结时间：</td>
+				<td>
+					<input type="text" name='done_time'  ><span class='hint'>格式：2015-01-01</span>
+				</td>
+			</tr>
+			<tr>
+				<td>举报类型：</td>
+				<td>
+					<input type="text" name='report_type'> <button id='report_type'>点击选择</button>
+				</td>
+			</tr>
+			<tr>
+				<td>类型：</td>
+				<td>
+					<select name="type">
+						<option value="0">==请选择==</option>
+						<option value="1">解决问题</option>
+						<option value="2">意见建议</option>
+						<option value="3">咨询</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>乡镇：</td>
+				<td>
+					<input type="text" name='town'>
+					<button id='town_select'>点击选择</button>
+				</td>
+			</tr>
+			<tr>
+				<td>接件人：</td>
+				<td>
+					<input type="text" class='contact_input_1'>
+					<input type="hidden" name='receiver' class='hidden'>
+				</td>
+			</tr>
+			<tr>
+				<td>科室接办人：</td>
+				<td>
+					<input type="text" class='contact_input_2'>
+					<input type="hidden" name='dep_receiver' class='hidden'>
+				</td>
+			</tr>
+			<tr>
+				<td>办理人：</td>
+				<td>
+					<input type="text" class='contact_input_3'>
+					<input type="hidden" name='trasactor' class='hidden'>
+				</td>
+			</tr>
+		</table>
+
+		<button id='p_search_btn'>查询</button>
+		
+		<div id='msg'></div>
+	</div> -->
+	<div class="webwidget_scroller_tab" id="webwidget_scroller_tab">
+          <div class="tabContainer">
+            <ul class="tabHead">
+           <li><a href="{:U('Index/Petition/search',array('flag'=>1))}">信访方式</a></li>
+			<li><a href="{:U('Index/Petition/search',array('flag'=>2))}">信访乡镇</a></li>
+			<li><a href="{:U('Index/Petition/search',array('flag'=>3))}">举报类型</a></li>
+            </ul>
+          </div>
+      </div>
+	<div class='someSpace'>
+	<div>
+		<b>选择年份：</b>
+		<select name="year" id=""  onchange='self.location.href=options[selectedIndex].value' style='width:70px;height:20px; font:900 15px "宋体";'>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2015))}" <if condition='$year eq 2015'>selected</if>>2015</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2016))}" <if condition='$year eq 2016'>selected</if>>2016</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2017))}" <if condition='$year eq 2017'>selected</if>>2017</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2018))}" <if condition='$year eq 2018'>selected</if>>2018</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2019))}" <if condition='$year eq 2019'>selected</if>>2019</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2020))}" <if condition='$year eq 2020'>selected</if>>2020</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2021))}" <if condition='$year eq 2020'>selected</if>>2021</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2022))}" <if condition='$year eq 2020'>selected</if>>2022</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2023))}" <if condition='$year eq 2020'>selected</if>>2023</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2024))}" <if condition='$year eq 2020'>selected</if>>2024</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2025))}" <if condition='$year eq 2020'>selected</if>>2025</option>
+			<option value="{:U('Index/Petition/search',array('flag'=>$flag,'year'=>2026))}" <if condition='$year eq 2020'>selected</if>>2026</option>
+		</select>
+		<span><b>选择以“接件时间”或“办结时间”来统计</b></span>
+		<select name="display_type" id="">
+			<option value="1">接件时间</option>
+			<option value="2">办结时间</option>
+		</select>
+	</div>
+	<div id='statistic'>
+		<div id='recv_time_type'>
+		<if condition='$flag eq 1'>
+		<h3>信访统计表(信访方式)</h3>
+		<table width="547" border="1" cellpadding="1" cellspacing="0" bordercolor="#000000" class="bordered"  id="tableNodifyManage" align='center'>
+			  <tr>
+			    <th width="81">名称</th>
+			    <th width="24">1月</th>
+			    <th width="24">2月</th>
+			    <th width="24">3月</th>
+			    <th width="24">4月</th>
+			    <th width="24">5月</th>
+			    <th width="27">6月</th>
+			    <th width="24">7月</th>
+			    <th width="24">8月</th>
+			    <th width="24">9月</th>
+			    <th width="32">10月</th>
+			    <th width="32">11月</th>
+			    <th width="32">12月</th>
+			    <th width="35">总数</th>
+			  </tr>
+			 <volist name='method' id='vo' key='k' offset='1' length='12'>
+			 	<tr>
+			 		<td>
+			 			<if condition='$k eq 12'>
+			 				总数
+		 				<else/>
+			 				{$k|idToPetitionMethod}
+			 			</if>
+			 		</td>
+			 		<volist name='vo' id='voo' offset='1' length='13'>
+			 			<td>{$voo}</td>
+			 		</volist>
+			 		
+			 	</tr>
+			 </volist>
+			</table>
+		</if>
+		<if condition='$flag eq 2'>
+		<h3>信访统计表(信访乡镇)</h3>
+		<table width="547" border="1" cellpadding="1" cellspacing="0" bordercolor="#000000" class="bordered"  id="tableNodifyManage" align='center'>
+			  <tr>
+			  <!--
+			    <td width="81">&nbsp;</td>
+			    <td width="24">1月</td>
+			    <td width="24">2月</td>
+			    <td width="24">3月</td>
+			    <td width="24">4月</td>
+			    <td width="24">5月</td>
+			    <td width="27">6月</td>
+			    <td width="24">7月</td>
+			    <td width="24">8月</td>
+			    <td width="24">9月</td>
+			    <td width="32">10月</td>
+			    <td width="32">11月</td>
+			    <td width="32">12月</td>
+			    <td width="35">总数</td>
+			    -->
+			    <th width="81">名称</th>
+			    <th width="24">1月</th>
+			    <th width="24">2月</th>
+			    <th width="24">3月</th>
+			    <th width="24">4月</th>
+			    <th width="24">5月</th>
+			    <th width="27">6月</th>
+			    <th width="24">7月</th>
+			    <th width="24">8月</th>
+			    <th width="24">9月</th>
+			    <th width="32">10月</th>
+			    <th width="32">11月</th>
+			    <th width="32">12月</th>
+			    <th width="35">总数</th>
+			  </tr>
+			 <volist name='town' id='vo' key='k' offset='1' length='$townTotal+1'>
+			 	<tr>
+			 		<td>
+			 			<if condition='$k eq $townTotal+1'>
+			 				总数
+		 				<else/>
+			 				{$vo[14]|idToPetitionTown}
+			 			</if>
+			 		</td>
+			 		<volist name='vo' id='voo' offset='1' length='13'>
+			 			<td>{$voo}</td>
+			 		</volist>
+			 		
+			 	</tr>
+			 </volist>
+			</table>
+		</if>
+		<if condition='$flag eq 3'>
+		<h3>信访统计表(举报类型)</h3>
+		<table width="547" border="1" cellpadding="1" cellspacing="0" bordercolor="#000000" class="bordered"  id="tableNodifyManage" align='center'>
+			  <tr>
+			  <!--
+			    <td width="81">&nbsp;</td>
+			    <td width="24">1月</td>
+			    <td width="24">2月</td>
+			    <td width="24">3月</td>
+			    <td width="24">4月</td>
+			    <td width="24">5月</td>
+			    <td width="27">6月</td>
+			    <td width="24">7月</td>
+			    <td width="24">8月</td>
+			    <td width="24">9月</td>
+			    <td width="32">10月</td>
+			    <td width="32">11月</td>
+			    <td width="32">12月</td>
+			    <td width="35">总数</td>
+			    -->
+			    <th width="81">名称</th>
+			    <th width="24">1月</th>
+			    <th width="24">2月</th>
+			    <th width="24">3月</th>
+			    <th width="24">4月</th>
+			    <th width="24">5月</th>
+			    <th width="27">6月</th>
+			    <th width="24">7月</th>
+			    <th width="24">8月</th>
+			    <th width="24">9月</th>
+			    <th width="32">10月</th>
+			    <th width="32">11月</th>
+			    <th width="32">12月</th>
+			    <th width="35">总数</th>
+			  </tr>
+			 <volist name='report_type' id='vo' key='k' offset='1' length='$reportTypeTotal+1' >
+			 	<tr>
+			 		<td>
+			 			<if condition='$k eq $reportTypeTotal+1'>
+			 				总数
+		 				<else/>
+		 					
+		 					<if condition='testHaveChild($vo[14])'>
+			 					<b>{$vo[14]|idToPetitionReportType}</b>
+			 					<else/>
+			 					<span style='margin-left:15px;'>{$vo[14]|idToPetitionReportType}</span>
+			 				</if>
+			 			</if>
+			 		</td>
+			 		<volist name='vo' id='voo' offset='1' length='13'>
+			 			<td>
+			 				<if condition='testHaveChild($vo[14])'>
+				 				<b>{$voo}</b>
+				 				<else/>
+				 				{$voo}
+				 			</if>
+				 		</td>
+			 		</volist>
+			 		
+			 	</tr>
+			 </volist>
+			</table>
+		</if>
+		</div>
+
+
+
+
+
+		<div id='done_time_type'>
+		<if condition='$flag eq 1'>
+		<h3>信访统计表(信访方式)</h3>
+		<table width="547" border="1" cellpadding="1" cellspacing="0" bordercolor="#000000" class="bordered"  id="tableNodifyManage" align='center'>
+			  <tr>
+			    <!--
+			    <td width="81">&nbsp;</td>
+			    <td width="24">1月</td>
+			    <td width="24">2月</td>
+			    <td width="24">3月</td>
+			    <td width="24">4月</td>
+			    <td width="24">5月</td>
+			    <td width="27">6月</td>
+			    <td width="24">7月</td>
+			    <td width="24">8月</td>
+			    <td width="24">9月</td>
+			    <td width="32">10月</td>
+			    <td width="32">11月</td>
+			    <td width="32">12月</td>
+			    <td width="35">总数</td>
+			    -->
+			    <th width="81">名称</th>
+			    <th width="24">1月</th>
+			    <th width="24">2月</th>
+			    <th width="24">3月</th>
+			    <th width="24">4月</th>
+			    <th width="24">5月</th>
+			    <th width="27">6月</th>
+			    <th width="24">7月</th>
+			    <th width="24">8月</th>
+			    <th width="24">9月</th>
+			    <th width="32">10月</th>
+			    <th width="32">11月</th>
+			    <th width="32">12月</th>
+			    <th width="35">总数</th>
+			  </tr>
+			 <volist name='method2' id='vo' key='k' offset='1' length='12'>
+			 	<tr>
+			 		<td>
+			 			<if condition='$k eq 12'>
+			 				总数
+		 				<else/>
+			 				{$k|idToPetitionMethod}
+			 			</if>
+			 		</td>
+			 		<volist name='vo' id='voo' offset='1' length='13'>
+			 			<td>{$voo}</td>
+			 		</volist>
+			 		
+			 	</tr>
+			 </volist>
+			</table>
+		</if>
+		<if condition='$flag eq 2'>
+		<h3>信访统计表(信访乡镇)</h3>
+		<table width="547" border="1" cellpadding="1" cellspacing="0" bordercolor="#000000" class="bordered"  id="tableNodifyManage" align='center'>
+			  <tr>
+			    <!--
+			    <td width="81">&nbsp;</td>
+			    <td width="24">1月</td>
+			    <td width="24">2月</td>
+			    <td width="24">3月</td>
+			    <td width="24">4月</td>
+			    <td width="24">5月</td>
+			    <td width="27">6月</td>
+			    <td width="24">7月</td>
+			    <td width="24">8月</td>
+			    <td width="24">9月</td>
+			    <td width="32">10月</td>
+			    <td width="32">11月</td>
+			    <td width="32">12月</td>
+			    <td width="35">总数</td>
+			    -->
+			    <th width="81">名称</th>
+			    <th width="24">1月</th>
+			    <th width="24">2月</th>
+			    <th width="24">3月</th>
+			    <th width="24">4月</th>
+			    <th width="24">5月</th>
+			    <th width="27">6月</th>
+			    <th width="24">7月</th>
+			    <th width="24">8月</th>
+			    <th width="24">9月</th>
+			    <th width="32">10月</th>
+			    <th width="32">11月</th>
+			    <th width="32">12月</th>
+			    <th width="35">总数</th>
+			  </tr>
+			 <volist name='town2' id='vo' key='k' offset='1' length='$townTotal+1'>
+			 	<tr>
+			 		<td>
+			 			<if condition='$k eq $townTotal+1'>
+			 				总数
+		 				<else/>
+			 				{$vo[14]|idToPetitionTown}
+			 			</if>
+			 		</td>
+			 		<volist name='vo' id='voo' offset='1' length='13'>
+			 			<td>{$voo}</td>
+			 		</volist>
+			 		
+			 	</tr>
+			 </volist>
+			</table>
+		</if>
+		<if condition='$flag eq 3'>
+		<h3>信访统计表(举报类型)</h3>
+		<table width="547" border="1" cellpadding="1" cellspacing="0" bordercolor="#000000" class="bordered"  id="tableNodifyManage" align='center'>
+			  <tr>
+			  	<!--
+			    <td width="81">&nbsp;</td>
+			    <td width="24">1月</td>
+			    <td width="24">2月</td>
+			    <td width="24">3月</td>
+			    <td width="24">4月</td>
+			    <td width="24">5月</td>
+			    <td width="27">6月</td>
+			    <td width="24">7月</td>
+			    <td width="24">8月</td>
+			    <td width="24">9月</td>
+			    <td width="32">10月</td>
+			    <td width="32">11月</td>
+			    <td width="32">12月</td>
+			    <td width="35">总数</td>
+			    -->
+			    <th width="81">名称</th>
+			    <th width="24">1月</th>
+			    <th width="24">2月</th>
+			    <th width="24">3月</th>
+			    <th width="24">4月</th>
+			    <th width="24">5月</th>
+			    <th width="27">6月</th>
+			    <th width="24">7月</th>
+			    <th width="24">8月</th>
+			    <th width="24">9月</th>
+			    <th width="32">10月</th>
+			    <th width="32">11月</th>
+			    <th width="32">12月</th>
+			    <th width="35">总数</th>
+
+			  </tr>
+			 <volist name='report_type2' id='vo' key='k' offset='1' length='$reportTypeTotal+1'>
+			 	<tr>
+			 		<td>
+			 			<if condition='$k eq $reportTypeTotal+1'>
+			 				总数
+		 				<else/>
+		 					
+			 				<if condition='testHaveChild($vo[14])'>
+			 					<b>{$vo[14]|idToPetitionReportType}</b>
+			 					<else/>
+			 					<span style='margin-left:15px;'>{$vo[14]|idToPetitionReportType}</span>
+			 				</if>
+				 			
+			 			</if>
+			 		</td>
+			 		<volist name='vo' id='voo' offset='1' length='13'>
+			 			<td>
+							<if condition='testHaveChild($vo[14])'>
+				 				<b>{$voo}</b>
+				 				<else/>
+				 				{$voo}
+				 			</if>
+			 			</td>
+			 		</volist>
+			 		
+			 	</tr>
+			 </volist>
+			</table>
+		</if>
+		</div>
+	</div>
+</div>
+
+
+
+<include file='Common:footer'/>

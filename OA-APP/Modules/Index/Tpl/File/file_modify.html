@@ -1,0 +1,97 @@
+<include file='Common:header'/>
+<script type='text/javascript'>
+		window.UEDITOR_HOME_URL = '__CLASS__/ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameWidth = 800;
+			window.UEDITOR_CONFIG.initialFrameHeight = 350;
+			UE.getEditor('content');
+		};
+	</script>
+
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>文件管理</li>
+			<li><a href="{:U('Index/File/show_file')}">局内红头文件</a></li>			
+			<li><a href="#">文件修改</a></li>			
+		</ul>
+    </div>
+<div>
+	<button class='reback' onclick='javascript:history.go(-1);'>返回</button>
+	<form action="{:U('Index/File/handle',array('id'=>$file['id'],'from'=>'modify'))}" method='post' enctype='multipart/form-data'>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:90%;">
+			<tr>
+				<td>标题</td>
+				<td><input type="text" name='title' value='{$file.title}'></td>
+			</tr>
+			<tr>
+				<td>文号</td>
+				<td><input type="text" name='number' value='{$file.number}'></td>
+			</tr>
+			<tr>
+				<td>年份</td>
+				<td><input type="text" name='year' value='{$file.year}'></td>
+			</tr>
+			<tr>
+				<td>发布时间</td>
+				<td>
+					<input class="Wdate" type="text" name='pub_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  value='{$file.pub_time|date="Y-m-d",###}'>
+				</td>
+			</tr>
+			<tr>
+				<td>起草科室</td>
+				<td>
+					<select name="dep" id="">
+						<option value="-1">===请选择===</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition='$file["dep"] eq $v["id"]'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>选择分类</td>
+				<td>
+					<select name="type">
+						<option value="房环发" <if condition='$file["type"] eq "房环发"'>selected</if>>房环发</option>
+						<option value="房环文" <if condition='$file["type"] eq "房环文"'>selected</if>>房环文</option>
+						<option value="房环函" <if condition='$file["type"] eq "房环函"'>selected</if>>房环函</option>
+						<option value="房环办发" <if condition='$file["type"] eq "房环办发"'>selected</if>>房环办发</option>
+						<option value="房环党发" <if condition='$file["type"] eq "房环党发"'>selected</if>>房环党发</option>
+						<option value="其它" <if condition='$file["type"] eq "其它"'>selected</if>>其它</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>上传文件</td>
+				<td>
+					<textarea name="content" id="content"  style='margin-left:0px;'>{$file.content|htmlspecialchars_decode}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>联系人</td>
+				<td>
+					<input type='text'   style='width:150px;height:25px;' class='contact_input_contactor' placeholder='点击选择' value='{$file.contactor|IdToName}'/>
+		    		<input type="hidden" name='contactor'  class='hidden' value='{$file.contactor}'/>
+				</td>
+			</tr>
+			<tr>
+				<td>发布范围：</td>
+				<td>
+					<textarea name="recvContact" class='newContact_input' id="" style='width:400px;'>{$file.group_id|idsToDeps} {$file.individual_id|IdsToNames=','}</textarea>					
+					<input type="hidden" name='group_id'  value='{$file.group_id}'>
+					<input type="hidden" name='individual_id'  value='{$file.individual_id}'>
+					<a href="#" class='newContact'>添加</a>	
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2' align='center'>
+					<input type="submit" value='保存修改'>
+					<input type="reset" value='重置'>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<include file='Common:footer'/>

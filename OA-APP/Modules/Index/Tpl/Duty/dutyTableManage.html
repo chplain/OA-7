@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/duty.js'/>
+	<title>值班表管理</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div>
+		<p>&nbsp;</p>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;" >
+			<tr >
+				<th>序号</th>
+				<th>值班时间</th>
+				<th>带班领导</th>
+				<th>值班人员</th>
+				<th>备注</th>
+				<th>操作</th>
+			</tr>
+			<volist name='duty' id='v' key='key'>
+				<tr>
+					<td>{$key}</td>
+					<td>{$v.time|date='Y-m-d',###}</td>
+					<td>{$v.leader|IdToName}</td>
+					<td>{$v.dutyer}</td>
+					<td>{$v.remark}</td>
+					<td>
+						[<a href="{:U('Index/Duty/deleteDutyTable',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+			<tr>
+				<td colspan='6' align='center'>
+					{$page} <button onclick='javascript:window.close();'>关闭窗口</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

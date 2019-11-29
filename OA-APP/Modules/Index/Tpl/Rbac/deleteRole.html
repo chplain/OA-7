@@ -1,0 +1,40 @@
+<include file='top' />
+<script>
+	$(document).ready(function(){
+		$('.deleteRole').click(function(e){
+			if(!confirm('角色删除后，相应的用户会失去该角色所拥有的权限，确定要删除吗？'))
+				e.preventDefault();
+		});
+	});
+</script>
+<div id='right'>
+	<div id='r_top'>
+		<!-- <img src="" alt="删除角色"> -->
+		<h3 style='font:bold 17px "微软雅黑";'>删除角色</h3>
+	</div>
+	<div id='r_content'>
+		<table class='table'>
+			<tr>
+				<td>角色</td>
+				<td>{$role}</td>
+			</tr>
+			<tr>
+				<td>分配该角色的用户</td>
+				<td>
+					<volist name='user' id='v' empty='暂无数据'>
+						<ul>
+							<li>{$v.department|idToDep} : {$v.name}</li>
+						</ul>
+					</volist>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align='center'>
+					<a href="{:U('Index/Rbac/confirmDeleteRole',array('id'=>$id))}" class='deleteRole'><button id='deleteRole'>确定删除</button></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<include file='foot' />

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/labor.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/labor.js'/>
+	<title>分类设置</title>
+</head>
+<body>
+	<div id='stockClass_table'>
+		<br>
+		&nbsp;<a href="{:U('Index/Labor/addPlate')}">添加车牌</a>
+		<div id='stockClass-in'>
+			<table>
+				<tr>
+					<th align='center'>序号</th>
+					<th align='center'>车牌号</th>
+					<th align='center'>操作</th>
+				</tr>
+				<volist name='plate' id='v' key='k'>
+					<tr>
+						<td align='center'>{$k}</td>
+						<td align='center'>{$v.platenum}</td>
+						<td align='center'>
+							[<a href="{:U('Index/Labor/modifyPlate',array('id'=>$v['id']))}">修改</a>]							
+							[<a href="{:U('Index/Labor/deletePlate',array('id'=>$v['id']))}" class='delete'>删除</a>]							
+						</td>
+					</tr>
+				</volist>
+				<if condition='$plate eq null'>
+					<tr><td colspan='3' align='left'>暂无车牌</td></tr>
+				</if>
+			</table>
+		  </div>
+		<div align='center'>
+			<a href="javascript:history.go(-1);"><button  style='width:80px;height:30px;'>返回</button></a>
+		</div>
+	</div>
+</body>
+</html>

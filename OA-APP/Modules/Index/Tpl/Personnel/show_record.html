@@ -1,0 +1,53 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li>考核记录</li>
+			<li><a href="{:U('Index/Personnel/show_record')}">月纪实表</a></li>
+		</ul>
+    </div>
+<div class='someSpace'>
+	<div id='personnel'>
+		
+		<if condition='$shenfen eq null'>
+			<span class='block' display='block' ><a href="#" id='civilRecord'>公务员月工作记实表</a></span>
+			<span class='block'><a href="#" id="publicRecord" display='block' >事业单位人员月工作记实表</a></span>
+		<else/>
+			<if condition='$gongwuyuan eq true'>
+				<span class='block'><a href="#" id='civilRecord' display='block'>公务员月工作记实表</a></span>
+			<else/>
+				<span class='block'><a href="#" id="publicRecord" display='block' >事业单位人员月工作记实表</a></span>
+			</if>
+		</if>
+	</div>
+	<br><br><br><br><br>
+	<div>
+		<table class="bordered"  id="tableNodifyManage" width='90%' align="left">
+			<tr>
+				<th width='25%'>时间</th>
+				<th width='25%'>分类</th>
+				<th width='25%'>查看</th>
+				<th width='25%'>操作</th>
+			</tr>
+			<foreach name='record' item='v'>
+				<tr>
+					<td width='25%'>{$v.year}年{$v.month}月</td>
+					<td width='25%'><if condition='$v["type"] eq "civil"'>公务员<else/>事业单位人员</if></td>
+					<td width='25%'>
+						<a href="{:U('Index/Personnel/detail',array('id'=>$v['id'],'table'=>'record'))}" target='_blank'>查看</a>
+					</td>
+					<td width='25%'>
+						[<a href="{:U('Index/Personnel/modify_record',array('id'=>$v['id'],'flag'=>$v['type']))}">修改</a>]
+						[<a href="{:U('Index/Personnel/quarterDelete',array('id'=>$v['id'],'table'=>'record'))}"class='delete'>删除</a>]
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="4">{$page}<if condition='$record eq null'>暂无数据</if></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<include file='Common:footer'/>

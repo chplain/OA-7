@@ -1,0 +1,72 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/show_checkAttendance')}">科室考勤登记</a></li>
+		</ul>
+    </div>
+<div id='personnel'>
+	<!-- <span class='block' ><a href="#" id='addCheckAttendance'>填写考勤表</a></span> -->
+	<!-- <span class='block'><a href="#" id='checkAttManage'>考勤表管理</a></span> -->
+	
+	
+	<!-- <div>
+		<form action="{:U('Index/Personnel/show_checkAttendance',array('from'=>'search'))}" method='post'>
+			<span>科室：</span>
+				<select name="dep" id="">
+					<option value="">===请选择===</option>
+					<foreach name='dep' item='v'>
+						<option value="{$v.id}">{$v.name}</option>
+					</foreach>
+				</select>
+			<input type="submit" value='查询'>
+		</form>
+	</div> -->
+	<div>&nbsp;</div><div>&nbsp;</div>
+	<div align="left"  width="90%">
+		<table class="bordered"  id="tableNodifyManage" align='center'>
+			<tr>
+				<th width='50%'>标题</th>
+				<th width='25%'>更新时间</th>
+				
+				<th width='25%'>操作</th>
+			</tr>
+			<foreach name='checkAtt' item='v'>
+				<tr>
+					<td width='50%'>
+						
+						[{$v.dep|idToDep}]房山区环境保护局{$v.title_time|date='Y',###}年{$v.title_time|date='m',###}月考勤
+						
+					</td>
+					<td width='25%'>{$v.make_time|date='Y-m-d',###}</td>
+
+					<td width='25%'>
+						<a href="{:U('Index/Personnel/checkAttDetail',array('id'=>$v['id']))}" target='_blank'>
+							查看
+							</a>
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="3">
+					{$page}<if condition='$checkAtt eq null'>暂无考勤表</if>
+				</td>
+			</tr>
+		</table>		
+	</div>
+	<!-- <div align="center" style="background-color:white;" width="400px">
+		<h4>请假名册</h4>
+		<ol>
+			<foreach name='askleave' item='v'>
+				<li><a href="{:U('Index/Personnel/askLeaveDetail',array('id'=>$v['id']))}" target='_blank'>
+					北京市房山区环境保护局 <b>{$v.title_year}</b> 年请假名册 
+				</a></li>
+			</foreach>
+		</ol>
+		{$page2}<if condition='$askleave eq null'>暂无考勤表</if>
+	</div> -->
+</div>
+
+<include file='Common:footer'/>

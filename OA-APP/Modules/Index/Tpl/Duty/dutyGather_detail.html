@@ -1,0 +1,52 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/duty_index')}">值班表管理</a></li>
+			<li>详情</li>
+		</ul>
+    </div>
+<div id='duty_search'>
+	<div>
+		<button onclick='javascript:history.go(-1);'>返回</button>
+	</div>
+	<h2 align="center">{$gather.title}</h2>
+	<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+		<tr>
+			<th>值班日期</th>
+			<th>星期</th>
+			<th>带班领导</th>
+			<th>值班人员</th>
+			<th>备注</th>
+		</tr>
+		<foreach name='duty' item='v'>
+			<tr>
+				<td>{$v.time|date='Y-m-d',###}</td>
+				<td>{$v.time|date='w',###|numToWeek}</td>
+				<td>{$v.leader|IdToName}</td>
+				<td>{$v.dutyer|IdsToNames=','}</td>
+				<td>{$v.remark}</td>
+			</tr>
+		</foreach>
+		<tr>
+			<td colspan='5' align='left'>
+				{$page}
+				<if condition='$duty eq NULL'>
+					暂无值班信息
+				<else/>
+					<form action="{:U('Index/Duty/excel')}" method='post' style='float:right;'>
+						<foreach name='duty' item='v'>
+							<input type="hidden" name='id[]' value='{$v.id}'>
+						</foreach>
+						<input type="hidden" name='title' value='{$gather.title}'>
+						<input type="submit" value='Excel导出'>
+					</form>
+				</if>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<include file='Common:footer'/>

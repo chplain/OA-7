@@ -1,0 +1,293 @@
+<include file='top'/>
+<script>
+	$(document).ready(function(){
+		$('input[type=submit]').click(function(e){
+			if(!confirm('确定要提交吗？'))
+				e.preventDefault();
+		});
+		$('#addOneRepedPos').click(function(e){
+			e.preventDefault();
+			var clone = $(this).parent('td').find('#first_reped_pos').clone();
+			clone.removeAttr('id');
+			clone.insertBefore('#addOneRepedPos');
+		});
+		$('#deleteOneRepedPos').click(function(e){
+			e.preventDefault();
+			var c = $('#addOneRepedPos').prev('select');
+			if(!c.is('#first_reped_pos'))
+				c.remove();
+		});
+	});
+</script>
+<!-- index默认是公告 -->
+<div id=''>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<if condition='$source eq "notify"'>
+				<img src="__PUBLIC__/images/info/hint1.jpg" alt="hint">
+			</if>
+			<if condition='$source eq "report" and $fromCheck eq 0 and $fromIndiv eq 0'>
+				<img src="__PUBLIC__/images/info/hint2.jpg" alt="hint">
+			</if>
+			<if condition='$source eq "report" and $fromCheck eq 1'>
+				<img src="__PUBLIC__/images/info/hint3.jpg" alt="hint">
+			</if>
+			<if condition='$source eq "report" and $fromIndiv eq 1'>
+				<img src="__PUBLIC__/images/info/hint4.jpg" alt="hint">
+			</if>
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<if condition='$source eq "notify"'>
+				<li><a href="{:U('Index/Information/notify')}">公告</a></li>
+				<li>公告详情</li>
+			</if>
+			<if condition='$source eq "report" and $fromCheck eq 0 and $fromIndiv eq 0'>
+				<li><a href="{:U('Index/Information/report')}">信息上报</a></li>
+				<li>上报信息详情</li>
+			</if>
+			<if condition='$source eq "report" and $fromCheck eq 1'>
+				<li><a href="{:U('Index/Information/check')}">信息审核</a></li>
+				<li>上报信息审核详情</li>
+			</if>
+			<if condition='$source eq "report" and $fromIndiv eq 1'>
+				<li><a href="{:U('Index/Information/individual')}">我的上报</a></li>
+				<li>我的上报信息详情</li>
+			</if>
+		</ul>
+    </div>
+
+	<div class=''>
+		
+		<div class='content'>
+			<div id='detail' style='margin:50px;'>
+				<if condition='$source eq "notify"'>
+					<if condition='$detail.isSetTop eq 1'>
+						<a href="{:U('Index/Information/removeTop',array('id'=>$detail['id']))}">取消置顶</a>
+					</if>
+					<div align='center' style='font:bold 15px "宋体";'>{$detail.title}</div><br>
+					<div>{$detail.content}</div><br>
+					<div class='foot'>
+						{$detail.pub_dep|idToDep}：{$detail.publisher|IdToName}<br>
+						{$detail.pub_time|date='Y-m-d H:i',###}
+					</div>
+				</if>
+				<if condition='$source eq "report"'>
+					<div align='center'><h1 style='font-size:15px;'>{$detail.title}</h1></div>
+					<div style='margin-left:50px;'>{$detail.content}</div>
+					<div class='foot'>
+						{$detail.rep_dep|idToDep}：{$detail.reporter|IdToName}<br>
+						{$detail.rep_time|date='Y-m-d H:i',###}
+					</div>
+					<div><br>
+						<span>附件：</span><a href="UPLOAD_PATH{$detail.attach_savename}" target='_blank'>{$detail.attach_name}</a>
+
+					</div>
+					<div><br><br><br>
+						<span>
+							<b>科室信息员审核通过状态：</b>
+							<if condition='$detail.isChecked eq 1'>
+								<span class='rep_ok'>已审核</span>
+							<else/>
+								<span class='rep_no'>未审核</span>
+							</if>
+						
+							<if condition='$detail.isApproved eq 1'>
+								<span class='rep_ok'>已通过</span>
+							<elseif condition='$detail.isChecked eq 1 and $detail.isApproved eq 0'/>
+								<span class='rep_no'>未通过 理由是：{$detail.reason}</span>
+							</if></span><br><br>
+						<span>
+							<b>办公室审核通过状态：</b>
+							<if condition='$detail.isChecked2 eq 1'>
+								<span class='rep_ok'>已审核</span>
+							<else/>
+								<span class='rep_no'>未审核</span>
+							</if>
+							<if condition='$detail.isApproved2 eq 1'>
+								<span class='rep_ok'>已通过</span>
+							<elseif condition='$detail.isChecked2 eq 1 and $detail.isApproved2 eq 0'/>
+								<span class='rep_no'>未通过 理由是：{$detail.reason}</span>
+							</if>
+						</span><br><br>
+						<span>
+							<b>上报状态：</b>
+							<if condition='$detail.isReported eq 1'>
+								<span class='rep_ok'>已上报</span> <b>上报单位：</b><span class='rep_ok'>{$detail.reped_pos|idToReportPos}</span>
+							<else/>
+								<span class='rep_no'>未上报</span>
+							</if>
+						</span><br><br>
+						<span>
+							<b>采用状态：</b>
+							<if condition='$detail.isAdopted eq 1'>
+								<span class='rep_ok'>已采用 </span> <b>采用单位：</b><span class='rep_ok'>{$detail.adopted_pos|idToAdoptPos}</span>
+							<else/>
+								<span class='rep_no'>未被采用</span>
+							</if>
+						</span><br><br>
+						<span>
+							<a href="{:U('Index/Information/word',array('id'=>$detail['id']))}">Word导出</a>
+						</span>
+						<br><br>
+					</div>
+
+					<!-- 如果来自信息审核的话，情况复杂，应该考虑是否要同意、不同意、填写上报信息 -->
+					<if condition="$fromCheck eq 1 and $detail['isChecked2'] eq false and $isInfoer eq true">
+						<a href="{:U('Index/Information/modifyInfoReport',array('id'=>$detail['id'],'from'=>'message','updater'=>'infoer'))}"><button>修改</button></a>
+						<a href="{:U('Index/Information/agree',array('id'=>$detail['id'],'updater'=>'infoer'))}" class='agreeRep'><button>同意上报</button></a>
+						<a href="#" id='info_deny'><button>不同意上报</button></a>
+					</if>
+					<if condition="$fromCheck eq 1 and $detail['isChecked2'] eq false and $isOfficer eq true">
+						<a href="{:U('Index/Information/modifyInfoReport',array('id'=>$detail['id'],'from'=>'message','updater'=>'officer'))}"><button>修改</button></a>
+						<a href="{:U('Index/Information/agree',array('id'=>$detail['id'],'updater'=>'officer'))}"  class='agreeRep'><button>同意上报</button></a>
+						<a href="#" id='info_deny'><button>不同意上报</button></a>
+					</if>
+					<div id='info_deny_reason'>
+						<if condition="$isInfoer eq true">
+							<form action="{:U('Index/Information/disagree',array('id'=>$detail['id'],'updater'=>'infoer'))}" method='post'>
+								<textarea name="reason" placeholder='请填写不同意上报的理由' style='width:700px;height:100px;'></textarea>
+								<input type="submit" value='打回'>
+							</form>
+						</if>
+						<if condition="$isOfficer eq true">
+							<form action="{:U('Index/Information/disagree',array('id'=>$detail['id'],'updater'=>'officer'))}" method='post'>
+								<textarea name="reason" placeholder='请填写不同意上报的理由' style='width:700px;height:100px;'></textarea>
+								<input type="submit" value='打回'>
+							</form>
+						</if>
+					</div>
+
+					<if condition="$fromCheck eq 1 and $detail['isApproved2'] eq true and $detail['isReported'] eq false">
+
+						<form action="{:U('Index/Information/confirmReported',array('id'=>$detail['id']))}" 	method ='post'>
+							<table class='bordered' id="tableNodifyManage">
+								<tr>
+									<th colspan='2'>完善上报信息</th>
+								</tr>
+								<tr>
+									<td style='width:200px;'>上报时间：</td>
+									<td><input class="Wdate" type="text" name='reped_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" ></td>
+								</tr>
+								<tr>
+									<td>上报位置：</td>
+									<td>
+										<input type="checkbox" name="reped_pos[]" value='1'>
+										市局
+										<input type="checkbox" name="reped_pos[]" value='2'>
+										区内
+										<!-- <select name="reped_pos[]" id='first_reped_pos'>
+											<option value="0">===请选择===</option>
+											<option value="1">市局</option>
+											<option value="2">区内</option>
+										</select> -->
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2"><input type="submit" value='确认已上报'></td>
+								</tr>
+							</table>
+						</form>
+						
+					</if>
+					<if condition="$fromCheck eq 1 and $detail['isReported'] eq true and $detail['isAdopted'] eq false">
+						<form action="{:U('Index/Information/confirmAdopt',array('id'=>$detail['id']))}" method='post'>
+							<table class='bordered' id="tableNodifyManage">
+								<tr>
+									<th colspan='2'>完善上报信息</th>
+								</tr>
+								<tr>
+									<td  style='width:200px;'>采用单位：</td>
+									<td>
+										<input type="checkbox" name="adopted_pos[]" value='1'> 房山动态
+										<input type="checkbox" name="adopted_pos[]" value='2'> 政务信息
+										<input type="checkbox" name="adopted_pos[]" value='3'> 房山信息
+										<input type="checkbox" name="adopted_pos[]" value='4'> 昨日区情
+										<input type="checkbox" name="adopted_pos[]" value='5'> 房山报
+										<input type="checkbox" name="adopted_pos[]" value='6'> 北京环保信息
+										<!-- <select name="adopted_pos[]" id='first_reped_pos'>
+											<option value="0">===请选择===</option>
+											<option value="1">房山动态</option>
+											<option value="2">政务信息</option>
+											<option value="3">房山信息</option>
+											<option value="4">昨日区情</option>
+											<option value="5">房山报</option>
+											<option value="6">北京环保信息</option>
+										</select>
+										<a href="#" id='addOneRepedPos'>增加</a>
+										<a href="#" id='deleteOneRepedPos'>删除</a> -->
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2"><input type="submit" value='确认已被采用'></td>
+								</tr>
+							</table>
+							
+						</form>
+					</if>
+					
+					<!-- 同样是来自上报，但是来自我的上报-->
+					<if condition='$fromIndiv eq 1'>
+						
+					</if>
+					
+
+				</if>
+				<if condition="$source eq 'report' and $fromCheck eq 1 and $detail['isReported'] eq true and $detail['isAdopted'] eq true">
+						<form action="{:U('Index/Information/modifyReported',array('id'=>$detail['id']))}" 	method ='post'>
+							<table class='bordered' id="tableNodifyManage">
+								<tr>
+									<th colspan='2'>修改上报信息</th>
+								</tr>
+								<tr>
+									<td style='width:200px;'>上报时间：</td>
+									<td><input class="Wdate" type="text" name='reped_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$detail.reped_time|date="Y-m-d",###}'></td>
+								</tr>
+								<tr>
+									<td>上报位置：</td>
+									<td>
+										<input type="checkbox" name="reped_pos[]" value='1' <if condition='in_array(1,$reped_pos)'>checked</if>>
+										市局
+										<input type="checkbox" name="reped_pos[]" value='2' <if condition='in_array(2,$reped_pos)'>checked</if>>
+										区内										
+									</td>
+								</tr>
+								<tr>
+									<td  style='width:200px;'>采用单位：</td>
+									<td>
+										<input type="checkbox" name="adopted_pos[]" value='1' <if condition='in_array(1,$adopted_pos)'>checked</if>> 房山动态
+										<input type="checkbox" name="adopted_pos[]" value='2' <if condition='in_array(2,$adopted_pos)'>checked</if>> 政务信息
+										<input type="checkbox" name="adopted_pos[]" value='3' <if condition='in_array(3,$adopted_pos)'>checked</if>> 房山信息
+										<input type="checkbox" name="adopted_pos[]" value='4' <if condition='in_array(4,$adopted_pos)'>checked</if>> 昨日区情
+										<input type="checkbox" name="adopted_pos[]" value='5' <if condition='in_array(5,$adopted_pos)'>checked</if>> 房山报
+										<input type="checkbox" name="adopted_pos[]" value='6' <if condition='in_array(6,$adopted_pos)'>checked</if>> 北京环保信息
+										
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2"><button>修改上报信息</button></td>
+								</tr>
+							</table>
+						</form>						
+					</if>
+			</div>
+			
+			
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+
+<include file='foot'/>

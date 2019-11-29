@@ -1,0 +1,107 @@
+<include file='Common:header' />
+<css file='__PUBLIC__/css/labor.css'/>
+<js file='__PUBLIC__/js/jquery.min.js'/>
+<js file='__PUBLIC__/js/labor.js'/>
+<include file='Common:top' />
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>劳资管理</li>
+			<li><a href="{:U('Index/Labor/itemApply_index')}">物品申领</a></li>
+			
+		</ul>
+    </div>
+<div id='itemApply_index'  class='someSpace'>
+	<span class='addStock_btn'><a href="#" id='itemTable'>物品申领</a></span>
+	<br><br><br>
+	<table class="bordered"  id="tableNodifyManage" style="width:90%;">
+		<tr>
+			<th width='7%'>序号</th>
+			<th width='10%'>申领人</th>
+			<th width='10%'>申领科室</th>
+			<th width='10%'>申请时间</th>
+			<th width='13%'>申领物品</th>
+			<th width='10%'>分类</th>
+			<th width='10%'>审核人</th>
+			<th width='10%'>审核结果</th>
+			<th width='10%'>通过回执</th>
+			<th width='10%'>操作</th>
+		</tr>
+		<volist name='item' id='v' key='key'>
+			<tr>
+				<td width='7%'>{$key}</td>
+				<td width='10%'>{$v.applyer|IdToName}</td>
+				<td width='10%'>{$v.dep|idToDep}</td>
+				<td width='10%'>{$v.time|date='Y-m-d',###}</td>
+				<td width='13%'>{$v.content}</td>
+				<td width='10%'>{$v.class|itemClassToName}</td>
+				<td width='10%'>{$v.checker|IdToName}</td>
+				<td width='10%'>	<if condition='$v["result"] eq 1'>通过<else/>未通过</if></td>
+				<td width='10%'><if condition='$v["back"] eq 1'>通过<else/>未通过</if></td>
+				<td width='10%'>[<a href="{:U('Index/Labor/deleteItemapply',array('id'=>$v['id']))}" class='delete'>删除</a>]</td>
+			</tr>
+		</volist>
+		<tr>
+			<td colspan="10">
+				{$page}
+			<if condition='$item eq NULL'>暂无物品申领信息</if>
+			<form action="{:U('Index/Labor/excel_item')}" method='post' align='right' style='float:right;margin-right:20px;'>
+				<foreach name='forExcel' item='v'>
+					<input type="hidden" name='forExcel[]' value='{$v.id}'>
+				</foreach>
+				<button>导出Excel</button>
+			</form>			
+			</td>
+		</tr>
+	</table>
+	<!-- <div class='common_list'>
+		<div class='common_list_bar'>
+			<div class='common_list_bar0'>序号</div>
+			<div class='common_list_bar1'>申领人</div>
+			<div class='common_list_bar2'>申领科室</div>
+			<div class='common_list_bar3'>申请时间</div>
+			<div class='common_list_bar4'>申领物品</div>
+			<div class='common_list_bar5'>分类</div>
+			<div class='common_list_bar6'>审核人</div>
+			<div class='common_list_bar7'>审核结果</div>
+			<div class='common_list_bar8'>通过回执</div>
+			<div class='common_list_bar9'>操作</div>
+		</div>
+		
+		<volist name='item' id='v' key='key'>
+			<if condition='is_odd($key)'>
+				<div class='common_list_content' style='background-color:#E0FFFF;'>
+				<else/>
+				<div class='common_list_content' style='background-color:#CCCCCC;'>
+			</if>
+				<div class='common_list_bar0'>{$key}&nbsp;</div>
+				<div class='common_list_bar1'>{$v.applyer|IdToName}&nbsp;</div>
+				<div class='common_list_bar2'>{$v.dep|idToDep}&nbsp;</div>
+				<div class='common_list_bar3'>{$v.time|date='Y-m-d',###}&nbsp;</div>
+				<div class='common_list_bar4'>{$v.content}&nbsp;</div>
+				<div class='common_list_bar5'>{$v.class|itemClassToName}&nbsp;</div>
+				<div class='common_list_bar6'>{$v.checker|IdToName}&nbsp;</div>
+				<div class='common_list_bar7'>
+					<if condition='$v["result"] eq 1'>通过<else/>未通过</if>
+				</div>
+				<div class='common_list_bar8'>
+					<if condition='$v["back"] eq 1'>通过<else/>未通过</if>
+				</div>
+				<div class='common_list_bar9'>
+					[<a href="{:U('Index/Labor/deleteItemapply',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</div>
+			</div>
+		</volist>
+		<div class='common_list_foot'>
+			{$page}
+			<if condition='$item eq NULL'>暂无物品申领信息</if>
+			<form action="{:U('Index/Labor/excel_item')}" method='post' align='right' style='float:right;margin-right:20px;'>
+				<foreach name='item' item='v'>
+					<input type="hidden" name='forExcel[]' value='{$v.id}'>
+				</foreach>
+				<button>导出Excel</button>
+			</form>			
+		</div>
+	</div> -->
+</div>
+<include file='Common:footer' />

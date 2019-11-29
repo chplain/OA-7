@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/info.css' />
+	<css file='__PUBLIC__/css/common.css' />
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>
+	<js file='__PUBLIC__/js/info.js' />
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<title>添加宣传任务</title>
+	<script type='text/javascript'>
+		$(function(){
+			$('#selectAll').click(function(){
+				if($('#selectAll').is(':checked'))
+					$('input[name*=deps]').each(function(){
+						this.checked = true;
+					});
+				else{
+					$('input[name*=deps]').attr('checked',false);
+				}
+					
+			});
+			$('input[type=submit]').click(function(e){
+				if(!confirm('确定要发布吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+
+	</script>
+</head>
+<body id='rep_table' class='someSpace'>
+	<button onclick='javascript:history.go(-1);'>返回</button>
+	<div id='pro_table_div'>
+		
+	
+	<form action="{:U('Index/Information/propa_handle',array('id'=>$propa['id'],'from'=>'modify'))}" method='post'>
+			<table width="640" border="1" align="center" cellpadding="1" cellspacing="0">
+		  <tr>
+		    <td width="100" height="43"><div align="right">标题：</div></td>
+		    <td width="530"><div align="left"><input type='text' name='title' style='width:520px;height:35px;' value='{$propa.title}'/></div></td>
+		  </tr>
+		 
+		  <tr>
+		    <td height="51"><div align="right">负责科室：</div></td>
+		    <td>
+		    	<table style='float:left;height:100%;'><tr><td align='center'>
+		    		<input type="checkbox" id='selectAll'/><span class='dep_check'>全选</span>
+		    	</td></tr></table>
+		    	
+
+		    	
+		    	<table width="490" align="center" style='float:right;'>
+		    		
+	    			<volist name='dep' id='v'>
+	    				<tr>
+	    					<td>
+								<input type="checkbox" name='deps[]' value='{$v.id}' <if condition='in_array($v["id"],$selectedDep)'>checked</if>/><span class='dep_check'>{$v.name}</span>
+							</td>
+	    				</tr>
+	    			</volist>
+		    			
+		    		
+		    	</table>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td height="40" align='right'>负责人：</td>
+		  	<td>
+		  		<textarea  placeholder='可不填' style='width:450px;height:20px;' class='contact_input' disabled>{$propa.propaers|IdsToNames=','}</textarea>
+		  		<a href="#" class='contact' style='font:normal 13px "宋体";'>增加</a>
+				<input type="hidden" class='hidden' name='propaers' value='{$propa.propaers}'/>
+				<a href="#" title='删除最后一次输入' class='delContactLastInput' style='font:normal 13px "宋体";'>删除</a>
+		  	</td>
+		  </tr>
+		  <tr>
+		  		<td height="40" align='right'>是否置顶：</td>
+			  	<td><div align="left">
+			  		<input type="radio" name='isSetTop' value='1' <if condition='$propa["isSetTop"] eq 1'>checked</if>/>是
+			  		<input type="radio" name='isSetTop' value='0' <if condition='$propa["isSetTop"] eq 0'>checked</if>/>否
+			  	</div></td>
+		  </tr>
+		   <tr>
+		    <td height="86"><div align="right">附加说明：</div></td>
+		    <td><div align="left"><textarea name='content' cols='63' rows='4'>{$propa.content}</textarea></div></td>
+		  </tr>
+		  <tr>
+		    <td height="41" colspan="2">
+		    	<div align="center">
+		    		<input type="submit" value='保存修改'/>		
+		    		<input type="reset" value='重置'/>	
+		    	</div>
+		    </td>
+		  </tr>
+		</table>
+	</form>
+
+	</div>
+</body>
+</html>

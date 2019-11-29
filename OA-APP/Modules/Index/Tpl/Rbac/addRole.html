@@ -1,0 +1,39 @@
+<include file='top' />
+
+<div id='right'>
+	<div id='r_top'>
+		<!-- <img src="" alt="添加角色"> -->
+		<h3 style='font:bold 17px "微软雅黑";'>添加角色</h3>
+	</div>
+	<div id='r_content'>
+		<form action="{:U('Index/Rbac/addRoleHandle')}" method='post'>
+			<table class="table">
+				<tr>
+					<th colspan='2' align='center'>添加角色</th>
+				</tr>
+				<tr>
+					<td align='right'>角色名称：</td>
+					<td><input type="text" name='name'></td>
+				</tr>
+				<tr>
+					<td align='right'>角色描述：</td>
+					<td><input type="text" name='remark'></td>
+				</tr>
+				<tr>
+					<td align='right'>是否开启：</td>
+					<td>
+						<input type="radio" value='1' name='status' checked>&nbsp;开启&nbsp;
+						<input type="radio" value='0' name='status'>&nbsp;关闭
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align='center'>
+						<input type="submit" value='保存添加'>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<include file='foot' />

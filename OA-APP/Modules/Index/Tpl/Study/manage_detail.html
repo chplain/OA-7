@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<title>共享详情</title>
+</head>
+<body>
+	<div id='sudy_content'>
+		<button onclick="javascript:history.go(-1);">返回</button>
+		<h3 align="center">[{$study.type}]&nbsp;&nbsp;{$study.title}</h3>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:75%;">
+			<tr>
+				<td>
+					 上传者：
+				</td>
+				<td>
+					{$study.suber|IdToName}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					上传日期：
+				</td>
+				<td>
+					{$study.time|date='Y-m-d',###}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					内容描述:
+				</td>
+				<td width="400px" height="150px">
+					{$study.content|htmlspecialchars_decode}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					上传文件：
+				</td>
+				<td>
+					<a href="UPLOAD_PATH{$study.file_savename}" target='_blank'>{$study.file_name}</a>
+				</td>
+			</tr>
+		</table>
+		<!--
+		<h3 align="center">[{$study.type}]&nbsp;&nbsp;{$study.title}</h3>
+		<div>
+			<span>上传者：{$study.suber|IdToName}</span>&nbsp;&nbsp;
+			<span>上传日期：{$study.time|date='Y-m-d',###}</span>&nbsp;&nbsp;
+		</div>
+		<div>
+			<span>内容描述</span>
+			{$study.content|htmlspecialchars_decode}
+		</div>
+		<div>
+			上传文件：<a href="UPLOAD_PATH{$study.file_savename}" target='_blank'>{$study.file_name}</a>
+		</div>
+		-->
+	</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<include file='top'/>
+<!-- 上报 -->
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint5.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/myappro')}">我的约稿</a></li>
+		</ul>
+    </div>
+
+	<div class='middle'>
+		<div class='content'>
+			
+			<div class='list'>
+				<table>
+					<tr>
+						<th style='width:695px;'><span>约稿主题</span></th>
+						<th style='width:195px;'><span>约稿时间</span></th>
+						<th style='width:195px;'><span>截止时间</span></th>
+						<!-- <th style='width:395px;'><span>操作</span></th> -->
+						<!-- <th class='appro_th5'><span>进度</span></th> -->
+					</tr>
+					<foreach name='appro' item='v'>
+						<tr>
+							<td align='left' style='padding-left:15px;'>
+								<a href="{:U('Index/Information/approdetail',array('id'=>$v['id'],'from'=>'myappro'))}">
+									{$v.subject|truncate_cn=100}
+								</a>
+							</td>
+							<td align='center'>{$v.send_time|date='Y-n-j',###}</td>
+							<td align='center'>{$v.deadline|date='Y-n-j',###}</td>
+							
+							<!-- <td align='center'>{$v.process|idToProcess}</td> -->
+							<!-- <td align='center'>
+								[<a href="{:U()}"></a>]
+							</td> -->
+						</tr>
+					</foreach>
+					<tr>
+						<td align='left' style='padding-left:15px;'>{$page}<if condition='$appro eq NULL'>暂无约稿信息</if></td>
+						<td></td><td></td><td></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+<include file='foot'/>

@@ -1,0 +1,193 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/outmeet_gather')}">局外会议汇总</a></li>
+			<li><a href="#">局外会议修改</a></li>
+		</ul>
+    </div>
+<div id='outMeet'>
+	<a href="{:U('Index/Meet/outmeet_gather')}"><button>返回</button></a>
+	<div id='outMeetForm'>
+		<h2>局外会议修改</h2>
+		<form action="{:U('Index/Meet/outMeetHandle',array('from'=>'modify','id'=>$out['id']))}" method='post'>
+			<if condition='$recordType eq 1'>
+				<table class="bordered" id="tableNodifyManage" style='height:90%;'>
+					<tr>
+						<td>收文顺序号：</td>
+						<td><input type="text" name='recvNum' value='{$out.recvNum}'></td>
+					</tr>
+					<tr>
+						<td>来文时间：</td>
+						<td>
+							<input class="Wdate" type="text" name='outmeet_come_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$out.outmeet_come_time|date='Y-m-d H:i',###}' >
+							<!-- {$selectTime} -->
+						</td>
+					</tr>
+					<tr>
+						<td>来文机关：</td>
+						<td><input type="text" name='from' style='width:400px;' value='{$out.outmeet_from}'></td>
+					</tr>
+					<tr>
+						<td>属性(非必填)：</td>
+						<td>
+							文件字属： <input type="text" name='belong' value='{$out.belong}'>
+							年发号： <input type="text" name='yearNum' value='{$out.yearNum}'>
+						</td>
+					</tr>
+					<tr>
+						<td>数量</td>
+						<td>
+							份数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;： <input type="text" name='copyNum1' value='{$out.copyNum1}'>
+							号数&nbsp;&nbsp;&nbsp;： <input type="text" name='copyNum2' value='{$out.copyNum2}'>
+						</td>
+					</tr>
+					<tr>
+						<td>会议日期：</td>
+						<td>
+							<input class="Wdate" type="text" name='outmeet_time_day' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$out.outmeet_time|date='Y-m-d',###}' >
+							<!-- {$selectTime} -->
+						</td>
+					</tr>
+					<tr>
+						<td>会议时间：</td>
+						<td>
+							<input class="Wdate" type="text" name='outmeet_time_hour' onClick="WdatePicker({dateFmt:'HH:mm'})" value='{$out.outmeet_time|date='H:i',###}' >
+							<!-- {$selectTime} -->
+						</td>
+					</tr>
+					<tr>
+						<td>会议地点：</td>
+						<td><input type="text" name='outmeet_place' style='width:400px;' value='{$out.outmeet_place}'></td>
+					</tr>
+					<!-- <tr>
+						<td>会议标题：</td>
+						<td><input type="text" name='title' style='width:400px;' value='{$out.outmeet_title}'></td>
+					</tr> -->
+					<tr>
+						<td>会议内容：</td>
+						<td><textarea name="content" id="" style='width:400px;'>{$out.outmeet_content}</textarea></td>
+					</tr>
+					<tr>
+						<td>联系人：</td>
+						<td><input type="text" name='contact_person' style='width:400px;' value='{$out.outmeet_contact_person}'></td>
+					</tr>
+					<tr>
+						<td>联系方式：</td>
+						<td><input type="text" name='contact' style='width:400px;' value='{$out.outmeet_contact}'></td>
+					</tr>
+					<tr>
+						<td>参会领导：</td>
+						<td>
+							<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled>{$out.outmeet_leader|IdsToNames=","}</textarea>
+							<input type="hidden" name='group_id'>
+							<input type="hidden" name='individual_id' value='{$out.outmeet_leader}'>
+							<a href="#" class='newContact'>增加</a>	
+						</td>
+					</tr>
+					<tr>
+						<td>备注：</td>
+						<td>
+							<textarea name="remark" id="" style='width:400px;' >{$out.remark}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>提醒</td>
+						<td>						
+								<input type="checkbox" name='attentionType[]' value='1' <if condition='$attention1 eq true'>checked</if>>系统提醒
+								<input type="checkbox" name='attentionType[]' value='2' <if condition='$attention2 eq true'>checked</if>>短息提醒
+								<input type="checkbox" name='attentionType[]' value='3' <if condition='$attention3 eq true'>checked</if>>邮件提醒						
+						</td>
+					</tr>
+					<tr>
+						<td><input type="submit" value='登记'></td>
+						<td><input type="reset" value='重置'></td>
+					</tr>
+				</table>
+			<elseif condition='$recordType eq 2'/>
+				<table class="bordered" id="tableNodifyManage" style='height:90%;'>
+					<tr>
+						<td>来电时间：</td>
+						<td>
+							<input class="Wdate" type="text" name='outmeet_come_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$out.outmeet_come_time|date='Y-m-d H:i',###}' >
+							<!-- {$selectTime} -->
+						</td>
+					</tr>
+					<tr>
+						<td>来电单位：</td>
+						<td><input type="text" name='from' style='width:400px;' value='{$out.outmeet_from}'></td>
+					</tr>
+					<tr>
+						<td>会议日期：</td>
+						<td>
+							<input class="Wdate" type="text" name='outmeet_time_day' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$out.outmeet_time|date='Y-m-d',###}' >
+							<!-- {$selectTime} -->
+						</td>
+					</tr>
+					<tr>
+						<td>会议时间：</td>
+						<td>
+							<input class="Wdate" type="text" name='outmeet_time_hour' onClick="WdatePicker({dateFmt:'HH:mm'})" value='{$out.outmeet_time|date='H:i',###}' >
+							<!-- {$selectTime} -->
+						</td>
+					</tr>
+					<tr>
+						<td>会议地点：</td>
+						<td><input type="text" name='outmeet_place' style='width:400px;' value='{$out.outmeet_place}'></td>
+					</tr>
+					<!-- <tr>
+						<td>会议标题：</td>
+						<td><input type="text" name='title' style='width:400px;' value='{$out.outmeet_title}'></td>
+					</tr> -->
+					<tr>
+						<td>会议内容：</td>
+						<td><textarea name="content" id="" style='width:400px;'>{$out.outmeet_content}</textarea></td>
+					</tr>
+					<tr>
+						<td>联系人：</td>
+						<td><input type="text" name='contact_person' style='width:400px;' value='{$out.outmeet_contact_person}'></td>
+					</tr>
+					<tr>
+						<td>联系方式：</td>
+						<td><input type="text" name='contact' style='width:400px;' value='{$out.outmeet_contact}'></td>
+					</tr>
+					<tr>
+						<td>参会领导：</td>
+						<td>
+							<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled>{$out.outmeet_leader|IdsToNames=","}</textarea>
+							<input type="hidden" name='group_id'>
+							<input type="hidden" name='individual_id' value='{$out.outmeet_leader}'>
+							<a href="#" class='newContact'>增加</a>	
+						</td>
+					</tr>
+					<tr>
+						<td>备注：</td>
+						<td>
+							<textarea name="remark" id="" style='width:400px;'>{$out.remark}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>提醒</td>
+						<td>						
+								<input type="checkbox" name='attentionType[]' value='1' <if condition='$attention1 eq true'>checked</if>>系统提醒
+								<input type="checkbox" name='attentionType[]' value='2' <if condition='$attention2 eq true'>checked</if>>短息提醒
+								<input type="checkbox" name='attentionType[]' value='3' <if condition='$attention3 eq true'>checked</if>>邮件提醒						
+						</td>
+					</tr>
+					<tr>
+						<td><input type="submit" value='登记'></td>
+						<td><input type="reset" value='重置'></td>
+					</tr>
+				</table>
+			</if>
+		</form>
+	</div>
+
+	
+</div>
+
+
+
+<include file='Common:footer'/>

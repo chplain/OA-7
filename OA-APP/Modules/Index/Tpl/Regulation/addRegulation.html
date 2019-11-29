@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+	<css file='__PUBLIC__/css/reg.css'/>
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>
+	<js file='__CLASS__/ueditor/ueditor.config.js'/>
+	<js file='__CLASS__/ueditor/ueditor.all.min.js'/>
+	<script type='text/javascript'>
+		window.UEDITOR_HOME_URL = '__CLASS__/ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameWidth = 800;
+			window.UEDITOR_CONFIG.initialFrameHeight = 250;
+			UE.getEditor('editor');
+		};
+	</script>
+
+	<title>上传</title>
+</head>
+<body>
+	<p>&nbsp;</p>
+	&nbsp;&nbsp;&nbsp;&nbsp;<button onclick='javascript:history.go(-1);'>&nbsp;&nbsp;返回</button>
+	<h3 align="center">上传新制度</h3>
+	<div align='center'>
+	<form action="{:U('Index/Regulation/addRegulationHandle')}" method='post' enctype='multipart/form-data'>
+		<table  class="bordered"align='center' id="tableNodifyManage" style="width:95%;">‘
+			<tr>
+				<td>标题</td>
+				<td> <input type="text" name='title' style='width:400px;height:20px;'/> </td>
+			</tr>
+			<tr>
+				<td>时间</td>
+				<td>
+					<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{:now_time("false")}'>
+				</td>
+			</tr>
+			<tr>
+				<td>附件</td>
+				<td>
+					<input type="file" name='file'/>
+					<input type="radio" name='isSetTop' value='0' checked/>不置顶
+					<input type="radio" name='isSetTop' value='1'/>置顶
+				</td>
+			</tr>
+			<tr>
+				<td>内容</td>
+				<td>
+					<script type='text/plain' name="content" id="editor"> </script>
+				</td>
+			</tr>
+			<tr>
+				<td> <input type="submit" value='提交'/>	</td>
+				<td><input type="reset" value='重置'/></td>
+			</tr>
+			<tr>
+				<td>
+					<button id='close' onclick='javascript:window.close();'>关闭窗口</button>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/labor.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/labor.js'/>
+	<title>分类设置</title>
+</head>
+<body>
+	<div id='stockClass_table'>
+		<br>
+		&nbsp;<a href="{:U('Index/Labor/addItemClass',array('pid'=>0))}">添加一个大类</a>
+		<div id='stockClass-in'>
+			<table>
+				<tr><th align='center'>类别</th><th align='center'>操作</th></tr>
+			<foreach name='class' item='v'>
+				<tr>
+					<td class='level1'>{$v.name}</td>
+					<td>[<a href="{:U('Index/Labor/addItemClass',array('pid'=>$v['id']))}">添加子分类</a>]&nbsp;
+					[<a href="{:U('Index/Labor/modifyItemClass',array('id'=>$v['id']))}">修改</a>]
+					[<a href="{:U('Index/Labor/deleteItemClass',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</td>
+				</tr>
+				<foreach name='v.child' item='vv'>
+					<tr>
+						<td class='level2'>{$vv.name}</td>
+						<td>[<a href="{:U('Index/Labor/addItemClass',array('pid'=>$vv['id']))}">添加子分类</a>]&nbsp;
+						[<a href="{:U('Index/Labor/modifyItemClass',array('id'=>$vv['id']))}">修改</a>]
+						[<a href="{:U('Index/Labor/deleteItemClass',array('id'=>$vv['id']))}" class='delete'>删除</a>]
+					</td>
+					</tr>
+					<foreach name='vv.child' item='vvv'>
+						<tr>
+							<td class='level3'>{$vvv.name}</td>
+							<td>[<a href="{:U('Index/Labor/addItemClass',array('pid'=>$vvv['id']))}">添加子分类</a>]&nbsp;
+							[<a href="{:U('Index/Labor/modifyItemClass',array('id'=>$vvv['id']))}">修改</a>]
+							[<a href="{:U('Index/Labor/deleteItemClass',array('id'=>$vvv['id']))}" class='delete'>删除</a>]
+						</td>
+						</tr>
+						<volist name='vvv["child"]' id='vvvv'>
+							<tr>
+								<td class='level4'>{$vvvv.name}</td>
+								<td>[<a href="{:U('Index/Labor/modifyItemClass',array('id'=>$vvvv['id']))}">修改</a>]&nbsp;
+								[<a href="{:U('Index/Labor/deleteItemClass',array('id'=>$vvvv['id']))}" class='delete'>删除</a>]</td>
+
+							</tr>
+						</volist>
+					</foreach>
+				</foreach>
+			</foreach>
+			</table>
+		  </div>
+		<div align='center'>
+			<a href="javascript:history.go(-1);"><button  style='width:80px;height:30px;'>返回</button></a>
+		</div>
+	</div>
+</body>
+</html>

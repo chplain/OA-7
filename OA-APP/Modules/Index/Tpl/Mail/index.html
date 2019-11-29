@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/mail.css'/>
+	<title>个人邮箱</title>
+	<script>
+		window.onload=function(){
+			var sear = window.location.search;
+			if(sear != '')
+				right.location.href = '/OA/index.php/Index/Mail/detailMail.html'+sear;
+		};
+	</script>
+</head>
+	<frameset rows='63px,*'  frameborder='no'> <!--  -->
+		<frame src='top.html' name='top' noresize scrolling='no'/>
+		<frameset cols='12%,*' >
+			<frame src='left.html' name='left' noresize scrolling='no'/>
+			<frame src='receive.html' name='right' id='right' noresize/>
+		</frameset>
+	</frameset>	
+</html>

@@ -1,0 +1,77 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/meet_gather')}">会议汇总</a></li>
+		</ul>
+    </div>
+<div>
+<div class='someSpace'  align='left'>
+	<div>
+		<form action="{:U('Index/Meet/meet_gather',array('from'=>'search'))}" method='post'>
+			<table>
+				<tr>
+					<td><span>起始日期：</span></td>
+					<td><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' ></td>
+					<td><span>终止日期：</span></td>
+					<td><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' ></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><span>申请科室：</span></td>
+					<td><select name="dep" id="">
+						<option value="-1">所有科室</option>
+						<option value="0" >局领导</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}"  <if condition='$v["id"] eq $depselect'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select></td>
+					<td><span>主题：</span></td>
+					<td><input type="text" name='subject' value='{$subject}'></td>
+					<td><span>参会人员：</span></td>
+					<td><input type="text" name='attend_people' value='{$attend_people}'></td>
+					<td><input type="submit" value='查询'></td>
+				</tr>
+			</table>
+			<br>			
+		</form>
+	</div>
+	<div  align='left'>
+		<table class="bordered" id="tableNodifyManage">
+			<tr>
+				<th>会议日期</th>
+				<th>会议时间</th>
+				<th>地点</th>
+				<th>参会人员</th>
+				<th>主题</th>
+				<th>操作</th>
+			</tr>
+			<foreach name='meet' item='v'>
+				<tr>
+					<td>{$v.meet_time|date='Y-m-d',###}</td>
+					<td>{$v.meet_time|date='H:i',###}</td>
+					<td>{$v.meet_place|idToMeetPlace}</td>
+					<td>{$v.attend_people|truncate_cn=20}</td>
+					<td>{$v.meet_subject}</td>
+					<td>[<a href="{:U('Index/Meet/manage_detail',array('id'=>$v['id']))}">详情</a>]</td>
+				</tr>
+			</foreach>
+			
+			<tr>
+				<td colspan='8'>
+					{$page}
+					<if condition='$meet eq null'>
+						暂无数据
+					</if>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</div>
+
+<include file='Common:footer'/>

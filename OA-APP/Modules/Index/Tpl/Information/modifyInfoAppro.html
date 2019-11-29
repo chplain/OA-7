@@ -1,0 +1,118 @@
+<include file='top'/>
+<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+<!-- index默认是公告 -->
+<script>
+		$(document).ready(function(){
+			$('#addDep').click(function(e){
+				e.preventDefault();
+				var clone = $('#dep_spec').clone();
+				clone.removeAttr('id');
+				clone.find('option').removeAttr('selected');
+				clone.insertBefore($('#addDep'));
+			});
+			$('#removeDep').click(function(e){
+				e.preventDefault();
+				var clone = $('#addDep').prev('select');
+				if(!clone.is('#dep_spec')){
+					clone.remove();
+				}
+			});
+			$('input[type=submit]').click(function(e){
+				if(!confirm('确定要添加吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint1.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/appro')}">信息约稿</a></li>
+			<li>约稿修改</li>
+		</ul>
+    </div>
+
+	<div class='middle' style='padding-top:20px;padding-left:20px;width:100%;'>
+		
+		<button onclick='javascript:history.go(-1);'>返回</button>
+		<div class='content'>
+			<form action="{:U('Index/Information/appro_handle',array('id'=>$appro['id'],'from'=>'modify'))}" method='post'>
+				<table class="bordered" align='center' id="tableNodifyManage" style="width:90%;">
+					<tr>
+						<th colspan="2">约稿修改</th>
+					</tr>
+					<tr>
+						<td style='width:150px;'><div align="right">主题：</div></td>
+						<td><input type="text" name='subject' value='{$appro.subject}' style='width:95%;height:20px;'></td>
+					</tr>
+					<tr>
+						<td><div align="right">指定科室：</div></td>
+						<td>
+							<volist name='selectedDep' id='vo'>
+								<select name="dep[]" style='height:30px;' id='dep_spec'>
+									<option value="0">======请选择======</option>
+									<foreach name='dep' item='v'>
+									  	<option value="{$v.id}" <if condition='$vo eq $v["id"]'>selected</if>>{$v.name}</option>
+									</foreach>
+								</select>
+							</volist>
+							 <a href="" id='addDep' style='font-size:12px;'>增加</a>
+							 <a href="" id='removeDep' style='font-size:12px;'>删除</a></td>
+					</tr>
+					  <tr>
+					    <td ><div align="right">指定人员(可不填)：</div></td>
+					    <td>
+					    	<textarea name="recvContact" class='newContact_input' id="" style='width:500px;height:20px;' disabled>{$appro.approers|IdsToNames=','}</textarea>					
+								<input type="hidden" name='group_id'>
+								<input type="hidden" name='individual_id' value='{$appro.approers}'>
+								<a href="#" class='newContact'>添加</a>	
+					    </td>
+					  </tr>	
+					   <tr>
+					    <td><div align="right">截止日期：</div></td>
+					    <td>
+							<input class="Wdate" type="text" name='deadline' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$appro.deadline|date="Y-m-d",###}' >
+					    </td>
+					  </tr>
+					<tr>
+						<td><div align="right">内容：</div></td>
+						<td>
+							<textarea name="content" id="" style='width:95%; height:200px;'>{$appro.content}</textarea>
+						</td>
+					</tr>
+					<tr>
+
+						<td colspan="2">
+							<input type="submit" value='保存修改'>
+							<input type="reset" value='重置'>
+						</td>
+					</tr>
+
+				</table>
+			</form>
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+
+<include file='foot'/>

@@ -1,0 +1,34 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>日常公务</li>
+			<li><a href="{:U('Index/Regulation/regulation_index')}">规章制度</a></li>
+			<li><a href="#">规章制度详情</a></li>
+		</ul>
+    </div>
+	<div class='more_space'>
+		<button class='reback' onclick='javascript:history.go(-1);'>返回</button>
+		<h3 class='title' align='center' style='font:bold 25px "黑体";'>
+			{$reg.title}
+		</h3>
+		<h4 class='title' align='center'>
+			发布时间：{$reg.time|date='Y-m-d',###}
+		</h4>
+		<div class='content' style='margin-left:70px;'>
+			{$reg.content|htmlspecialchars_decode}
+		</div>
+		<div style='margin-right:20px;float:right;'>
+			发布人：{$reg.suber|IdToName} <br>
+			发布时间：{$reg.time|date='Y-m-d',###}
+		</div>
+		<br>
+		<div style='margin-left:70px;'>
+			<span>附件：</span>
+			<a href="UPLOAD_PATH{$reg.file_savename}" target='_blank'>{$reg.file_name}</a>
+			<!-- <a href="{:U('Index/Regulation/download_exists',array('id'=>$reg['id']))}">{$reg.file_name}</a> -->
+		</div>
+	</div>
+
+<include file='Common:footer'/>

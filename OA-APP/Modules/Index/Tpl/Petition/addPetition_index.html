@@ -1,0 +1,540 @@
+<include file='Common:header'/>
+<link rel="stylesheet"  href="__PUBLIC__/js/tab_style/css/webwidget_scroller_tab.css" type="text/css" />
+<include file='Common:top'/>
+<script>
+	$(document).ready(function(){
+		var reurl = window.location.href;		
+		var index = reurl.lastIndexOf('flag');
+		var last = reurl.substr(index,reurl.length);
+		var arr = last.split('.');
+		var arr2 = arr[0].split('/');
+		var i = arr2[1] - 1;
+		$('.webwidget_scroller_tab .tabContainer li').eq(i).addClass('currentBtn');
+		$('.webwidget_scroller_tab .tabContainer li').click(function(){
+			
+			$('.webwidget_scroller_tab .tabContainer li').removeClass('currentBtn');
+			$(this).addClass('currentBtn');
+		});
+	});
+</script>
+<style>
+	.dark{
+		background-color:#E5E0E0; 
+	}
+</style>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信访管理</li>
+			<li><a href="{:U('Index/Petition/petition_index',array('flag'=>1))}">信访登记</a></li>
+			<li>信访单填写</li>
+		</ul>
+    </div>
+<div id=''>
+	<!-- <div class='block'><a href="#" id='petition_manage'>信访单管理</a></div> -->
+
+	 <div class="webwidget_scroller_tab" id="webwidget_scroller_tab">
+          <div class="tabContainer">
+            <ul class="tabHead">
+              <li><a href="{:U('Index/Petition/petition_index',array('flag'=>1))}">政风行风</a></li>
+              <li><a href="{:U('Index/Petition/petition_index',array('flag'=>2))}">局长信箱</a></li>
+              <li><a href="{:U('Index/Petition/petition_index',array('flag'=>3))}">来电/来信</a></li>
+			  <li><a href="{:U('Index/Petition/petition_index',array('flag'=>4))}">来访</a></li>
+			  <li><a href="{:U('Index/Petition/petition_index',array('flag'=>5))}">其他</a></li>
+            </ul>
+          </div>
+      </div>
+	<br>
+	<if condition='$flag eq 1'>
+	
+	<div id='type1'>
+		<form action="{:U('Index/Petition/handle',array('flag'=>$flag))}" method='post' enctype='multipart/form-data'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td><input type="text" name='number'></td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>
+						<select name="department">
+							<option value="">===请选择===</option>
+							<foreach name='dep' item='v'>
+								<option value="{$v.id}">{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td><input type="hidden" name='method' value='4'>政风行风
+					</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<!-- <tr>
+					<td>转办时间：</td>
+					<td>
+						<input class="Wdate" type="text" name='turn_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr> -->
+				<tr>
+					<td>类型：</td>
+					<td>
+						<select name="type" id="" style='width:150px;height:20px;'>
+							<option value="1">解决问题</option>
+							<option value="2">意见建议</option>
+							<option value="3">咨询</option>
+							<option value="4">政风行风投诉</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>留言人信息：（非必填）</td>
+					<td>
+						姓名：<input type="text" name='peter_name'>&nbsp;&nbsp;&nbsp;
+						电话：<input type="text" name='peter_contact'>&nbsp;&nbsp;&nbsp;
+						<!-- 地址（选填）：<input type="text" name='peter_address'> -->
+					</td>
+				</tr>
+				<tr>
+					<td>到期日：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+
+				<tr>
+					<td>接件人：</td>
+					<td>
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+					</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2'>
+						<input type="hidden" name='dep_receiver' class='hidden'>
+					</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;'>
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>
+						<textarea name="content" id="" style='width:400px;'></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value='提交'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+
+			</table>	
+		</form>
+	</div>
+	</if>
+	<if condition='$flag eq 2'>
+	
+	<div id='type2'>
+		<form action="{:U('Index/Petition/handle',array('flag'=>$flag))}" method='post' enctype='multipart/form-data'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td><input type="text" name='number'></td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>
+						<select name="department">
+							<option value="">===请选择===</option>
+							<foreach name='dep' item='v'>
+								<option value="{$v.id}">{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td><input type="hidden" name='method' value='10'>局长信箱
+					</td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>
+						<select name="type" id="" style='width:150px;height:20px;'>
+							<option value="1">解决问题</option>
+							<option value="2">意见建议</option>
+							<option value="3">咨询</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>收到日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td>投诉人信息：</td>
+					<td>
+						姓名：<input type="text" name='peter_name'>&nbsp;&nbsp;&nbsp;
+						电话：<input type="text" name='peter_contact'>&nbsp;&nbsp;&nbsp;
+						邮箱：<input type="text" name='peter_address'>
+					</td>
+				</tr>
+				
+
+				<tr>
+					<td>接件人：</td>
+					<td>
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+					</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2'>
+						<input type="hidden" name='dep_receiver' class='hidden'>
+					</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;'>
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>
+						<textarea name="content" id="" style='width:400px;'></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>办公室转办时间：</td>
+					<td>
+						<input class="Wdate" type="text" name='turn_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{:now_time(true)}' >
+					</td>
+				</tr>
+				<tr>
+					<td>承办科室书面报送办公室时间：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value='提交'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+
+			</table>	
+		</form>
+	</div>
+	</if>
+	<if condition='$flag eq 3'>
+
+	<div id='type3'>
+		<form action="{:U('Index/Petition/handle',array('flag'=>$flag))}" method='post' enctype='multipart/form-data'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td><input type="text" name='number'></td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>
+						<select name="department">
+							<option value="">===请选择===</option>
+							<foreach name='dep' item='v'>
+								<option value="{$v.id}">{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td><input type="hidden" name='method' value='6'>来电/来信
+					</td>
+				</tr>
+				
+				<tr>
+					<td>信访日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>
+						<select name="type" id="" style='width:150px;height:20px;'>
+							<option value="1">解决问题</option>
+							<option value="2">意见建议</option>
+							<option value="3">咨询</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>记录人：</td>
+					<td>
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+					</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：<input type="text" name='peter_name'>&nbsp;&nbsp;&nbsp;
+						电话：<input type="text" name='peter_contact'>&nbsp;&nbsp;&nbsp;
+						地址：<input type="text" name='peter_address'>
+					</td>
+				</tr>
+				
+
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;'>
+					</td>
+				</tr>
+				<!-- <tr class='brighter'>
+					<td>内容：</td>
+					<td>
+						<textarea name="content" id="" style='width:400px;'></textarea>
+					</td>
+				</tr> -->
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2'>
+						<input type="hidden" name='dep_receiver' class='hidden'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><input type="submit" value='提交'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	</if>
+	<if condition='$flag eq 4'>
+	<div id='type4'>
+		<form action="{:U('Index/Petition/handle',array('flag'=>$flag))}" method='post' enctype='multipart/form-data'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td><input type="text" name='number'></td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>
+						<select name="department">
+							<option value="">===请选择===</option>
+							<foreach name='dep' item='v'>
+								<option value="{$v.id}">{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td><input type="hidden" name='method' value='7'>来访
+					</td>
+				</tr>
+				<tr>
+					<td>人数：</td>
+					<td><input type="text" name='people_num'></td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>
+						<select name="type" id="" style='width:150px;height:20px;'>
+							<option value="1">解决问题</option>
+							<option value="2">意见建议</option>
+							<option value="3">咨询</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>接待人：</td>
+					<td>
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+					</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：<input type="text" name='peter_name'>&nbsp;&nbsp;&nbsp;
+						电话：<input type="text" name='peter_contact'>&nbsp;&nbsp;&nbsp;
+						地址：<input type="text" name='peter_address'>
+					</td>
+				</tr>
+				
+
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;'>
+					</td>
+				</tr>
+				<!-- <tr class='brighter'>
+					<td>内容：</td>
+					<td>
+						<textarea name="content" id="" style='width:400px;'></textarea>
+					</td>
+				</tr> -->
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2'>
+						<input type="hidden" name='dep_receiver' class='hidden'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><input type="submit" value='提交'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	</if>
+	<if condition='$flag eq 5'>
+	<div id='type5'>
+		<form action="{:U('Index/Petition/handle',array('flag'=>$flag))}" method='post' enctype='multipart/form-data'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td><input type="text" name='number'></td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>
+						<select name="department">
+							<option value="">===请选择===</option>
+							<foreach name='dep' item='v'>
+								<option value="{$v.id}">{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td>
+						<select name="method">
+							<option value="0">===请选择===</option>
+							<option value="1">人大政协</option>
+							<option value="2">12345</option>
+							<option value="5">12369热线</option>
+							<option value="9">区转</option>
+							<option value="11">其他信访</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>批办单附件：</td>
+					<td><input type="file" name='file'></td>
+				</tr>				
+				
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;'>
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>
+						<textarea name="content" id="" style='width:400px;'></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td>应办结日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+					</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2'>
+						<input type="hidden" name='dep_receiver' class='hidden'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><input type="submit" value='提交'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	</if>
+
+
+
+</div>
+<include file='Common:footer'/>

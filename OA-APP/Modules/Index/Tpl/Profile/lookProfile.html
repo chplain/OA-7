@@ -1,0 +1,61 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li>个人事务</li>
+		<li>个人文档管理</li>
+		<li><a href="{:U('Index/Profile/lookProfile',array('type'=>$type))}">查看文档</a></li>
+	</ul>
+</div>
+<div class='someSpace' align='left'>
+	<div>
+		<form action="{:U('Index/Profile/lookProfile',array('from'=>'search','type'=>$type))}" method='post'>
+			<table>
+				<tr>
+					<td>
+						<span>起始日期：</span>
+					
+						<input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' >
+					
+						<span>终止日期：</span>
+					
+						<input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' >
+						<span>标题：</span>
+					<input type="text" name='title' value='{$title}'>
+					<input type="submit" value='查询'>
+					
+				</tr>
+			</table>
+		</form>
+		<br>
+	</div>
+	<div>
+		<table class="bordered" id="tableNodifyManage" align='left' style="width:90%">
+			<tr>
+				<th width='15%'>日期</th>
+				<th width='15%'>类别</th>
+				<th width='55%'>标题</th>
+				<th width='15%'>操作</th>
+			</tr>
+			<foreach name='profile' item='v'>
+				<tr>
+					<td width='15%'>{$v.time|date='Y-m-d',###}</td>
+					<td width='15%'><if condition='$v["type"] eq 1'>文本<else/>传送类型</if></td>
+					<td width='55%'><a href="{:U('Index/Profile/detailProfile',array('id'=>$v['id']))}">{$v.title}</a></td>
+					<td width='15%'>
+						
+						[<a href="{:U('Index/Profile/modifyProfile',array('id'=>$v['id']))}">修改</a>]
+						
+						[<a href="{:U('Index/Profile/deleteProfile',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="4" align="left">{$page}<if condition='$profile eq null'>暂无数据</if></td>
+			</tr>
+		</table>
+	</div>
+	
+</div>
+<include file='Common:footer'/>

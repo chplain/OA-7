@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<title>公告详情</title>
+</head>
+<body>
+	
+
+<div class='detail'>
+	<p>&nbsp;</p>
+	<button onclick='javascript:history.go(-1);'>返回</button>
+
+
+
+	<if condition='$source eq "notify"'>
+		<div align="center">
+		<div class='detail_title' >
+			<u><h3 id="nodify_title">{$notify.meeting_title}</h3></u>
+			<table width="400" height="30" border="1" cellpadding="1" cellspacing="0" style="background-color:white;">
+				<tr>
+					<td width="100">
+						<b>会议时间：</b>
+					</td>
+					<td>
+						{$notify.meeting_time|date='Y-m-d H:i',###}
+					</td>
+				</tr>
+				<tr>
+					<td width="100">
+						<b>会议地点：</b>
+					</td>
+					<td>
+						{$notify.meeting_place}
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table width="400" height="30" border="1" cellpadding="1" cellspacing="0"  style="background-color:white;">
+				<tr>
+					<td width="100">
+						<b>被通知参会人员：</b>
+					</td>
+					<td>
+						<foreach name='attend_people' item='v'>
+							{$v|IdToName}&nbsp;
+						</foreach>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class='detail_content'>
+			<table width="400" height="300" border="1" cellpadding="1" cellspacing="0" style="background-color:white;">
+				<tr>
+					<td width="100">
+						内容：
+					</td>
+					<td>
+						{$notify.meeting_content|htmlspecialchars_decode}
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="detail_foote">
+			<table width="400" height="30" border="1" cellpadding="1" cellspacing="0" style="background-color:white;">
+				<tr>
+					<td width="100">
+						<b>发布人：</b>
+					</td>
+					<td>
+						{$notify.publisher|IdToName}
+					</td>
+				</tr>
+				<tr>
+					<td width="100">
+						<b>发布时间：</b>
+					</td>
+					<td>
+						{$notify.publish_time|date='Y-m-d H:i',###}
+					</td>
+				</tr>	
+			</table>
+			<!--
+			<span><b>发布人：</b>{$notify.publisher|IdToName}</span>
+			<span><b>发布时间：</b>{$notify.publish_time|date='Y-m-d H:i',###}</span>
+			-->
+		</div>
+		</div>
+	</if>
+
+
+
+
+	<if condition='$source eq "meet"'>
+		<div align="center">
+		<div class='detail_title'>
+			<u><h3>会议(活动)通知单</h3></u>
+		</div>
+		<div>
+
+			<table width="600" height="339" border="1" cellpadding="1" cellspacing="0" style="background-color:white;">
+			  <tr>
+			    <td width="277">会议时间：{$meet.meet_time|date='Y年m月d日 H时i分',###}
+			   		 {$meet.meet_time|date='w',###|numToWeek}</td>
+			    <td width="324">会议地点：{$meet.meet_place|idToMeetPlace}</td>
+			  </tr>
+			  <tr>
+			    <td height="60" colspan="2"><p>会议内容：{$meet.meet_content}</p>
+			    <p>&nbsp;</p></td>
+			  </tr>
+			  <tr>
+			    <td height="76" colspan="2"><p>我局参加会议科室或人员：{$meet.attend_people|IdsToNames=','}</p>
+			    <p>&nbsp;</p></td>
+			  </tr>
+			  <tr>
+			    <td colspan="2"><table width="613" height="31" border="0" cellpadding="0">
+			      <tr>
+			        <td width="277">通知会议科室：{$meet.apply_department|idToDep}</td>
+			        <td width="326">通知会议日期：{$notify.publish_time|date='Y-m-d H:i',###}</td>
+			      </tr>
+			    </table></td>
+			  </tr>
+			  <tr>
+			    <td colspan="2"><table width="614" height="28" border="0" cellpadding="0">
+			      <tr>
+			        <td width="249">会务联系人：{$meet.apply_person|IdToName}</td>
+			        <td width="358">联系电话：{$meet.meet_contact}</td>
+			      </tr>
+			    </table></td>
+			  </tr>
+			  <tr>
+			    <td height="39" colspan="2"><p>备注：{$meet.meet_service|idToMeetService}</p></td>
+			  </tr>
+			</table>
+
+			
+		</div>
+		</div>
+	</if>
+	<if condition='$source eq "inspect"'>
+		<div align="center">
+			<u><h3 >督察事项</h3></u>
+			<table width="600" height="200" border="1" cellpadding="1" cellspacing="0" style="background-color:white;">
+				<tr>
+					<td>发布人：	</td>
+					<td>{$inspect.send_person|IdToName}</td>
+				</tr>
+				<tr>
+					<td>发布时间：</td>
+					<td>{$inspect.send_time|date='Y-m-d H:i:s',###}</td>
+				</tr>
+				<tr>
+					<td>文件内容：</td>
+					<td><a href="UPLOAD_PATH{$inspect['file_savename']}" target='_blank'>{$inspect.file_name}</a></td>
+				</tr>
+			</table>
+
+
+
+			<!--
+			<div>发布人：{$inspect.send_person|IdToName}</div>
+			<div>&nbsp;</div>
+			<div>发布时间：{$inspect.send_time|date='Y-m-d H:i:s',###}</div>
+			<div>&nbsp;</div>
+			<div>
+				文件内容：
+				<a href="UPLOAD_PATH{$inspect['file_savename']}" target='_blank'>{$inspect.file_name}</a>
+			</div>
+			-->
+			</div>
+	</if>
+</div>
+
+</body>
+</html>

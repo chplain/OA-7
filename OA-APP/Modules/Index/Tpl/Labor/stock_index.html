@@ -1,0 +1,159 @@
+<include file='Common:header'/>
+
+<css file='__PUBLIC__/css/labor.css'/>
+<style>
+	table th{font-size:15px;}
+</style>
+<include file='Common:top'/>
+
+<js file='__PUBLIC__/js/jquery.min.js'/>
+<js file='__PUBLIC__/js/labor.js'/>
+<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>劳资管理</li>
+			<li><a href="{:U('Index/Labor/stock_index')}">库存管理</a></li>
+			
+		</ul>
+    </div>
+<div id='stock_index' class='someSpace'>
+	
+	
+	<div align='center' style='float:left; margin-bottom:20px;'>
+		<form action="{:U('Index/Labor/stock_index',array('from'=>'search'))}" method='post' style='float:left;padding-top:0px;'>
+			<span>起始时间：</span><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' >
+			<span>终止时间：</span><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' >
+			<span>分类：</span>
+			<select name="class" >
+				<option value="0" <if condition='$classselect eq 0'>selected</if>>===请选择===</option>
+				<option value="1" <if condition='$classselect eq 1'>selected</if>>水电材料</option>
+				<option value="2" <if condition='$classselect eq 2'>selected</if>>办公用品</option>
+				<option value="3" <if condition='$classselect eq 3'>selected</if>>其他用品</option>
+			</select>
+			<input type="submit" value='查询'>
+		</form>
+		<div align='center' style='float:right;margin-left:100px;'>
+			<span class='addStock_btn'><a href="#" id='stockTable'>添加库存单</a></span>
+			<br>
+		</div>
+		
+	</div>
+	<br><br>
+	<table class="bordered"  id="tableNodifyManage" style="width:90%;">
+		<tr>
+			<th width="6%">序号</th>
+			<th width="18%">物品名称</th>
+			<th width="10%">物品类别</th>
+			<th width="10%">入库时间</th>
+			<th width="10%">入库数量</th>
+			<th width="6%">金额</th>
+			<th width="10%">出库数量</th>
+			<th width="10%">库存数量</th>
+			<th width="10%">添加人</th>
+			<th width="10%">操作</th>
+		</tr>
+		<volist name='stock' id='v' key='key'>
+			<tr>
+				<td width="6%">{$key}</td>
+				<td width="18%">{$v.name}</td>
+				<td width="10%">{$v.class|stockClassToName}</td>
+				<td width="10%">{$v.instock_time|date='Y-m-d',###}</td>
+				<td width="10%">{$v.instock_num}</td>
+				<td width="6%">{$v.money}</td>
+				<td width="10%">{$v.outstock_num}</td>
+				<td width="10%">{$v.stock_num}</td>
+				<td width="10%">{$v.operator|IdToName}</td>
+				<td width="10%">
+					[<a href="#" vid='{$v["id"]}' class='modifyStock_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteStock',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</td>
+			</tr>
+		</volist>
+		<tr>
+			<td><b>合计</b></td>
+			<td><b>{$sum_name}</b></td>
+			<td><b>{$sum_class}</b></td>
+			<td><b>空</b></td>
+			<td><b>{$sum_instock_num}</b></td>
+			<td><b>{$sum_money}</b></td>
+			<td><b>{$sum_outstock_num}</b></td>
+			<td><b>{$sum_stock_num}</b></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="10">
+				{$page}
+				<if condition='$stock eq NULL'>暂无库存信息</if>
+				<form action="{:U('Index/Labor/excel_stock')}" method='post' align='right' style='float:right;margin-right:20px;'>
+					<foreach name='forExcel' item='v'>
+						<input type="hidden" name='forExcel[]' value='{$v.id}'>
+					</foreach>
+					<button>导出Excel</button>
+				</form>	
+			</td>
+				
+		</tr>
+	</table>
+	<!-- <div class='common_list'>
+		<div class='common_list_bar'>
+			<div class='common_list_bar0'>序号</div>
+			<div class='common_list_bar1'>物品名称</div>
+			<div class='common_list_bar2'>物品类别</div>
+			<div class='common_list_bar3'>入库时间</div>
+			<div class='common_list_bar4'>入库数量</div>
+			<div class='common_list_bar5'>金额</div>
+			<div class='common_list_bar6'>出库数量</div>
+			<div class='common_list_bar7'>库存数量</div>
+			<div class='common_list_bar8'>添加人</div>
+			<div class='common_list_bar9'>操作</div>
+		</div>
+		
+		<volist name='stock' id='v' key='key'>
+			<if condition='is_odd($key)'>
+				<div class='common_list_content' style='background-color:#E0FFFF;'>
+				<else/>
+				<div class='common_list_content' style='background-color:#CCCCCC;'>
+			</if>
+				<div class='common_list_bar0'>{$key}&nbsp;</div>
+				<div class='common_list_bar1'>{$v.name}&nbsp;</div>
+				<div class='common_list_bar2'>{$v.class|stockClassToName}&nbsp;</div>
+				<div class='common_list_bar3'>{$v.instock_time|date='Y-m-d',###}&nbsp;</div>
+				<div class='common_list_bar4'>{$v.instock_num}&nbsp;</div>
+				<div class='common_list_bar5'>{$v.money}&nbsp;</div>
+				<div class='common_list_bar6'>{$v.outstock_num}&nbsp;</div>
+				<div class='common_list_bar7'>{$v.stock_num}&nbsp;</div>
+				<div class='common_list_bar8'>{$v.operator|IdToName}&nbsp;</div>
+				<div class='common_list_bar9'>
+					[<a href="#" vid='{$v["id"]}' class='modifyStock_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteStock',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</div>
+			</div>
+		</volist>
+		<div class='common_list_content'>
+				<div class='common_list_bar0'><b>合计</b></div>
+				<div class='common_list_bar1'><b>{$sum_name}</b></div>
+				<div class='common_list_bar2'><b>{$sum_class}</b></div>
+				<div class='common_list_bar3'><b>空</b></div>
+				<div class='common_list_bar4'><b>{$sum_instock_num}</b></div>
+				<div class='common_list_bar5'><b>{$sum_money}</b></div>
+				<div class='common_list_bar6'><b>{$sum_outstock_num}</b></div>
+				<div class='common_list_bar7'><b>{$sum_stock_num}</b></div>
+				<div class='common_list_bar8'><b></b></div>
+				<div class='common_list_bar9'><b></b></div>
+		</div>
+		<div class='common_list_foot'>
+			{$page}
+			<if condition='$stock eq NULL'>暂无库存信息</if>
+			<form action="{:U('Index/Labor/excel_stock')}" method='post' align='right' style='float:right;margin-right:20px;'>
+				<foreach name='stock' item='v'>
+					<input type="hidden" name='forExcel[]' value='{$v.id}'>
+				</foreach>
+				<button>导出Excel</button>
+			</form>			
+		</div>
+	</div> -->
+</div>
+
+<include file='Common:footer'/>

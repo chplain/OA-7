@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<css file='__PUBLIC__/css/labor.css'/>
+	<title>添加乡镇</title>
+</head>
+<body>
+	<div  id='stockClass_table'>
+		<a href="{:U('Index/Petition/addTown')}">添加乡镇</a>
+		<div id='stockClass-in'>
+			<table class="table" align='center'>
+				<tr>
+					<th>序号</th>
+					<th>名字</th>
+					<th>操作</th>
+				</tr>
+				<volist name='town' id='v' key='key'>
+					<tr>
+						<td>{$key}</td>
+						<td>{$v.name}</td>
+						<td>
+							[<a href="{:U('Index/Petition/modifyTown',array('id'=>$v['id']))}">修改</a>]
+							[<a href="{:U('Index/Petition/deleteTown',array('id'=>$v['id']))}" class='delete'>删除</a>]
+						</td>
+					</tr>
+				</volist>
+				<if condition='$town eq null'>
+					<tr>
+						<td colspan="3">暂无数据</td>
+					</tr>
+				</if>
+			</table>
+			<div align="center"><button onclick="javascript:window.close();">关闭窗口</button></div>
+		</div>
+	</div>
+</body>
+</html>

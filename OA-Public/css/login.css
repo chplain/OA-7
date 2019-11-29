@@ -1,0 +1,62 @@
+body{
+	margin:0px;
+	padding:0px;
+	background-image: url(../images/images/eg_bg_03.gif);
+}
+#container{
+	width:1225px;
+	height:580px;
+	margin:auto;
+	background:url(../images/login/login_1.jpg) repeat-x;
+	overflow: hidden;
+}
+#left{
+	width:284px;
+	height:580px;
+	float: left;
+}
+#right{
+	width:941px;
+	height:580px;
+	background:url(../images/login/login_2.jpg) no-repeat;
+	float: left;
+}
+
+#msg{
+	float:left;
+	margin-top: 20px;
+	margin-left: 10px;
+	color: red;
+	font:normal 13px Arial;
+}
+#loginform{
+	margin-top:250px;
+	margin-left: 380px; 
+}
+
+.item{
+	text-align: center;
+	font:normal 14px "宋体";
+	color:#fff;
+}
+input[type=submit],
+input[type=reset]{
+	width: 85px;
+	height: 28px;
+	background: url(../images/login/btn1.jpg) repeat-x;
+	border:solid #5d7bb1;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+a{
+	font-size: 12px;
+	color:#fff;
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: underline;
+};
+a:visited{
+	color:black;
+};

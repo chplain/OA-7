@@ -1,0 +1,15 @@
+.STYLE1 {font-family: "宋体";font-size: 24px;font-weight: bold;}
+.num{width:20px;}
+.num[name*=year]{width:30px;}
+.indate{width:80%;}
+.remark{width:70%;}
+#addOneRow,#delOneRow{
+	color:blue;
+	text-decoration: none;
+	font:bold 13px "宋体";
+}
+#addOneRow:hover,#delOneRow:hover{
+	text-decoration: underline;
+}
+.STYLE2 {font-weight: bold;}
+.STYLE3 {font-size: 14px;}

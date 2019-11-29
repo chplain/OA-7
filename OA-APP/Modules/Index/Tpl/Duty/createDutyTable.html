@@ -1,0 +1,76 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<js file='__PUBLIC__/js/duty.js'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/duty_index')}">值班表管理</a></li>
+			<li><a href="#">生成值班表</a></li>
+		</ul>
+    </div>
+<div>
+	
+	<form action="{:U('Index/Duty/createHanle',array('gather_id'=>$gather['id']))}" method='post'>
+		<h2 align="center">
+		房山区环境保护局
+		<select name="year" id="">
+			<option value="2015" <if condition='$year eq 2015'>selected</if>>2015</option>
+			<option value="2016" <if condition='$year eq 2016'>selected</if>>2016</option>
+			<option value="2017" <if condition='$year eq 2017'>selected</if>>2017</option>
+		</select>年
+		<select name="month" id="">
+			<option value="1"  <if condition='$month eq 1'>selected</if>>1</option>
+			<option value="2"  <if condition='$month eq 2'>selected</if>>2</option>
+			<option value="3"  <if condition='$month eq 3'>selected</if>>3</option>
+			<option value="4"  <if condition='$month eq 4'>selected</if>>4</option>
+			<option value="5"  <if condition='$month eq 5'>selected</if>>5</option>
+			<option value="6"  <if condition='$month eq 6'>selected</if>>6</option>
+			<option value="7"  <if condition='$month eq 7'>selected</if>>7</option>
+			<option value="8"  <if condition='$month eq 8'>selected</if>>8</option>
+			<option value="9"  <if condition='$month eq 9'>selected</if>>9</option>
+			<option value="10"  <if condition='$month eq 10'>selected</if>>10</option>
+			<option value="11"  <if condition='$month eq 11'>selected</if>>11</option>
+			<option value="12"  <if condition='$month eq 12'>selected</if>>12</option>
+		</select>月值班表</h2>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;" >
+
+			<tr>
+				<th>值班日期</th>
+				<th>星期</th>
+				<th>带班领导</th>
+				<th>值班人员</th>
+				<th>备注</th>
+			</tr>
+			<foreach name='res' item='v'>
+				<tr>
+					<td>
+						{$v.date|date='Y-m-d',###}
+						<input type="hidden" name='dutyer[date][]' value="{$v.date}">
+					</td>
+					<td>{$v.date|date='w',###|numToWeek}</td>
+					<td>
+						{$v.leader|IdToName}
+						<input type="hidden" name='dutyer[leader][]' value="{$v.leader}">
+					</td>
+					<td>
+						{$v.dutyer|IdsToNames=','}
+						<input type="hidden" name='dutyer[dutyer][]' value="{$v.dutyer}">
+					</td>
+					<td>
+						<textarea name='dutyer[remark][]' id=""></textarea>
+					</td>
+				</tr>
+			</foreach>
+		</table>
+		<div align='center'>
+			<if condition='$gather eq null'>
+				<input type="submit" value='生成值班表'>
+				<else/>
+				<input type="submit" value='修改值班表'>
+			</if>
+		</div>
+	</form>
+</div>
+
+<include file='Common:footer'/>

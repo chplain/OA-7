@@ -1,0 +1,167 @@
+<include file='top'/>
+<!-- 上报 -->
+<div id='right'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/information_index')}">信息统计</a></li>
+		</ul>
+    </div>
+
+	<div class='middle'>
+		<div class='content'>
+			<div id='index_table'>
+				<div>
+					<span>科室：</span>
+					<!-- <select name="dep" style='height:25px;'>
+						  <option value="0">======请选择======</option>
+						  <option value="1">办公室</option>
+						  <option value="2">总量控制科</option>
+						  <option value="3">大气污染防治办公室</option>
+						  <option value="4">综合管理科</option>
+						  <option value="5">规划和环境影响评价科</option>
+						  <option value="6">监控中心</option>
+						  <option value="7">辐射所</option>
+						  <option value="8">机关服务部</option>
+						  <option value="9">环保协会</option>
+						  <option value="10">环境监查支队</option>
+						  <option value="11">环境保护检测站</option>
+						  <option value="12">机动车排放管理站</option>
+					 </select> -->
+					 <select name="dep" id="" style='height:25px;'>
+						<option value="">=====选择科室=====</option>
+						<foreach name='dep' item='v'>
+							<if condition='$v["id"] neq 6 and $v["id"] neq 8 and $v["id"] neq 9'>
+								<option value="{$v.id}">{$v.name}</option>
+							</if>
+						</foreach>
+					</select>
+					 &nbsp;&nbsp;&nbsp;&nbsp;
+					 <span>是否上报：</span>
+					 <input type="radio" name='isReported' value='1' checked>是
+					 <input type="radio" name='isReported' value='0'>否
+					 &nbsp;&nbsp;&nbsp;&nbsp;
+					 <button id='index_search' style='height:25px;width:50px;'>查询</button>
+				</div>
+				<div id='msg' >
+					<table width="829" height="148"  class="bordered"  id="tableNodifyManage" align='center'>
+						  <tr> 
+						    <th width="42" height="30" style='text-align:center;'>序号</th>
+						    <th width="120" style='text-align:center;'>科室</th>
+						    <th width="97" style='text-align:center;'>上报日期</th>
+						    <th width="151" style='text-align:center;'>信息名称</th>
+						    <th width="46" style='text-align:center;'>是否上报</th>
+						    <th width="47" style='text-align:center;'>房山动态</th>
+						    <th width="39" style='text-align:center;'>政务信息</th>
+						    <th width="43" style='text-align:center;'>房山信息</th>
+						    <th width="45" style='text-align:center;'>昨日区情</th>
+						    <th width="50" style='text-align:center;'>房山报</th>
+						    <th width="57" style='text-align:center;'>北京环保信息</th>
+						    <th width="42" style='text-align:center;'>合计</th>
+						  </tr>
+						  <volist name='report' id='vo' empty='暂时没有数据' key='k'>
+						  		 <tr>
+								    <td height="41" style='text-align:center;'>{$k}</td>
+								    <td style='text-align:center;'>{$vo.rep_dep|idToDep}</td>
+								     <td style='text-align:center;'>{$vo.rep_time|date='Y-n-j',###}</td>
+								    <td style='text-align:center;'>{$vo.title}</td>
+								    <td style='text-align:center;'>
+								    	<if condition='$vo.isReported eq 1'>已上报
+								    	<else/>未上报</if>
+								    </td>
+								    <td style='text-align:center;'>{$vo.id|isThisPos='1'}</td>
+								    <td style='text-align:center;'>{$vo.id|isThisPos='2'}</td>
+								    <td style='text-align:center;'>{$vo.id|isThisPos='3'}</td>
+								    <td style='text-align:center;'>{$vo.id|isThisPos='4'}</td>
+								    <td style='text-align:center;'>{$vo.id|isThisPos='5'}</td>
+								    <td style='text-align:center;'>{$vo.id|isThisPos='6'}</td>
+								    <td></td>
+								   
+								  </tr>
+						  </volist>
+						   <tr>
+							    <td height="21" style='text-align:center;'>总计（条）</td>
+							    <td></td>
+							     <td></td>
+							    <td style='text-align:center;'>{$M1}</td>
+							    <td style='text-align:center;'>{$M2}</td>
+							    <td style='text-align:center;'>{$NN[1]}</td>
+							    <td style='text-align:center;'>{$NN[2]}</td>
+							    <td style='text-align:center;'>{$NN[3]}</td>
+							    <td style='text-align:center;'>{$NN[4]}</td>
+							    <td style='text-align:center;'>{$NN[5]}</td>
+							    <td style='text-align:center;'>{$NN[6]}</td>
+							    <td style='text-align:center;'>{$N}</td>
+							   
+							  </tr>
+							  <tr>
+							  	<td colspan="12">{$page}</td>
+							  </tr>
+						</table>
+				</div>
+				<div id='word'>
+					<h3 style='font-size:15px;'>各科室信息上报和采用情况</h3>
+					<form action="{:U('Index/Information/adopt_word')}" method='post'>
+						<table class="bordered"  id="tableNodifyManage">
+							<tr>
+								<td colspan='3'>标题：房山环保信息 <input type="text" name='issue'  style='width:50px;'> 期（总第 <input type="text" name='totalIssue' style='width:50px;'> 期）</td>
+							</tr>
+							<tr>
+								<td>起始时间
+									<input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM'})" value=''></td>
+							
+								<td>终止时间
+									<input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM'})" value=''></td>
+							
+								<!-- <td >科室
+									<select name="dep" id="">
+										<option value="">===选择科室===</option>
+										<option value="0">所有科室</option>
+										<foreach name='dep' item='v'>
+											<option value="{$v.id}">{$v.name}</option>
+										</foreach>
+									</select>
+								</td> -->
+								<td><button>Word导出</button></td>
+							</tr>
+						</table>
+						<!-- <select name="year">
+							<option value="2014">2014</option>
+							<option value="2015" selected>2015</option>
+							<option value="2016">2016</option>
+						</select>
+						<span>年 </span>
+						<span>季度：</span>
+						<select name="season">
+							<option value="1">第一季度</option>
+							<option value="2">第二季度</option>
+							<option value="3">第三季度</option>
+							<option value="4">第四季度</option>
+						</select> -->
+						
+					</form>
+				</div>
+		    </div>
+			  
+		</div>
+
+
+	</div>
+	
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+<include file='foot'/>

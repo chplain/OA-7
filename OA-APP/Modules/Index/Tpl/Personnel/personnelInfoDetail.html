@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>人事信息详情</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div>
+		<h3 align="center">北京市房山区环境保护局人员基本情况</h3>
+		<table width="5501" height="127" border="1" cellpadding="1" cellspacing="0" bordercolor="#000000" style="background-color: white;">
+			  <tr>
+			    <td width="52" height="46"><div align="center"><strong>序号</strong></div></td>
+			    <td width="158"><div align="center"><strong>身份证号</strong></div></td>
+			    <td width="158"><div align="center"><strong>单位全称</strong></div></td>
+			    <td width="108"><div align="center"><strong>姓名</strong></div></td>
+			    <td width="55"><div align="center"><strong>性别</strong></div></td>
+			    <td width="57"><div align="center"><strong>民族</strong></div></td>
+			    <td width="56"><div align="center"><strong>出生日期</strong></div></td>
+			    <td width="85"><div align="center"><strong>参加工作时间</strong></div></td>
+			    <td width="56"><div align="center"><strong>退休年月</strong></div></td>
+			    <td width="56"><div align="center"><strong>本人身份</strong></div></td>
+			    <td width="56"><div align="center"><strong>政治面貌</strong></div></td>
+			    <td width="85"><div align="center"><strong>参加组织时间</strong></div></td>
+			    <td width="56"><div align="center"><strong>现任职务</strong></div></td>
+			    <td width="71"><div align="center"><strong>任现职时间</strong></div></td>
+			    <td width="57"><div align="center"><strong>现任级别</strong></div></td>
+			    <td width="85"><div align="center"><strong>任现级别时间</strong></div></td>
+			    <td width="56"><div align="center"><strong>第一学历</strong></div></td>
+			    <td width="107"><div align="center"><strong>第一学历取得时间</strong></div></td>
+			    <td width="116"><div align="center"><strong>第一学历毕业学校</strong></div></td>
+			    <td width="93"><div align="center"><strong>现学历</strong></div></td>
+			    <td width="107"><div align="center"><strong>现学历取得时间</strong></div></td>
+			    <td width="100"><div align="center"><strong>现学历毕业学校</strong></div></td>
+			    <td width="88"><div align="center"><strong>到本单位方式</strong></div></td>
+			    <td width="108"><div align="center"><strong>到本单位时间</strong></div></td>
+			    <td width="167"><div align="center"><strong>到本单位前工作单位名称</strong></div></td>
+			    <td width="116"><div align="center"><strong>原单位级别及职务</strong></div></td>
+			    <td width="107"><div align="center"><strong>籍贯</strong></div></td>
+			    <td width="111"><div align="center"><strong>技术职称</strong></div></td>
+			    <td width="166"><div align="center"><strong>原岗位等级</strong></div></td>
+			    <td width="160"><div align="center"><strong>现岗位等级</strong></div></td>
+			    <td width="136"><div align="center"><strong>首次聘在现岗位等级的时间</strong></div></td>
+			    <td width="104"><div align="center"><strong>聘用现岗位期限</strong></div></td>
+			    <td width="120"><div align="center"><strong>现岗位聘用续签时间</strong></div></td>
+			    <td width="116"><div align="center"><strong>是否执行聘用岗位的工资</strong></div></td>
+			    <td width="134"><div align="center"><strong>事业人员聘用合同期限</strong></div></td>
+			    <td width="179"><div align="center"><strong>事业人员聘用合同续签时间</strong></div></td>
+			    <td width="107"><div align="center"><strong>转正定级时间</strong></div></td>
+			    <td width="121"><div align="center"><strong>编制所在科室</strong></div></td>
+			    <td width="124"><div align="center"><strong>现在所在科室</strong></div></td>
+			    <td width="149"><div align="center"><strong>职级信息（任职）</strong></div></td>
+			    <td width="160"><div align="center"><strong>专业技术职务信息</strong></div></td>
+			    <td width="170"><div align="center"><strong>学历信息</strong></div></td>
+			    <td width="132"><div align="center"><strong>家庭成员信息</strong></div></td>
+			    <td width="155"><div align="center"><strong>培训信息</strong></div></td>
+			    <td width="148"><div align="center"><strong>奖惩信息</strong></div></td>
+			    <td width="146"><div align="center"><strong>工作履历信息</strong></div></td>
+			    <td width="161"><div align="center"><strong>备注</strong></div></td>
+			  </tr>
+			  <if condition='$flag eq ""'>			  
+			  <tr>
+			    <td height="73"><div align="center">1</div></td>
+			    <td><div align="center">{$v.identify}</div></td>
+			    <td><div align="center">{$v.dep|idToDep}</div></td>
+			    <td><div align="center">{$v.name}</div></td>
+			    <td><div align="center"><if condition='$v["sex"] eq 1'>男<else/>女</if></div></td>
+			    <td><div align="center">{$v.nation}</div></td>
+			    <td><div align="center">{$v.birth}</div></td>
+			    <td><div align="center">{$v.part_work}</div></td>
+			    <td><div align="center">{$v.retire_time}</div></td>
+			    <td><div align="center">{$v.shenfen}</div></td>
+			    <td><div align="center">{$v.politic}</div></td>
+			    <td><div align="center">{$v.part_group}</div></td>
+			    <td><div align="center">{$v.now_pos}</div></td>
+			    <td><div align="center">{$v.now_pos_time}</div></td>
+			    <td><div align="center">{$v.now_level}</div></td>
+			    <td><div align="center">{$v.now_level_time}</div></td>
+			    <td><div align="center">{$v.first_edu}</div></td>
+			    <td><div align="center">{$v.first_edu_time}</div></td>
+			    <td><div align="center">{$v.first_edu_school}</div></td>
+			    <td><div align="center">{$v.now_edu}</div></td>
+			    <td><div align="center">{$v.now_edu_time}</div></td>
+			    <td><div align="center">{$v.now_edu_school}</div></td>
+			    <td><div align="center">{$v.come_type}</div></td>
+			    <td><div align="center">{$v.come_time}</div></td>
+			    <td><div align="center">{$v.come_ahead_unit}</div></td>
+			    <td><div align="center">{$v.come_ahead_level_pos}</div></td>
+			    <td><div align="center">{$v.hometown}</div></td>
+			    <td><div align="center">{$v.tech_pos}</div></td>
+			    <td><div align="center">{$v.old_poslevel}</div></td>
+			    <td><div align="center">{$v.now_poslevel}</div></td>
+			    <td><div align="center">{$v.first_nowpos_time}</div></td>
+			    <td><div align="center">{$v.now_term_stime}至{$v.now_term_etime}</div></td>
+			    <td><div align="center">{$v.now_continue_time}</div></td>
+			    <td><div align="center"><if condition='$info["isUseWage"] eq 1'>是<else/>否</if></div></td>
+			    <td><div align="center">{$v.public_continue_time_stime}至{$v.public_continue_time_etime}</div></td>
+			    <td><div align="center">{$v.public_again_time}</div></td>
+			    <td><div align="center">{$v.covert_regular_time}</div></td>
+			    <td><div align="center">{$v.come_dep}</div></td>
+			    <td><div align="center">{$v.now_dep}</div></td>
+			    <td><div align="center">{$v.rankInfo_rank}&nbsp;{$v.rankInfo_approve_time}&nbsp;{$v.rankInfo_end_time}</div></td>
+			    <td><div align="center">{$v.pro_rank}&nbsp;{$v.pro_approve_time}&nbsp;{$v.pro_end_time}</div></td>
+			    <td><div align="center">{$v.edu}</div></td>
+			    <td><div align="center">{$v.family}</div></td>
+			    <td><div align="center">{$v.train}</div></td>
+			    <td><div align="center">{$v.reward}</div></td>
+			    <td><div align="center">{$v.work_experience}</div></td>
+			    <td><div align="center">{$v.remark}</div></td>
+			  </tr>
+		  	</if>
+		  	<if condition='$flag neq ""'>	
+		  	 <volist name='info' id='v' key='key'>
+			  <tr>
+			    <td height="73"><div align="center">{$key}</div></td>
+			    <td><div align="center">{$v.identify}</div></td>
+			    <td><div align="center">{$v.dep|idToDep}</div></td>
+			    <td><div align="center">{$v.name}</div></td>
+			    <td><div align="center"><if condition='$v["sex"] eq 1'>男<else/>女</if></div></td>
+			    <td><div align="center">{$v.nation}</div></td>
+			    <td><div align="center">{$v.birth}</div></td>
+			    <td><div align="center">{$v.part_work}</div></td>
+			    <td><div align="center">{$v.retire_time}</div></td>
+			    <td><div align="center">{$v.shenfen}</div></td>
+			    <td><div align="center">{$v.politic}</div></td>
+			    <td><div align="center">{$v.part_group}</div></td>
+			    <td><div align="center">{$v.now_pos}</div></td>
+			    <td><div align="center">{$v.now_pos_time}</div></td>
+			    <td><div align="center">{$v.now_level}</div></td>
+			    <td><div align="center">{$v.now_level_time}</div></td>
+			    <td><div align="center">{$v.first_edu}</div></td>
+			    <td><div align="center">{$v.first_edu_time}</div></td>
+			    <td><div align="center">{$v.first_edu_school}</div></td>
+			    <td><div align="center">{$v.now_edu}</div></td>
+			    <td><div align="center">{$v.now_edu_time}</div></td>
+			    <td><div align="center">{$v.now_edu_school}</div></td>
+			    <td><div align="center">{$v.come_type}</div></td>
+			    <td><div align="center">{$v.come_time}</div></td>
+			    <td><div align="center">{$v.come_ahead_unit}</div></td>
+			    <td><div align="center">{$v.come_ahead_level_pos}</div></td>
+			    <td><div align="center">{$v.hometown}</div></td>
+			    <td><div align="center">{$v.tech_pos}</div></td>
+			    <td><div align="center">{$v.old_poslevel}</div></td>
+			    <td><div align="center">{$v.now_poslevel}</div></td>
+			    <td><div align="center">{$v.first_nowpos_time}</div></td>
+			    <td><div align="center">{$v.now_term_stime}至{$v.now_term_etime}</div></td>
+			    <td><div align="center">{$v.now_continue_time}</div></td>
+			    <td><div align="center"><if condition='$v["isUseWage"] eq 1'>是<else/>否</if></div></td>
+			    <td><div align="center">{$v.public_continue_time_stime}至{$v.public_continue_time_etime}</div></td>
+			    <td><div align="center">{$v.public_again_time}</div></td>
+			    <td><div align="center">{$v.covert_regular_time}</div></td>
+			    <td><div align="center">{$v.come_dep}</div></td>
+			    <td><div align="center">{$v.now_dep}</div></td>
+			    <td><div align="center">{$v.rankInfo_rank}&nbsp;{$v.rankInfo_approve_time}&nbsp;{$v.rankInfo_end_time}</div></td>
+			    <td><div align="center">{$v.pro_rank}&nbsp;{$v.pro_approve_time}&nbsp;{$v.pro_end_time}</div></td>
+			    <td><div align="center">{$v.edu}</div></td>
+			    <td><div align="center">{$v.family}</div></td>
+			    <td><div align="center">{$v.train}</div></td>
+			    <td><div align="center">{$v.reward}</div></td>
+			    <td><div align="center">{$v.work_experience}</div></td>
+			    <td><div align="center">{$v.remark}</div></td>
+			  </tr>
+			</volist>
+		  	</if>
+			</table>
+	</div>
+</body>
+</html>

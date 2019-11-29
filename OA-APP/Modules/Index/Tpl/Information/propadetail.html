@@ -1,0 +1,141 @@
+<include file='top'/>
+<style>
+	.large{
+		font:bold 15px "宋体";
+	}
+</style>
+<!-- 上报 -->
+<div id='rightNew'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<if condition='$from eq "propa"'>
+				<img src="__PUBLIC__/images/info/hint7.jpg" alt="hint">
+			</if>
+			<if condition='$from eq "mypropa"'>
+				<img src="__PUBLIC__/images/info/hint8.jpg" alt="hint">
+			</if>
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<if condition='$from eq "propa"'>
+				<li><a href="{:U('Index/Information/propa')}">宣传任务</a></li>
+				<li>宣传任务详情</li>
+			</if>
+			<if condition='$from eq "mypropa"'>
+				<li><a href="{:U('Index/Information/mypropa')}">我的任务</a></li>
+				<li>我的任务详情</li>
+			</if>
+		</ul>
+    </div>
+
+	<div class='middleNew'  style='margin:30px;padding:10px;'>
+		<div class='content' style='width:100%;'>
+			<div id='detail'>
+				<div align='center' style='font:bold 17px "宋体";'>{$propa.title}</div>
+					<div class='large'>附加说明：{$propa.content}</div>
+					<div class='large'>
+						责任科室：
+						<foreach name='deps' item='v'>
+							<span>{$v|idToDep}</span>&nbsp;
+						</foreach>
+					</div>
+					<div class='large'>
+						责任人：<if condition='$propaers eq null'>无</if>
+						<foreach name='propaers' item='v'>
+							<span>{$v|IdToName}</span>&nbsp;
+						</foreach>
+					</div>
+					<div class='foot'>
+						<span  class='large'>办公室：{$propa.sender|IdToName}</span><br>
+						<span  class='large'>{$propa.send_time|date='Y-n-j H:i',###}</span>
+					</div>
+			</div>
+			<if condition='$from eq "propa" and $subs neq NULL'>
+				<br><br><br>
+			
+					<table  class='bordered' id='tableNodifyManage' style='width:680px;margin-left:100px;'>
+						<tr>
+							<th style='width:400px;'>作品名</th>
+							<th style='width:100px;'>提交人</th>
+							<th style='width:90px;'>日期</th>
+							<th style='width:90px;'>操作</th>
+						</tr>
+						<foreach name='subs' item='v'>
+							<tr>
+								<td align='center'>{$v.title}</td>
+								<td align='center'>{$v.suber|IdToName}</td>
+								<td align='center'>{$v.sub_time|date='Y-n-j',###}</td>
+								<td align='center'>[<a href="UPLOAD_PATH{$v['file_savename']}" target='_blank'>下载</a>]</td>
+							</tr>
+						</foreach>
+					</table>
+				
+			</if>
+			<if condition='$from eq "mypropa" and $hasSubed eq 0'>
+				<br><br><br>
+				<div id='mypropa'>
+					<form action="{:U('Index/Information/subPropa',array('id'=>$propa['id']))}" method='post' enctype='multipart/form-data'>
+						<table class='bordered' id='tableNodifyManage' style='width:680px;margin-left:100px;'>
+							<tr>
+								<th colspan="2">请上报您的选题</th>
+							</tr>
+							<tr>
+								<td align='right'><span>标题：</span></td>
+								<td><input type="text" name='title' style='width:500px;height:20px;'></td>
+							</tr>
+							<tr></tr>
+							<tr>
+								<td align='right'><span>正文：</span></td>
+								<td><textarea name="content" style='width:500px;height:70px;'></textarea></td>
+							</tr>
+							<tr></tr>
+							<tr>
+								<td align='right'>附件：</td>
+								<td><input type="file" name='file'></td>
+							</tr>
+							<tr></tr>
+							<tr>
+								<td colspan='2' align='center'>
+									<input type="submit" value='提交'>
+									<input type="reset" value='重置'>
+								</td>
+							</tr>
+						
+						</table>
+					</form>
+				</div>
+			</if>
+			<if condition='$from eq "mypropa" and $hasSubed neq 0'>
+				<table class='bordered' id='tableNodifyManage'>
+					<tr>
+						<th colspan="4">您已经提交过作品</th>
+					</tr>
+					<tr>
+						<td>作品名：</td>
+						<td>{$mypropa.file_name}</td>
+						<td>[<a href="UPLOAD_PATH{$mypropa['file_savename']}" target='_blank'>下载</a>]</td>
+						<td>[<a href="{:U('Index/Information/deleteMyPropa',array('id'=>$mypropa['id']))}" id=
+						'delete'>删除</a>]</td>
+					</tr>
+					
+				</table>					
+
+			</if>
+
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+<include file='foot'/>

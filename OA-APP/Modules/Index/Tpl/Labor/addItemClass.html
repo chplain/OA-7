@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/labor.css'/>
+	<title>增加分类</title>
+</head>
+<body>
+	<div id='addStockClass_table'>
+		<br>
+		&nbsp;<a href="javascript:history.go(-1);"><button>&lt;&lt;返回</button></a>
+		<div id='addStockClass-in'>
+		<form action="{:U('Index/Labor/addItemClassHandle')}" method='post'>
+			<table>
+				<tr>
+					<td align='right'>上一级分类：</td>
+					<td>{$name}</td>
+				</tr>
+				<tr>
+					<td align='right'>名称：</td>
+					<td>
+						<input type="text" name='name'/>
+						请不要使用圆括号“(”和“)”
+					</td>
+				</tr>
+				<tr>
+					<td align='center' colspan='2'>
+						<input type="hidden" name='pid' value='{$pid}'/>
+						<input type="hidden" name='level' value='{$level}'/>
+						<input type="submit" value='添加'/>
+					</td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+</body>
+</html>

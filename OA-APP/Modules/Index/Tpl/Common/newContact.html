@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+<!-- *************通讯录*************************************************************** -->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/>
+	<script type="text/javascript" src="__PUBLIC__/js/SimpleTree/SimpleTree.js"></script>
+
+	<js file='__PUBLIC__/js/contact.js'/>
+	<css file='__PUBLIC__/css/common.css'/>
+
+	<title>新版通讯录</title>
+</head>
+<body>
+	<div id='newContact'>
+		<div id='left'>
+			<input type="radio" name='group' value='1' checked/>组
+			<input type="radio" name='group' value='0'/>人员<br />
+
+			<div id='group' class='st_tree'>
+				<ul>
+					<a href="#" res='0'><li>局领导</li></a>
+				<foreach name='dep' item='v'>
+					<a href="#" res='{$v.id}'><li>{$v.name}</li></a>
+				</foreach>
+				</ul>
+			</div>
+			<div id='individual' class='st_tree' style='padding-left:0px;margin-left:0px;'>
+				<ul>
+					<li>局领导</li>
+					<ul>
+						<foreach name='leader' item='v'>
+							<a href="#" class='contactor' res='{$v.id}'><li><b  style='font:normal 12px "宋体";'>{$v.name}</b></li></a>
+						</foreach>
+					</ul>
+					<volist name='dep' id='v' key='key'>
+						<li>{$v.name}</li>
+						<ul>
+							<volist name="group[$v['id']]" id='vv'>
+								<a href="#" class='contactor'  res='{$vv.id}'><li><b  style='font:normal 12px "宋体";'>{$vv.name}</b></li></a>
+							</volist>
+						</ul>
+					</volist>
+				</ul>
+			</div>
+		</div>
+		<div id='right' style='padding-top:0px;'>
+			<b>已选择(点击移除)：</b>
+			<div id='border'>
+				<span id="msg_group"><a href="#" id='headhead'></a></span>
+				<span id="msg_individual"></span>
+			</div>
+			<br />
+			<div>
+				<button id='confirm'>确定选择</button>
+				<button id='cancel'>取消所选</button>
+			</div>
+			
+			
+		</div>
+	</div>
+</body>
+</html>

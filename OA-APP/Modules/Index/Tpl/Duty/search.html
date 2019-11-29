@@ -1,0 +1,76 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/search')}">值班查询</a></li>
+		</ul>
+    </div>
+<div id='duty_search'>
+	<div id='duty_search_search' align='left'>
+		<form action="{:U('Index/Duty/search',array('from'=>'search'))}" method='post'>
+			<!-- <span>起始日期：</span><input class="Wdate" type="text" name='sTime' onClick="WdatePicker({dateFmt:'yyyy-MM'})" value='' >
+			<span>终止日期：</span><input class="Wdate" type="text" name='eTime' onClick="WdatePicker({dateFmt:'yyyy-MM'})" value='' > -->
+			关键字查询：<input type="text" name='keyword'>
+			<input type="submit" value='查询'>
+		</form>
+	</div>
+	<table class="bordered"align='left' id="tableNodifyManage" style="width:90%;" >
+		<tr>
+			<th width='60%'>名称</th>
+			<th width='20%'>发布日期</th>
+			<th width='20%'>操作</th>
+		</tr>
+		<foreach name='duty' item='v'>
+			<tr>
+				<td width='60%'>{$v.title}</td>
+				<td width='20%'>
+					<if condition="$v['isPub'] eq true">
+						{$v.fresh_time|date='Y-m-d',###}
+						<else/>
+						未发布
+					</if>
+				</td>
+				<td width='20%'>
+					[<a href="{:U('Index/Duty/dutyGather_detail',array('id'=>$v['id']))}">查看</a>]
+				</td>
+			</tr>
+		</foreach>
+	</table>
+	<!-- <table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+		<tr>
+			<th>值班日期</th>
+			<th>星期</th>
+			<th>带班领导</th>
+			<th>值班人员</th>
+			<th>备注</th>
+		</tr>
+		<foreach name='duty' item='v'>
+			<tr>
+				<td>{$v.time|date='Y-m-d',###}</td>
+				<td>{$v.time|date='w',###|numToWeek}</td>
+				<td>{$v.leader|IdToName}</td>
+				<td>{$v.dutyer|IdsToNames=','}</td>
+				<td>{$v.remark}</td>
+			</tr>
+		</foreach>
+		<tr>
+			<td colspan='5' align='left'>
+				{$page}
+				<if condition='$duty eq NULL'>
+					暂无值班信息
+				<else/>
+					<form action="{:U('Index/Duty/excel')}" method='post' style='float:right;'>
+						<foreach name='forExcel' item='v'>
+							<input type="hidden" name='id[]' value='{$v.id}'>
+						</foreach>
+						<input type="submit" value='Excel导出'>
+					</form>
+				</if>
+			</td>
+		</tr>
+	</table> -->
+</div>
+
+<include file='Common:footer'/>

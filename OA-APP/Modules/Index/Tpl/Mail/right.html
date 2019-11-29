@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/mail.css'/>
+	<title>Document</title>
+</head>
+<body>
+	<div id='mail_right'>
+		<div id='bar'></div>
+		<div id='welcome'>
+			<span>{$welcome}，{$_SESSION['id']|IdToName}</span>
+		</div>
+		<div id='unread'>
+			<img src="__PUBLIC__/images/mail.png" alt="mail" /> 
+			<span>邮件：<b>{$unReadNum}</b>封未读邮件</span>
+		</div>
+		<div id='links'>
+			<a href="{:U('Index/Mail/receive')}">进入收件箱</a>
+		</div>
+	</div>
+</body>
+</html>

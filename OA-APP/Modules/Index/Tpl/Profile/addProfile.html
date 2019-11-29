@@ -1,0 +1,62 @@
+<include file='Common:header'/>
+<script type='text/javascript'>
+		window.UEDITOR_HOME_URL = '__CLASS__/ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameWidth = 800;
+			window.UEDITOR_CONFIG.initialFrameHeight = 350;
+			UE.getEditor('content');
+		};
+	</script>
+<include file='Common:top'/>
+<div class="place" style='margin-bottom:0px;'>
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li>个人文档管理</li>
+			<li><a href="{:U('Index/Profile/addProfile')}">添加文档</a></li>
+		</ul>
+    </div>
+<div id='profile'  >
+	<h2 align="center">添加个人文档</h2>
+	<form action="{:U('Index/Profile/addProfileHandle')}" method='post'>
+		<table class='bordered' id='tableNodifyManage' align='center' style='width:920px;'>
+			<tr>
+				<td colspan='2'>
+					<span>时间  </span>
+					<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{:now_time(true)}' >
+					<span>  类别  </span>
+					<select name="type" id="">
+						<option value="1">文本</option>
+						<option value="2">传送</option>
+					</select>
+				</td>
+			</tr>
+			<tr id='scope'>
+				<td style='width:120px;'><span>发布范围</span></td>
+				<td>
+					<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled></textarea>
+					<input type="hidden" name='group_id'>
+					<input type="hidden" name='individual_id'>
+					<a href="#" class='newContact'>增加</a>	
+				</td>
+			</tr>
+			<tr>
+				<td style='width:120px;'>标题</td>
+				<td align='left'><input type="text" name='title' style='width:400px;'></td>
+			</tr>
+			<tr>
+				<td>摘要(在此处添加附件)</td>
+				<td>
+					<textarea name="content" id="content" style='margin-left:0px;'></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value='提交'>
+					<input type="reset" value='重置'>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<include file='Common:footer'/>

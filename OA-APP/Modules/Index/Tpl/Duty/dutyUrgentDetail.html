@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/right_nav.css"/>
+	<title>应急值班表详情</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/dutyUrgentSearch')}">应急值班表查询</a></li>
+			<li><a href="#">详情</a></li>
+		</ul>
+    </div>
+	<div class='someSpace'>
+		
+		<button onclick="javascript:history.go(-1);">返回</button>
+		
+		<h3 align='center'>
+			{$duty['title']}
+			<a href="{:U('Index/Duty/excelDutyUrgent',array('id'=>$fid))}"><button>导出excel</button></a>
+			<span style='float:right;'>
+				<if condition='$duty["isApproved"] eq 1'>
+					已发布
+					<else/>
+					<a href="{:U('Index/Duty/approveDutyUrgent',array('id'=>$duty['id']))}">
+						<button>确认发布</button>
+					</a>
+				</if>
+
+			</span>
+		</h3>
+		<table class="bordered" id="tableNodifyManage" style='width:100%;'>
+			<tr>
+				<th rowspan='2'>日期</th>
+				<th colspan='8'>应急值班</th>
+				<th colspan='3'>应急备班</th>
+			</tr>
+			<tr>
+				<th>带班领导</th>
+				<th>职务</th>
+				<th colspan="6">值班员(值班电话：60342001)</th>
+				<th>监测组</th>
+				<th>监察组</th>
+				<th>辐射组</th>
+			</tr>
+			<volist name='duty_item' id='v' key='key'>
+				<tr>
+					<td>{$v.duty_time|date='Y-m-d',###}{$v.duty_time|date='w',###|numToWeek}</td>
+					<td>{$v.leader|idToUrgentDutyNeed}</td>
+					<td>{$v.urgen_position}</td>
+					<td colspan='6'>
+						{$v.dutyer|idsToUrgentDutyNeed}
+					</td>
+					<td>
+						{$v.jianceDutyer|idsToUrgentDutyNeed}
+						
+					</td>
+					<td>
+						{$v.jianchaDutyer|idsToUrgentDutyNeed}
+						
+					</td>
+					<td>
+						{$v.fusheDutyer|idsToUrgentDutyNeed}
+						
+					</td>
+				</tr>
+			</volist>
+		</table>
+		<p>
+		<b>注意事项:</b>    <br>                                                                                                                                                                                                         1、24小时不能离岗，保证安全，保证联络畅通；2、加强巡逻，防止火灾和盗窃事件发生；<br>
+		3、有事及时向区委办公室和区政府办公室汇报；4、有事及时向局长或副局长汇报；<br>
+		5、值班时间从当天上午9：00至次日上午9：00。 <br>
+		6、监察组、监测组、辐射组人员备勤，当日不准外出。<br><br>
+		市环保局值班电话：68461267      顾金锁电话： 13901057303       孙爱华电话： 13910779292 <br>
+		市环保局应急办：  82566523      李素明电话： 13501168918       常云鹏电话： 13901228138 <br>
+		区委办电话：      89350001      于德华电话： 13601072048       <br>
+		区政府办电话：    89350012      胡玉江电话： 13910606192       <br>
+		区政府应急办电话：81381800      李  静电话： 13621016105      <br>
+		</p>
+	</div>
+</body>
+</html>

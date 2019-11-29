@@ -1,0 +1,192 @@
+#showMessPage{
+	width:97%;
+	height:100%;
+	margin-left:20px;
+}
+.homePage {
+	padding: 0px;
+	height: 250px;
+	width: 500px;
+	margin-top: 0px;
+	/*margin-left: 20px;*/
+	margin-right: 15px;
+	margin-bottom: 15px;
+	margin-left: 10px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-color: #9fd3f7;
+	border-bottom-color: #9fd3f7;
+	border-left-color: #9fd3f7;
+	float:left;
+}
+.homePage-head {
+	height: 33px;
+	
+	width: 500px;
+	/*background-image: url(../images/images/news-head%20beij.jpg);*/
+	/*background-color: #3E97C9;*/
+	background: url(../images/lefttop.gif)  repeat-x;
+}
+.homePage-head-right {
+	/*width: 200px;*/
+	
+	margin-right: 10px;
+	text-align: right;
+	line-height: 33px;
+	height: 33px;
+}
+.homePage-head-right a {
+	color: #fff;
+	text-decoration: none;
+}
+
+
+.homePage-in1 {
+	
+	height: 25px;
+	width: 263px;
+	margin-top: 21px;
+	margin-left: 10px;
+}
+.homePage-in1-1 {
+	height: 25px;
+	width: 211px;
+	
+	line-height: 25px;
+}
+.homePage-in1-2 {
+	
+	height: 25px;
+	width: 52px;
+}
+.homePage-in2 {
+	
+	height: 15px;
+	width: 91px;
+	margin-top: 36px;
+	margin-left: 30px;
+}
+.homePage-in2-1 {
+	
+	height: 15px;
+	width: 65px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #188ad8;
+}
+.homePage-in2-2 {
+	
+	height: 15px;
+	width: 26px;
+}
+.homePage-in3 {
+	
+	height: 96px;
+	width: 281px;
+}
+.homePage-in3 ul {
+	padding: 0px;
+	width: 281px;
+	margin-top: 15px;
+	margin-right: 12px;
+	margin-bottom: 0px;
+	margin-left: 50px;
+}
+.homePage-in3 li {
+	width: 74px;
+	height: 25px;
+	
+}
+
+.homePage-in4{
+	width:283px;
+	height:85px;
+	
+}
+.homePage-in4 ul {
+	margin: 0px;
+	padding: 0px;
+}
+.homePage-in4 li {
+	width: 100px;
+	height: 40px;
+	
+	margin-left: 25px;
+	list-style-type: none;
+}
+
+.mianleft-head-left {
+	/*background-image: url(../images/images/news-head.jpg);*/
+
+	margin: 0px;
+	float:left;
+	height: 33px;
+	line-height: 33px;
+	width: 50%;
+	line-height: 33px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 3px;
+}
+.mianleft-head-left2 {
+	height: 33px;
+	
+	width: 100%;
+	line-height: 33px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #FFFFFF;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+#mianleft-head-left2-1{
+	background: url(../js/SimpleTree/tree_themes/images/d04.png) no-repeat;
+	padding-left: 35px;
+}
+#mianleft-head-left2-2{
+	background: url(../js/SimpleTree/tree_themes/images/d02.png) no-repeat 1px;
+	padding-left: 35px;
+}
+#mianleft-head-left2-3{
+	background: url(../js/SimpleTree/tree_themes/images/d01.png) no-repeat ;
+	padding-left: 35px;
+}
+#mianleft-head-left2-4{
+	background: url(../js/SimpleTree/tree_themes/images/d03.png) no-repeat 1px;
+	padding-left: 35px;
+}
+
+.homePage2 {
+	padding: 0px;
+	
+	height: 150px;
+	width: 98%;
+	margin-top: 0px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 4px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-color: #9fd3f7;
+	border-bottom-color: #9fd3f7;
+	border-left-color: #9fd3f7;
+}
+.homePage2-head {
+	height: 33px;
+	
+	width: 100%;
+	/*background-image: url(../images/images/news-head%20beij.jpg);*/
+	background-color: #3E97C9;
+	background-repeat: repeat-x;
+}

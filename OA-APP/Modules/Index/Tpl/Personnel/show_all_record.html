@@ -1,0 +1,77 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/show_all_record')}">月记实表查询</a></li>
+		</ul>
+    </div>
+<div class='someSpace' align='center'>
+	&nbsp;
+	<div>
+		<form action="{:U('Index/Personnel/show_all_record',array('from'=>'search'))}" method='post'>
+			<table align="left">
+				<tr>
+					<td><span>姓名</span></td>
+					<td><input type="text" name='name' value='{$name}'></td>
+					<td><span>科室</span></td>
+					<td><select name="dep" id="">
+						<option value="-1">===请选择===</option>
+						<option value="0">局领导</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition="$v['id'] eq $depselect">selected</if>>{$v.name}</option>
+						</foreach>
+					</select></td>
+					<td><span>类型</span></td>
+					<td><select name="type" id="">
+							<option value="">===请选择===</option>
+							<option value="civil" <if condition="'civil' eq $typeselect">selected</if>>公务员</option>
+							<option value="public" <if condition="'public' eq $typeselect">selected</if>>事业单位人员</option>
+						</select></td>
+				</tr>
+				<tr>
+					<td><span>更新时间：起始日期</span></td>
+					<td><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" 	value='{$stime}' ></td>
+					<td><span>终止日期</span></td>
+					<td><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' ></td>
+					<td><input type="submit" value='查询'></td>
+					<td></td>
+				</tr>
+			</table>
+			
+			
+		</form>
+	</div>
+	<br/>
+	<div>
+		<table class="bordered"  id="tableNodifyManage" align="left" width="90%">
+			<tr>
+				<th width='10%'>姓名</th>
+				<th width='25%'>科室-职务</th>
+				<th width='10%'>时间</th>
+				<th width='10%'>更新时间</th>
+				<th width='10%'>分类</th>
+				<th width='20%'>操作</th>
+			</tr>
+			<foreach name='record' item='v'>
+				<tr>
+					<td width='10%'>{$v.name|IdToName}</td>
+					<td width='25%'>{$v.dep}</td>
+					<td width='10%'>{$v.year}年{$v.month}月</td>
+					<td width='10%'>{$v.time|date='Y-m-d',###}</td>
+					<td width='10%'><if condition='$v["type"] eq "civil"'>公务员<else/>事业单位人员</if></td>
+					<td width='20%'>
+						[<a href="{:U('Index/Personnel/detail',array('id'=>$v['id'],'table'=>'record'))}" target='_blank'>查看</a>]
+						[<a href="{:U('Index/Personnel/modify_record',array('id'=>$v['id'],'flag'=>$v['type']))}">修改</a>]
+						[<a href="{:U('Index/Personnel/quarterDelete',array('id'=>$v['id'],'table'=>'record'))}"class='delete'>删除</a>]
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="6">{$page}<if condition='$record eq null'>暂无数据</if></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<include file='Common:footer'/>

@@ -1,0 +1,55 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>学习园地</li>
+			<li><a href="{:U('Index/Study/study_index')}">上传共享</a></li>
+			
+		</ul>
+    </div>
+<div id='study'  class='someSpace'>
+	<h3 align='center'>上传共享知识
+	<div id='add_file'><a href="#" id='study_manage'>学习园地管理</a></div>
+	</h3>
+	<div id='study_content'>
+		<form action="{:U('Index/Study/handle')}" method='post' enctype='multipart/form-data'>
+			<table class="bordered" align='left' id="tableNodifyManage" style="width:100%;">
+				<tr>
+					<td>类型</td>
+					<td>
+						<select name="type">
+							<option value="心得体会">心得体会</option>
+							<option value="演讲">演讲</option>
+							<option value="环保小知识">环保小知识</option>
+							<option value="其它">其它</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>标题</td>
+					<td><input type="text" name='title'></td>
+				</tr>
+				<tr>
+					<td>上传文件</td>
+					<td>
+						<input type="file" name='file'>
+					</td>
+				</tr>
+				<tr>
+					<td>内容描述</td>
+					<td>
+						<textarea name="content" id="study_content" cols='30' rows='5'></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2' align='center'>
+						<input type="submit" value='提交'>
+						<input type="reset" value='重置'>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+<include file='Common:footer'/>

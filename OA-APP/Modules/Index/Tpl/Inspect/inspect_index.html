@@ -1,0 +1,49 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+
+<div id='inspect'>
+	<span class='block'><a href="#" id='inspect_manage'>督查事项管理</a></span>
+	<form action="{:U('Index/Inspect/handle')}" method='post' enctype='multipart/form-data'>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+			<tr><th colspan='2'>督查事项</th></tr>
+			<tr>
+				<td>类型：</td>
+				<td>
+					<select name="type">
+						<option value="0">==请选择==</option>
+						<option value="1">市折子工程</option>
+						<option value="2">区折子工程</option>
+						<option value="3">局折子工程</option>
+						<option value="4">其它重要事项</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>定时发送时间：</td>
+				<td>
+					<input class="Wdate" type="text" name='set_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+				</td>
+			</tr>
+			<tr>
+				<td>发送人员：</td>
+				<td>
+					<textarea   class='contact_input' disabled></textarea>
+					<input type="hidden" name='send_to_people' class='hidden'>
+					<a href="#" class='contact'>通讯录</a>
+					<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a>					
+				</td>
+			</tr>
+			
+			<tr>
+				<td>上传文件：</td>
+				<td><input type="file" name='inspect_file'></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value='保存'></td>
+				<td><input type="reset"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<include file='Common:footer'/>

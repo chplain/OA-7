@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/labor.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<js file='__PUBLIC__/js/labor.js'/>
+	<css file='__PUBLIC__/css/showDialog.css'/>
+	<js file='__PUBLIC__/js/showDialog.js'/>
+	<title>物品申领</title>
+</head>
+<body>
+	<div id='itemApply'>
+		<form action="{:U('Index/Labor/itemApplyHandle',array('from'=>'check0'))}" method='post'>
+			<table>
+				<tr>
+					<th colspan='2' align='center'>物品申领</th>
+				</tr>
+				<tr>
+					<td align='right'>申领人</td>
+					<td>
+						<input type="text"  class='contact_input_applyer' placeholder='点击选择'>
+						<input type="hidden" name='applyer' class='hidden'/>
+					</td>
+				</tr>
+				<tr>
+					<td align='right'>申领科室</td>
+					<td>
+						<select name="dep">
+						  <option value="0">======请选择======</option>
+						  <option value="1">办公室</option>
+						  <option value="2">总量控制科</option>
+						  <option value="3">大气污染防治办公室</option>
+						  <option value="4">综合管理科</option>
+						  <option value="5">规划和环境影响评价科</option>
+						  <option value="6">监控中心</option>
+						  <option value="7">辐射所</option>
+						  <option value="8">机关服务部</option>
+						  <option value="9">环保协会</option>
+						  <option value="10">环境监查支队</option>
+						  <option value="11">环境保护检测站</option>
+						  <option value="12">机动车排放管理站</option>
+					    </select>
+					</td>
+				</tr>
+				<tr>
+					<td align='right'>申领物品内容</td>
+					<td>
+						<input type="text" name='content'/>
+					</td>
+				</tr>
+				<tr>
+					<td align='right'>分类</td>
+					<td>
+						<input type="text" name='class'>
+						<a href="#" id='selectItemClass'>点击选择</a>
+						<a href="#" id='itemClassSet'>管理分类</a>
+					</td>
+				</tr>
+				<tr>
+					<td align='right'>提交审核人</td>
+					<td>
+						<input type="text"  class='contact_input_checker' placeholder='点击选择'>
+						<input type="hidden" name='checker' class='hidden'/>
+					</td>
+				</tr>
+				<if condition='$from eq "check1"'>
+					<tr>
+						<td align='right'>审核结果</td>
+						<td>
+							<input type="radio" name='result' value='1'/>通过
+							<input type="radio" name='result' value='0' checked/>不通过
+						</td>
+					</tr>
+				</if>
+				<if condition='$from eq "check2"'>
+					<tr>
+						<td align='right'>通过回执</td>
+						<td>
+							<input type="radio" name='back' value='1'/>通过
+							<input type="radio" name='back' value='0' checked/>不通过
+						</td>
+					</tr>
+				</if>
+				<tr>
+					<td colspan='2' align='center'>
+						<input type="submit" value='提交'>
+						<input type="reset" value='重置'>
+						<button id='close'>关闭窗口</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

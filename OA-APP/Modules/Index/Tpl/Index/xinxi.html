@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file="__PUBLIC__/js/SimpleTree/jquery-1.6.min.js"/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/>
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js"/>
+	<css file='__PUBLIC__/css/navi.css'/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/style.css"/>
+	<script type="text/javascript">
+		$(function(){
+			$(".st_tree").SimpleTree({
+				
+			});
+		});
+	</script>
+	<script type="text/javascript">
+	$(function(){	
+		//导航切换
+		$(".menuson li").click(function(){
+			$(".menuson li.active").removeClass("active")
+			$(this).addClass("active");
+		});
+		
+		$('.title').click(function(){
+			var $ul = $(this).next('ul');
+			$('dd').find('ul').slideUp();
+			if($ul.is(':visible')){
+				$(this).next('ul').slideUp();
+			}else{
+				$(this).next('ul').slideDown();
+			}
+		});
+		$(".leftmenu dd div div").click(function(){
+            $(".yijibeijing").removeClass("yijibeijing");
+            $(this).addClass("yijibeijing");
+        });
+	})	
+	</script>
+	<title>left</title>
+</head>
+<body style="background:#D1EEEE;">
+	<div class="lefttop"><span></span>信息管理</div>
+	<dl class="leftmenu">
+		
+		<dd>
+			<div class="title">
+			<div class="yijibeijing">
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico01.png" /></span>信息工作
+			</div>
+			</div>	
+			<ul class="menuson">
+				<li><cite></cite><a href="{:U('Index/Information/notify')}" target='right'>公告</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Information/report')}" target='right'>信息上报</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Information/check')}" target='right'>信息审核</a><i></i></li>
+				<li  class="active"><cite></cite><a href="{:U('Index/Information/information_index')}" target='right'>信息统计</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Information/appro')}" target='right'>信息约稿</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Information/individual')}" target='right'>我的上报</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Information/myappro')}" target='right'>我的约稿</a><i></i></li>
+			</ul>
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico02.png" /></span>宣传工作
+			</div>
+			</div>	
+			<ul class="menuson">
+				<li class="active"><cite></cite><a href="{:U('Index/Information/propa')}" target='right'>宣传任务</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Information/mypropa')}" target='right'>我的任务</a><i></i></li>
+			</ul>
+		</dd>
+	</dl>
+</body>
+</html>

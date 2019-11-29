@@ -1,0 +1,95 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<style>
+	.setLarge{
+		width:150px;
+		height:17px;
+	}
+	.hint{
+		font-size: 12px;
+		color:blue;
+	}
+</style>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>督察事项</li>
+			<li><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'dep'=>$dep,'flag_index'=>1))}">折子工程</a></li>
+			<li>{$dep|idToDep} 任务分工设定</li>
+		</ul>
+    </div>
+<div>
+<div class='someSpace'>
+	<a href="{:U('Index/Inspect/show_inspect',array('dep'=>$dep,'flag_index'=>2,'flag'=>3))}"><button>返回</button></a>
+	<h2 align="center">{$dep|idToDep} 任务分工设定</h2>
+	<form action="{:U('Index/Inspect/saveSeparateHandle',array('dep'=>$dep))}" method='post'>
+		<table class="bordered" id="tableNodifyManage" align='center'>
+			<tr>
+				<th colspan='2'>项目设定</th>
+			</tr>
+			<tr>
+				<td style='width:200px;'>项目名称</td>
+				<td><input type="text" name='name1' class='setLarge'></td>
+			</tr>
+			<tr>
+				<td>年份</td>
+				<td>
+					<select name="year" id="" class='setLarge'>
+						<option value="">==请选择==</option>
+						<!-- <option value="2015">2015</option>
+						<option value="2016">2016</option>
+						<option value="2017">2017</option>
+						<option value="2018">2018</option>
+						<option value="2019">2019</option>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option> -->
+						<foreach name='listInt' item='v'>
+							<option value="{$v}">{$v}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>任务目标</td>
+				<td>
+					<textarea name="name3" id="" style='width:400px;'></textarea>
+					<span class='hint'>以“；”来隔开各个任务目标</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'><input type="submit" value='保存项目'></td>
+			</tr>
+		</table>
+	</form>
+	<div style='margin-left:100px;'>
+		<h2 >已经保存项目</h2>
+		<table class='completePro'>
+			<volist name='arr' id='v'>
+				<tr>
+					<td>{$v.name}</td>
+					<td>
+						<table>
+							<volist name='v.child' id='vvv'>
+								<tr>
+									<td style='border:none;'>{$vvv.name}</td>
+								</tr>
+							</volist>
+						</table>
+					</td>
+				</tr>
+			</volist>
+			<if condition='$arr eq null'>
+				<tr>
+					<td style='font:bold 14px "宋体";'>暂无新项目</td>
+				</tr>
+			</if>
+		</table>
+		<div>
+			<a href="{:U('Index/Inspect/fillSepProject',array('dep'=>$dep))}" ><button>完成项目填写，继续填写各条目参数</button></a>
+		</div>
+	</div>
+	<br><br><br><br>
+	
+</div>
+<include file='Common:foot'/>

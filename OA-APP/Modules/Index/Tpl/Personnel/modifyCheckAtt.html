@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">	
+	<css file='__PUBLIC__/css/checkAttendance.css'/>
+	<css file='__PUBLIC__/css/common.css'/>
+	<css file='__PUBLIC__/css/beacher.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<js file='__PUBLIC__/js/checkAttendance.js'/>
+	
+	<title>修改考勤表</title>
+</head>
+<body>
+	<form action="{:U('addCheckAttendanceHandle',array('from'=>'modify'))}" method='post'>
+	<table width="1280" border="1" cellpadding="1" cellspacing="0" align='center'  class="bordered"  id="tableNodifyManage" align='center'>
+		  <tr>
+		    <td colspan="21">
+		    	科室：<input type="hidden" name='dep' value='{$att.dep}'/>				
+		    	{$att.dep|idToDep}
+		    	<div align="center" class="STYLE1">
+		    		<input type="hidden" name='title_year' value='{$att.title_time|date="Y",###}'/>
+		    		<input type="hidden" name='title_mon' value='{$att.title_time|date="n",###}'/>
+		    		房山区环境保护局 {$att.title_time|date="Y",###} 年 {$att.title_time|date="n",###} 月考勤
+		    	</div>
+		    	<div align='right'>
+		    		<a href="" id='addOneRow'>添加一行</a>
+		    		<a href="" id='delOneRow'>删除一行</a>
+		    	</div>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="30" colspan="21"><div align="center">
+		      <table width="1302" height="30" border="0" cellpadding="1" cellspacing="0">
+		        <tr>
+		          <td width="934">单位：（天）
+						
+		          </td>
+		          <td width="340">
+		          	<input type="text" name='date_year' class='num'  value='{$att.make_time|date="Y",###}'/>年
+		          	<input type="text" name='date_mon' class='num' value='{$att.make_time|date="n",###}'/>月
+		          	<input type="text" name='date_day' class='num'  value='{$att.make_time|date="j",###}'/>日制表 </td>
+		        </tr>
+		      </table>
+		    </div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		 
+		  <tr> <font color="black">
+		    <td width="49" rowspan="2"><div align="center">  <font color="black">编号   </font>     </div></td>
+		    <td width="115" rowspan="2"><div align="center"> <font color="black">姓名	</font>	</div></td>
+		   <!--  <td width="165" rowspan="2"><div align="center"> <font color="black">科室    </font>   	</div></td> -->
+		    <td width="80" rowspan="2"><div align="center">  <font color="black">应出勤	 </font>	</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">工伤</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">病假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">事假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">旷工</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">探亲假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">婚假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">产假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">年假</div></td>
+		    <td width="107" rowspan="2"><div align="center" class="div_black_font">实出勤</div></td>
+		  </tr>
+
+		  <tr>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数 </div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		  </tr>
+		  <tr id='first_tr' class='input_row'>
+		    <td height="42"><div align="center">1</div></td>
+		    <td><div align="center"><input type="text" name='name[]' value='{$checkAtt[0]["name"]}'/></div></td>
+		    
+		    <td><div align="center"><input type="text" name='should_attend[]' class="indate" value='{$checkAtt[0]["should_attend"]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][0]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][1]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][2]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][3]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][4]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][5]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][6]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][7]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][8]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][9]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][10]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][11]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][12]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][13]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][14]}'/></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" value='{$checkAtt[0]["vacation"][15]}'/></div></td>
+		    <td><div align="center"><input type="text" name='real_attend[]' class="indate" value='{$checkAtt[0]["real_attend"]}'/></div></td>
+		  </tr>
+		  <volist name='checkAtt' id='v' key='key' offset='1'>
+		  	<tr  class='input_row'>
+			    <td height="42"><div align="center">{$key}</div></td>
+			    <td><div align="center"><input type="text" name='name[]' value='{$v.name}'/></div></td>
+			    <!-- <td><div align="center">
+			    	<select name="dep[]" id="">
+			    		<option value="0">===请选择科室===</option>
+			    		<foreach name='dep' item='v'>
+			    			<option value="{$v.id}">{$v.name}</option>
+			    		</foreach>
+			    	</select>
+			    </div></td> -->
+			    <td><div align="center"><input type="text" name='should_attend[]' class="indate"  value='{$v.should_attend}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][0]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][1]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][2]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][3]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][4]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][5]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][6]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][7]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][8]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][9]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][10]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][11]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][12]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][13]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][14]}'/></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate"  value='{$v["vacation"][15]}'/></div></td>
+			    <td><div align="center"><input type="text" name='real_attend[]' class="indate"  value='{$v["real_attend"]}'/></div></td>
+			  </tr>
+		  </volist>
+		  <tr id='remark_tr'>
+		    <td colspan="21"><div align="left">备注：<input type="text" name='remark' class="remark" value='{$checkAtt[0]["remark"]}'/></div>
+		    <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		  <tr>
+		    <td colspan="3"><div align="left">主管财务领导：<input type="text" name='leader1' class="leader"  value='{$checkAtt[0]["leader1"]}'/></div>
+		    <div align="center"></div>      <div align="center"></div></td>
+		    <td colspan="11"><div align="left">主管领导：<input type="text" name='leader2' class="leader"  value='{$checkAtt[0]["leader2"]}'/></div></td>
+		    <td colspan="7">
+		    	科室负责人：
+		    	<input type="text"  class='contact_input-3' placeholder='点击选择'  value='{$checkAtt[0]["leader3"]|IdToName}'>
+		    	<input type="hidden" name='leader3' class='hidden'  value='{$checkAtt[0]["leader3"]}'/>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td colspan="21"><div align="left">注：日期格式示例：（1）一天：1.1；（2）半天：1.2（上）；（3）连续天数：1.3-1.8；（4）非连续天数：1.1、1.3（下）、1.5-1.7.</div>
+		    <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		</table>
+		<div align='center'>
+			<input type="hidden" name='dep_id' value='{$dep_id}'/>
+			<input type="submit" value='保存修改'/>
+			<input type="reset" value='重置'/>
+		</div>
+		</form>
+		<div align='center' style='margin-top:20px;'>
+			<button onclick="javascript:window.close();">关闭窗口</button>
+		</div>
+</body>
+</html>

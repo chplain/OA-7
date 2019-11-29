@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/mail.css'/>
+	<css file='__PUBLIC__/css/showDialog.css'/>
+	<js file='__PUBLIC__/js/showDialog.js'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/mail.js?t=Math.random()'/>
+	<!-- *************通讯录*************************************************************** -->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/>
+	<script type="text/javascript" src="__PUBLIC__/js/SimpleTree/SimpleTree.js"></script>
+	<!-- ************通讯录(end)******************************************************************* -->
+
+	<script type='text/javascript'>
+		window.UEDITOR_HOME_URL = '__CLASS__/ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameWidth = 800;
+			window.UEDITOR_CONFIG.initialFrameHeight = 350;
+			UE.getEditor('editor');
+		};
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			$(".st_tree").SimpleTree({
+				
+			});
+		});
+	</script>
+	
+	<js file='__CLASS__/ueditor/ueditor.config.js'/>
+	<js file='__CLASS__/ueditor/ueditor.all.min.js'/>
+</head>
+
+<body>
+	<div id='mail_right'>
+		<div id='bar'></div>
+		<div id='write_container'>
+			<div><a href="javascript:history.go(-1);"><button><<返回</button></a></div>
+			<form action="{:U('Index/Mail/send')}" method='post'>
+				<div><input type="submit" name='send' value='发送'/>&nbsp;&nbsp;
+				<a href="#"><button name='save'>存草稿</button></a></div>
+				<table>
+				<tr>
+					<td align='right'><span>发送可选项</span></td>
+					<td>
+						<input type="checkbox" name='sendOption[]' value='sms' 
+							<if condition='$sms eq true	'>checked='checked'</if>/>短信通知
+						<!-- <input type="checkbox" name='sendOption[]' value='succ_back'
+							<if condition='$succ_back eq true'>checked='checked'</if>/>发送成功回执 -->
+						<input type="checkbox" name='sendOption[]' value='urgent'
+							<if condition='$urgent eq true'>checked='checked'</if>/>紧急
+					</td>
+				</tr>
+				<tr id='receiver'>
+					<td align='right'><span>收件人</span></td>
+					<td>
+						<input type="text" name='receiver' value='{$recv}' /><br>
+					</td>
+				</tr>
+				<tr id='Cc'>
+					<td align='right'><span>抄送</span></td>
+					<td>
+						<input type="text" name='Cc'  value='{$cc}'/><br>
+					</td>
+				</tr>
+				<tr id='Bcc'>
+					<td align='right'><span>密送</span></td>
+					<td>
+						<input type="text" name='Bcc'  value='{$bcc}'/><br>
+					</td>
+				</tr>
+				<tr id='CcOrBcc'>
+					<td></td>
+					<td>
+						<a href="#" id='addCc'><span>添加抄送人</span></a>
+						<a href="#" id='rmCc'><span>删除抄送人</span></a>
+						<a href="#" id='addBcc'><span>添加密送人</span></a>
+						<a href="#" id='rmBcc'><span>删除密送人</span></a>
+					</td>
+				</tr>
+				<tr>
+					<td align='right'><span>主题</span></td>
+					<td><input type="text" name='subject' value='{$subject}'/></td>
+				</tr>
+				<tr>
+					<td align='right'><span>正文</span></td>
+					<td>
+						<script type='text/plain' name="write_content" id="editor">
+							{$content}
+						</script>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" name='send' value='发送'/></td>
+					<td><a href="#"><button>存草稿</button></a></td>
+				</tr>
+				</table>
+			</form>
+		</div>
+		<div id='write_right'>
+			<h3>通迅录</h3>
+			
+			<div class="st_tree">
+				<ul>
+					<li>局领导</li>
+					<ul>
+						<foreach name='leader' item='v'>
+							<a href="#" ref="{$v['id']}"><li>{$v.name}<span>({$v.id})</span></li></a>
+						</foreach>
+					</ul>
+					<volist name='dep' id='v' key='key'>
+						<li>{$v.name}</li>
+						<ul>
+							<volist name="group[$v['id']]" id='vv'>
+								<a href="#" ref='{$vv["id"]}'><li>{$vv.name}<span>({$vv.id})</span></li></a>
+							</volist>
+						</ul>
+					</volist>
+				</ul>
+			</div>
+			
+	</div>
+		
+	</div>
+	
+	
+</body>
+</html>

@@ -1,0 +1,43 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<style>
+	.setLarge{
+		width:150px;
+		height:17px;
+	}
+	.hint{
+		font-size: 12px;
+		color:blue;
+	}
+</style>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>督察事项</li>
+			<li><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'dep'=>$dep,'flag_index'=>2))}">折子工程</a></li>
+			<li>{$dep|idToDep} 任务分工添加</li>
+		</ul>
+    </div>
+<div class='someSpace'> 
+	<button onclick='javascript:history.go(-1);'>返回</button>
+	<form action="{:U('Index/Inspect/addProjectHandle_sep',array('id'=>$id,'dep'=>$dep))}" method='post'>
+		<table class="bordered" id="tableNodifyManage" align='center'>
+			<tr>
+				<th colspan='2'>添加任务分工项</th>
+			</tr>
+			<tr>
+				<td>名称</td>
+				<td>
+					<textarea name="name" style='width:400px;height:100px;'></textarea>
+					
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'>
+					<input type="submit" value='提交'>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<include file='Common:foot'/>

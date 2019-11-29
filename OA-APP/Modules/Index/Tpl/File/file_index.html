@@ -1,0 +1,198 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+	<div id='regulation'>
+		<div>
+			<h3 align='center'>上传文件</h3>
+			<form action="{:U('Index/File/handle')}" method='post' enctype='multipart/form-data'>
+				<table class="bordered"align='center' id="tableNodifyManage" style="width:75%;">
+					<tr>
+						<td>标题</td>
+						<td><input type="text" name='title'></td>
+					</tr>
+					<tr>
+						<td>选择分类</td>
+						<td>
+							<select name="type">
+								<option value="房环发">房环发</option>
+								<option value="房环文">房环文</option>
+								<option value="房环函">房环函</option>
+								<option value="房环办发">房环办发</option>
+								<option value="房环党发">房环党发</option>
+								<option value="其它">其它</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>上传文件</td>
+						<td><input type="file" name='file'></td>
+					</tr>
+					<tr>
+						<td>请选择可以查看该文件的人：</td>
+						<td>
+							<textarea   class='contact_input' disabled></textarea>
+							<input type="hidden" name='people' class='hidden'>
+							<a href="#" class='contact'>通讯录</a>
+							<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2' align='center'>
+							<input type="submit" value='上传'>
+							<input type="reset" value='重置'>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div>
+			<h3 align="center">外部来文登记</h3>
+			<form action="{:U('Index/File/outFileHandle')}" method='post' enctype='multipart/form-data'>
+				<table class="bordered"align='center' id="tableNodifyManage" style="width:75%;">
+					<tr>
+						<td>日期</td>
+						<td>
+							<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+						</td>
+					</tr>
+					<tr>
+						<td>来文机关</td>
+						<td><input type="text" name='fromOffice'></td>
+					</tr>
+					<tr>
+						<td>文件字属</td>
+						<td><input type="text" name='belong'></td>
+					</tr>
+					<tr>
+						<td>年发号</td>
+						<td><input type="text" name='year'></td>
+					</tr>
+					<tr>
+						<td>文件标题</td>
+						<td><input type="text" name='title'></td>
+					</tr>
+					<tr>
+						<td>内容摘要</td>
+						<td><textarea name="content" id="" cols="30" rows="5"></textarea></td>
+					</tr>
+					<tr>
+						<td>联系人</td>
+						<td><input type="text" name='contactor'></td>
+					</tr>
+					<tr>
+						<td>联系方式</td>
+						<td><input type="text" name='contact'></td>
+					</tr>
+					<tr>
+						<td>注意事项</td>
+						<td><input type="text" name='attention'></td>
+					</tr>
+					<tr>
+						<td>局领导</td>
+						<td>
+							<input type="text"  class='contact_input1' placeholder='点击选择'>
+							<input type="hidden" name='leader' class='hidden'>
+						</td>
+					</tr>
+					<tr>
+						<td>上传文件</td>
+						<td><input type="file" name='file'></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<input type="submit" value='登记'>
+							<input type="reset" value='重置'>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<h3 align="center">全局文件</h3>
+		<div>
+			<table class="bordered"  align="center" id="tableNodifyManage" >
+				<tr>
+					<th>序号</th>
+					<th>标题</th>
+					<th>分类</th>
+					<th>可以查看的人</th>
+					<th>上传人</th>
+					<th>上传日期</th>
+					<th>操作</th>
+				</tr>
+				<volist name='file' id='v' key='key'>
+					<tr>
+						<td>{$key}</td>
+						<td>{$v.title}</td>
+						<td>{$v.type}</td>
+						<td>
+							<volist name='v.people' id='vv'>
+								{$vv}&nbsp;
+							</volist>
+						</td>
+						<td>{$v.suber|IdToName}</td>
+						<td>{$v.time|date='Y-m-d',###}</td>
+						<td>
+							[<a href="UPLOAD_PATH{$v.file_savename}" target='_blank'>查看</a>] <br>
+							[<a href="{:U('Index/File/delete',array('id'=>$v['id']))}" class='delete'>删除</a>]
+						</td>
+					</tr>
+				</volist>
+				
+				<tr>
+					<td colspan='7' align='left'>
+						{$page}
+						<if condition='$file eq null'>
+							暂时没有上传任何文件
+						</if>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<h3 align="center">外部来文列表</h3>
+		<div>
+			<table class="bordered"  align="center"  id="tableNodifyManage">
+				<tr>
+					<th>序号</th>
+					<th>日期</th>
+					<th>来文机关</th>
+					<th>文件字属</th>
+					<th>年发号</th>
+					<th>文件标题<!--及内容--></th>
+					<th>联系人</th>
+					<th>联系方式</th>
+					<th>注意事项</th>
+					<th>局领导</th>
+					<th>上传文件</th>
+				</tr>
+				<volist name='outfile' id='v' key='key'>
+					<tr>
+						<td>{$key}</td>
+						<td>{$v.time|date='y/m/d',###}</td>
+						<td>{$v.fromOffice}</td>
+						<td>{$v.belong}</td>
+						<td>{$v.year}</td>
+						<td>{$v.title}<br><!--{$v.content}--></td>
+						<td>{$v.contactor}</td>
+						<td>{$v.contact}</td>
+						<td>{$v.attention}</td>
+						<td>{$v.leader|IdToName}</td>
+						<td>[<a href="UPLOAD_PATH{$v.file_savename}" target='_blank'>查看</a>]
+							<br>
+							<!-- [<a href="UPLOAD_PATH{$v.file_savename}" target='_blank'>查看</a>]&nbsp;&nbsp; -->
+							[<a href="{:U('Index/File/delete',array('id'=>$v['id'],'from'=>'outfile'))}" class='delete'>删除</a>]
+						</td>
+					</tr>
+				</volist>
+				<tr>
+					<td colspan='11' align='left'>
+						{$page2}
+						<if condition='$outfile eq null'>
+							暂时没有上传任何文件
+						</if>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+<include file='Common:footer'/>

@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>请假名册管理</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div align="center" style="background-color:white;" width="400px">
+		<h4>请假名册</h4>
+		<ul>
+			<foreach name='askleave' item='v'>
+				<li><a href="{:U('Index/Personnel/askLeaveDetail',array('id'=>$v['id'],'from'=>'manage'))}">
+					北京市房山区环境保护局 <b>{$v.title_year}</b> 年请假名册 
+				</a></li>
+			</foreach>
+		</ul>
+		{$page2}<if condition='$askleave eq null'>暂无考勤表</if>
+	</div>
+	<div align="center"><button onclick='javascript:window.close();'>关闭窗口</button></div>
+</body>
+</html>

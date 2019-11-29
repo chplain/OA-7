@@ -1,0 +1,38 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>系统设置</li>
+			<!-- <li><a href="{:U('Index/System/setInterval')}">设置时间间隔</a></li> -->
+		</ul>
+    </div>
+<div class='someSpace'>
+	<div>
+		<form action="{:U('Index/System/intervalHandle')}" method='post'>
+			<table  class="bordered"  id="tableNodifyManage" style='width:100%;'>
+				<tr>
+					<th colspan='2'>设置年份选择区间</th>
+				</tr>
+				<tr>
+					<td>起始年份</td>
+					<td>
+						<input class="Wdate" type="text" name='sTime' onClick="WdatePicker({dateFmt:'yyyy'})" value='{$stime|date="Y",###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>终止年份</td>
+					<td>
+						<input class="Wdate" type="text" name='eTime' onClick="WdatePicker({dateFmt:'yyyy'})" value='{$etime|date="Y",###}' >
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value='修改'>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+<include file='Common:footer'/>

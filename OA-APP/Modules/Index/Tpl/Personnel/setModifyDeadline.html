@@ -1,0 +1,36 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/show_personnelinfo')}">人事信息</a></li>
+			<li><a href="#">修改人事信息更改时间</a></li>
+		</ul>
+    </div>
+<div class='someSpace'>
+	<a href="{:U('Index/Personnel/show_personnelinfo')}"><button>返回</button></a>
+	<br><br><br><br>
+	<form action="{:U('Index/Personnel/setDeadlineHandle')}" method='post'>
+		<table class="bordered"  id="tableNodifyManage" style='width:50%;'>
+			<tr>
+				<th colspan='2'>设定人事信息修改期间</th>
+			</tr>
+			<tr>
+				<td>期限</td>
+				<td>
+					<input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime|date="Y-m-d",###}' >&nbsp;&nbsp;&nbsp;至&nbsp;&nbsp;&nbsp;
+					<input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime|date="Y-m-d",###}' >
+					<!-- <input type="text" name='dead' value='{$dead}'>天 -->
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'>
+					<input type="submit" value='保存'>
+					<input type="reset" value='重置'>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<include file='Common:footer'/>

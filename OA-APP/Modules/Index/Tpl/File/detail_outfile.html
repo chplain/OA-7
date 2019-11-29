@@ -1,0 +1,98 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>文件管理</li>
+			<li><a href="{:U('Index/File/show_outfile')}">外部来文登记</a></li>
+			<li><a href="#">外部来文详情</a></li>
+		</ul>
+    </div>
+<div>
+	<a href="{:U('Index/File/show_outfile')}"><button>返回</button></a>
+	<div>
+		<h3 align="center">外部来文详情</h3>		
+			<table class="bordered"align='center' id="tableNodifyManage" style="width:75%;">
+				<tr>
+					<td>收文顺序号</td>
+					<td>
+						{$out.recvNum}
+					</td>
+				</tr>
+				<tr>
+					<td>日期</td>
+					<td>
+						{$out.time|date="Y-m-d",###}
+					</td>
+				</tr>
+				<tr>
+					<td>来文机关</td>
+					<td>{$out.fromOffice}</td>
+				</tr>
+				<tr>
+					<td>属性</td>
+					<td>
+						文件字属 {$out.belong}
+						年发号 {$out.year}
+					</td>
+				</tr>
+				<tr>
+					<td>数量</td>
+					<td>
+						份数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$out.copyNum1}
+						号数&nbsp;&nbsp;&nbsp;{$out.copyNum2}
+					</td>
+				</tr>
+				<tr>
+					<td>文件标题</td>
+					<td>{$out.title}</td>
+				</tr>				
+				<tr>
+					<td>联系人</td>
+					<td>{$out.contactor}</td>
+				</tr>
+				<tr>
+					<td>联系方式</td>
+					<td>{$out.contact}</td>
+				</tr>
+				<tr>
+					<td>备注</td>
+					<td>{$out.remark}</td>
+				</tr>
+				<tr>
+					<td>局领导</td>
+					<td>
+						{$out.leader|IdsToNames=','}
+					</td>
+				</tr>
+				<tr>
+					<td>文件</td>
+					<td>
+						<a href="UPLOAD_PATH{$out.file_savename}" target='_blank'>{$out.file_name}</a>
+					</td>
+				</tr>
+				<form action="{:U('Index/File/confirmHandle',array('id'=>$out['id']))}" method='post'>
+				<tr>
+					<td>提醒方式</td>
+					<td>
+						<input type="checkbox" name='attentionType[]' value='1' <if condition='$attention1 eq true'>checked</if>>系统提醒
+						<input type="checkbox" name='attentionType[]' value='2' <if condition='$attention2 eq true'>checked</if>>短息提醒
+						<input type="checkbox" name='attentionType[]' value='3' <if condition='$attention3 eq true'>checked</if>>邮件提醒
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<if condition='$out["isSent"] eq false'>
+							<button>确定发送给领导</button>
+						<else/>
+							<button>重新发送给领导</button>
+						</if>
+					</td>
+				</tr>
+				</form>
+				
+			</table>
+	</div>	
+</div>
+
+<include file='Common:footer'/>

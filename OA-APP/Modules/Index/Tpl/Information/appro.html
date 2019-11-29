@@ -1,0 +1,75 @@
+<include file='top'/>
+<script>
+	$(document).ready(function(){
+		$('.deleteAppro').click(function(e){
+			if(!confirm('删除约稿的同时，会将各科室或个人提交的稿件同时删除，确定要删除吗？'))
+				e.preventDefault();
+		});
+	});
+</script>
+<!-- 上报 -->
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint6.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/appro')}">信息约稿</a></li>
+		</ul>
+    </div>
+
+	<div class='middle'>
+		<div class='content'>
+			<a href="{:U('Index/Information/addAppro')}" id='appro'>添加约稿任务</a><br><br><br>
+			<div class='list'>
+				<table>
+					<tr>
+						<th class='appro_th1'><span>约稿主题</span></th>
+						<th class='appro_th2'><span>负责科室</span></th>
+						<th class='appro_th3'><span>约稿时间</span></th>
+						<th class='appro_th4'><span>截止日期</span></th>
+						<th class='appro_th5'><span>操作</span></th>
+					</tr>
+					<foreach name='appro' item='v'>
+						<tr>
+							<td align='left' style='padding-left:15px;'>
+								<a href="{:U('Index/Information/approdetail',array('id'=>$v['id'],'from'=>'appro'))}">
+									{$v.subject|truncate_cn=50}
+								</a>
+							</td>
+							<td align='center'>{$v.dep|idsToDeps=','}</td>
+							<td align='center'>{$v.send_time|date='Y-n-j',###}</td>
+							<td align='center'>{$v.deadline|date='Y-n-j',###}</td>
+							
+							<!-- <td align='center'>{$v.process|idToProcess}</td> -->
+							<td align='center'>
+								[<a href="{:U('Index/Information/modifyInfoAppro',array('id'=>$v['id']))}">修改</a>]
+								[<a href="{:U('Index/Information/deleteInfoAppro',array('id'=>$v['id']))}" class='deleteAppro'>删除</a>]
+							</td>
+						</tr>
+					</foreach>
+					<tr>
+						<td align='left' style='padding-left:15px;'>{$page}<if condition='$appro eq NULL'>暂无约稿信息</if></td>
+						<td></td><td></td><td></td><td></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+<include file='foot'/>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/right_nav.css"/>
+	<title>{$title}</title>
+	<style type='text/css'>
+		.intab1{width:140px;height:50px;}
+		.intab2{width:260px;height:50px;}
+		.intab{width:90%;height:30px;}
+		.intab3{width:95%;height:200px;}
+		.intab4{width:95%;height:400px;}
+		.intab5{width:95%;height:100px;}
+	</style>	
+</head>
+<body>
+	<!-- <div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li>考核记录</li>
+			<li><a href="{:U('Index/Personnel/show_record')}">月纪实表</a></li>
+			<li><a href="#">月纪实表修改</a></li>
+		</ul>
+    </div> -->
+    <div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/show_all_record')}">月记实表查询</a></li>
+			<li><a href="#">修改</a></li>
+		</ul>
+    </div>
+
+	<!-- <a href="{:U('Index/Personnel/show_record')}"><button>返回</button></a> -->
+	<div>
+		<form action="{:U('Index/Personnel/recordHandle',array('flag'=>$flag,'from'=>'modify','id'=>$rec['id']))}" method='post'>
+		<h3 align='center'>{$title}(<input type="text" name='year' style='width:50px;' value='{$rec.year}'/>年<input type="text" name='month' style='width:50px;' value='{$rec.month}'/>月)</h3>
+		<table width="735" height="922" border="1" align="center" cellpadding="1" cellspacing="0">
+			  <tr>
+			    <td width="50" height="54"><div align="center"><span class="STYLE1">姓名</span></div></td>
+			    <td colspan="8"><div align="center">
+			      <table style='width:100%;' frame='void' height="54" border="1" cellpadding="1" cellspacing="0">
+			        <tr>
+			          <td width="148">{$rec.name|IdToName}<input type="hidden" name='name' value="{$rec.name}"/></td>
+			          <td width="234"><div align="center"><span class="STYLE1">部门及职务</span></td>
+			          <td width="270">
+						<select name="dep_dep" class="intab2-1">
+			          		<option value="0">请选择科室(<span style='font-size:12px;color:red;'>重新选择</span>)</option>
+			          		<foreach name='dep_dep' item='v'>
+			          			<option value="{$v.name}">{$v.name}</option>
+			          		</foreach>
+			          	</select>
+			          	<select name="dep_pos" class="intab2-2">
+			          		<option value="0">请选择职务(<span style='font-size:12px;color:red;'>重新选择</span>)</option>
+			          		<foreach name='dep_pos' item='v'>
+			          			<option value="{$v.name}">{$v.name}</option>
+			          		</foreach>
+			          	</select>
+			          </td>
+			        </tr>
+			      </table>
+			    </div>      <div align="center"></div>      <div align="center"></div></td>
+			  </tr>
+			  <tr>
+			    <td height="91" rowspan="2"><div align="center" class="STYLE2">
+			      <p>出勤</p>
+			      <p>情况</p>
+			    </div></td>
+			    <td width="61" height="49"><div align="center">出勤</div></td>
+			    <td width="82"><div align="center">加班</div></td>
+			    <td width="72"><div align="center">休假</div></td>
+			    <td width="73"><div align="center">事假</div></td>
+			    <td width="90"><div align="center">病假</div></td>
+			    <td width="108"><div align="center">迟到</div></td>
+			    <td width="66" height="49"><div align="center">早退</div></td>
+			    <td width="95" height="49"><div align="center">培训</div></td>
+			  </tr>
+			  <tr>
+			    <td height="47"><div align="center"><input type="text" class="intab" name='att1' value='{$att[0]}'/></div></td>
+			    <td><div align="center"><input type="text" class="intab" name='att2' value='{$att[1]}'/></div></td>
+			    <td><div align="center"><input type="text" class="intab" name='att3' value='{$att[2]}'/></div></td>
+			    <td><div align="center"><input type="text" class="intab" name='att4' value='{$att[3]}'/></div></td>
+			    <td><div align="center"><input type="text" class="intab" name='att5' value='{$att[4]}'/></div></td>
+			    <td><div align="center"><input type="text" class="intab" name='att6' value='{$att[5]}'/></div></td>
+			    <td><div align="center"><input type="text" class="intab" name='att7' value='{$att[6]}'/></div></td>
+			    <td><div align="center"><input type="text" class="intab" name='att8' value='{$att[7]}'/></div></td>
+			  </tr>
+			  <tr>
+			    <td height="238"><div align="center" class="STYLE2">
+			      <p>月度</p>
+			      <p>工作</p>
+			      <p>计划</p>
+			    </div></td>
+			    <td colspan="8"><div align="center"><textarea name="sche" id="" class='intab3'>{$rec.sche}</textarea></div></td>
+			  </tr>
+			  <tr>
+			    <td height="419"><div align="center" class="STYLE2">
+			      <p>月度</p>
+			      <p>工作</p>
+			      <p>小结</p>
+			    </div></td>
+			    <td colspan="8"><div align="center"><textarea name="summary" id="" class='intab4'>{$rec.summary}</textarea></div></td>
+			  </tr>
+			  
+			  <tr>
+			    <td height="109"><div align="center" class="STYLE2">备注</div></td>
+			    <td colspan="8"><div align="center"><textarea class="intab5" name='remark'/>{$rec.remark}</textarea></div></td>
+			  </tr>
+			</table>
+			<div align='left' style='margin-left:120px;margin-bottom:20px;'><b>备注：{$tab_remark}</b></div>
+			<div align='center'>
+				<input type="submit" value='提交修改'/>
+			</div>
+			</form>
+	</div>
+</body>
+</html>

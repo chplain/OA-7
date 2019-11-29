@@ -1,0 +1,53 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/duty_index')}">值班表管理</a></li>
+			<li>修改</li>
+		</ul>
+    </div>
+<div id='duty_search'>
+	<H2 align='center'>待选值班项</H2>
+	<table class="bordered"align='center' id="tableNodifyManage" style="width:70%;" >
+		<tr>
+			<th>序号</th>
+			<th>带班领导</th>
+			<th>值班人员</th>
+		</tr>
+		<volist name='duty' id='v' key='key'>
+			<tr>
+				<td>{$key}</td>
+				<td>{$v.leader|IdToName}</td>
+				<td>
+					<foreach name='v.dutyer' item='vv'>
+						{$vv|IdToName}&nbsp;
+					</foreach>
+				</td>
+			</tr>
+		</volist>
+		<tr>
+			<td align='center' colspan='3'>
+				<if condition='$duty eq null'>暂无值班人员项</if>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<div style='width:100%;' align='center'>
+			<form action="{:U('Index/Duty/createDutyTable',array('from'=>'modify','gather_id'=>$gather['id']))}" method='post'>
+				<span>起始日期：</span><input class="Wdate" type="text" name='sTime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$start.time|date="Y-m-d",###}' >
+				<span>起始日期值班序号</span>
+				<select name="duty_num" id="">
+					<option value="">==请选择==</option>
+					<volist name='duty' id='v' key='key'>
+						<option value="{$v['id']}" <if condition="$startMid eq $v['id']">selected</if>>{$key}</option>
+					</volist>
+				</select>
+				<span>终止日期：</span><input class="Wdate" type="text" name='eTime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$end.time|date="Y-m-d",###}' >
+				<input type="submit" value='生成值班表' >
+			</form>
+		</div>
+</div>
+
+<include file='Common:footer'/>

@@ -1,0 +1,53 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/dutyUrgentSearch')}">应急值班表查询</a></li>
+		</ul>
+    </div>
+	<div id='duty_search'>
+		<div id='duty_search_search' align='left'>
+			<form action="{:U('Index/Duty/dutyUrgentSearch',array('from'=>'search'))}" method='post'>
+				<span>起始日期：</span><input class="Wdate" type="text" name='sTime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$sTime}' >
+				<span>终止日期：</span><input class="Wdate" type="text" name='eTime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$eTime}' >
+				<span>关键字：</span><input type="text" name='keyword' value='{$keyword}'>
+				<input type="submit" value='查询'>
+			</form>
+		</div>
+		<table class="bordered"  align="left"  id="tableNodifyManage" style='width:90%;'>
+		<tr>
+			<th width='5%'>序号</th>
+			<th width='30%'>标题</th>
+			<th width='10%'>发布日期</th>
+			<th width='10%'>发布状态</th>
+			<th width='10%'>查看</th>
+			<th width='10%'>操作</th>
+		</tr>
+		<volist name='duty' id='v' key='key'>
+			<tr>
+				<td width='5%'>{$key}</td>
+				<td width='30%'>{$v.title}</td>
+				<td width='10%'>{$v.time|date='Y-m-d',###}</td>
+				<td width='10%'><if condition='$v.isApproved eq 1'>已发布<else/>未发布</if></td>
+				<td width='10%'>
+					[<a href="{:U('Index/Duty/dutyUrgentDetail',array('id'=>$v['id']))}">详情</a>]
+				</td>
+				<td width='10%'>
+					[<a href="{:U('Index/Duty/dutyUrgentModify',array('id'=>$v['id']))}">修改</a>]
+					[<a href="{:U('Index/Duty/dutyUrgentDelete',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</td>				
+			</tr>
+		</volist>
+		<tr>
+			<td colspan='9' align='left'>
+				{$page}
+				<if condition='$duty eq NULL'>
+					暂无值班信息
+				</if>
+			</td>
+		</tr>
+	</table>
+	</div>
+<include file='Common:footer'/>

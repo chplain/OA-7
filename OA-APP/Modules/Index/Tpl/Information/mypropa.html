@@ -1,0 +1,56 @@
+<include file='top'/>
+<!-- 上报 -->
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint8.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/mypropa')}">我的任务</a></li>
+		</ul>
+    </div>
+
+	<div class='middle' align='center'>
+		<div class='content' align='center'>
+			
+			<div class='list'>
+				<table>
+					<tr>
+						<th class='th1' style='width:800px;'><span>宣传任务</span></th>
+						<th class='th2'><span>发布时间</span></th>
+					</tr>
+					<foreach name='propa' item='v'>
+						<tr>
+							<td align='left'  style='padding-left:15px;'>
+								<a href="{:U('Index/Information/propadetail',array('id'=>$v['id'],'from'=>'mypropa'))}">
+									{$v.title|truncate_cn=100}
+								</a>
+							</td>
+							<td align='center'>{$v.send_time|date='Y-m-d',###}</td>
+						</tr>
+					</foreach>
+					<tr>
+						<td align='left'>{$page}<if condition='$propa eq NULL'>暂无宣传任务</if></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+<include file='foot'/>

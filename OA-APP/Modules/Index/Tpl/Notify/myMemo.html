@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<style type='text/css'>
+		body{
+			background: #EFF7FF;
+		}
+	</style>
+	<title>我的备忘录</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div align='center'>
+		<h3 align='center'>我的备忘录</h3>
+		<table  class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+			<tr>
+				<th>序号</th>
+				<th>标题</th>
+				<th>提醒时间</th>
+				<th>提醒状态</th>
+				<th>开启状态</th>
+				<th>操作</th>
+			</tr>
+			<volist name='memo' id='v' key='key'>
+				<tr>
+					<td>{$key}</td>
+					<td><a href="{:U('Index/Notify/detailMemo',array('id'=>$v['id']))}">{$v.title}</a></td>
+					<td>{$v.time|date='Y-m-d H:i',###}</td>
+					<td><if condition='$v["isShowedUp"] eq true'>已提醒<else/>未提醒</if></td>
+					<td><if condition='$v["isOpen"] eq true'>开启<else/>关闭</if></td>
+					<td>
+						[<a href="{:U('Index/Notify/toggleMemo',array('id'=>$v['id']))}">开启/关闭</a>]
+						[<a href="{:U('Index/Notify/deleteMemo',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+		</table>
+		<br>
+		<div align='center'>
+			<button onclick='javascript:window.close();'>关闭窗口</button>
+		</div>
+	</div>
+</body>
+</html>

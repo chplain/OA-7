@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/login.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/login.js'/>
+	<title>登录</title>
+</head>
+<body>
+	<div id='container'>
+		<div id='left'></div>
+		<div id='right'>
+			<div id='loginform'>
+			<form action="{:U('Index/Login/handle')}" method='post' target='_top'>
+				<table>
+					<tr>
+						<td class='item'>登录方式</td>
+						<td>
+							<select name="method">
+								<option value="1">用户id</option>
+								<option value="2">编号</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class='item'>登录名</td>
+						<td><input type="text" name='loginid' placeholder='用户id或编号'/></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class='item'>密&nbsp;&nbsp;码</td>
+						<td><input type="password" name='password' placeholder='密码'/></td>
+						<td></td>
+					</tr>
+					
+					<tr>
+						<td align='center' colspan='3'>
+							<input type="submit" value='登录'/>
+							<input type="reset" value='重置'/>
+						</td>
+						
+					</tr>
+				</table>
+			</form>
+			<span id='msg'>{$msg}</span>
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>

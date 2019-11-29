@@ -1,0 +1,1137 @@
+<include file='Common:header'/>
+<script>
+	$(document).ready(function(){
+		$('.submitPage').click(function(e){
+			if(!confirm('确定要提交吗？'))
+				e.preventDefault();
+		});
+		$('.confirmIt').click(function(e){
+			if(!confirm('确定要通过吗？'))
+				e.preventDefault();
+		});
+		$('.confirmNotIt').click(function(e){
+			if(!confirm('确定要驳回吗？'))
+				e.preventDefault();
+		});
+	});
+</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li><a href="{:U('Index/Notify/show_message')}">待办事项</a></li>
+			<li><a href="#">待办事项详情</a></li>
+		</ul>
+    </div>
+<div class='detail' style='margin-bottom:20px;'>
+	<br>
+	<a href="{:U('Index/Notify/show_message')}"><button>返回</button></a>
+	<if condition='$source eq "notify"'>
+		<div class='detail_title'>
+			<h1 align='center'>{$message.meeting_title}</h1>
+			<!-- <span><b>会议时间：</b>{$message.meeting_time|date='Y-m-d H:i',###}</span>
+			<span><b>会议地点：</b>{$message.meeting_place}</span> -->
+		</div>
+		<div class='detail_content'  style='margin-left:70px;'>
+			{$message.meeting_content|htmlspecialchars_decode}
+		</div>
+		<div class="detail_footer">
+			<span><b>发布人：</b>{$message.publisher|IdToName}</span>
+			<span><b>发布时间：</b>{$message.publish_time|date='Y-m-d H:i',###}</span>
+		</div>
+	</if>
+
+	<if condition='$source eq "meet"'>
+		<div class='detail_meet_apply'>
+			<br>
+			<div><b style='font-size:15px;'>{$title}</b></div>
+			<if condition='$isExist eq true and  $isChecked eq false'>
+				<h3 align="center">会议室审核</h3>
+				<table  width="600" height="400" border="1" cellpadding="1" cellspacing="0" style="background-color:white;" align="center">
+					<tr>
+						<td  width="100">
+							<b>会议时间：</b>
+						</td>
+						<td>
+							{$message.meet_time|date='Y年m月d日 H时i分',###}
+							{$message.meet_time|date='w',###|numToWeek}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>申请会议室：</b>
+						</td>
+						<td>
+							{$message.meet_place}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>申请科室：</b>
+						</td>
+						<td>
+							{$message.apply_department}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>会议主题：</b>
+						</td>
+						<td>
+							{$message.meet_subject}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>会议内容：</b>
+						</td>
+						<td>
+							{$message.meet_content}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>参会人员：</b>
+						</td>
+						<td>
+							{$message.attend_people}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>联系方式：</b>
+						</td>
+						<td>
+							{$message.meet_contact}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>会议服务</b>
+						</td>
+						<td>
+							{$message.meet_service}
+							{$message.meet_service_other}
+						</td>
+					</tr>
+				</table>
+
+			<elseif condition='$isExist eq true and $isChecked eq true'/>
+				<h3 align="center">会议通知</h3>
+				<table width="600" height="339" border="1" cellpadding="1" cellspacing="0" style="background-color:white;" align='center'>
+				  <tr>
+				    <td width="277">
+				    	会议时间：{$message.meet_time|date='Y年m月d日 H时i分',###}
+					    {$message.meet_time|date='w',###|numToWeek}
+					</td>
+				    <td width="324">会议地点：{$message.meet_place}</td>
+				  </tr>
+				  <tr>
+				  	<td colspan='2'>会议主题：{$message.meet_subject}</td>
+				  </tr>
+				  <tr>
+				    <td height="60" colspan="2"><p>会议内容：{$message.meet_content}</p>
+				    <p>&nbsp;</p></td>
+				  </tr>
+				  <tr>
+				    <td height="76" colspan="2"><p>与会人员：{$message.attend_people}</p>
+				    <p>&nbsp;</p></td>
+				  </tr>
+				  <tr>
+				    <td colspan="2"><table width="613" height="31" border="0" cellpadding="0">
+				      <tr>
+				        <td width="277">通知会议科室：{$message.apply_department}</td>
+				        <!-- <td width="326">通知会议日期：{$notify.publish_time|date='Y-m-d H:i',###}</td> -->
+				      </tr>
+				    </table></td>
+				  </tr>
+				  <tr>
+				    <td colspan="2"><table width="614" height="28" border="0" cellpadding="0">
+				      <tr>
+				        <td width="249">会务联系人：{$message.apply_person}</td>
+				        <td width="358">联系电话：{$message.meet_contact}</td>
+				      </tr>
+				    </table></td>
+				  </tr>
+				  <tr>
+				    <td height="39" colspan="2"><p>备注：{$message.meet_service|idToMeetService}&nbsp;{$message.meet_service_other}</p></td>
+				  </tr>
+				</table>
+			</if>
+
+			<if condition="$isExist eq true and $message['isChecked'] eq 0">
+				<a href="{:U('Index/Meet/check',array('flag'=>1,'id'=>$message['id']))}"><button>批准</button></a>
+				<button id='deny'>不予通过</button><br>
+				<form action="{:U('Index/Meet/check',array('flag'=>0,'id'=>$message['id']))}" method='post' id='deny_form'>
+					<textarea name="refuse_reason" id="" placeholder='填写不予通过的理由'></textarea>
+					<span><input type="submit" value='打回'></span>
+				</form>
+			</if>
+			<if condition="$isExist eq true and ($message['isChecked'] eq 1) and ($message['isApproved'] eq 1)">
+				<span style='color:blue;'>会议室申请通过，请及时准备会议内容</span>
+			</if>
+			<if condition="$isExist eq true and ($message['isChecked'] eq 1) and ($message['isApproved'] eq 0)">
+				<span style='color:red;'>会议室申请未通过，理由如下：</span>
+				<span style='color:red;'>{$message.refuse_reason}</span>
+			</if>
+		
+			
+		</div>
+	</if>
+
+	<if condition='$source eq "outmeet"'>
+		<h3>局外会议通知</h3>
+		<div>
+			<if condition='$out["recordType"] eq 1'>
+			<div>
+			<!-- <table class="bordered" id="tableNodifyManage" style='height:90%; text-align:center;'>
+				<tr>
+					<td style='font-weight:bold;'>收文顺序号</td>
+					<td>{$out.recvNum}</td>
+					<td style='font-weight:bold;'>收文日期</td>
+					<td>{$out.outmeet_come_time|date='Y年m月d日',###}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>发文单位</td>
+					<td colspan='3'>{$out.outmeet_from}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>文件标题</td>
+					<td colspan='3'>{$out.outmeet_content}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>会议时间</td>
+					<td>{$out.outmeet_time|date='Y-m-d H:i',###}}</td>
+					<td style='font-weight:bold;'>会议地点</td>
+					<td>{$out.outmeet_place}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>文件字属</td>
+					<td>{$out.belong}字{$out.yearNum}号</td>
+					<td style='font-weight:bold;'>份数：{$out.copyNum1}</td>
+					<td style='font-weight:bold;'>号数：{$out.copyNum2}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>联系人</td>
+					<td>{$out.outmeet_contact_person}</td>
+					<td style='font-weight:bold;'>联系方式</td>
+					<td>{$out.outmeet_contact}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>参会领导</td>
+					<td colspan='3'>{$out.outmeet_leader|IdsToNames}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>备注</td>
+					<td colspan='3'>{$out.remark}</td>			
+				</tr>
+				
+				
+			</table> -->
+			<table class="bordered" id="tableNodifyManage" style='height:90%; text-align:center;'>
+
+				<tr>
+					<td style='font-weight:bold;'>来文单位</td>
+					<td>{$out.outmeet_from}</td>
+					<td style='font-weight:bold;'>来文时间</td>
+					<td>{$out.outmeet_come_time|date='Y年m月d日 H:i',###}</td>
+
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>会议时间</td>
+					<td>{$out.outmeet_time|date='Y年m月d日 H:i',###}</td>
+					<td style='font-weight:bold;'>会议地点</td>
+					<td>{$out.outmeet_place}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>会议内容</td>
+					<td colspan='3'>{$out.outmeet_content}</td>
+				</tr>				
+				<tr>
+					<td style='font-weight:bold;'>联系人</td>
+					<td>{$out.outmeet_contact_person}</td>
+					<td style='font-weight:bold;'>联系方式</td>
+					<td>{$out.outmeet_contact}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>参会领导</td>
+					<td colspan='3'>{$out.outmeet_leader|IdsToNames}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>备注</td>
+					<td colspan='3'>{$out.remark}</td>			
+				</tr>
+				
+				
+			</table>
+		</div>
+		</if>
+		<if condition='$out["recordType"] eq 2'>
+		<div> 
+			<table class="bordered" id="tableNodifyManage" style='height:90%; text-align:center;'>
+
+				<tr>
+					<td style='font-weight:bold;'>来电单位</td>
+					<td>{$out.outmeet_from}</td>
+					<td style='font-weight:bold;'>来电时间</td>
+					<td>{$out.outmeet_come_time|date='Y年m月d日 H:i',###}</td>
+
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>会议时间</td>
+					<td>{$out.outmeet_time|date='Y年m月d日 H:i',###}</td>
+					<td style='font-weight:bold;'>会议地点</td>
+					<td>{$out.outmeet_place}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>会议内容</td>
+					<td colspan='3'>{$out.outmeet_content}</td>
+				</tr>				
+				<tr>
+					<td style='font-weight:bold;'>联系人</td>
+					<td>{$out.outmeet_contact_person}</td>
+					<td style='font-weight:bold;'>联系方式</td>
+					<td>{$out.outmeet_contact}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>参会领导</td>
+					<td colspan='3'>{$out.outmeet_leader|IdsToNames}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>备注</td>
+					<td colspan='3'>{$out.remark}</td>			
+				</tr>
+				
+				
+			</table>
+		</div>
+		</if>
+		<!-- 
+			<table class="bordered" id="tableNodifyManage" style='height:90%;'>
+				<tr>
+					<td>来文日期：
+					{$message.outmeet_come_time|date='Y-m-d',###}</td>
+					<td>来文机关：
+					{$message.outmeet_from}</td>
+				</tr>
+				<tr>
+					<td>会议日期：
+					{$message.outmeet_time|date='Y-m-d',###}</td>
+				
+					<td>会议时间：
+					{$message.outmeet_time|date='H:i',###}</td>
+				</tr>
+				<tr>
+					<td colspan='2'>会议地点：
+					{$message.outmeet_place}</td>
+				</tr>
+				<tr>
+					<td colspan='2'>会议标题：
+					{$message.outmeet_title}</td>
+				</tr>
+				<tr>
+					<td colspan='2'>会议内容：
+					{$message.outmeet_content}</td>
+				</tr>
+				<tr>
+					<td>联系人：
+					{$message.outmeet_contact_person}</td>
+				
+					<td>联系方式：
+						{$message.outmeet_contact}</td>
+				</tr>
+				<tr>
+					<td colspan='2'>备注：
+					{$message.remark}</td>
+				</tr>
+				<tr>
+					<td colspan='2'>参会领导：
+						{$message.outmeet_leader|IdsToNames=','}
+					</td>
+				</tr>
+			</table> -->
+		</div>
+	</if>
+
+	<if condition='$source eq "outcomefile"'>
+		<div>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:75%;">
+			<tr>
+				<td>日期</td>
+				<td>
+					{$out.time|date="Y-m-d",###}
+				</td>
+			</tr>
+			<tr>
+				<td>来文机关</td>
+				<td>{$out.fromOffice}</td>
+			</tr>
+			<tr>
+				<td>文件字属</td>
+				<td>{$out.belong}</td>
+			</tr>
+			<tr>
+				<td>年发号</td>
+				<td>{$out.year}</td>
+			</tr>
+			<tr>
+				<td>文件标题</td>
+				<td>{$out.title}</td>
+			</tr>				
+			<tr>
+				<td>联系人</td>
+				<td>{$out.contactor}</td>
+			</tr>
+			<tr>
+				<td>联系方式</td>
+				<td>{$out.contact}</td>
+			</tr>
+			<tr>
+				<td>备注</td>
+				<td>{$out.remark}</td>
+			</tr>
+			<tr>
+				<td>局领导</td>
+				<td>
+					{$out.leader|IdsToNames=','}
+				</td>
+			</tr>
+			<tr>
+				<td>文件</td>
+				<td>
+					<a href="UPLOAD_PATH{$out.file_savename}" target='_blank'>{$out.file_name}</a>
+				</td>
+			</tr>			
+		</table>
+		</div>
+	</if>
+
+	<if condition='$source eq "petition"'>
+		<div id='petition'>
+			<if condition='$isRollback eq true'>
+				<span style='color:red;font:bold 13px "宋体";'>【退回】</span>
+			</if>
+			<span class='message_hint'></span>
+			<span class='message_hint'>您收到一个信访单，请到“信访管理-信访查询”中处理</span>
+			<span class='message_hint'>链接：
+				<a href="{:U('Index/Petition/detailPetition',array('id'=>$message['id'],'flag'=>$pet_flag,'from'=>'notify'))}">
+					{$message.petition_title}
+				</a>
+			</span>			
+		</div>
+	</if>
+
+	<if condition='$source eq "inspect"'>
+		<table class='bordered' id='tableNodifyManage'>
+			<tr><th colspan='2'><h2>督察事项</h2></th></tr>
+			<tr><td>督察类型：</td><td>{$message.type|idToInspectType}</td></tr>
+			<tr>
+				<td>标题</td>
+				<td>{$message.title}</td>
+			</tr>
+			<tr>
+				<td>发送人：</td><td>{$message.send_person|IdToName}</td>
+			</tr>
+			<tr>
+				<td>接收人：</td>
+				<td>
+					<foreach name='message["send_to_people"]' item='v'>
+						{$v|IdToName}&nbsp;&nbsp;
+					</foreach>
+				</td>
+			</tr>
+			<tr>
+				<td>接收时间</td>
+				<td>{$message.set_time|date='Y-m-d H:i',###}</td>
+			</tr>
+			<tr>
+				<td>督察文件：</td>
+				<td>
+					{$message.file_name} <a href="UPLOAD_PATH{$message['file_savename']}" target='_blank'><button>浏览...</button></a>
+				</td>
+			</tr>
+		</table>
+
+	</if>
+
+	<if condition='$source eq "inforeport"'>
+		<h3>{$title}</h3>
+		<table class='bordered' id="tableNodifyManage">
+			<tr>
+				<td>标题：</td><td>{$message.title}</td>
+			</tr>
+			<tr>
+				<td>内容：</td><td>{$message.content}</td>
+			</tr>
+			<tr>
+				<td>上报时间：</td><td>{$message.rep_time|date='Y-m-d H:i',###}</td>
+			</tr>
+			<tr>
+				<td>上报人：</td><td>{$message.reporter|IdToName}</td>
+			</tr>
+			<tr>
+				<td>上报科室：</td><td>{$message.rep_dep|idToDep}</td>
+			</tr>
+			<tr>
+				<td>附件信息：</td>
+				<td>
+					{$message.attach_name}
+					<a href="UPLOAD_PATH{$message.attach_savename}" target='_blank'><button>浏览...</button></a>
+				</td>
+			</tr>
+			
+				<tr>
+					<td colspan='2' align='center'>
+						<if condition="$isInfoer eq true">
+							<a href="{:U('Index/Information/modifyInfoReport',array('id'=>$message['id'],'from'=>'message','updater'=>'infoer'))}"><button>修改</button></a>
+							<a href="{:U('Index/Information/agree',array('id'=>$message['id'],'updater'=>'infoer'))}" class='agreeRep'><button>同意上报</button></a>
+							<a href="#" id='info_deny'><button>不同意上报</button></a>
+						</if>
+						<if condition="$isOfficer eq true">
+							<a href="{:U('Index/Information/modifyInfoReport',array('id'=>$message['id'],'from'=>'message','updater'=>'officer'))}"><button>修改</button></a>
+							<a href="{:U('Index/Information/agree',array('id'=>$message['id'],'updater'=>'officer'))}"  class='agreeRep'><button>同意上报</button></a>
+							<a href="#" id='info_deny'><button>不同意上报</button></a>
+						</if>
+						
+						
+					</td>
+				</tr>
+		
+		</table>
+
+		<if condition="($message['isChecked'] eq true) and ($message['isApproved'] eq true)">
+			<span style='color:blue;'>科室信息员审核通过</span>
+		</if>
+		<if condition="($message['isChecked'] eq true) and ($message['isApproved'] eq false)">
+			<span style='color:red;'>科室信息员审核未通过，理由：{$message.reason}</span><br>
+		</if>
+		<if condition="($message['isChecked2'] eq true) and ($message['isApproved2'] eq true)">
+			<span style='color:blue;'>办公室审核通过</span>
+		</if>
+		<if condition="($message['isChecked2'] eq true) and ($message['isApproved2'] eq false)">
+			<span style='color:red;'>办公室审核未通过，理由：{$message.reason}</span><br>
+		</if>
+		<if condition="($message['isChecked2'] eq true) and ($message['isApproved2'] eq true) and $isOfficer eq true">
+			<b style='color:blue;font-size:15px;'>请继续在“信息管理”-“信息审核”中完善上报信息</b>
+		</if>
+
+
+
+
+
+		<div id='info_deny_reason'>
+			<if condition="$isInfoer eq true">
+				<form action="{:U('Index/Information/disagree',array('id'=>$message['id'],'updater'=>'infoer'))}" method='post'>
+					<textarea name="reason" placeholder='请填写不同意上报的理由' style='width:700px;height:100px;'></textarea>
+					<input type="submit" value='打回'>
+				</form>
+			</if>
+			<if condition="$isOfficer eq true">
+				<form action="{:U('Index/Information/disagree',array('id'=>$message['id'],'updater'=>'officer'))}" method='post'>
+					<textarea name="reason" placeholder='请填写不同意上报的理由' style='width:700px;height:100px;'></textarea>
+					<input type="submit" value='打回'>
+				</form>
+			</if>
+		</div>
+		
+	</if>
+
+	<if condition='$source eq "infoappro"'>
+		<span class='message_hint'></span>
+		<span class='message_hint'>您有一个信息约稿的任务，请到“信息管理平台-我的约稿”中查看</span>
+	</if>
+
+	<if condition='$source eq "infopropa"'>
+		<span class='message_hint'></span>
+		<span class='message_hint'>您有一个宣传工作的任务，请到“信息管理平台-我的任务”中查看</span>
+	</if>
+	
+	<if condition='$source eq "itemapply"'>
+		<form action="{:U('Index/Labor/itemApplyHandle',array('from'=>$from,'id'=>$message['id']))}" method='post'>
+			<table  class='bordered' id='tableNodifyManage'>
+				<tr>
+					<th colspan='2' align='center'>{$title}</th>
+				</tr>
+				<tr>
+					<td align='right'>申领人:</td>
+					<td>{$message.applyer|IdToName}</td>
+				</tr>
+				<tr>
+					<td align='right'>申领科室:</td>
+					<td>{$message.dep|idToDep}</td>
+				</tr>
+				<tr>
+					<td align='right'>申领物品内容:</td>
+					<td>{$message.content}</td>
+				</tr>
+				<tr>
+					<td align='right'>分类:</td>
+					<td>{$message.class|itemClassToName}</td>
+				</tr>
+				<tr>
+					<td align='right'>提交审核人:</td>
+					<td>{$message.checker|IdToName}</td>
+				</tr>
+				<if condition='$from eq "check1"'>
+					<tr>
+						<td align='right'>审核结果:</td>
+						<td>
+							<input type="radio" name='result' value='1'/>通过
+							<input type="radio" name='result' value='0' checked/>不通过
+						</td>
+					</tr>
+				</if>
+				<if condition='$from eq "check2"'>
+					<tr>
+						<td align='right'>通过回执:</td>
+						<td>
+							<input type="radio" name='back' value='1'/>通过
+							<input type="radio" name='back' value='0' checked/>不通过
+						</td>
+					</tr>
+				</if>
+				<tr>
+					<td colspan='2' align='center'>
+					<if condition='$flag eq 0'>
+						<input type="submit" value='提交'>
+						<input type="reset" value='重置'>
+					<else/>
+						<span style='color:red;'>{$unApproved}</span>
+						<span style='color:blue;'>{$approved}</span>
+					</if>
+					</td>
+				</tr>
+
+			</table>
+		</form>
+	</if>
+
+	<if condition='$source eq "checkattendance"'>
+			<span style='color:blue;font: bold 15px "宋体";'>
+				有一张考勤表需要审核
+				<if condition='$message["isChecked"] eq true'>【科室负责人已审核】<else/>【科室负责人未审核】</if>
+				<if condition='$message["isChecked2"] eq true'>【主管领导已审核】<else/>【主管领导未审核】</if>
+			</span>	<br><br><br>
+			<b>点此查看：</b> <a href="{:U('Index/Personnel/checkAttDetail',array('id'=>$message['id']))}">房山区环保局{$message.title_time|date='Y',###}年{$message.title_time|date='m',###}月考勤</a>
+			
+	</if>
+
+	<if condition='$source eq "dutyurgent"'>
+		<h2 align='center'>{$message.title}</h2>
+		<form action="{:U('Index/Duty/dutyUrgentFillHandle',array('id'=>$fid))}" method='post'>
+			<table class="bordered" id="tableNodifyManage" style='width:100%;'>
+				<tr>
+					<th rowspan='2'>日期</th>
+					<th colspan='8'>应急值班</th>
+					<th colspan='3'>应急备班</th>
+				</tr>
+				<tr>
+					<th>带班领导</th>
+					<th>职务</th>
+					<th colspan="6">值班员(值班电话：60342001)</th>
+					<th>监测组</th>
+					<th>监察组</th>
+					<th>辐射组</th>
+				</tr>
+				<volist name='duty_item' id='v' key='key'>
+					<tr>
+						<td>{$v.duty_time|date='Y-m-d',###}{$v.duty_time|date='w',###|numToWeek}</td>
+						<td>{$v.leader|idToUrgentDutyNeed}</td>
+						<td>{$v.urgen_position}</td>
+						<td colspan='6'>
+							{$v.dutyer|idsToUrgentDutyNeed}
+						</td>
+						<td>
+							{$v.jianceDutyer|idsToUrgentDutyNeed}
+							<if condition='$jiance eq true'>
+								<textarea name="recvContact" class='newContact_input_{$key}' id="" style='width:400px;' disabled>{$v.jianceDutyer|IdsToNames=','}</textarea>
+								<input type="hidden" name='group_id[]'>
+								<input type="hidden" name='individual_id[]' value='{$v.jianceDutyer}'>
+								<a href="#" class='newContact'>选择</a>	
+								<input type="hidden" name='dono' value='jiance'>
+							</if>
+						</td>
+						<td>
+							{$v.jianchaDutyer|idsToUrgentDutyNeed}
+							<if condition='$jiancha eq true'>
+								<textarea name="recvContact" class='newContact_input_{$key}' id="" style='width:400px;' disabled>{$v.jianchaDutyer|IdsToNames=','}</textarea>
+								<input type="hidden" name='group_id[]'>
+								<input type="hidden" name='individual_id[]' value='{$v.jianchaDutyer}'>
+								<a href="#" class='newContact'>选择</a>
+								<input type="hidden" name='dono' value='jiancha'>
+								<!-- <textarea   class='contact_input' disabled></textarea>
+								<input type='hidden' name='jianchaDutyer[]'  class='hidden'/>
+								<a href="#" class='contact'>添加</a>
+								<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a> -->
+							</if>
+						</td>
+						<td>
+							{$v.fusheDutyer|idsToUrgentDutyNeed}
+							<if condition='$fushe eq true'>
+								<textarea name="recvContact" class='newContact_input_{$key}' id="" style='width:400px;' disabled>{$v.fusheDutyer|IdsToNames=','}</textarea>
+								<input type="hidden" name='group_id[]'>
+								<input type="hidden" name='individual_id[]' value='{$v.fusheDutyer}'>
+								<a href="#" class='newContact'>选择</a>	
+								<input type="hidden" name='dono' value='fushe'>
+							</if>
+						</td>
+					</tr>
+				</volist>
+				<tr>
+					<td colspan="11">
+						<if condition='$dutyUrgent_isOffice eq true'>
+							
+						<else/>
+							<input type="submit" value='提交修改'>
+						</if>
+					</td>
+				</tr>
+			</table>
+		</form><br><br>
+		<if condition='$duty["isApproved"] eq true'>
+			<span style='font: bold 14px "宋体";'>已发布</span>
+		</if>
+		<if condition='$dutyUrgent_isOffice eq true'>
+			<form action="{:U('Index/Duty/dutyPublish',array('id'=>$fid,'approve'=>true))}" method='post'>
+				<!-- <table class="bordered" id="tableNodifyManage">
+					<tr>
+						<td>发布范围</td>
+						<td>
+							<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled></textarea>
+							<input type="hidden" name='group_id'>
+							<input type="hidden" name='individual_id'>
+							<a href="#" class='newContact'>选择</a>	
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value='同意发布该应急值班表'></td>
+					</tr>
+				</table>-->
+				
+				<input type="submit" value='同意发布该应急值班表'>
+			</form>
+
+		</if>
+	</if>
+	<if condition='$source eq "profile"'>
+		<span class='message_hint'></span>
+		<span class='message_hint'>您收到一份传送文档，请到“个人文档管理-传送文档”中查看</span>
+		<span class='message_hint'>链接： <a href="{:U('Index/Profile/detailProfile',array('id'=>$message['id']))}">{$message.title}</a></span>
+	</if>
+
+	<if condition='$source eq "gatheraskleave"'>
+		<if condition='$message["isChecked"] eq true'><b>【已审核】</b><else/><b>【未审核】</b></if>
+		<if condition='$message["isChecked"] eq true and $message["isApproved"] eq true'><b>【已通过】</b><else/><b>【未通过】</b></if>
+		
+
+		<h3 align="center">北京市房山区环境保护局{$gather.title_time|date='Y年m月',###}请假名册 </h3>
+		<table  border="1" cellpadding="1" cellspacing="0" class="bordered"  id="tableNodifyManage" align='center' style='width:100%;'>
+			  <tr>
+			    <td  rowspan="2"><div align="center"><strong>编号</strong></div></td>
+			    <td  rowspan="2"><div align="center"><strong>姓名</strong></div></td>
+			    <td  rowspan="2"><div align="center"><strong>科室</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>请假详情</strong></div></td>
+			   
+			    <td  rowspan="2"><div align="center"><strong>备注</strong></div></td>
+			  </tr>
+			  <tr>
+			    <td ><div align="center"><strong>天数</strong></div></td>
+			    <td ><div align="center"><strong>请假日期</strong></div></td>
+			    <td><div align="center"><strong>事由</strong></div></td>
+			    
+			  </tr>
+			  <volist name='ask' id='v' key='key'>
+			  	 <tr>
+				    <td><div align="center">{$key}</div></td>
+				    <td><div align="center">{$v.name}</div></td>
+				    <td><div align="center">{$v.dep|IdToDep}</div></td>
+				    <td><div align="center">{$v.days_num}</td>
+				    <td><div align="center">{$v.date}</td>
+				    <td><div align="center">{$v.reason}</td>
+				    <td><div align="center">{$v.remark}</div></td>
+				  </tr>
+			  </volist>
+			  <tr id='last_tr'>
+			  	<td colspan='6'>
+			  		注：日期格式示例：（1）一天：1.1；（2）半天：1.2（上）；（3）连续天数：1.3-1.8；（4）非连续天数：1.1、1.3（下）、1.5-1.7.
+			  	</td>
+			  	<td>科室负责人：{$ask[0]['leader']|IdToName}</td>
+			  </tr>
+			  <tr id='last_tr'>
+			  	<td colspan='30'>
+					<a href="{:U('Index/Personnel/checkAskLeave',array('id'=>$gather['id'],'approve'=>true))}"><button>审核通过</button></a>
+					<a href="{:U('Index/Personnel/checkAskLeave',array('id'=>$gather['id'],'approve'=>false))}"><button>审核不通过</button></a>
+			  	</td>
+			  </tr>
+			</table>
+	</if>
+	<if condition='$source eq "inspect_project"'>
+			<h2 align="center">房山区环保局
+				{$year}
+				年 {$mon} 月 折子工程具体工作指标情况一览表</h2>
+				<h4 align='left'>牵头领导：{$dep|idToFindLeader}</h4>
+				<h4 align='left'>责任科室：{$dep|idToDep}</h4>
+
+			<if condition='$dep eq 11 or $dep eq 12'>
+			<table class="bordered" id="tableNodifyManage" style='width:1175px;'>
+			<else/>
+			<table class="bordered" id="tableNodifyManage" style='width:1075px;'>
+			</if>
+				<tr>
+					<th style='width:260px;text-align:center;'>项目名称</th>
+					<th style='width:160px;text-align:center;'>		
+							{$con1}
+						年完成情况
+					</th>
+					<th style='width:160px;text-align:center;'>
+						{$con2}年完成情况
+					</th>
+					<th style='width:160px;text-align:center;'>
+						{$con3}年同期
+					</th>
+					<th style='width:160px;text-align:center;'>
+						{$con4}年完成情况 （{$mon}月）
+					</th>
+					<th style='width:160px;text-align:center;'>
+						{$con5}年任务目标
+					</th>
+					<if condition='$dep eq 11 or $dep eq 12'>
+						<th style='width:160px;text-align:center;'>完成比例</th>
+					</if>
+					
+				</tr>
+			</table>
+			<table>
+				<volist name='arr' id='v' key='key'>
+					<tr>
+						<td colspan='4'>
+							<table  class='completePro'>
+								<tr>
+									<td style='width:60px;'>{$v.name}</td>
+									<td>
+									<table align='center'>
+										<volist name='v.child' id='vv'>
+											<tr>
+												<if condition='$vv["name"] neq "NONE"'>
+													<td style='width:60px;'>{$vv.name}</td>
+													<td>
+												<else/>
+													<td>
+												</if>
+												
+													<table>
+														<volist name='vv.child' id='vvv'>
+															<tr>
+																<if condition='$vv["name"] neq "NONE"'>
+																	<td style='width:100px;'>{$vvv.name}</td>
+																<else/>
+																	<td style='width:165px;'>{$vvv.name}</td>
+																</if>
+																<td style='width:160px;'>{$vvv.con1}</td>
+																<td style='width:160px;'>{$vvv.con2}</td>
+																<td style='width:160px;'>{$vvv.con3}</td>
+																<td style='width:160px;'>{$vvv.con4}</td>
+																<td style='width:160px;'>{$vvv.con5}</td>
+																<if condition='$dep eq 11 or $dep eq 12'>
+																	<td style='width:160px;'>{$vvv.con6}</td>
+																</if>
+															</tr>
+														</volist>
+													</table>
+												</td>
+											</tr>
+										</volist>
+									</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</volist>
+			</table>
+			<if condition="$inspect_pro_check['isChecked1'] eq false">
+			<form action="{:U('Index/Inspect/agree',array('step'=>1,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>1))}" method='post'>
+				<table>
+					<tr><td>
+						主管副局长：
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+						<button class='submitPage'>提交主管副局长审核</button>
+					</td></tr>
+				
+				</table>
+			</form>
+			<a href="{:U('Index/Inspect/disagree',array('step'=>1,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>1))}">
+				<button class='confirmNotIt'>审核不通过</button>
+			</a>
+			<elseif condition="($inspect_pro_check['isChecked1'] eq true) and ($inspect_pro_check['isApproved1'] eq true) and ($inspect_pro_check['isChecked2'] eq false)"/>
+				<a href="{:U('Index/Inspect/agree',array('step'=>2,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>1))}" class='confirmIt'>
+					<button>审核通过</button>
+				</a>
+				<a href="{:U('Index/Inspect/disagree',array('step'=>2,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>1))}" class='confirmNotIt'>
+					<button >审核不通过</button>
+				</a>
+			<elseif condition="($inspect_pro_check['isChecked1'] eq true) and ($inspect_pro_check['isApproved1'] eq false)"/>
+				科室负责人驳回
+			<elseif condition="($inspect_pro_check['isChecked1'] eq true) and ($inspect_pro_check['isApproved1'] eq true) and ($inspect_pro_check['isChecked2'] eq true) and ($inspect_pro_check['isApproved2'] eq false)"/>
+			   主管副局长驳回
+			<else/>
+				审核通过
+			</if>
+	</if>
+
+	<if condition='$source eq "inspect_sep_project"'>
+		<h2 align="center">房山区环保局
+			{$year}
+			年折子工程科室任务分工表</h2>
+			<h4 align='left'>牵头领导：{$dep|idToFindLeader}</h4>
+			<h4 align='left'>责任科室：{$dep|idToDep}</h4>
+			<table class="bordered" id="tableNodifyManage" style='width:980px;'>
+				<tr style='height:10px;'>
+					<th style='width:60px;text-align:center;height:30px;' rowspan='2'>项目名称</th>
+					<th style='width:265px;text-align:center;' rowspan='2'>任务目标</th>
+					<th style='width:300px;text-align:center;' colspan='2'>
+						截至 {$mon} 月份
+					</th>
+					
+					<th style='width:100px;text-align:center;' rowspan='2'>
+						责任人
+					</th>
+					<th style='width:100px;text-align:center;' rowspan='2'>
+						协办科室
+					</th>
+					<th style='width:100px;text-align:center;' rowspan='2'>
+						完成时限
+					</th>					
+				</tr>
+				<tr>
+					<th style='width:200px;text-align:center;'>完成情况</th>
+					<th style='width:100px;text-align:center;'>完成比例</th>
+				</tr>
+			</table>
+			<table>
+				<volist name='arr' id='v' key='key'>
+					<tr>
+						<td colspan='4'>
+							<table  class='completePro'>
+								<tr>
+									<td style='width:60px;'>{$v.name}</td>
+									<td>
+										<table>
+											<volist name='v.child' id='vvv'>
+												<tr>
+													
+													<td style='width:265px;'>{$vvv.name}</td>								
+													<td style='width:200px;'>{$vvv.con1}</td>
+													<td style='width:100px;'>{$vvv.con2}</td>
+													<td style='width:100px;'>{$vvv.con3}</td>
+													<td style='width:100px;'>{$vvv.con4}</td>
+													<td style='width:100px;'>{$vvv.con5}</td>
+												</tr>
+											</volist>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</volist>
+			</table>
+			<if condition="$inspect_pro_check['isChecked1'] eq false">
+
+			<form action="{:U('Index/Inspect/agree',array('step'=>1,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'sender'=>$sender,'type'=>2))}" method='post'>
+				<table>
+					<tr><td>
+						主管副局长：
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+						<button class='submitPage'>提交主管副局长审核</button>
+					</td></tr>
+				
+				</table>
+			</form>
+			<a href="{:U('Index/Inspect/disagree',array('step'=>1,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>2))}">
+				<button class='confirmNotIt'>审核不通过</button>
+			</a>
+			<elseif condition="($inspect_pro_check['isChecked1'] eq true) and ($inspect_pro_check['isApproved1'] eq true) and ($inspect_pro_check['isChecked2'] eq false)"/>
+				<a href="{:U('Index/Inspect/agree',array('step'=>2,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>2))}" class='confirmIt'>
+					<button>审核通过</button>
+				</a>
+				<a href="{:U('Index/Inspect/disagree',array('step'=>2,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>2))}" class='confirmNotIt'>
+					<button >审核不通过</button>
+				</a>
+			<elseif condition="($inspect_pro_check['isChecked1'] eq true) and ($inspect_pro_check['isApproved1'] eq false)"/>
+				科室负责人驳回
+			<elseif condition="($inspect_pro_check['isChecked1'] eq true) and ($inspect_pro_check['isApproved1'] eq true) and ($inspect_pro_check['isChecked2'] eq true) and ($inspect_pro_check['isApproved2'] eq false)"/>
+			   主管副局长驳回
+			<else/>
+				审核通过
+			</if>
+
+	</if>
+	<if condition='$source eq "inspect_huanping"'>
+		<h2 align="center">房山区环保局{$period}期间折子工程具体工作指标情况一览表</h2>
+			<h4 align='left'>牵头领导：{$dep|idToFindLeader}
+			<h4 align='left'>责任科室：{$dep|idToDep}</h4>			
+			<table class='bordered' id='tableNodifyManage' style='width:1180px;'>				
+				<tr>
+					<th rowspan='2' colspan='2' style='width:200px;text-align:center;'>
+						项目跟踪进度
+					</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_1}年审批建设项目进展情况</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_2}年审批建设项目进展情况</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_3}年审批建设项目进展情况</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_4}年审批建设项目进展情况</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_5}年审批建设项目进展情况</th>
+					
+					<th rowspan="2" style='width:80px;text-align:center;'>
+						{$period1}期间审批建设项目进展情况
+					</th>
+					<th colspan='5' style='width:500px;text-align:center;'>
+						{$period2}前审批的建设项目验收情况
+					</th>
+				</tr>
+				<tr>
+					<th style='text-align:center;'>2011年</th>
+					<th style='text-align:center;'>2012年</th>
+					<th style='text-align:center;'>2013年</th>
+					<th style='text-align:center;'>2014年</th>
+					<th style='text-align:center;'>2015年</th>
+				</tr>
+				<tr>
+					<td rowspan="10" style='text-align:center;background-color:#CCCCCC;'>建设项目竣工环境保护验收</td>
+					<td style='text-align:center;'>审批数</td>
+					<td>{$one[0]}</td>
+					<td>{$one[1]}</td>
+					<td>{$one[2]}</td>
+					<td>{$one[3]}</td>
+					<td>{$one[4]}</td>
+					<td>{$one[5]}</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+				</tr>
+				<tr>
+					<td  style='text-align:center;'>需要验收数</td>
+					<td>{$two[0]}</td>
+					<td>{$two[1]}</td>
+					<td>{$two[2]}</td>
+					<td>{$two[3]}</td>
+					<td>{$two[4]}</td>
+					<td>{$two[5]}</td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>未建</td>
+					<td>{$three[0]}</td>
+					<td>{$three[1]}</td>
+					<td>{$three[2]}</td>
+					<td>{$three[3]}</td>
+					<td>{$three[4]}</td>
+					<td>{$three[5]}</td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>在建</td>
+					<td>{$four[0]}</td>
+					<td>{$four[1]}</td>
+					<td>{$four[2]}</td>
+					<td>{$four[3]}</td>
+					<td>{$four[4]}</td>
+					<td>{$four[5]}</td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>竣工</td>
+					<td>{$five[0]}</td>
+					<td>{$five[1]}</td>
+					<td>{$five[2]}</td>
+					<td>{$five[3]}</td>
+					<td>{$five[4]}</td>
+					<td>{$five[5]}</td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>具备验收条件</td>
+					<td>{$six[0]}</td>
+					<td>{$six[1]}</td>
+					<td>{$six[2]}</td>
+					<td>{$six[3]}</td>
+					<td>{$six[4]}</td>
+					<td>{$six[5]}</td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>验收数</td>
+					<td>{$seven[0]}</td>
+					<td>{$seven[1]}</td>
+					<td>{$seven[2]}</td>
+					<td>{$seven[3]}</td>
+					<td>{$seven[4]}</td>
+					<td>{$seven[5]}</td>	
+					<td>{$accept[0]}</td>	
+					<td>{$accept[1]}</td>
+					<td>{$accept[2]}</td>	
+					<td>{$accept[3]}</td>
+					<td>{$accept[4]}</td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>截至{$message.over_year1}年底竣工验收率</td>
+					<td>{$eight[0]}</td>
+					<td>{$eight[1]}</td>
+					<td>{$eight[2]}</td>
+					<td>{$eight[3]}</td>
+					<td>{$eight[5]}</td>
+					<td colspan='5' rowspan='3' style='text-align:center;'>—— —— ——</td>				
+				</tr>
+				<tr>
+					<td style='text-align:center;'>截至{$message.over_year2}年底竣工验收率</td>
+					<td>{$nine[0]}</td>
+					<td>{$nine[1]}</td>
+					<td>{$nine[2]}</td>
+					<td>{$nine[3]}</td>
+					<td>{$nine[4]}</td>
+					<td>{$nine[5]}</td>			
+				</tr>
+				<tr>
+					<td style='text-align:center;'>截至目前竣工验收率</td>
+					<td>{$ten[0]}</td>
+					<td>{$ten[1]}</td>
+					<td>{$ten[2]}</td>
+					<td>{$ten[3]}</td>
+					<td>{$ten[4]}</td>
+					<td>{$ten[5]}</td>					
+				</tr>
+			</table>
+			<if condition="$message['isChecked1'] eq false">
+
+			<form action="{:U('Index/Inspect/agree',array('step'=>1,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'sender'=>$sender,'type'=>1,'huanping_id'=>$message['id']))}" method='post'>
+				<table>
+					<tr><td>
+						主管副局长：
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+						<button class='submitPage'>提交主管副局长审核</button>
+					</td></tr>
+				
+				</table>
+			</form>
+			<a href="{:U('Index/Inspect/disagree',array('step'=>1,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>1,'huanping_id'=>$message['id']))}">
+				<button class='confirmNotIt'>审核不通过</button>
+			</a>
+			<elseif condition="($message['isChecked1'] eq true) and ($message['isApproved1'] eq true) and ($message['isChecked2'] eq false)"/>
+				<a href="{:U('Index/Inspect/agree',array('step'=>2,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>1,'huanping_id'=>$message['id']))}" class='confirmIt'>
+					<button>审核通过</button>
+				</a>
+				<a href="{:U('Index/Inspect/disagree',array('step'=>2,'dep'=>$dep,'year'=>$year,'mon'=>$mon,'con3'=>$con3,'con4'=>$con4,'sender'=>$sender,'type'=>1,'huanping_id'=>$message['id']))}" class='confirmNotIt'>
+					<button >审核不通过</button>
+				</a>
+			<elseif condition="($message['isChecked1'] eq true) and ($message['isApproved1'] eq false)"/>
+				科室负责人驳回
+			<elseif condition="($message['isChecked1'] eq true) and ($message['isApproved1'] eq true) and ($message['isChecked2'] eq true) and ($message['isApproved2'] eq false)"/>
+			   主管副局长驳回
+			<else/>
+				审核通过
+			</if>
+	</if>
+</div>
+
+<include file='Common:footer'/>

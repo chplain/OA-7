@@ -1,0 +1,41 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div>
+	<h3 align="center">北京市房山区环境保护局{$gather.title_time|date='Y年m月',###}请假名册
+		<a href="{:U('Index/Personnel/gatherAskExcel',array('id'=>$gather['id']))}"><button>导出excel</button></a>
+	 </h3>
+		<table  border="1" cellpadding="1" cellspacing="0" class="bordered"  id="tableNodifyManage" align='center' style='width:100%;'>
+			  <tr>
+			    <td  rowspan="2"><div align="center"><strong>编号</strong></div></td>
+			    <td  rowspan="2"><div align="center"><strong>姓名</strong></div></td>
+			    <td  rowspan="2"><div align="center"><strong>科室</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>请假详情</strong></div></td>
+			   
+			    <td  rowspan="2"><div align="center"><strong>备注</strong></div></td>
+			  </tr>
+			  <tr>
+			    <td ><div align="center"><strong>天数</strong></div></td>
+			    <td ><div align="center"><strong>请假日期</strong></div></td>
+			    <td><div align="center"><strong>事由</strong></div></td>
+			    
+			  </tr>
+			  <volist name='ask' id='v' key='key'>
+			  	 <tr>
+				    <td><div align="center">{$key}</div></td>
+				    <td><div align="center">{$v.name}</div></td>
+				    <td><div align="center">{$v.dep|IdToDep}</div></td>
+				    <td><div align="center">{$v.days_num}</td>
+				    <td><div align="center">{$v.date}</td>
+				    <td><div align="center">{$v.reason}</td>
+				    <td><div align="center">{$v.remark}</div></td>
+				  </tr>
+			  </volist>
+			  <tr id='last_tr'>
+			  	<td colspan='7'>
+			  		注：日期格式示例：（1）一天：1.1；（2）半天：1.2（上）；（3）连续天数：1.3-1.8；（4）非连续天数：1.1、1.3（下）、1.5-1.7.
+			  	</td>
+			  	<!-- <td>科室负责人：{$ask[0]['leader']|IdToName}</td> -->
+			  </tr>
+			</table>
+</div>
+<include file='Common:footer'/>

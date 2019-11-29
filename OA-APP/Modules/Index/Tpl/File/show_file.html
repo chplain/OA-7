@@ -1,0 +1,107 @@
+<include file='Common:header'/>
+<link rel="stylesheet"  href="__PUBLIC__/js/tab_style/css/webwidget_scroller_tab.css" type="text/css" />
+<script>
+	$(document).ready(function(){
+		var reurl = window.location.href;		
+		var index = reurl.lastIndexOf('flag');
+		var last = reurl.substr(index,reurl.length);
+		var arr = last.split('.');
+		var arr2 = arr[0].split('/');
+		var i = arr2[1] - 1;
+		$('.webwidget_scroller_tab .tabContainer li').eq(i).addClass('currentBtn');
+		$('.webwidget_scroller_tab .tabContainer li').click(function(){
+			
+			$('.webwidget_scroller_tab .tabContainer li').removeClass('currentBtn');
+			$(this).addClass('currentBtn');
+		});
+	});
+</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>文件管理</li>
+			<li><a href="{:U('Index/File/show_file')}">局内红头文件</a></li>			
+		</ul>
+    </div>
+<div class='someSpace'>
+	<div id='add_file' float='right'><a href="{:U('Index/File/add_file')}">添加文件</a></div>
+
+	<div>
+		<form action="{:U('Index/File/show_file',array('from'=>'search','flag'=>$flag))}" method='post'>
+			<span>标题：</span><input type="text" name='title' value="{$title}">&nbsp;&nbsp;
+			<span>文号：</span><input type="text" name='number' value="{$number}">&nbsp;&nbsp;
+			<span>年份：</span><input class="Wdate" type="text" name='year' onClick="WdatePicker({dateFmt:'yyyy'})" value='{$year}' >&nbsp;&nbsp;
+			<span>起草科室：</span>
+			<select name="dep" id="">
+				<option value="">===请选择===</option>
+				<foreach name='dep' item='v'>
+					<option value="{$v.id}" <if condition="$v['id'] eq $depselect">selected</if>>{$v.name}</option>
+				</foreach>
+			</select>
+			
+			<input type="submit" value='搜索'>
+		</form>
+		<br>
+	</div>
+
+	 <div class="webwidget_scroller_tab" id="webwidget_scroller_tab" width='90%'>
+          <div class="tabContainer">
+            <ul class="tabHead">
+              <li><a href="{:U('Index/File/show_file',array('flag'=>1))}">房环发</a></li>
+              <li><a href="{:U('Index/File/show_file',array('flag'=>2))}">房环文</a></li>
+              <li><a href="{:U('Index/File/show_file',array('flag'=>3))}">房环函</a></li>
+			  <li><a href="{:U('Index/File/show_file',array('flag'=>4))}">房环办发</a></li>
+			  <li><a href="{:U('Index/File/show_file',array('flag'=>5))}">房环党发</a></li>
+			  <li><a href="{:U('Index/File/show_file',array('flag'=>6))}">其它</a></li>
+            </ul>
+          </div>
+      </div>
+
+	<!-- <div style='font:bold 13px "宋体";'>
+		<span><a href="{:U('Index/File/show_file',array('flag'=>1))}">房环发</a></span>
+		<span><a href="{:U('Index/File/show_file',array('flag'=>2))}">房环文</a></span>
+		<span><a href="{:U('Index/File/show_file',array('flag'=>3))}">房环函</a></span>
+		<span><a href="{:U('Index/File/show_file',array('flag'=>4))}">房环办发</a></span>
+		<span><a href="{:U('Index/File/show_file',array('flag'=>5))}">房环党发</a></span>
+		<span><a href="{:U('Index/File/show_file',array('flag'=>6))}">其它</a></span>
+	</div> -->
+	<div width='90%'>
+		<table class="bordered"  id="tableNodifyManage" width='90%'>
+			<tr>
+				<th width='20%'>标题</th>
+				<th width='15%'>文号</th>
+				<th width='15%'>发布日期</th>
+				<th width='15%'>起草科室</th>
+				<th width='15%'>操作</th>
+			</tr>
+			<foreach name='file' item='v'>
+				<tr>
+					<td width='20%'>{$v.title}</td>
+					<td width='15%'>{$v.number}</td>
+					<td width='15%'>{$v.pub_time|date='Y-m-d',###}</td>
+					<td width='15%'>{$v.dep|idToDep}</td>
+					<td width='15%'>
+						[<a href="{:U('Index/File/file_detail',array('id'=>$v['id']))}">查看</a>]
+						[<a href="{:U('Index/File/file_modify',array('id'=>$v['id']))}">修改</a>]
+						[<a href="{:U('Index/File/file_delete',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="5">
+					{$page}
+					<if condition='$file eq null'>暂无数据</if>
+					<form action="{:U('Index/File/file_excel')}" method='post' style='float:right;'>
+						<foreach name='forExcel' item='v'>
+							<input type="hidden" name='file[]' value='{$v.id}'>
+						</foreach>
+						<input type="submit" value='导出excel'>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<include file='Common:footer'/>

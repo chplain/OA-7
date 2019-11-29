@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file="__PUBLIC__/js/SimpleTree/jquery-1.6.min.js"/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/style.css"/>
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js"/>
+	<script type="text/javascript">
+		$(function(){
+			$(".st_tree").SimpleTree({
+				
+			});
+		});
+	</script>
+	<script type="text/javascript">
+	$(function(){	
+		//导航切换
+		$(".menuson li").click(function(){
+			$(".menuson li.active").removeClass("active")
+			$(this).addClass("active");
+		});
+		
+		$('.title').click(function(){
+			var $ul = $(this).next('ul');
+			$('dd').find('ul').slideUp();
+			if($ul.is(':visible')){
+				$(this).next('ul').slideUp();
+			}else{
+				$(this).next('ul').slideDown();
+			}
+		});
+	})	
+	</script>
+	<title>left</title>
+</head>
+<body style="background:#D1EEEE;">
+	<div class="lefttop"><span></span>权限管理</div>
+	<dl class="leftmenu">
+		<dd>
+			<div class="title">
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico01.png" /></span><a href="{:U('Index/Rbac/index')}" target='right'>用户列表</a>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico02.png" /></span><a href="{:U('Index/Rbac/role')}" target='right'>角色列表</a>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico03.png" /></span><a href="{:U('Index/Rbac/addRole')}" target='right'>添加角色</a>
+			</div>	
+		</dd>
+		<if condition="$Think.config.RBAC_SUPERADMIN eq IdToUserid($_SESSION['id'])">
+			<dd>
+				<div class="title">
+					<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico03.png" /></span><a href="{:U('Index/Rbac/node')}" target='right'>权限列表</a>
+				</div>	
+			</dd>
+			<dd>
+				<div class="title">
+					<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico03.png" /></span><a href="{:U('Index/Rbac/addNode')}" target='right'>添加权限</a>
+				</div>	
+			</dd>
+		</if>
+	</dl>
+	<!-- <div class="st_tree">
+		<ul>
+			<a href="{:U('Index/Rbac/index')}" target='right'><li>用户列表</li></a>
+			<a href="{:U('Index/Rbac/role')}" target='right'><li>角色列表</li></a>
+			<a href="{:U('Index/Rbac/addRole')}" target='right'><li>添加角色</li></a>
+			<if condition="$Think.config.RBAC_SUPERADMIN eq IdToUserid($_SESSION['id'])">
+				<a href="{:U('Index/Rbac/node')}" target='right'><li>权限列表</li></a>
+				<a href="{:U('Index/Rbac/addNode')}" target='right'><li>添加权限</li></a>
+			</if>
+		</ul>
+	</div> -->
+</body>
+</html>

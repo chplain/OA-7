@@ -1,0 +1,61 @@
+<include file='top'/>
+<!-- 上报 -->
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint4.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/individual')}">我的上报</a></li>
+		</ul>
+    </div>
+
+	<div class='middle'>
+		<div class='content'>
+			<div class='list'>
+				<table>
+					<tr>
+						<th class='check_th1'><span>标题</span></th>
+						<th class='check_th2'><span>时间</span></th>
+						<th class='check_th3'><span>上报状态</span></th>
+					</tr>
+					<foreach name='indiv' item='v'>
+						<tr>
+							<td align='left' style='padding-left:15px;'>
+								<a href="{:U('Index/Information/detail',array('id'=>$v['id'],'from'=>'report','fromIndiv'=>1))}">
+									{$v.title|truncate_cn=100}
+								</a>
+							</td>
+							<td align='center'>{$v.rep_time|date='Y-n-j',###}</td>
+							<td>
+								<if condition='$v.isReported eq true'><span class='rep_ok'>已上报</span>
+								<else/><span class='rep_no'>未上报</span>
+								</if>
+							</td>
+						</tr>
+					</foreach>
+					<tr>
+						<td align='left' style='padding-left:15px;'>{$page}<if condition='$indiv eq NULL'>暂无上报信息</if></td>
+						<td></td><td></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+<include file='foot'/>

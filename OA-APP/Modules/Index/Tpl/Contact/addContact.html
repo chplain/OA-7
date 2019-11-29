@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<title>添加联系人</title>
+</head>
+<body>
+	<div>
+		<a href="{:U('Index/Contact/manageContact')}"><button>返回</button></a>
+	</div>
+	
+	<div align='center'>
+		<h3 align="center">添加联系人</h3>
+		<form action="{:U('Index/Contact/addContactHandle')}" method='post'>
+			<table  class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+				<tr>
+					<td>职务</td>
+					<td>
+						<select name="position">
+							<option value="0" >无</option>
+								<foreach name='pos' item='v'>
+									<option value="{$v.id}" >{$v.name}</option>
+								</foreach>
+						</select>
+				</tr>	
+				<tr>
+					<td>科室</td>
+					<td>
+						<select name="department">
+							<option value="0" >无</option>
+							<foreach name='dep' item='v'>
+								<option value="{$v.id}" >{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>姓名</td>
+					<td><input type="text" name='name'/></td>
+				</tr>
+				<tr>
+					<td>手机号码</td>
+					<td><input type="text" name='phone_number'/></td>
+				</tr>
+				<tr>
+					<td>住宅号码</td>
+					<td><input type="text" name='home_number' /></td>
+				</tr>
+				<tr>
+					<td>办公号码</td>
+					<td><input type="text" name='office_number'/></td>
+				</tr>
+				<tr>
+					<td>备注</td>
+					<td>
+						<select name="remark">
+							<option value="0">无</option>
+							<foreach name='rem' item='v'>
+								<option value="{$v.id}" >{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value='添加'/>
+						<input type="reset" value='重置'/>
+					</td>
+				</tr>
+			</table>
+		</form>
+
+	</div>
+</body>
+</html>

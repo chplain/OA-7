@@ -1,0 +1,78 @@
+<include file='top'/>
+<!-- index默认是公告 -->
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint1.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/notify')}">公告</a></li>
+		</ul>
+    </div>
+
+	<div class='middle'>
+		
+		<div class='content'>
+			<form action="{:U('Index/Information/notify',array('from'=>'search'))}" method='post'>
+				<span> 起始时间：</span>
+				<input class="Wdate" type="text" name='startTime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value='{$startTime}'>
+				<span> 终止时间：</span>
+				<input class="Wdate" type="text" name='endTime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"value='{$endTime}'>
+				<span> 标题关键字：</span><input type="text" name='keyword' placeholder='关键字'value='{$keyword}'>
+				<input type="submit" value='搜索'>
+				<a href="#" id='publish' align='right'>发布公告</a><br><br><br>
+			</form>
+			
+			<div class='list'>
+				<table>
+					<tr>
+						<th class='th1'><span>标题</span></th>
+						<th class='th2'><span>时间</span></th>
+						<th class='th3'><span>操作</span></th>
+					</tr>
+					<foreach name='notify' item='v'>
+						<tr>
+							<td align='left'  style='padding-left:15px;'>
+								<a href="{:U('Index/Information/detail',array('id'=>$v['id'],'from'=>'notify'))}">{$v.title|truncate_cn=100}</a>
+								<if condition="$v['isSetTop'] eq 1">
+									<img src="__PUBLIC__/images/info/new.gif" alt="top">
+								</if>
+
+							</td>
+							<td align='center'>{$v.pub_time|date='Y-n-j',###}</td>
+							<td align='center'>
+								[<a href="{:U('Index/Information/modifyInfoNotify',array('id'=>$v['id']))}">修改</a>]
+								[<a href="{:U('Index/Information/deleteInfoNotify',array('id'=>$v['id']))}" class='delete'>删除</a>]
+							</td>
+						</tr>
+					</foreach>
+					<tr>
+						<td align='left' style='padding-left:15px;'>
+							{$page}
+							<if condition='$notify eq NULL'>暂无公告</if>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+
+<include file='foot'/>

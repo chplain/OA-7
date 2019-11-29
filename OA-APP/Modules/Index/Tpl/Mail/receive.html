@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/mail.css'/>
+	<link rel="stylesheet" href="__PUBLIC__/js/pintuer2/css/pintuer.css">
+	<link rel="stylesheet" href="__PUBLIC__/js/pintuer2/css/admin.css">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script>
+		$(function(){
+			//个人消息全选
+			$('input[name=checkAll]').click(function(){			
+				
+					$('input[name*=deleteId]').each(function(){
+						this.checked = true;
+					});
+					
+			});
+			//全不选
+			$('input[name=checkNone]').click(function(){	
+				$('input[name*=deleteId]').attr('checked',false);
+			});
+			$('a[deleteAttr=delete]').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+			$('input[name=deleteGroupMessage]').click(function(e){
+				if(!confirm('确定要批量删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>Document</title>
+</head>
+<body>
+	<div id='mail_right'>
+		<form action="{:U('Index/Mail/deleteGroupMail')}" method='post'>
+		<div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkAll" value="全选" />
+            <input type="button" class="button button-small checkall" name="checkNone" value="全不选" />
+            <input type="submit" class="button button-small border-yellow" name="deleteGroupMessage" value="批量删除" />
+        </div>
+		<div id='bar'></div>
+		<div id='receive_container'>
+			<div id='list_bar'>
+				<div class='bar1'>
+					<img src="__PUBLIC__/images/mail_bar_logo.png" alt="bar_logo" style='margin-bottom:5px;'/>
+					<img src="__PUBLIC__/images/mail_bar_split.png" alt="bar_split" />
+				</div>
+				<div class='bar2'>
+					发件人<img src="__PUBLIC__/images/mail_bar_split.png" alt="bar_split" style='float:right'/>
+				</div>
+				<div class='bar3'>
+					主题<img src="__PUBLIC__/images/mail_bar_split.png" alt="bar_split" style='float:right'/>
+				</div>
+				<div class='bar4'>时间</div>
+			</div>
+
+			<if condition='$list eq NULL'>
+				<span class='mail_hint'>收件箱为空</span>
+			</if>
+
+			<div>
+			<ul>
+				<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=2)" width="80%" color=#987cb9 SIZE=10>
+				<foreach name='list' item='v'>
+					<li>
+						<if condition='$v["isHandled"] eq 0'>
+							<b>
+						</if>
+						<div class='mail_logo'>
+							<img src="__PUBLIC__/images/mail.png" alt="mail" />
+							<input type="checkbox" name="deleteId[]" value="{$v.id}"/>
+						</div>
+						
+						<a href="{:U('Index/Mail/detailMail',array('id'=>$v['id'],'from'=>'receive'))}">
+							
+							<div class='mail_sender'>{$v.mail_sender}</div>
+							<div class='mail_subject'>{$v.mail_subject}</div>
+							<div class='mail_send_time'>{$v.mail_send_time|date='Y-m-d H:i:s',###}</div>
+						</a>
+						<if condition='$list["isHandled"] eq 0'>
+							</b>
+						</if>
+						<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=2)" width="80%" color=#987cb9 SIZE=10>
+					</li>
+				</foreach>
+				<li>{$page}</li>
+			</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style type="text/css">
+		<!--
+		.STYLE1 {
+			font-size: 14px;
+			font-weight: bold;
+		}
+		-->
+		</style>
+	<title>季度考核分数汇总表</title>
+</head>
+<body>
+	<table width="1167" height="88" border="1" cellpadding="1" cellspacing="0" align='center'>
+		  <tr>
+		  	<td width="100" height="34"><div align="center" class="STYLE1">序号</div></td>
+		    <td width="114"><div align="center" class="STYLE1">姓名</div></td>
+		    <td width="200"><div align="center" class="STYLE1">所在部门</div></td>
+		    <td width="204"><div align="center" class="STYLE1">现任职务</div></td>
+		    <td width="148"><div align="center" class="STYLE1">身份</div></td>
+		    <td width="114"><div align="center" class="STYLE1">季度</div></td>
+		    <td width="169"><div align="center" class="STYLE1">考核得分</div></td>
+		    <td width="188"><div align="center" class="STYLE1">备注</div></td>
+		  </tr>
+		  <volist name='gather' id='v' key='key'>
+			  <tr>
+			    <td height="46"><div align="center">{$key}</div></td>
+			    <td><div align="center">{$v.name}</div></td>
+			    <td><div align="center">{$v.dep|idToDep}</div></td>
+			    <td><div align="center">{$v.pos|idToPosition}</div></td>
+			    <td><div align="center">{$v.identify|idToIdentify}</div></td>
+			    <td><div align="center">{$v.quarter}</div></td>
+			    <td><div align="center">{$v.score}</div></td>
+			    <td><div align="center">{$v.remark}</div></td>
+			  </tr>
+			</volist>
+	</table>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>日常公务</li>
+			<li><a href="{:U('Index/Notify/show_notify')}">通知公告</a></li>
+		</ul>
+    </div>
+	<div  id='content'>
+		<h2 align='center'>通知公告</h2>
+		<div  style='float:right; margin-right:10%;margin-top:10px;' id='notify_manage' class="button blue round"><a href="">通知公告管理</a></div>
+		<div  style='float:right;margin-top:10px;' id='notify_publish' class="button blue round"><a href="{:U('Index/Notify/notify_index')}">通知公告发布</a></div>	<br>
+		<div align='left'>
+			<form action="{:U('Index/Notify/show_notify',array('from'=>'search'))}" method='post'>
+				<span>起始日期：</span><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' >
+				<span>终止日期：</span><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' >
+				<span>主题：</span><input type="text" name='subject' value='{$subject}'>
+				
+				<input type="submit" value='查询'>
+			</form>
+		</div>
+         <br>
+		<table class="bordered"align='left' id="tableNodifyManage" style='width:90%;margin-right:100px;'>
+			<tr>
+				<th width='50%'>主题</th>
+				<th width='10%'>日期</th>
+				<th width='10%'>时间</th>
+				<th width='10%'>发送人</th>				
+				<th width='10%'>操作</th>
+			</tr>
+			<foreach name='notify' item='v'>
+			<tr>
+				<td width='50%'>{$v.meeting_title}</td>
+				<td width='10%'>{$v.publish_time|date='Y-m-d',###}</td>
+				<td width='10%'>{$v.publish_time|date='H:i',###}</td>
+				<td width='10%'>{$v.publisher|idToName}</td>				
+				<td width='10%'>
+					[<a href="{:U('Index/Notify/detailNotify',array('id'=>$v['id']))}">查看</a>]				
+				</td>
+			</tr>
+			</foreach>
+		</table>
+
+
+		<!--
+		<ul>
+			<foreach name='regulation' item='v'>
+				<li><a href="UPLOAD_PATH{$v.file_savename}" target='_blank'>{$v.file_name}</a></li>
+			</foreach>
+		</ul>
+		-->
+		<div style='float:left; margin-right:10%;' >
+			{$page}
+			<if condition='$notify eq null'>
+				暂无数据
+			</if>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+
+	</div>
+<include file='Common:footer'/>

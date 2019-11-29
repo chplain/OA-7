@@ -1,0 +1,48 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li><a href="{:U('Index/Notify/memo')}">备忘录</a></li>
+		</ul>
+    </div>
+	<div id="memo" class='someSpace'>
+		<span class='block' loat='right'><a href="#" id='myMemo'>我的备忘录</a></span><br>
+		<br><br>
+		<div>
+			<form action="{:U('Index/Notify/memoHandle')}" method='post'>
+				<table class="bordered" id="tableNodifyManage">
+					<tr>
+						<th colspan='2'><h3>备忘录</h3></th>
+					</tr>
+					<tr>
+						<td>标题</td>
+						<td><input type="text" name='title'></td>
+					</tr>
+					<tr>
+						<td>提醒时间</td>
+						<td>
+							<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" value='' >
+						</td>
+					</tr>
+					<tr>
+						<td>内容</td>
+						<td><textarea name="content" id="" cols='50' rows='10'></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<input type="submit" value='保存'>
+							<input type="reset" value='重置'>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<span style='color:blue;'>
+					备忘录会在设定的时间以弹窗的形式提醒，您可以在“我的备忘录”中查看、关闭相应的备忘条目
+				</span>
+			</form>
+		</div>
+	</div>
+
+<include file='Common:footer'/>

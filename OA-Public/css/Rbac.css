@@ -1,0 +1,175 @@
+*{
+	margin:0px;
+	padding:0px;
+	font:normal 14px "微软雅黑";
+}
+body {
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+	height: 100%; /*关闭网页高度*/
+	/*background-image: url(../images/images/eg_bg_03.gif);*/
+	background-repeat: repeat;
+}
+
+#container{
+	width:1225px;
+	height:620px;
+	margin:0px auto;
+}
+
+#top{
+	width:1225px;
+	height:120px;
+	float:left;
+}
+#top #top1{
+	float: left;
+	width:610px;
+	height:120px;
+	/*background: url(../images/Rbac/top1.jpg) no-repeat;*/
+}
+#top #top1 .p1{
+	color:#f5f6fb;
+	font:bold 33px "宋体";
+	margin-top:30px;
+	margin-left: 110px;
+}
+#top #top1 .p2{
+	color:#f5f6fb;
+	font:bold 10px Arial;
+	margin-left: 115px;
+}
+#top #top2{
+	float: right;
+	width:615px;
+	height:120px;
+	/*background: url(../images/Rbac/top2.jpg) repeat-x;*/
+}
+#top #top2 span{
+	float:right;
+	margin-right: 20px;
+	margin-top: 20px;
+	border-radius: 4px;
+}
+#top #top2 span a{text-decoration: none;color:white;}
+#top #top2 span a:hover{text-decoration: underline;}
+#left{
+	float: left;
+	width:220px;
+	height:465px;
+	background: #daeafa;
+	padding-bottom: 20px;
+}
+#left #l_top{
+	float: left;
+	width:220px;
+	height:32px;
+	/*background: url(../images/Rbac/l_top.jpg) repeat-x;*/
+	text-align: center;
+	font: 23px "华文中宋";
+	color:#2971b4;
+}
+#left a{
+	color:#111;
+	font: 14px "宋体";
+	text-decoration: none;
+}
+#left a:hover{
+	text-decoration: underline;
+}
+#left dd{
+	margin-left: 35px;
+	margin-bottom: 10px;
+}
+#right{
+	float: left;
+	width:95%;
+	height:90%;
+	background: #b6d7f1;
+	overflow: auto;
+	padding-bottom: 20px;
+}
+#right #r_top{
+	/*float: left;*/
+	width:162px;
+	height:21px;
+	/*background: url(../images/Rbac/r_top.jpg) no-repeat;*/
+}
+#foot{
+	float: left;
+	width:1225px;
+	height:30px;
+	/*background:url(../images/Rbac/foot.jpg) ;*/
+}
+
+input[type=submit],
+#deleteRole{
+	width:100px;
+	height:30px;
+	background-color: white;
+	cursor: pointer;
+}
+
+#addUser #clone,
+#addUser #dele_clone{
+	width:100px;
+	height:23px;
+	line-height: 23px;
+	background-color: #fefefe;
+	border-radius: 4px;
+	font:normal 14px "宋体";
+	cursor: pointer;
+}
+
+
+.level1{
+	/*background: #296EB1;*/
+	margin-left: 5px;
+}
+
+.level2{
+	/*background: #AD9EDF;*/
+	background: #8DB6CD;
+	height:20px;
+	margin-left: 15px;
+	margin-top: 5px;
+	line-height: 20px;
+}
+.level3{
+	/*background: red;*/
+	margin-left: 25px;
+	display: inline-block;
+	margin-top: 5px;
+}
+
+.table{
+	width:100%;
+	margin:0px auto;
+	text-align: left;
+}
+.table tr{
+	height:20px;
+}
+.table tr th{
+	background: #a9c6c9;
+}
+.table tr td{
+	background: #c3dde0;
+}
+.table input[type=text],
+.table input[type=password],
+.table select{
+	width:200px;
+	height:20px;
+}
+
+.sys_default{
+	display: block;
+	width:250px;
+	float:left;
+	margin-top: 5px;
+}
+.role_class_title{
+	font:bold 16px "宋体";
+}

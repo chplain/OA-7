@@ -1,0 +1,96 @@
+<include file='Common:header'/>
+<link rel="stylesheet" href="__PUBLIC__/js/pintuer2/css/pintuer.css">
+<link rel="stylesheet" href="__PUBLIC__/js/pintuer2/css/admin.css">
+<script>
+	$(function(){
+		//个人消息全选
+		$('.moreDetail input[name=checkAll]').click(function(){			
+			
+				$('input[name*=deleteId]').each(function(){
+					this.checked = true;
+				});
+				
+		});
+		//全不选
+		$('.moreDetail input[name=checkNone]').click(function(){	
+			$('input[name*=deleteId]').attr('checked',false);
+		});
+		$('a[deleteAttr=delete]').click(function(e){
+			if(!confirm('确定要删除吗？')){
+				e.preventDefault();
+			}
+		});
+		$('input[name=deleteGroupMessage]').click(function(e){
+			if(!confirm('确定要批量删除吗？')){
+				e.preventDefault();
+			}
+		});
+	});
+</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li><a href="{:U('Index/Notify/show_message')}">待办事项</a></li>
+			<li><a href="#">更多</a></li>
+		</ul>
+    </div>
+<div class='moreDetail'>
+	<h3 style='font:bold 25px "宋体";'>待办事项</h3>
+	
+		<!-- <ul>
+			<volist name='message' id='v' key='key'>
+				<if condition='is_odd($key) eq true'>
+					<li class='more_li1' align='center'>
+				<else/>
+					<li class='more_li2' align='center'>
+				</if>
+					<a href="{:U('Index/Notify/detailMessage',array('id'=>$v['id']))}">
+						<if condition='$v["isHandled"] eq 0'>
+							<b>{$v.mess_title|truncate_cn=70}</b>
+						<else/>
+							{$v.mess_title|truncate_cn=70}
+						</if>
+					</a>
+					<div class="more_time">{$v.mess_time|date='Y-m-d H:i',###}</div>
+				</li>
+			</volist>
+		</ul> -->
+		<form action="{:U('Index/Notify/deleteGroupMessage')}" method='post'>
+		<div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkAll" value="全选" />
+            <input type="button" class="button button-small checkall" name="checkNone" value="全不选" />
+            <input type="submit" class="button button-small border-yellow" name="deleteGroupMessage" value="批量删除" />
+        </div>
+		<table class="table table-hover">
+        	<tr>
+        		<th width="45">	选择</th>
+        		<th width="600">标题</th>
+        		<th width="100">时间</th>
+        		<th width="100">操作</th>
+        	</tr>
+        	<volist name='message' id='v' key='key'>
+        		<tr>
+        			<td><input type="checkbox" name="deleteId[]" value="{$v.id}" /></td>
+        			<td>
+        				<a href="{:U('Index/Notify/detailMessage',array('id'=>$v['id']))}">
+	        				<if condition='$v["isHandled"] eq 0'>
+								<b>{$v.mess_title|truncate_cn=70}</b>
+							<else/>
+								{$v.mess_title|truncate_cn=70}
+							</if>
+						</a>
+        			</td>
+        			<td>{$v.mess_time|date='Y-m-d H:i',###}</td>
+        			<td>
+        				<a href="{:U('Index/Notify/deleteOneMessage',array('id'=>$v['id']))}" class="button border-yellow button-little" deleteAttr='delete'>删除</a>
+        			</td>
+        		</tr>
+        	</volist>
+        </table>
+		{$page}
+		</form>
+</div>
+
+<include file='Common:footer'/>

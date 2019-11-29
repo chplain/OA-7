@@ -1,0 +1,166 @@
+body{
+	margin:0px;
+	padding:0px;
+}
+#mail_top{
+	width:100%;
+	
+	height:100px;
+	background: url(../images/mailbanner.png);
+}
+#mail_top1{
+	float:left;
+	background: url(../images/logo2.png) no-repeat;
+	padding-left: 50px;
+	padding-top: 10px;
+}
+#mail_top a{font:bold 15px "微软雅黑";float:right;margin-top:20px;margin-right:20px;color:#1E5494;text-decoration: none;}
+#mail_top a:hover{text-decoration: underline;}
+#mail_top span{margin-left: 20px;margin-top: 20px;color:#229ADF;font:bold 25px "宋体";}
+#mail_top #top11{margin-left: 25px;margin-top: 20px;color:#229ADF;font:bold 15px "宋体";}
+#mail_left{
+	width:153px;
+	margin:auto;
+	height:660px;
+	/*height:100%;*/
+	border: solid 5px #89B5E9;
+	border-radius: 3px;
+	margin-right:0px;
+}
+#leftUp{
+	width:95%;
+	height:20%;
+	border-bottom: solid 5px #89B5E9;
+	padding-left: 10px;
+	font:bold 14px "宋体";
+}
+.upborder{
+	width:98%;
+	height:30px;
+	margin:auto;
+	margin-top: 10px;
+	line-height: 30px;
+	padding-left: 30px;
+}
+#write{background: url(../images/write.png) no-repeat;}
+#recv{background: url(../images/recv.png) no-repeat;}
+#contact{background: url(../images/contact.png) no-repeat;}
+#mail_left a{color:#1E5494;text-decoration: none;}
+#mail_left a:hover{color:red;}
+#leftDown{
+	width:100%;
+	height:70%;
+	font:normal 13px "宋体";
+}
+
+#mail_right{
+	float:left;
+	width:100%;
+	margin:auto;
+	height: 100%;
+	background: #EFF5FB;
+}
+#mail_right #bar{
+	width:100%;
+	height:6px;
+	background: url(../images/bar.png) repeat-x;
+	top:0px;
+	position: fixed;
+	z-index: 10000;
+}
+
+#welcome{
+	font:bold 17px "宋体";
+	margin-top: 20px;
+	margin-left: 20px;
+}
+#unread{margin-top: 5px;margin-left: 20px;margin-bottom: 10px;}
+#mail_right #links a{
+	margin-left: 25px;
+	color:#1E5494;
+	text-decoration: none;
+	font:bold 14px "宋体";
+}
+#mail_right #links a:hover{text-decoration: underline;}
+/*#mail_right input[type=submit],*/
+#mail_right button{
+	background: url(../images/btn_0.png) repeat-x;
+}
+
+#write_container,#receive_container,#draft_container,#sent_container,#deleted_container,#detail_mail{
+	width:960px;
+	float:left;
+	margin-top: 20px;
+	margin-left: 10px;
+	font:normal 13px "宋体";
+}
+#write_container a{color:#1E5494;text-decoration: none;}
+#write_container a:hover{color:#1E5494;text-decoration: underline;}
+#write_container input[type=text]{
+	width:800px;
+	height:20px;
+}
+#write_right{
+	float: right;
+	width:200px;
+	height: 350px;
+	margin-top: 100px;
+	font:normal 13px "宋体";
+	overflow-x: hidden;
+	overflow-y:auto;
+}
+#write_right a:hover{text-decoration: none;}
+.mail_hint{
+	color:#1E5494;
+	font:bold 13px "宋体";
+}
+
+#list_bar{
+	width:1180px;
+	height:23px;
+	background: url(../images/mail_bar.png) repeat-x;
+	float: left;
+}
+#list_bar div{
+	float: left;
+	height:23px;
+	line-height: 23px;
+}
+#list_bar .bar1{
+	width:42px;
+}
+#list_bar .bar2{
+	width:160px;
+}
+#list_bar .bar3{
+	width: 808px;
+}
+#list_bar .bar4{
+	width: 170px;
+}
+#mail_right ul{margin:0px;padding:0px;list-style: none;}
+#mail_right ul div{float: left;height:20px;}
+#mail_right ul li{width:1180px;}
+#mail_right ul li a{color:#000;}
+#mail_right ul li a:hover{color:#ee3456;}
+#mail_right ul li .mail_logo{
+	width:42px;
+}
+#mail_right ul li .mail_sender{
+	width:160px;
+}
+#mail_right ul li .mail_subject{
+	width:808px;
+}
+#mail_right ul li .mail_send_time{
+	width:170px;
+}
+
+#contact_list ul{
+	list-style: square;
+}
+#contact_list ul li a{color:blue;}
+#contact_list ul li a:hover{color:#676707;}
+
+
+

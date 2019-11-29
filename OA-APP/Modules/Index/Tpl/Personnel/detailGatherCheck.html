@@ -1,0 +1,87 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div>
+	<table width="1380" border="1" cellpadding="1" cellspacing="0">
+		  <tr>
+		    <td colspan="22">
+		    	<div align="center">
+		    		房山区环境保护局{$gather['title_time']|date='Y年m月',###}考勤(全局)
+		    		<a href="{:U('Index/Personnel/gatherExcel',array('id'=>$gather['id']))}"><button>导出excel</button></a>
+		    	</div>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="30" colspan="22"><div align="center">
+		      <table width="1302" height="30" border="0" cellpadding="1" cellspacing="0">
+		        <tr>
+		          <td width="934">单位：（天）</td>
+		          <td width="340">
+		          	{$gather['fresh_time']|date='Y年m月d日',###}更新 </td>
+		        </tr>
+		      </table>
+		    </div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		  <tr>
+		    <td width="49" rowspan="2"><div align="center">编号</div></td>
+		    <td width="115" rowspan="2"><div align="center">姓名</div></td>
+		    <td width="165" rowspan="2"><div align="center">科室</div></td>
+		    <td width="80" rowspan="2"><div align="center">应出勤</div></td>
+		    <td colspan="2"><div align="center">工伤</div></td>
+		    <td colspan="2"><div align="center">病假</div></td>
+		    <td colspan="2"><div align="center">事假</div></td>
+		    <td colspan="2"><div align="center">旷工</div></td>
+		    <td colspan="2"><div align="center">探亲假</div></td>
+		    <td colspan="2"><div align="center">婚假</div></td>
+		    <td colspan="2"><div align="center">产假</div></td>
+		    <td colspan="2"><div align="center">年假</div></td>
+		    <td width="107" rowspan="2"><div align="center">实出勤</div></td>
+		  </tr>
+		  <tr>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数 </div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		  </tr>
+		<volist name='checkAtt' id='v' key='key'>
+		  <tr id='first_tr' class='input_row'>
+		    <td height="42"><div align="center">{$key}</div></td>
+		    <td><div align="center">{$v.name}</div></td>
+		    <td><div align="center">{$v.dep|idToDep}</div></td>
+		    <td><div align="center">{$v.should_attend}</div></td>
+		    <volist name='v.vacation' id='vv'>
+		    	<td><div align="center">{$vv}</div></td>
+		    </volist>
+		    <td><div align="center">{$v.real_attend}</div></td>
+		  </tr>
+		</volist>
+		  <!-- <tr id='remark_tr'>
+		    <td colspan="22"><div align="left">备注：{$checkAtt[0]['remark']}</div>
+		    <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		  <tr>
+		    <td colspan="3"><div align="left">主管财务领导：{$checkAtt[0]['leader1']}</div>
+		    <div align="center"></div>      <div align="center"></div></td>
+		    <td colspan="11"><div align="left">主管领导：{$checkAtt[0]['leader2']}</div></td>
+		    <td colspan="7"><div align="left">
+		    	科室负责人：{$checkAtt[0]['leader3']|IdToName}
+		    </div></td>
+		  </tr> -->
+		  <tr>
+		    <td colspan="22"><div align="left">注：日期格式示例：（1）一天：1.1；（2）半天：1.2（上）；（3）连续天数：1.3-1.8；（4）非连续天数：1.1、1.3（下）、1.5-1.7.</div>
+		    <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		</table>
+</div>
+<include file='Common:footer'/>

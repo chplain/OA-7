@@ -1,0 +1,123 @@
+<include file='Common:header' />
+<css file='__PUBLIC__/css/labor.css'/>
+<js file='__PUBLIC__/js/jquery.min.js'/>
+<js file='__PUBLIC__/js/labor.js'/>
+<include file='Common:top' />
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>劳资管理</li>
+			<li><a href="{:U('Index/Labor/maintain_index')}">设备维修</a></li>
+			
+		</ul>
+    </div>
+<div id='itemApply_index'  class='someSpace'>
+	<span class='addStock_btn'><a href="#" id='maintainTable'>添加维修项目</a></span>
+	<br><br><br>
+	<table class="bordered"  id="tableNodifyManage" style="width:90%;">
+		<tr>
+			<th width='7%'>序号</th>
+			<th width='13%'>维修设备</th>
+			<th width='10%'>分类</th>
+			<th width='10%'>维修时间</th>
+			<th width='20%'>维修内容</th>
+			<th width='10%'>科室</th>
+			<th width='10%'>金额</th>
+			<th width='10%'>操作</th>
+		</tr>
+		<volist name='item' id='v' key='key'>
+			<tr>
+				<td width='7%'>{$key}</td>
+				<td width='13%'>{$v.equipment}</td>
+				<td width='10%'>{$v.class|maintainClassToName}</td>
+				<td width='10%'>{$v.time|date='Y-m-d',###}</td>
+				<td width='10%'>{$v.content}</td>
+				<td width='20%'>{$v.dep|idToDep}</td>
+				<td width='10%'>{$v.money}</td>
+				<td width='10%'>[<a href="#" vid='{$v["id"]}' class='modifyMaintain_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteMaintain',array('id'=>$v['id']))}" class='delete'>删除</a>]</td>
+			</tr>
+		</volist>
+		<tr>
+			<td width='7%'><b>合计</b></td>
+			<td width='13%'></td>
+			<td width='10%'></td>
+			<td width='10%'></td>
+			<td width='10%'></td>
+			<td width='20%'></td>
+			<td width='10%'><b>{$sum_money}</b></td>
+			<td width='10%'></td>
+		</tr>
+		<tr>
+			<td colspan="8">
+				{$page}
+				<if condition='$item eq NULL'>暂无设备维修信息</if>
+				<form action="{:U('Index/Labor/excel_maintain')}" method='post' align='right' style='float:right;margin-right:20px;'>
+					<foreach name='forExcel' item='v'>
+						<input type="hidden" name='forExcel[]' value='{$v.id}'>
+					</foreach>
+					<button>导出Excel</button>
+				</form>	
+			</td>
+		</tr>
+	</table>
+	<!-- <div class='common_list'>
+		<div class='common_list_bar'>
+			<div class='common_list_bar0'>序号</div>
+			<div class='common_list_bar1'>维修设备</div>
+			<div class='common_list_bar2'>分类</div>
+			<div class='common_list_bar3'>维修时间</div>
+			<div class='common_list_bar4'>维修内容</div>
+			<div class='common_list_bar5'>科室</div>
+			<div class='common_list_bar6'>金额</div>
+			<div class='common_list_bar7'>&nbsp;</div>
+			<div class='common_list_bar8'>&nbsp;</div>
+			<div class='common_list_bar9'>操作</div>
+		</div>
+		
+		<volist name='item' id='v' key='key'>
+			<if condition='is_odd($key)'>
+				<div class='common_list_content' style='background-color:#E0FFFF;'>
+				<else/>
+				<div class='common_list_content' style='background-color:#CCCCCC;'>
+			</if>
+				<div class='common_list_bar0'>{$key}&nbsp;</div>
+				<div class='common_list_bar1'>{$v.equipment}&nbsp;</div>
+				<div class='common_list_bar2'>{$v.class|maintainClassToName}&nbsp;</div>
+				<div class='common_list_bar3'>{$v.time|date='Y-m-d',###}&nbsp;</div>
+				<div class='common_list_bar4'>{$v.content}&nbsp;</div>
+				<div class='common_list_bar5'>{$v.dep|idToDep}&nbsp;</div>
+				<div class='common_list_bar6'>{$v.money}&nbsp;</div>
+				<div class='common_list_bar7'>&nbsp;</div>
+				<div class='common_list_bar8'>&nbsp;</div>
+				<div class='common_list_bar9'>
+					[<a href="#" vid='{$v["id"]}' class='modifyMaintain_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteMaintain',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</div>
+			</div>
+		</volist>
+		<div class='common_list_content'>
+				<div class='common_list_bar0'><b>合计</b></div>
+				<div class='common_list_bar1'><b>&nbsp;</b></div>
+				<div class='common_list_bar2'><b>&nbsp;</b></div>
+				<div class='common_list_bar3'><b>&nbsp;</b></div>
+				<div class='common_list_bar4'><b>&nbsp;</b></div>
+				<div class='common_list_bar5'><b>&nbsp;</b></div>
+				<div class='common_list_bar6'><b>{$sum_money}</b></div>
+				<div class='common_list_bar7'><b>&nbsp;</b></div>
+				<div class='common_list_bar8'><b>&nbsp;</b></div>
+				<div class='common_list_bar9'><b>&nbsp;</b></div>
+			</div>
+		<div class='common_list_foot'>
+			{$page}
+			<if condition='$item eq NULL'>暂无设备维修信息</if>
+			<form action="{:U('Index/Labor/excel_maintain')}" method='post' align='right' style='float:right;margin-right:20px;'>
+				<foreach name='item' item='v'>
+					<input type="hidden" name='forExcel[]' value='{$v.id}'>
+				</foreach>
+				<button>导出Excel</button>
+			</form>		
+		</div>
+	</div> -->
+</div>
+<include file='Common:footer' />

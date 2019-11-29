@@ -1,0 +1,117 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>文件管理</li>
+			<li><a href="{:U('Index/File/show_outfile')}">外部来文登记</a></li>
+			<li><a href="#">外部来文修改</a></li>
+		</ul>
+    </div>
+<div>
+	<a href="{:U('Index/File/show_outfile')}"><button>返回</button></a>
+	<div>
+		<h2 align="center">外部来文修改</h2>
+		<form action="{:U('Index/File/outFileHandle',array('id'=>$out['id'],'from'=>'modify'))}" method='post' enctype='multipart/form-data'>
+			<table class="bordered"align='center' id="tableNodifyManage" style="width:75%;">
+				<tr>
+					<td>收文顺序号</td>
+					<td>
+						<input type="text" name='recvNum' value='{$out.recvNum}'>
+					</td>
+				</tr>
+				<tr>
+					<td>日期</td>
+					<td>
+						<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$out.time|date="Y-m-d",###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>来文机关</td>
+					<td><input type="text" name='fromOffice' value='{$out.fromOffice}'></td>
+				</tr>
+				<tr>
+					<td>属性</td>
+					<td>
+						文件字属：<input type="text" name='belong' value='{$out.belong}'>
+						年发号：<input type="text" name='year' value='{$out.year}'>
+					</td>
+				</tr>
+				<tr>
+					<td>数量</td>
+					<td>
+						份数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：<input type="text" name='copyNum1' value='{$out.copyNum1}'>
+						号数&nbsp;&nbsp;&nbsp;：<input type="text" name='copyNum2' value='{$out.copyNum2}'>
+					</td>
+				</tr>
+				<tr>
+					<td>文件标题</td>
+					<td><input type="text" name='title' value='{$out.title}'></td>
+				</tr>
+				<!-- <tr>
+					<td>内容摘要</td>
+					<td><textarea name="content" id="" cols="30" rows="5">{$out.content}</textarea></td>
+				</tr> -->
+				<tr>
+					<td>联系人</td>
+					<td><input type="text" name='contactor' value='{$out.contactor}'></td>
+				</tr>
+				<tr>
+					<td>联系方式</td>
+					<td><input type="text" name='contact' value='{$out.contact}'></td>
+				</tr>
+				<tr>
+					<td>备注</td>
+					<td><input type="text" name='remark' value='{$out.remark}'></td>
+				</tr>
+				<tr>
+					<td>局领导</td>
+					<td>
+						<!-- <input type="text"  class='contact_input1' placeholder='点击选择'>
+						<input type="hidden" name='leader' class='hidden'> -->
+						<textarea name="leader" class='newContact_input_1' id="" style='width:400px;height:30px;' disabled>{$out.leader|IdsToNames=','}</textarea>
+						<input type="hidden" name='group_id_1'>
+						<input type="hidden" name='individual_id_1' value='{$out.leader}'>
+						<a href="#" class='newContact'>添加</a>	
+					</td>
+				</tr>
+				<tr>
+					<td>提醒方式：</td>
+					<td>
+						<input type="checkbox" name='attentionType[]' value='1' <if condition='$attention1 eq true'>checked</if>>系统提醒
+						<input type="checkbox" name='attentionType[]' value='2' <if condition='$attention2 eq true'>checked</if>>短息提醒
+						<input type="checkbox" name='attentionType[]' value='3' <if condition='$attention3 eq true'>checked</if>>邮件提醒
+					</td>
+				</tr>
+
+				<tr>
+					<td>发布范围</td>
+					<td>
+						<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled>{$out.individual_id|IdsToNames=','}</textarea>
+						<input type="hidden" name='group_id' value='{$out.group_id}'>
+						<input type="hidden" name='individual_id' value='{$out.individual_id}'>
+						<a href="#" class='newContact'>添加</a>	
+					</td>
+				</tr>
+
+				<tr>
+					<td>上传文件(若无改动，则可以不上传)</td>
+					<td>
+						[<a href="UPLOAD_PATH{$out.file_savename}" target='_blank'>{$out.file_name}</a>]
+						<input type="file" name='file'>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value='保存'>
+						<input type="reset" value='重置'>
+						<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<span style='color:blue;'>注：点击“登记”后，即给相关领导发送邮件与短信，以做提醒</span> -->
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>	
+</div>
+
+<include file='Common:footer'/>

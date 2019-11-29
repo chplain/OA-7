@@ -1,0 +1,311 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/search')}">会议查看</a></li>
+		</ul>
+    </div>
+<div id='meet_search'>
+	
+	<div id='meet_table'>
+		<div>
+			<span>选择周次：</span>
+			<select name="week" id="week">
+				<option value="1">***本周***</option>
+				<option value="2">***下周***</option>
+			</select>
+		</div><br>
+		<div id='table_detail'>
+			<div align="center" style='font-size:20px;'><strong>会议室安排</strong></div>
+			<table id='thisweek' width="723"  border="2" align="center" cellpadding="1" cellspacing="0">
+				  <!-- <tr>
+				    <td colspan="8"></td>
+				  </tr> -->
+				  <tr>
+				    <td width="82" height='34'><div align="center"></div></td>
+				    <td width="92"><div align="center">周一</div></td>
+				    <td width="85"><div align="center">周二</div></td>
+				    <td width="86"><div align="center">周三</div></td>
+				    <td width="88"><div align="center">周四</div></td>
+				    <td width="90"><div align="center">周五</div></td>
+				    <td width="83"><div align="center">周六</div></td>
+				    <td width="81"><div align="center">周日</div></td>
+				  </tr>
+				  <tr>
+				    <td height="34"><div align="center">日期</div></td>
+				    <td><div align="center">{$thisweekDate[0]|date='m月d日',###}</div></td>
+					<td><div align="center">{$thisweekDate[1]|date='m月d日',###}</div></td>
+					<td><div align="center">{$thisweekDate[2]|date='m月d日',###}</div></td>
+					<td><div align="center">{$thisweekDate[3]|date='m月d日',###}</div></td>
+					<td><div align="center">{$thisweekDate[4]|date='m月d日',###}</div></td>
+					<td><div align="center">{$thisweekDate[5]|date='m月d日',###}</div></td>
+					<td><div align="center">{$thisweekDate[6]|date='m月d日',###}</div></td>
+				  </tr>
+
+				<foreach name='meetPlace' item='v'>
+					<tr>
+						<td height='50'>{$v.name}</td>
+						<for start='0' end='7'>
+							<if condition='$allMeet[$v["id"]][$i] neq null'>
+								<td><div align="center">
+								<volist name='allMeet[$v["id"]][$i]' id='vv' key='key'>
+									<!-- <div> -->
+									<if condition='$key eq 1'>
+									<table>
+									<else/>
+										<table style='border-top:1px solid #000;width:100%;'>
+									</if>
+										<tr>
+											<td>
+												{$vv.apply_department|idToDep}
+												{$vv.meet_time|date='H:i',###}<br>
+												<!-- {$vv.meet_service|idToMeetService} -->
+												{$vv.meet_content}
+											</td>
+										</tr>
+										
+									</table>
+										
+									<!-- </div> -->
+								</volist>
+								
+							</div></td>
+				   			<else/>
+				   			<td></td>
+					   		</if>
+						</for>
+					</tr>
+				</foreach>
+
+
+
+				  <!-- <tr>
+				    <td height="82"><div align="center">二楼会议室</div></td>
+				   
+				   <for start='0' end='7'>
+				   		<if condition='$two[$i] neq null'>
+				   			<td><div align="center">
+							<foreach name='two[$i]' item='vv'>
+								<div>
+									{$vv.apply_department|idToDep}<br>
+									{$vv.meet_time|date='H:i',###}<br>
+									{$vv.meet_service|idToMeetService}
+								</div>
+							</foreach>
+							
+						</div></td>
+			   			<else/>
+			   			<td></td>
+				   		</if>
+				   </for>
+				    
+				  </tr>
+				  <tr>
+				    <td height="75"><div align="center">三楼会议室</div></td>
+				     <for start='0' end='7'>
+				   		<if condition='$three[$i] neq null'>
+				   			<td><div align="center">
+							<foreach name='three[$i]' item='vv'>
+								<div>
+									{$vv.apply_department|idToDep}<br>
+									{$vv.meet_time|date='H:i',###}<br>
+									{$vv.meet_service|idToMeetService}
+								</div>
+							</foreach>
+							
+						</div></td>
+			   			<else/>
+			   			<td></td>
+				   		</if>
+				   </for>
+				  </tr>
+				  <tr>
+				    <td height="85"><div align="center">四楼会议室</div></td>
+				    <for start='0' end='7'>
+				   		<if condition='$four[$i] neq null'>
+				   			<td><div align="center">
+							<foreach name='four[$i]' item='vv'>
+								<div>
+									<span>申请科室:</span>{$vv.apply_department|idToDep}<br>
+									<span>会议时间:</span>{$vv.meet_time|date='H:i',###}<br>
+									<span>会议服务:</span>{$vv.meet_service|idToMeetService}
+								</div>
+							</foreach>
+							
+						</div></td>
+			   			<else/>
+			   			<td></td>
+				   		</if>
+				   </for>
+				  </tr>
+				</table> -->
+
+		<table id='nextweek' width="723" border="2" align="center" cellpadding="1" cellspacing="0">
+				 <!--  <tr>
+				    <td colspan="8"><div align="center" style='font-size:20px;'><strong>会议室安排</strong></div></td>
+				  </tr> -->
+				  <tr>
+				    <td width="82" height='34'><div align="center"></div></td>
+				    <td width="92"><div align="center">周一</div></td>
+				    <td width="85"><div align="center">周二</div></td>
+				    <td width="86"><div align="center">周三</div></td>
+				    <td width="88"><div align="center">周四</div></td>
+				    <td width="90"><div align="center">周五</div></td>
+				    <td width="83"><div align="center">周六</div></td>
+				    <td width="81"><div align="center">周日</div></td>
+				  </tr>
+				  <tr>
+				    <td height="34"><div align="center">日期</div></td>
+				    <td><div align="center">{$nextweekDate[0]|date='m月d日',###}</div></td>
+					<td><div align="center">{$nextweekDate[1]|date='m月d日',###}</div></td>
+					<td><div align="center">{$nextweekDate[2]|date='m月d日',###}</div></td>
+					<td><div align="center">{$nextweekDate[3]|date='m月d日',###}</div></td>
+					<td><div align="center">{$nextweekDate[4]|date='m月d日',###}</div></td>
+					<td><div align="center">{$nextweekDate[5]|date='m月d日',###}</div></td>
+					<td><div align="center">{$nextweekDate[6]|date='m月d日',###}</div></td>
+				  </tr>
+
+				  <foreach name='meetPlace' item='v'>
+					<tr >
+						<td height='50'>{$v.name}</td>
+						<for start='0' end='7'>
+							<if condition='$allMeetNext[$v["id"]][$i] neq null'>
+								<td><div align="center">
+								<foreach name='allMeetNext[$v["id"]][$i]' item='vv'>
+									<div>
+										{$vv.apply_department|idToDep}<br>
+										{$vv.meet_time|date='H:i',###}<br>
+										{$vv.meet_service|idToMeetService}
+									</div>
+								</foreach>
+								
+							</div></td>
+				   			<else/>
+				   			<td></td>
+					   		</if>
+						</for>
+					</tr>
+				  </foreach>
+				  <!-- <tr>
+				    <td height="82"><div align="center">二楼会议室</div></td>
+				   
+				    <for start='0' end='7'>
+				   		<if condition='$twonext[$i] neq null'>
+				   			<td><div align="center">
+							<foreach name='twonext[$i]' item='vv'>
+								<div>
+									<span>申请科室:</span>{$vv.apply_department|idToDep}<br>
+									<span>会议时间:</span>{$vv.meet_time|date='H:i',###}<br>
+									<span>会议服务:</span>{$vv.meet_service|idToMeetService}
+								</div>
+							</foreach>
+							
+						</div></td>
+			   			<else/>
+			   			<td></td>
+				   		</if>
+				   </for>
+				  </tr>
+				  <tr>
+				    <td height="75"><div align="center">三楼会议室</div></td>
+				     <for start='0' end='7'>
+				   		<if condition='$threenext[$i] neq null'>
+				   			<td><div align="center">
+							<foreach name='threenext[$i]' item='vv'>
+								<div>
+									<span>申请科室:</span>{$vv.apply_department|idToDep}<br>
+									<span>会议时间:</span>{$vv.meet_time|date='H:i',###}<br>
+									<span>会议服务:</span>{$vv.meet_service|idToMeetService}
+								</div>
+							</foreach>
+							
+						</div></td>
+			   			<else/>
+			   			<td></td>
+				   		</if>
+				   </for>
+				  </tr>
+				  <tr>
+				    <td height="85"><div align="center">四楼会议室</div></td>
+				    <for start='0' end='7'>
+				   		<if condition='$fournext[$i] neq null'>
+				   			<td><div align="center">
+							<foreach name='fournext[$i]' item='vv'>
+								<div>
+									<span>申请科室:</span>{$vv.apply_department|idToDep}<br>
+									<span>会议时间:</span>{$vv.meet_time|date='H:i',###}<br>
+									<span>会议服务:</span>{$vv.meet_service|idToMeetService}
+								</div>
+							</foreach>
+							
+						</div></td>
+			   			<else/>
+			   			<td></td>
+				   		</if>
+				   </for>
+				  </tr> -->
+				</table>
+		</div>
+	</div>
+	<div>&nbsp;</div><div>&nbsp;</div>
+	<!-- <div id='keyword_search' align='center'>
+		<h2>特定条件查询</h2>
+		<div>
+			<span>起始时间：</span>
+			{$startTime}<br>
+			<span>截止时间：</span>
+			{$endTime}
+		</div>
+		<div>
+			<span>参会领导：</span>
+			<input type="text" name='attend_leader' placeholder='参会领导姓名'>
+		</div>
+		<div>
+			<span>申请科室：</span>
+			<select name="apply_department">
+				<option value="0">======请选择======</option>
+				<option value="1">办公室</option>
+				<option value="2">总量控制科</option>
+				<option value="3">大气污染防治办公室</option>
+				<option value="4">综合管理科</option>
+				<option value="5">规划和环境影响评价科</option>
+				<option value="6">监控中心</option>
+				<option value="7">辐射所</option>
+				<option value="8">机关服务部</option>
+				<option value="9">环保协会</option>
+				<option value="10">环境监查支队</option>
+				<option value="11">环境保护检测站</option>
+				<option value="12">机动车排放管理站</option>
+			</select>
+		</div>
+		<div>
+			<button id='key_search_btn'>查询</button>
+		</div>
+		<div id='msg'>
+			
+		</div>
+
+	</div> -->
+	
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<include file='Common:footer'/>

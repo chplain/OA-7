@@ -1,0 +1,126 @@
+<include file='top'/>
+<!-- 上报 -->
+<div id='right'  style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<if condition='$from eq "appro"'>
+				<img src="__PUBLIC__/images/info/hint6.jpg" alt="hint">
+			</if>
+			<if condition='$from eq "myappro"'>
+				<img src="__PUBLIC__/images/info/hint5.jpg" alt="hint">
+			</if>
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<if condition='$from eq "appro"'>
+				<li><a href="{:U('Index/Information/appro')}">信息约稿</a></li>
+				<li>信息约稿详情</li>
+			</if>
+			<if condition='$from eq "myappro"'>
+				<li><a href="{:U('Index/Information/myappro')}">我的约稿</a></li>
+				<li>我的约稿详情</li>
+			</if>
+		</ul>
+    </div>
+
+	<div class='middle'>
+		<div class='content'>
+			<div id='appro_table'>
+
+				<div><span class='key'>约稿主题：</span><span class='value'>{$appro.subject}</span></div>
+				<div><span class='key'>负责科室：</span><span class='value'>{$appro.dep|idsToDeps}</span></div>
+				<div><span class='key'>约稿时间：</span><span class='value'>{$appro.send_time|date='Y-m-d H:i',###}</span></div>
+				<div><span class='key'>截止日期：</span><span class='value'>{$appro.deadline|date='Y-m-d',###} &nbsp;&nbsp;&nbsp;&nbsp;距离截稿日期还有：<b>{$diff}</b>天</span></div>
+				<div><span class='key'>附加内容：</span><span class='value'>{$appro.content}</span></div>
+			</div>
+
+
+			<if condition='$from eq "appro"'>
+				<div id='appro_form'>
+					<table style='width:90%;'>
+						<foreach name='appro_item' item='v'>
+							<tr>
+								<td>{$v.user_id|useridToDep|idToDep}</td>
+								<td>
+									<if condition='$v["process"] eq 5'>
+										<span>上交的稿件：</span><a href="UPLOAD_PATH{$v['file_savename']}" target='_blank'>{$v.file_name}</a>
+									</if>
+								</td>
+								<td>
+									<img  width="250px" height="125px" src="__PUBLIC__/images/images/buzhou{$v['process']+1}.png" alt="图片进度条{$v.process}">
+								</td>
+							</tr>
+							
+						</foreach>
+					</table>					
+					<span>	1 表示 任务未发送 | 2 表示 任务送达 | 3 表示 接受任务 | 4 表示 材料收集 | 5 表示 拟稿 | 6 表示 完成</span>
+				</div>
+				</div>
+			</if>
+			<if condition='$from eq "myappro"'>
+				<div id='myappro_form'>
+					<table class="bordered" align='center' id="tableNodifyManage" style="width:800px;">
+						<tr>
+							<th colspan="3"><span class='key'>请确认您的工作进度：</span></th>
+						</tr>
+						<tr>
+							<td>
+								<a href="{:U('Index/Information/appro_receive',array('id'=>$appro['id']))}"><button>接受任务</button></a>
+								<if condition='$process egt 2'><img src="__PUBLIC__/images/info/done.png" alt="done"></if>
+							</td>
+							<td>
+								<a href="{:U('Index/Information/appro_collect',array('id'=>$appro['id']))}"><button>材料收集</button></a>
+								<if condition='$process egt 3'><img src="__PUBLIC__/images/info/done.png" alt="done"></if>
+							</td>
+							<td>
+								<a href="{:U('Index/Information/appro_draft',array('id'=>$appro['id']))}"><button>拟稿</button></a>
+								<if condition='$process egt 4'><img src="__PUBLIC__/images/info/done.png" alt="done"></if>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<form action="{:U('Index/Information/appro_finish',array('id'=>$appro['id']))}" method='post'  enctype='multipart/form-data'>
+								<input type="file" name='file'>
+								<button>完成</button>
+								<if condition='$process egt 5'><img src="__PUBLIC__/images/info/done.png" alt="done"></if>
+							</form>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<span>上交的稿件：</span><a href="UPLOAD_PATH{$item['file_savename']}" target='_blank'>{$item.file_name}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('Index/Information/deleteApproFile',array('item_id'=>$item['id']))}" class='delete'><button>删除上传</button></a>
+							</td>
+						</tr>
+						<tr>
+							<td colspan='3'>
+								 已完成到 <font color="blue"> {$process|idToProcess} </font>  阶段
+								 <div style='margin-left:20px; cursor:pointer;'>
+									<img width="250px" height="125px" src="__PUBLIC__/images/images/buzhou{$process+1}.png" alt="图片进度条{$process}">
+									<br/>
+									<span>	1 表示 任务未发送 | 2 表示 任务送达 | 3 表示 接受任务 | 4 表示 材料收集 | 5 表示 拟稿 | 6 表示 完成</span>
+								</div>
+							</td>
+						</tr>
+						
+					
+				</table>
+				</div>
+			</if>
+
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+<include file='foot'/>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<style type='text/css'>
+		body{
+			background: #EFF7FF;
+		}
+	</style>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/right_nav.css"/>
+	<title>我的备忘录</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li><a href="{:U('Index/Notify/memo')}">备忘录</a></li>
+			<li><a href="#">备忘录详情</a></li>
+		</ul>
+    </div>
+	<div align='center'>
+		<h3 align='center'>{$memo.title}</h3>
+		<table  class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+			<tr>
+				<td>提醒状态：</td>
+				<td><if condition='$memo["isShowedUp"] eq true'>已提醒<else/>未提醒</if></td>
+			</tr>
+			<tr>
+				<td>开启状态：</td>
+				<td><if condition='$memo["isOpen"] eq true'>开启<else/>关闭</if></td>
+			</tr>
+			<tr>
+				<td>设定时间：</td>
+				<td>{$memo.time|date='Y-m-d H:i',###}</td>
+			</tr>
+			<tr>
+				<td>提醒内容：</td>
+				<td>{$memo.content}</td>
+			</tr>
+		</table>
+		<br>
+		<div align='center'>
+			<button onclick='javascript:history.go(-1);'>返回</button>
+		</div>
+	</div>
+</body>
+</html>

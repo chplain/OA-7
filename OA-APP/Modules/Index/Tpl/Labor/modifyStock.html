@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/labor.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/labor.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>
+	<css file='__PUBLIC__/css/showDialog.css'/>
+	<js file='__PUBLIC__/js/showDialog.js'/>
+	<title>修改库存单</title>
+</head>
+<body>
+	<div id='stock'>
+	<form action="{:U('Index/Labor/modifyStockHandle',array('id'=>$stock['id']))}" method='post'>
+		<table>
+			<tr>
+				<th colspan='2' align='center'>修改库存表单</th>
+			</tr>
+			<tr>
+				<td align='right'>入库物品名称</td>
+				<td><input type="text" name='name' value='{$stock.name}'></td>
+			</tr>
+			<tr>
+				<td align='right'>分类</td>
+				<td>
+					<input type="text" name='class' value='{$stock.class|stockClassToName}({$stock.class})'>
+					<a href="#" id='selectStockClass'>点击选择</a>
+					<a href="#" id='stockClass'>分类设置</a>
+				</td>
+			</tr>
+			<tr>
+				<td align='right'>入库时间</td>
+				<td>
+					<input class="Wdate" type="text" name='instock_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stock.instock_time|date="Y-m-d",###}' >
+				</td>
+			</tr>
+			<tr>
+				<td align='right'>入库数量</td>
+				<td><input type="text" name='instock_num' value='{$stock.instock_num}'></td>
+			</tr>
+			<tr>
+				<td align='right'>金额</td>
+				<td><input type="text" name='money' value='{$stock.money}'></td>
+			</tr>
+			<tr>
+				<td align='right'>出库数量</td>
+				<td><input type="text" name='outstock_num' value='{$stock.outstock_num}'></td>
+			</tr>
+			<tr>
+				<td align='right'>库存数量</td>
+				<td><input type="text" name='stock_num' value='{$stock.stock_num}'></td>
+			</tr>
+			<tr>
+				<td colspan='2' align='center'>
+					<input type="submit" value='保存修改'>
+					<input type="reset" value='重置'>
+					<button id='close'>关闭窗口</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	</div>
+</body>
+</html>

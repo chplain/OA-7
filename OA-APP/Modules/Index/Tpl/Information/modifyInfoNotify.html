@@ -1,0 +1,66 @@
+<include file='top'/>
+<!-- index默认是公告 -->
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint1.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/notify')}">公告</a></li>
+			<li>公告修改</li>
+		</ul>
+    </div>
+
+	<div class='middle' style='padding-top:20px;padding-left:20px;width:100%;'>
+		
+		<button onclick='javascript:history.go(-1);'>返回</button>
+		<div class='content'>
+			<form action="{:U('Index/Information/publish_handle',array('id'=>$notify['id'],'from'=>'modify'))}" method='post'>
+				<table class="bordered" align='center' id="tableNodifyManage" style="width:90%;">
+					<tr>
+						<th colspan="2">公告修改</th>
+					</tr>
+					<tr>
+						<td style='width:150px;'>标题：</td>
+						<td><input type="text" name='title' value='{$notify.title}' style='width:95%;height:20px;'></td>
+					</tr>
+					<tr>
+						<td>是否置顶：</td>
+						<td>
+							<input type="radio" name='isSetTop' value='0' <if condition='$notify["isSetTop"] eq 0'>checked</if>> 否
+							<input type="radio" name='isSetTop' value='1'  <if condition='$notify["isSetTop"] eq 1'>checked</if>> 是
+						</td>
+					</tr>
+					<tr>
+						<td>内容：</td>
+						<td>
+							<textarea name="content" id="" style='width:95%; height:200px;'>{$notify.content}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" value='保存修改'>
+							<input type="reset" value='重置'>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+
+<include file='foot'/>

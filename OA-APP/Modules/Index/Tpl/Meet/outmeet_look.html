@@ -1,0 +1,109 @@
+<include file='Common:header'/>
+<link rel="stylesheet"  href="__PUBLIC__/js/tab_style/css/webwidget_scroller_tab.css" type="text/css" />
+<script>
+	$(document).ready(function(){
+		var reurl = window.location.href;		
+		var index = reurl.lastIndexOf('mon');
+		var last = reurl.substr(index,reurl.length);
+		var arr = last.split('.');
+		var arr2 = arr[0].split('/');
+		var i = arr2[1] - 1;
+		$('.webwidget_scroller_tab .tabContainer li').eq(i).addClass('currentBtn');
+		$('.webwidget_scroller_tab .tabContainer li').click(function(){
+			
+			$('.webwidget_scroller_tab .tabContainer li').removeClass('currentBtn');
+			$(this).addClass('currentBtn');
+		});
+	});
+</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/outmeet_look')}">领导会议查看</a></li>
+		</ul>
+    </div>
+<div  class='someSpace'>
+	 <div class="webwidget_scroller_tab" id="webwidget_scroller_tab" style='width:100%;'>
+          <div class="tabContainer">
+          	<span style='font:bold 13px "宋体";'>年份：</span>
+          	<select name="year" id="" onchange='self.location.href=options[selectedIndex].value'>
+          		<option value="">==请选择==</option>
+          		<!-- <option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>2015))}">2015</option>
+          		<option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>2016))}">2016</option>
+          		<option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>2017))}">2017</option>
+          		<option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>2018))}">2018</option>
+          		<option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>2019))}">2019</option>
+          		<option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>2020))}">2020</option>
+          		<option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>2021))}">2021</option>
+          		<option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>2022))}">2022</option> -->
+          		<foreach name='listInt' item='v'>
+          			<option value="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>$v))}">{$v}</option>
+          		</foreach>
+          	</select>
+		    <div>
+				<div align='right' id='add_file' style='float:right;margin-right:30px;'><a href="{:U('Index/Meet/leader_modify')}">局领导调整</a></div>
+			</div>
+
+          	<span style='font:bold 13px "宋体";'>当前年份：{$displayYear}年</span>
+            <ul class="tabHead">
+             <li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>1,'year'=>$displayYear))}">1月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>2,'year'=>$displayYear))}">2月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>3,'year'=>$displayYear))}">3月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>4,'year'=>$displayYear))}">4月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>5,'year'=>$displayYear))}">5月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>6,'year'=>$displayYear))}">6月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>7,'year'=>$displayYear))}">7月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>8,'year'=>$displayYear))}">8月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>9,'year'=>$displayYear))}">9月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>10,'year'=>$displayYear))}">10月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>11,'year'=>$displayYear))}">11月</a></li>
+			<li class='month'><a href="{:U('Index/Meet/outmeet_look',array('mon'=>12,'year'=>$displayYear))}">12月</a></li>
+            </ul>
+          </div>
+      </div>
+	<br>
+	<div>
+		<span>选择时间：</span>
+		<select name="week" id="" onchange='self.location.href=options[selectedIndex].value'>
+			<option value="">===请选择===</option>
+			<foreach name='week_arr' item='v'>
+				<option value="{:U('Index/Meet/outmeet_look',array('mon'=>$mon,'date'=>$v[0].'-'.$v[1].'-'.$v[2]))}">{$v[0]}年{$v[1]}月{$v[2]}日--{$v[3]}年{$v[4]}月{$v[5]}日</option>
+			</foreach>
+		</select>
+	</div>
+	<br>
+	<div>
+		<table class="bordered" id="tableNodifyManage" style='width:1200px;height:80%;'>
+			<tr>
+				<td style='width:90px;'></td>
+				<foreach name='leader' item='v'>
+					<td style='width:150px;'>
+						{$v.name}
+					</td>
+				</foreach>
+				<!-- <td style='width:0px;'></td> -->
+			</tr>
+			<volist name='arr' id='v' key='key'>
+				<tr>
+					<td>{$key|numberToWeek} {$v[6]|date='d',###}号</td>
+					<volist name='v' id='vv' offset='0' length='$length'>
+						<td>
+							<volist name='vv' id='vvv'>
+								{$vvv.outmeet_time|date='H:i',###} {$vvv.outmeet_place} {$vvv.outmeet_title}
+							</volist>
+
+						</td>
+					</volist>
+				</tr>
+			</volist>
+			
+		</table>
+	</div>
+
+	
+		
+</div>
+
+<include file='Common:footer'/>

@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+	
+	<css file='__PUBLIC__/css/checkAttendance.css'/>
+	<css file='__PUBLIC__/css/common.css'/>
+	<css file='__PUBLIC__/css/beacher.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<js file='__PUBLIC__/js/checkAttendance.js'/>
+	
+	<title>考勤表</title>
+</head>
+<body>
+	<form action="{:U('addCheckAttendanceHandle')}" method='post'>
+	<table width="1280" border="1" cellpadding="1" cellspacing="0" align='center'  class="bordered"  id="tableNodifyManage" align='center'>
+		  <tr>
+		    <td colspan="21">
+		    	科室：
+				<select name="dep" id="" onchange='self.location.href=options[selectedIndex].value'>
+		    		<option value="0">===请选择科室===</option>
+		    		<foreach name='dep' item='v'>
+		    			<option value="{:U('Index/Personnel/addCheckAttendance',array('dep_id'=>$v['id']))}">{$v.name}</option>
+		    		</foreach>
+		    	</select>
+		    	当前科室：{$dep_id|idToDep}
+		    	<div align="center" class="STYLE1">
+		    		房山区环境保护局<input type="text" class="num" name='title_year'/>年<input type="text" name='title_mon' class="num" />月考勤
+		    	</div>
+		    	<div align='right'>
+		    		<a href="" id='addOneRow'>添加一行</a>
+		    		<a href="" id='delOneRow'>删除一行</a>
+		    	</div>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="30" colspan="21"><div align="center">
+		      <table width="1302" height="30" border="0" cellpadding="1" cellspacing="0">
+		        <tr>
+		          <td width="934">单位：（天）
+						
+		          </td>
+		          <td width="340">
+		          	<input type="text" name='date_year' class='num'/>年
+		          	<input type="text" name='date_mon' class='num'/>月
+		          	<input type="text" name='date_day' class='num'/>日制表 </td>
+		        </tr>
+		      </table>
+		    </div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		 
+		  <tr> <font color="black">
+		    <td width="49" rowspan="2"><div align="center">  <font color="black">编号   </font>     </div></td>
+		    <td width="115" rowspan="2"><div align="center"> <font color="black">姓名	</font>	</div></td>
+		   <!--  <td width="165" rowspan="2"><div align="center"> <font color="black">科室    </font>   	</div></td> -->
+		    <td width="80" rowspan="2"><div align="center">  <font color="black">应出勤	 </font>	</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">工伤</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">病假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">事假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">旷工</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">探亲假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">婚假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">产假</div></td>
+		    <td colspan="2"><div align="center" class="div_black_font">年假</div></td>
+		    <td width="107" rowspan="2"><div align="center" class="div_black_font">实出勤</div></td>
+		  </tr>
+
+		  <tr>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数 </div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		    <td width="46"><div align="center" class="div_black_font">天数</div></td>
+		    <td width="46"><div align="center" class="div_black_font">日期</div></td>
+		  </tr>
+		  <tr id='first_tr' class='input_row'>
+		    <td height="42"><div align="center">1</div></td>
+		    <td><div align="center"><input type="text" name='name[]' value='{$user[0]["name"]}'/></div></td>
+		    <!-- <td><div align="center">
+		    	<select name="dep[]" id="">
+		    		<option value="0">===请选择科室===</option>
+		    		<foreach name='dep' item='v'>
+		    			<option value="{$v.id}">{$v.name}</option>
+		    		</foreach>
+		    	</select>
+		    </div></td> -->
+		    <td><div align="center"><input type="text" name='should_attend[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+		    <td><div align="center"><input type="text" name='real_attend[]' class="indate" /></div></td>
+		  </tr>
+		  <volist name='user' id='v' key='key' offset='1'>
+		  	<tr  class='input_row'>
+			    <td height="42"><div align="center">{$key}</div></td>
+			    <td><div align="center"><input type="text" name='name[]' value='{$v.name}'/></div></td>
+			    <!-- <td><div align="center">
+			    	<select name="dep[]" id="">
+			    		<option value="0">===请选择科室===</option>
+			    		<foreach name='dep' item='v'>
+			    			<option value="{$v.id}">{$v.name}</option>
+			    		</foreach>
+			    	</select>
+			    </div></td> -->
+			    <td><div align="center"><input type="text" name='should_attend[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='vacation[]' class="indate" /></div></td>
+			    <td><div align="center"><input type="text" name='real_attend[]' class="indate" /></div></td>
+			  </tr>
+		  </volist>
+		  <tr id='remark_tr'>
+		    <td colspan="21"><div align="left">备注：<input type="text" name='remark' class="remark" /></div>
+		    <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		  <tr>
+		    <td colspan="3"><div align="left">主管财务领导：<input type="text" name='leader1' class="leader" /></div>
+		    <div align="center"></div>      <div align="center"></div></td>
+		    <td colspan="11">
+		    	<!-- <div align="left"> -->
+		    		主管领导：
+		    		<!-- <input type="text" name='leader2' class="leader" /> -->
+		    		<input type="text"  class='contact_input-2' placeholder='点击选择'>
+		    		<input type="hidden" name='leader2' class='hidden'/>
+		    	<!-- </div> -->
+		    </td>
+		    <td colspan="7">
+		    	科室负责人：
+		    	<input type="text"  class='contact_input-3' placeholder='点击选择'>
+		    	<input type="hidden" name='leader3' class='hidden'/>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td colspan="21"><div align="left">注：日期格式示例：（1）一天：1.1；（2）半天：1.2（上）；（3）连续天数：1.3-1.8；（4）非连续天数：1.1、1.3（下）、1.5-1.7.</div>
+		    <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		</table>
+		<div align='center'>
+			<input type="hidden" name='dep_id' value='{$dep_id}'/>
+			<input type="submit" value='提交'/>
+			<input type="reset" value='重置'/>
+		</div>
+		</form>
+		<div align='center' style='margin-top:20px;'>
+			<button onclick="javascript:window.close();">关闭窗口</button>
+		</div>
+</body>
+</html>

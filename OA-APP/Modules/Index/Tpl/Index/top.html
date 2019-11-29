@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<!-- <css file='__PUBLIC__/css/common.css'/> -->
+	<!--<js file='__PUBLIC__/js/SimpleTree/jquery.js'/>-->
+	<css file='__PUBLIC__/js/SimpleTree/tree_themes/style.css'/>
+	<title>top</title>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var iniafl = window.parent.document.getElementById('left').contentDocument;
+	var iniafr =  window.parent.document.getElementById('right').contentDocument;
+	iniafl.location = "/OA/index.php/Index/Index/geren";
+	iniafr.location = "/OA/index.php/Index/Notify/show_message";
+		$(".nav li a").click(function(){
+			$(".nav li a.selected").removeClass("selected");
+			$(this).addClass("selected");
+			
+		});
+		// location.reload();
+	});
+	
+	</script>
+</head>
+<!-- <body style="background-color: #3D96C9;width:1400px;" > -->
+<body id='topbanner' style='width:1400px;'>
+	<div>
+	
+	    <!-- <div class="topleft"> -->
+	    <div style='float:left; width:450px;'>
+	    	<div style='float:left;'>
+	    		 <a href="{:U('Index/Index/index')}" target="_parent">
+			    	<img src="__PUBLIC__/images/zhb.png" title="系统首页" style='width:100px;height:80px;'/>
+			    	<!-- <img src="__PUBLIC__/js/SimpleTree/tree_themes/images/logo.png" title="系统首页" /> -->
+			    </a>			   
+	    	</div>
+	    	<div style='color:#fff;float:left;margin-left:40px;margin-top:10px;'>
+	    		<img src="__PUBLIC__/images/title.png" alt="" style='float:left;'/>
+	    		<!-- <span style='color:#fff;font:bold 17px "微软雅黑";'>
+	    			房山区环境保护局办公系统
+	    		</span> -->
+	    		
+	    	</div>
+	   
+	  </div>
+	   <!--  </div> -->
+		<div>
+	    <ul class="nav" id='top-2' >
+			<li><a href="richang.html" target="left" ><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/clock_04.png" style='width:45px;height:45px;' title="日常公务" /><h3>日常公务</h3></a></li>
+			<li><a href="geren.html" target="left" class="selected"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/individual.png" title="个人事务" style='width:45px;height:45px;'/><h3>个人事务</h3></a></li>
+			<li><a href="huiyi.html"  target="left" ><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/meet.png" title="会议管理"  style='width:45px;height:45px;'/><h3>会议管理</h3></a></li>
+			<li><a href="wenjian.html"  target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/folder.png" title="文件管理"  style='width:45px;height:45px;'/><h3>文件管理</h3></a></li>
+			<li><a href="zhiban.html" target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/duty.png" title="值班管理" style='width:45px;height:45px;'/><h3>值班管理</h3></a></li>
+			<!-- <li><a href="{:U('Index/Information/information_index')}"  target="_blank"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/信息管理.png" title="信息管理" /><h3>信息管理</h3></a></li> -->
+			<li><a href="xinxi.html" target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/info.png" title="信息管理" style='width:45px;height:45px;'/><h3>信息管理</h3></a></li>
+
+			<li><a href="xinfang.html"  target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/petition.png" title="信访管理" style='width:45px;height:45px;'/><h3>信访管理</h3></a></li>
+			<li><a href="ducha.html"  target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/inspect.png" title="督查事项" style='width:45px;height:45px;'/><h3>督查事项</h3></a></li>
+			<li><a href="renshi.html"  target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/personnel.png" title="人事管理" style='width:45px;height:45px;'/><h3>人事管理</h3></a></li>
+			<li><a href="laozi.html"  target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/labor.png" title="劳资管理" style='width:45px;height:45px;'/><h3>后勤管理</h3></a></li>
+			<li><a href="xuexi.html"  target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/study.png" title="学习园地" style='width:45px;height:45px;'/><h3>学习园地</h3></a></li>
+			<!-- <li><a href="quanxian.html"  target="left"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/权限管理.png" title="权限管理" /><h3>权限管理</h3></a></li> -->
+			<li><a href="{:U('Index/Mail/index')}"  target="_blank"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/mail.png" title="OA邮箱"  style='width:45px;height:45px;' /><h3>OA邮箱</h3></a></li>
+			<!-- <li><a href=""  target="_blank"><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/icon06.png" title="预留接口" /><h3>预留接口</h3></a></li> -->
+	    </ul>
+	    </div>
+		<!-- <div class="topright"> -->
+		<div style='float:right;margin-right:40px;'>
+			<span style='font: bold 14px "宋体";color:#fff;float:right;'>
+				{$_SESSION['id']|IdToName}
+
+				<a href="{:U('Index/Index/logout')}" style='color:white;font-size:14px;' target='_top'>
+					<img src="__PUBLIC__/images/logout.png" style='width:20px;height:20px;margin-top:5px;' title="退出" alt="退出"/>
+				</a>
+			</span>
+			<br /><br />
+			<span style='font: bold 13px "宋体";color:#fff;text-align:center;'> 
+				<font style='display:block;'>	 {:now_time2()} </font>
+		    	<font style='margin-top:5px;display:block;'> {:limit_line()} </font>
+		    </span>
+			
+		</div>
+		<!-- </div> -->
+
+		
+	</div>
+</body>
+</html>

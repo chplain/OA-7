@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>督查事项管理</title>
+</head>
+<body>
+	<div>
+		<table  class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+			<tr>
+				<th>序号</th>
+				<th>类型</th>
+				<th>发送时间</th>
+				<th>发送人员</th>
+				<th>发送人</th>
+				<th>文件</th>
+				<th>发送状态</th>
+				<th>操作</th>
+			</tr>
+			<volist name='inspect' id='v' key='key' empty='暂无数据'>
+				<tr>
+					<td>{$key}</td>
+					<td>{$v.type|idToInspectType}</td>
+					<td>{$v.send_time|date='Y-m-d H:i',###}</td>
+					<td>{$v.send_to_people|IdsToNames=','}</td>
+					<td>{$v.send_person|IdToName}</td>
+					<td><a href="UPLOAD_PATH{$v.file_savename}">{$v.file_name}</a></td>
+					<td><if condition='$v["isSent"] eq 1'>已发送<else/>未发送</if></td>
+					<td><a href="{:U('Index/Inspect/deleteInspect',array('id'=>$v['id']))}" class='delete'>删除</a></td>
+				</tr>
+				
+			</volist>
+			<tr>
+					<td clospan="8">{$page}</td>
+				</tr>
+		</table>
+		<div align='center'><button onclick='javascript:window.close();'>关闭窗口</button></div>
+	</div>
+</body>
+</html>

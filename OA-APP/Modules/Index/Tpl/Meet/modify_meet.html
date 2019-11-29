@@ -1,0 +1,137 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/meet_look')}">申请查看</a></li>
+			<li><a href="#">申请修改</a></li>
+		</ul>
+    </div>
+	<div id='meet_apply'>
+		&nbsp;
+		<form action="{:U('Index/Meet/handle',array('id'=>$meet['id'],'from'=>'modify'))}" method='post'>
+			<div align="center"> <h1><strong>会议室申请修改</strong></h1> </div>
+			<table class="bordered"align='center' id="tableNodifyManage" align="center">
+				 
+				  <tr>
+				    <td><div align="center">申请会议室：</div></td>
+				    <td>
+						<select name="meet_place">
+						  <option value="0">==请选择==</option>
+						  <foreach name='meetplace' item='v'>
+						  	<option value="{$v.id}" <if condition="$meet['meet_place'] eq $v['id']">selected</if>>{$v.name}</option>
+						  </foreach>
+						  
+					    </select>
+						&nbsp;</td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">申请科室：</div></td>
+				    <td>
+						<select name="apply_department">
+						  <option value="0">======请选择======</option>
+						  <option value="1" <if condition="$meet['apply_department'] eq 1">selected</if>>办公室</option>
+						  <option value="2" <if condition="$meet['apply_department'] eq 2">selected</if>>总量控制科</option>
+						  <option value="3" <if condition="$meet['apply_department'] eq 3">selected</if>>大气污染防治办公室</option>
+						  <option value="4" <if condition="$meet['apply_department'] eq 4">selected</if>>综合管理科</option>
+						  <option value="5" <if condition="$meet['apply_department'] eq 5">selected</if>>规划和环境影响评价科</option>
+						  <option value="6" <if condition="$meet['apply_department'] eq 6">selected</if>>监控中心</option>
+						  <option value="7" <if condition="$meet['apply_department'] eq 7">selected</if>>辐射所</option>
+						  <option value="8" <if condition="$meet['apply_department'] eq 8">selected</if>>机关服务部</option>
+						  <option value="9" <if condition="$meet['apply_department'] eq 9">selected</if>>环保协会</option>
+						  <option value="10" <if condition="$meet['apply_department'] eq 10">selected</if>>环境监查支队</option>
+						  <option value="11" <if condition="$meet['apply_department'] eq 11">selected</if>>环境保护检测站</option>
+						  <option value="12" <if condition="$meet['apply_department'] eq 12">selected</if>>机动车排放管理站</option>
+					    </select>
+						&nbsp;</td>
+				  </tr>
+				  <tr>
+				  	<td><div align="center">通知人</div></td>
+				  	<td><input type="text" name='apply_person' value='{$meet.apply_person}'></td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">会议日期：</div></td>
+				    <td>
+				    	<input class="Wdate" type="text" name='meet_date' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$meet.meet_time|date='Y-m-d',###}" >
+				    </td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">会议时间：</div></td>
+				    <td><input class="Wdate" type="text" name='meet_time' onClick="WdatePicker({dateFmt:'HH:mm'})" value="{$meet.meet_time|date='H:i',###}" ></td>
+				  </tr>
+				   <tr>
+				    <td><div align="center">预计结束时间：</div></td>
+				    <td><input class="Wdate" type="text" name='meet_end_time' onClick="WdatePicker({dateFmt:'HH:mm'})" value="{$meet.meet_end_time|date='H:i',###}" ></td>
+				  </tr>
+				   <tr>
+				    <td><div align="center">会议主题：</div></td>
+				    <td>
+				    	<input type="text" name='meet_subject' style='width:400px;height:25px;' value='{$meet.meet_subject}'>
+				   </td>
+				  <tr>
+				    <td><div align="center">会议内容：</div></td>
+				    <td>
+				    	<textarea name="meet_content" id="meet_content" cols="38" rows='5' style='width:400px;'>{$meet.meet_content}</textarea>
+				   </td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">参会人员：</div></td>
+				    <td>
+						<textarea  class='contact_input_meet1' style='width:400px;' name='attend_people' >{$meet.attend_people}</textarea><br><br>
+						<span style='font-size:12px;'>例：其他单位来会领导姓名、局领导姓名、局领导、全局人员、科级干部、某科室全体人员等
+						</span>					
+				    </td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">
+				    	通知与会人员：</div></td>
+				    <td>
+				    	<textarea name="recvContact" class='newContact_input' id="" style='width:400px;'>{$meet.recvContact}</textarea>					
+						<input type="hidden" name='group_id' value='{$meet.group_id}'>
+						<input type="hidden" name='individual_id' value='{$meet.individual_id}'>
+						<a href="#" class='newContact'>增加</a>	
+				    </td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">联系方式：</div></td>
+				    <td>
+				    	<input type="text" name='meet_contact' placeholder='联系方式' value='{$meet.meet_contact}'>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">会议服务：</div></td>
+				    <td>
+				    	<input type="checkbox" name='meet_service[]' value='0' <if condition="$arr[0] eq 1">checked</if>>无
+				    	<input type="checkbox" name='meet_service[]' value='1' <if condition="$arr[1] eq 1">checked</if>>服务员
+						<input type="checkbox" name='meet_service[]' value='2' <if condition="$arr[2] eq 1">checked</if>>音响
+						<input type="checkbox" name='meet_service[]' value='3' <if condition="$arr[3] eq 1">checked</if>>投影
+						<input type="checkbox" name='meet_service[]' value='4' <if condition="$arr[4] eq 1">checked</if>>签到
+						<input type="checkbox" name='meet_service[]' value='5' <if condition="$arr[5] eq 1">checked</if>>摄像
+						<input type="checkbox" name='meet_service[]' value='6' <if condition="$arr[6] eq 1">checked</if>>桌签
+						<input type="checkbox" name='meet_service[]' value='7' <if condition="$arr[7] eq 1">checked</if>>大屏
+						<input type="checkbox" name='meet_service[]' value='8' <if condition="$arr[8] eq 1">checked</if>>小屏<br>
+						其他：<input type="text" name='meet_service_other' value='{$meet.meet_service_other}'>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td colspan="2"><div align="justify">
+				      <table>
+				        <tr>
+				          <td ><div align="center">
+				            <input value="提交申请" type="submit" />
+				            &nbsp;</div></td>
+				          <td ><div align="center">
+				            <input value="重新填写" type="reset" />
+				            &nbsp;</div></td>
+				          </tr>
+				      </table>
+				    </div></td>
+				  </tr>
+				</table>
+
+			
+		</form>
+	</div>
+
+<include file='Common:footer'/>

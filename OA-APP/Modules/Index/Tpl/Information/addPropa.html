@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/info.css' />
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>
+	<js file='__PUBLIC__/js/info.js' />
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<title>添加宣传任务</title>
+	<script type='text/javascript'>
+		$(function(){
+			$('#selectAll').click(function(){
+				if($('#selectAll').is(':checked'))
+					$('input[name*=deps]').each(function(){
+						this.checked = true;
+					});
+				else{
+					$('input[name*=deps]').attr('checked',false);
+				}
+					
+			});
+			$('input[type=submit]').click(function(e){
+				if(!confirm('确定要发布吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+
+	</script>
+</head>
+<body id='rep_table'>
+	<div id='pro_table_div'>
+		
+	
+	<form action="{:U('Index/Information/propa_handle')}" method='post'>
+			<table width="640" border="1" align="center" cellpadding="1" cellspacing="0">
+		  <tr>
+		    <td width="100" height="43"><div align="right">标题：</div></td>
+		    <td width="530"><div align="left"><input type='text' name='title' style='width:520px;height:35px;'/></div></td>
+		  </tr>
+		 
+		  <tr>
+		    <td height="51"><div align="right">负责科室：</div></td>
+		    <td>
+		    	<table style='float:left;height:100%;'><tr><td align='center'>
+		    		<input type="checkbox" id='selectAll'/><span class='dep_check'>全选</span>
+		    	</td></tr></table>
+		    	
+
+		    	
+		    	<table width="490" align="center" style='float:right;'>
+		    		
+	    			<volist name='dep' id='v'>
+	    				<tr>
+	    					<td>
+								<input type="checkbox" name='deps[]' value='{$v.id}' /><span class='dep_check'>{$v.name}</span>
+							</td>
+	    				</tr>
+	    			</volist>
+		    			
+		    		
+		    	</table>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td height="40" align='right'>负责人：</td>
+		  	<td>
+		  		<textarea  placeholder='可不填' style='width:450px;height:20px;' class='contact_input' disabled></textarea>
+		  		<a href="#" class='contact' style='font:normal 13px "宋体";'>增加</a>
+				<input type="hidden" class='hidden' name='propaers'/>
+				<a href="#" title='删除最后一次输入' class='delContactLastInput' style='font:normal 13px "宋体";'>删除</a>
+		  	</td>
+		  </tr>
+		  <tr>
+		  		<td height="40" align='right'>是否置顶：</td>
+			  	<td><div align="left">
+			  		<input type="radio" name='isSetTop' value='1'/>是
+			  		<input type="radio" name='isSetTop' value='0' checked/>否
+			  	</div></td>
+		  </tr>
+		   <tr>
+		    <td height="86"><div align="right">附加说明：</div></td>
+		    <td><div align="left"><textarea name='content' cols='63' rows='4'></textarea></div></td>
+		  </tr>
+		  <tr>
+		    <td height="41" colspan="2">
+		    	<div align="center">
+		    		<input type="submit" value='发布'/>		
+		    		<input type="reset" value='重置'/>	
+		    		<input type="button" value='关闭窗口' id='close'/>		
+		    	</div>
+		    </td>
+		  </tr>
+		</table>
+	</form>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>督察事项</li>
+			<li><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'dep'=>$dep,'flag_index'=>1))}">折子工程</a></li>
+			<li><a href="#">修改牵头领导名称</a></li>
+		</ul>
+    </div>
+<div id='inspect'>
+	<button onclick='javascirpt:history.go(-1);'>返回</button>
+	<form action="{:U('Index/Inspect/modifyleaderHandle',array('dep'=>$dep))}" method='post'>
+		<table class="bordered"  id="tableNodifyManage">
+			<tr>
+				<th colspan='2'>修改牵头领导名称</th>
+			</tr>
+			<tr>
+				<td>原领导</td>
+				<td>{$dep|idToFindLeader}</td>
+			</tr>
+			<tr>
+				<td>修改</td>
+				<td>
+					<input type="text" class='contact_input1'>
+					<input type="hidden" name='leader' class='hidden'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value='保存'>
+				</td>
+			</tr>
+		</table>
+		
+	</form>
+</div>
+
+<include file='Common:footer'/>

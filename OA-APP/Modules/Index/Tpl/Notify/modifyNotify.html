@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<js file='__CLASS__/ueditor/ueditor.config.js'/>
+	<js file='__CLASS__/ueditor/ueditor.all.min.js'/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<script type='text/javascript'>
+		window.UEDITOR_HOME_URL = '__CLASS__/ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameWidth = 500;
+			window.UEDITOR_CONFIG.initialFrameHeight = 250;
+			UE.getEditor('meeting_content');
+		};
+	</script>
+	<title>修改通知公告</title>
+</head>
+<body>
+	
+	<div>
+		<div><button onclick='javascript:history.go(-1);'>返回</button></div>
+		<h3 align='center'>修改通知公告</h3>
+		<form action="{:U('Index/Notify/handle',array('id'=>$notify['id'],'flag'=>'modify'))}" method='post'>
+		<table>
+			<tr>
+				<td class='item'>标题：</td>
+				<td><input type="text" name='meeting_title' style='width:200px;' value='{$notify.meeting_title}'></td>
+				<td></td>
+			</tr>
+			<!-- <tr>
+				<td class='item'>开会时间(请重新选择):</td>
+				<td>
+					{$selectTime}
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class='item'>开会地点：</td>
+				<td><input type="text" name='meeting_place'  style='width:200px;' value='{$notify.meeting_place}'></td>
+				<td></td>
+			</tr> -->
+			<tr>
+				<td class='item'>发布范围(请重新选择)：</td>
+				<td>
+					<!-- <textarea  name='attend_people' class='contact_input' ></textarea>
+					<a href="#" class='contact'>通讯录</a> -->
+					<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled></textarea>					
+					<input type="hidden" name='group_id'>
+					<input type="hidden" name='individual_id'>
+					<a href="#" class='newContact'>增加</a>	
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class='item'>附加内容：</td>
+				<td><textarea name="meeting_content" id="meeting_content">
+					{$notify.meeting_content|htmlspecialchars_decode}</textarea>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align='center' colspan='3'>
+					<input type="submit" value='发布'/>
+					<input type="reset" value='重置'/>
+				</td>
+			</tr>
+		</table>
+	</form>
+	</div>
+</body>
+</html>

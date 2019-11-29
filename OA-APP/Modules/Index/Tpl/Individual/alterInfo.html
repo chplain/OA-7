@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<title>修改个人信息</title>
+</head>
+<body>
+	<div>
+		<form action="{:U('Index/Individual/alterInfoHandle')}" method='post'>
+			<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+				<tr>
+					<th colspan="2" align="center">修改个人信息</th>
+				</tr>
+				<tr>
+					<td>登陆名</td>
+					<td><input type="text" name='userid' value='{$user.userid}'/></td>
+				</tr>
+				<tr>
+					<td>本名</td>
+					<td><input type="text" name='name' value='{$user.name}'/></td>
+				</tr>
+				<tr>
+					<td>手机号码</td>
+					<td><input type="text" name='phone_number' value='{$user.phone_number}'/></td>
+				</tr>
+				<tr>
+					<td>住宅号码</td>
+					<td><input type="text" name='home_number' value='{$user.home_number}'/></td>
+				</tr>
+				<tr>
+					<td>办公号码</td>
+					<td><input type="text" name='office_number' value='{$user.office_number}'/></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value='提交'/>
+						<input type="reset" value='重置'/>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div align="center"><button onclick='javascript:window.close();'>关闭窗口</button></div>
+	</div>
+</body>
+</html>

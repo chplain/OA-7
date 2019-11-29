@@ -1,0 +1,32 @@
+#idContainer2{margin:0 auto;}
+.container2, .container2 dd, .container2_2 dl, .container2_2 dd {margin:0;}
+.container2 {font-size:14px;width:190px;border:1px solid #cf2020;background:#fffff5;padding:5px 8px; line-height:30px; color:#333;}
+.container2 dt {font-weight:bold;color:#cf2020;}
+.container2 dd {background:url(../images/bg.jpg) 180px 10px no-repeat;_zoom:1;}
+
+.container2_2 {background-color:#bebec3; display:none;}
+.container2_2 dl {font-size:14px;width:200px;border:1px solid #969696;background:#fff; position:relative; left:-3px; top:-3px; }
+.container2_2 dd div {padding:5px 20px; background:url(../images/bg.jpg) 6px 7px no-repeat;_zoom:1;}
+.container2_2 dt, .shadow {padding:0 5px; position:absolute;background:#fff; border:1px solid #969696; border-right:0;width:169px;left:-180px; top:-1px;height:24px;line-height:24px;}
+.shadow {background-color:#bebec3;border-color:#bebec3; top:0;}
+
+.container2_2 a,.idContainer2 a{display:block;_zoom:1;}
+.container2_2 a:link, .container2_2 a:visited, .container2_2 a:active {color:#333;text-decoration: none;}
+.container2 a:link, .container2 a:visited, .container2 a:active {color:#333;text-decoration: none;}
+.container2_2 a:hover {color:#ff6026;text-decoration: underline;}
+.container2 a:hover {color:#ff6026;text-decoration: underline;}
+
+#petition .block {
+	width:150px;
+	height:25px;
+	background: #198AD8;
+	border-radius: 5px;
+	text-align: center;
+	padding-top: 10px;
+}
+#petition .block a:hover{text-decoration: underline;}
+#petition .block a{
+	font:bold 15px "宋体";
+	color:white;
+	text-decoration: none;
+}

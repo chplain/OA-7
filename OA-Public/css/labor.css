@@ -1,0 +1,115 @@
+/*
+*{
+	margin:0px;
+	padding: 0px;
+	font:normal 13px "宋体";
+}
+a{
+	text-decoration: none;
+	color:blue;
+	font:normal 14px "宋体";
+}
+a:hover{
+	text-decoration: underline;
+	color: red;
+}
+*/
+#stockClass_table,
+#modifyClass_table,
+#addStockClass_table,
+#stock,#itemApply{
+	background: #EFF7FF;
+	width:100%;
+	height:100%;
+	margin:0px auto;
+}
+#stockClass_table #stockClass-in{
+	margin-top: 20px;
+	font:normal 14px "宋体";
+
+}
+#stockClass_table #stockClass-in table{
+	width:100%;
+	text-align: right;
+}
+#stockClass_table #stockClass-in table td{
+	border:1px silver solid;
+	height:20px;
+}
+#stockClass_table #stockClass-in .level1{
+	text-align: left;
+	padding-left: 5px;
+	color:#520DE8;
+}
+#stockClass_table #stockClass-in .level2{
+	text-align: left;
+	padding-left: 25px;
+	color:#640DE8;
+}
+#stockClass_table #stockClass-in .level3{
+	text-align: left;
+	padding-left: 45px;
+	color:#7E0DE8;
+}
+#stockClass_table #stockClass-in .level4{
+	text-align: left;
+	padding-left: 65px;
+	color:#A00DE8;
+}
+
+#modifyClass-in,
+#addStockClass-in{
+	margin-top: 30px;
+	margin-left: 200px;
+}
+#modifyClass_table input[type=text],
+#addStockClass_table input[type=text],
+#stock input[type=text],
+#itemApply input[type=text],
+select{
+	width:200px;
+	height:25px;
+}
+#stock,#itemApply{
+	padding-top: 50px;
+	padding-left: 200px;
+	font:normal 15px "宋体";
+}
+#stock input[type=submit],
+#stock input[type=reset],
+#stock button,
+#itemApply input[type=submit],
+#itemApply input[type=reset],
+#itemApply button{
+	width:80px;
+	height:30px;
+}
+
+/* 库存管理 */
+#stock_index .addStock_btn,
+#itemApply_index .addStock_btn{
+	width:120px;
+	height:25px;
+	line-height: 25px;
+	display: block;
+	background: #198AD8;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-top: 5px;
+	padding-top: 5px;
+	text-align: center;
+	float:right;
+	margin-right:10%;
+}
+
+/*首页中大按钮*/
+#stock_index .addStock_btn a,
+#itemApply_index .addStock_btn a{font:bold 18px "宋体"; color:white;text-decoration: none;}
+#stock_index .addStock_btn a:hover,
+#itemApply_index .addStock_btn a:hover{text-decoration: none;}
+
+/*物品申领窗口*/
+#itemApply table tr{
+	height:30px;
+}
+table th{font:bold 18px "宋体";}

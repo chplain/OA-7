@@ -1,0 +1,85 @@
+<include file='Common:header'/>
+<script type='text/javascript'>
+		window.UEDITOR_HOME_URL = '__CLASS__/ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameWidth = 800;
+			window.UEDITOR_CONFIG.initialFrameHeight = 350;
+			UE.getEditor('meeting_content');
+		};
+	</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>日常公务</li>
+			<li><a href="{:U('Index/Notify/show_notify')}">通知公告</a></li>
+			<li><a href="#">发布通知公告</a></li>
+		</ul>
+    </div>
+
+
+<div id='content'>
+
+	<h3 align="center">通知公告</h3>
+	<form action="{:U('Notify/handle')}" method='post'>
+		<table class="bordered"align='center' id="tableNodifyManage" style='width:950px;'>
+			<tr>
+				<td class='item' style='width:100px;'>标题：</td>
+				<td><input type="text" name='meeting_title' style='width:200px;'></td>
+				<td></td>
+			</tr>
+			<!-- <tr>
+				<td class='item' style='width:50px;'>开会时间：</td>
+				<td>
+					<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" >
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class='item'>开会地点：</td>
+				<td><input type="text" name='meeting_place'  style='width:200px;'></td>
+				<td></td>
+			</tr> -->
+			<tr>
+				<td class='item'>发布范围：</td>
+				<td>
+				<!-- 	<textarea   class='contact_input' disabled></textarea>
+					<input type="hidden" name='attend_people' class='hidden'>
+					<a href="#" class='contact'>通讯录</a>
+					<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a> -->
+					<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled></textarea>					
+					<input type="hidden" name='group_id'>
+					<input type="hidden" name='individual_id'>
+					<a href="#" class='newContact'>增加</a>	
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class='item'>内容：</td>
+				<td><textarea name="meeting_content" id="meeting_content"></textarea></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align='center' colspan='3'>
+					<input type="submit" value='发布'/>
+					<input type="reset" value='重置'/>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	
+</div>
+
+
+
+<include file='Common:footer'/>
+
+<script src="/OA/APP/Public/Class/ueditor/ueditor.parse.js"></script>
+<script>
+setTimeout(function(){uParse('#meeting_content',
+{
+ 'highlightJsUrl':'/OA/APP/Public/Class/ueditor/third-party/SyntaxHighlighter/shCore.js',
+ 'highlightCssUrl':'/OA/APP/Public/Class/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css'})
+},300);
+</script>

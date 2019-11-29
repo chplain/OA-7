@@ -1,0 +1,86 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>日常公务</li>
+			<li><a href="{:U('Index/Search/search_index')}">站内搜索</a></li>
+			<li><a href="{:U('Index/Search/search')}">站内搜索详情</a></li>
+		</ul>
+    </div>
+<div id='search'>
+	<div>
+		<form action="{:U('Index/Search/search')}" method='post'>			
+			<div class="seach-in" style='float:left;'>
+				站内搜索
+			 	<label>
+				 	<input type="text" name="textfield" id="textfield" value='{$key}'/>
+			 	</label>			    	
+		    	<label></label>
+			</div>
+			<div class="seach-right" style='float:left;'>
+				<input type='image' src="__PUBLIC__/images/images/sea.jpg" width="53" height="21" border="0"/>
+			</div>
+		 </form>
+	</div><br><br><br><br>
+	<div>
+		<p style='color:blue;'>站内搜索将在“规章制度”、“通知公告”、“重要文件”中查找</p>
+	</div>
+		<div id='search1'>
+			<div><b>规章制度</b></div>
+			<ul>
+				<volist name='arr1' id='v' empty='无数据'>
+					<li>
+						<a href="{:U('Index/Regulation/detail',array('id'=>$v['id']))}" >{$v.title}<em>{$v.time|date='Y-m-d',###}</em></a>
+						<if condition="$v['isSetTop'] eq true"><font style='color:blue;'>【置顶】</font></if>
+					</li>
+				</volist>
+			</ul>
+		</div>
+	
+
+	
+		<div id='search2'>
+			<div><b>通知公告</b></div>
+			<ul>
+				<volist name='arr2' id='v' empty='无数据'>
+					<li>
+						<a href="{:U('Index/Notify/detailNotify',array('id'=>$v['id']))}" >{$v.meeting_title}<em>{$v.publish_time|date='Y-m-d',###}</em></a>
+					</li>
+				</volist>
+			</ul>
+		</div>
+	
+
+	
+		<div id='search3'>
+			<div><b>重要文件</b></div>
+			<ul>
+				<volist name='arr3' id='v' empty='无数据'>
+					<li>
+						<a href="{:U('Index/File/file_detail',array('id'=>$v['id']))}">{$v.title}<em>{$v.pub_time|date='Y-m-d',###}</em></a>
+					</li>
+				</volist>
+			</ul>
+		</div>
+	
+
+	
+		<!-- <div id='search4'>
+			<div><b>工作动态</b></div>
+			<ul>
+				<foreach name='arr4' item='v'>
+					<li>
+						<a href="{:U('Index/Work/detail',array('id'=>$v['id']))}">
+							{$v.title|truncate_cn=100}
+							<em>{$v.sub_time|date='Y-m-d',###}</em>
+						</a>
+					</li>
+				</foreach>
+			</ul>
+		</div> -->
+	
+</div>
+
+
+<include file='Common:footer'/>

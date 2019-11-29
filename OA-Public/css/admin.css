@@ -1,0 +1,59 @@
+*{
+	margin:0px;
+	padding: 0px;
+}
+#container{
+	width:1200px;
+	margin:0px auto;
+}
+#head{
+	width:100%;
+	height:61px;
+	background: url(../images/depart/admin_top.gif) repeat-x;
+}
+#content{
+	width:100%;
+	height:600px;
+	background: #638ec8;
+}
+#left{
+	width:18%;
+	height:98%;
+	background: url(../images/depart/bg1.jpg);
+	float: left;
+	margin-left: 5px;
+	margin-bottom: 10px;
+}
+#left #left-head{
+	width:100%;
+	height:20px;
+	background: #b8cfe9;
+	padding-top: 5px;
+}
+#left #left-head span{
+	margin-left: 15px;
+	font:bold 14px "宋体";
+	color:#003399;
+}
+#left #left-list{
+	margin-left: 10px;
+}
+#left #left-list ul{
+	margin: 0px;padding:0px;
+	list-style:none;
+}
+#left #left-list ul li{
+	margin-top: 10px;
+	background: url(../images/depart/arrow.gif) no-repeat 0px 5px;
+	padding-left: 20px;
+}
+#left #left-list ul li a{text-decoration: none;color:black;font-size:15px;}
+#left #left-list ul li a:hover{text-decoration: underline;}
+#right{
+	width:80%;
+	height:98%;
+	background: url(../images/depart/bg2.jpg) no-repeat;
+	float: right;
+	margin-right: 5px;
+	margin-bottom: 10px;
+}

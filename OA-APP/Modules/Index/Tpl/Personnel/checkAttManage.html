@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>考勤表管理</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div align="center" style="background-color:white;" width="400px">
+		<h4>考勤表</h4>
+		<table class="bordered"  id="tableNodifyManage" align='center'>
+			<tr>
+				<th>标题</th>
+				<th>更新时间</th>
+				<th>操作</th>
+			</tr>
+			<foreach name='checkAtt' item='v'>
+				<tr>
+					<td>
+						
+							[{$v.dep|idToDep}]房山区环境保护局{$v.title_time|date='Y',###}年{$v.title_time|date='m',###}月考勤
+						
+					</td>
+					<td>{$v.make_time|date='Y-m-d',###}</td>
+					<td>
+						<a href="{:U('Index/Personnel/checkAttDetail',array('id'=>$v['id'],'from'=>'manage'))}" >
+							查看管理
+						</a>
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="3">
+					{$page}<if condition='$checkAtt eq null'>暂无考勤表</if>
+				</td>
+			</tr>
+		</table>		
+	</div>
+	<div align="center"><button onclick='javascript:window.close();'>关闭窗口</button></div>
+</body>
+</html>

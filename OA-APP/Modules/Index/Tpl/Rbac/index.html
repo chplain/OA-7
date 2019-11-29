@@ -1,0 +1,59 @@
+<include file='top' />
+
+<div id='right'>
+	<div id='r_top'>
+		<!-- <img src="__PUBLIC__/images/Rbac/user.png" alt="用户列表"> -->
+		<h3 style='font:bold 17px "微软雅黑";'>用户列表</h3>
+	</div>
+	<div id='r_content'>
+		<div>
+			<fieldset>
+				<legend>搜索</legend>
+				<form action="{:U('Index/Rbac/index',array('from'=>'search'))}" method='post'>
+					<span>姓名</span>
+					<input type="text" name='name' style='width:150px;height:25px;'>
+					<span>科室</span>
+					<select name="dep" id=""  style='width:150px;height:25px;'>
+						<option value="-1">===请选择===</option>
+						<option value="0">局领导</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}">{$v.name}</option>
+						</foreach>
+					</select>
+					<input type="submit" value='搜索' style='width:50px;height:25px;'>
+					<span>【<a href="{:U('Index/Rbac/index')}" style='color:blue;text-decoration:none;'>全部人员</a>】</span>
+				</form>
+				
+			</fieldset>
+			
+		</div>
+		<table class="table">
+			<tr>
+				<th align='center'>ID</th>	
+				<th align='center'>姓名</th>	
+				<th align='center'>所属角色</th>	
+				<th align='center'>操作</th>	
+			</tr>
+			<foreach name='user' item='v'>
+				<tr>
+					<td align='center'>{$v.id}</td>
+					<td align='center'>{$v.name}</td>
+					<td align='center'>
+						<foreach name='v.role' item='vv'>
+							{$vv.remark}&nbsp;
+						</foreach>
+					</td>
+					<td align='center'>
+						[<a href="{:U('Index/Rbac/alterUser',array('id'=>$v['id']))}">修改</a>]
+						<!-- [<a href="{:U('Index/Rbac/deleteUser',array('id'=>$v['id']))}" class='delete'>删除</a>] -->
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan='4' align='left'>&nbsp;&nbsp;&nbsp;{$page}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<include file='foot' />

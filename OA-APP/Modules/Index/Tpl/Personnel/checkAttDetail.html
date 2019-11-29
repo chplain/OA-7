@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<js file='__PUBLIC__/js/checkAttendance.js'/>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>考勤详情</title>
+</head>
+<body>
+	<if condition='$from eq "manage"'>
+		<a href="{:U('Index/Personnel/checkAttManage')}"><button>返回</button></a>
+	</if>
+	<table width="1380" border="1" cellpadding="1" cellspacing="0" align='center'>
+		  <tr>
+		    <td colspan="22">
+		    	<div align="center">
+		    		房山区环境保护局{$checkAtt[0]['title_time']|date='Y年m月',###}考勤
+		    	</div>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="30" colspan="22"><div align="center">
+		      <table width="1302" height="30" border="0" cellpadding="1" cellspacing="0">
+		        <tr>
+		          <td width="934">单位：（天）</td>
+		          <td width="340">
+		          	{$checkAtt[0]['make_time']|date='Y年m月d日',###}制表 </td>
+		        </tr>
+		      </table>
+		    </div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		  <tr>
+		  	<if condition='$from eq "manage"'>
+		  		<td width="49" rowspan="2"><div align="center">操作</div></td>
+		  	</if>
+		    <td width="49" rowspan="2"><div align="center">编号</div></td>
+		    <td width="115" rowspan="2"><div align="center">姓名</div></td>
+		    <td width="165" rowspan="2"><div align="center">科室</div></td>
+		    <td width="80" rowspan="2"><div align="center">应出勤</div></td>
+		    <td colspan="2"><div align="center">工伤</div></td>
+		    <td colspan="2"><div align="center">病假</div></td>
+		    <td colspan="2"><div align="center">事假</div></td>
+		    <td colspan="2"><div align="center">旷工</div></td>
+		    <td colspan="2"><div align="center">探亲假</div></td>
+		    <td colspan="2"><div align="center">婚假</div></td>
+		    <td colspan="2"><div align="center">产假</div></td>
+		    <td colspan="2"><div align="center">年假</div></td>
+		    <td width="107" rowspan="2"><div align="center">实出勤</div></td>
+		  </tr>
+		  <tr>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数 </div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		    <td width="46"><div align="center">天数</div></td>
+		    <td width="46"><div align="center">日期</div></td>
+		  </tr>
+		<volist name='checkAtt' id='v' key='key'>
+		  <tr id='first_tr' class='input_row'>
+		  	<if condition='$from eq "manage"'>
+		  		<td width="49"><div align="center">
+		  			<a href="{:U('Index/Personnel/deleteCheckAttItem',array('id'=>$v['id']))}" class='delete'>删除</a>
+		  		</div></td>
+		  	</if>
+		    <td height="42"><div align="center">{$key}</div></td>
+		    <td><div align="center">{$v.name}</div></td>
+		    <td><div align="center">{$v.dep|idToDep}</div></td>
+		    <td><div align="center">{$v.should_attend}</div></td>
+		    <volist name='v.vacation' id='vv'>
+		    	<td><div align="center">{$vv}</div></td>
+		    </volist>
+		    <td><div align="center">{$v.real_attend}</div></td>
+		  </tr>
+		</volist>
+		  <tr id='remark_tr'>
+		    <td colspan="22"><div align="left">备注：{$checkAtt[0]['remark']}</div>
+		    <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		  <tr>
+		    <td colspan="3"><div align="left">主管财务领导：{$checkAtt[0]['leader1']}</div>
+		    <div align="center"></div>      <div align="center"></div></td>
+		    <td colspan="11"><div align="left">主管领导：{$checkAtt[0]['leader2']|IdToName}</div></td>
+		    <td colspan="7"><div align="left">
+		    	科室负责人：{$checkAtt[0]['leader3']|IdToName}
+		    </div></td>
+		  </tr>
+		  <tr>
+		    <td colspan="22"><div align="left">注：日期格式示例：（1）一天：1.1；（2）半天：1.2（上）；（3）连续天数：1.3-1.8；（4）非连续天数：1.1、1.3（下）、1.5-1.7.</div>
+		    <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div>      <div align="center"></div></td>
+		  </tr>
+		</table>
+		
+		<if condition="$checkAtt[0]['isChecked'] eq 0">
+			<span style='font:13px normal "宋体"; color:blue;'>
+			若审核通过，将自动提交给主管领导（<b>{$checkAtt[0]['leader2']|IdToName}</b>） 进行下一步审核；若审核不通过 ，将返回给科室内勤重新进行修改后再 提交。</span>
+			<form action="{:U('Index/Personnel/check',array('id'=>$checkAtt[0]['id'],'flag'=>1))}" method='post'>
+				<!-- <div>
+				<table>
+					<tr>
+						<td>
+							科室负责人：
+					    	<input type="text"  class='contact_input_1' placeholder='点击选择'>
+					    	<input type="hidden" name='leader' class='hidden'/>
+						</td>
+					</tr>
+				</table>
+			</div> -->
+			<input type="hidden" name='leader' value='{$checkAtt[0]['leader2']}'/>
+			<div>			
+				<button>审核通过</button>
+			</form>
+			
+				<a href="{:U('Index/Personnel/check',array('id'=>$checkAtt[0]['id'],'flag'=>0))}">
+					<button>审核不通过</button>
+				</a>
+			</div>
+		</if>
+		<if condition="$_SESSION['id'] eq $checkAtt[0]['leader'] and $checkAtt[0]['isApproved'] eq 1 and $checkAtt[0]['isChecked2'] eq 0">
+			<a href="{:U('Index/Personnel/check2',array('id'=>$checkAtt[0]['id'],'flag'=>1))}">
+				<button>审核通过</button>
+			</a>
+			<a href="{:U('Index/Personnel/check2',array('id'=>$checkAtt[0]['id'],'flag'=>0))}">
+				<button>审核不通过</button>
+			</a>
+		</if>
+</body>
+</html>

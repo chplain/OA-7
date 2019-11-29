@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			$('input[type=submit]').click(function(e){
+				var new_pwd = $('input[name*=new_pwd]').val();
+				var new_pwd_again = $('input[name*=new_pwd_again]').val();
+				if(new_pwd != new_pwd_again){
+					e.preventDefault();
+					alert('新密码两次输入不一致');
+				}
+			});
+		});
+	</script>
+	<title>修改密码</title>
+</head>
+<body>
+	<div>
+		<form action="{:U('Index/Individual/alterPwdHandle')}" method='post'>
+			<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+				<tr>
+					<th colspan="2" align="center">修改密码</th>
+				</tr>
+				<tr>
+					<td>原密码</td>
+					<td><input type="password" name='old_pwd'/></td>
+				</tr>
+				<tr>
+					<td>新密码</td>
+					<td><input type="password" name='new_pwd'/></td>
+				</tr>
+				<tr>
+					<td>重复密码</td>
+					<td><input type="password" name='new_pwd_again'/></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value='提交'/>
+						<input type="reset" value='重置'/>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div align="center"><button onclick='javascript:window.close();'>关闭窗口</button></div>
+	</div>
+</body>
+</html>

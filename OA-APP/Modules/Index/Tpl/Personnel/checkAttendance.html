@@ -1,0 +1,38 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+
+<div id='personnel'>
+	<span class='block'><a href="#" id='addCheckAttendance'>填写考勤表</a></span>
+	<span class='block'><a href="#" id='addAskLeave'>填写请假名册</a></span>
+	<span class='block'><a href="#" id='checkAttManage'>考勤表管理</a></span>
+	<span class='block'><a href="#" id='askLeaveManage'>请假名册管理</a></span>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+	<div align="left" style="background-color:white;" width="400px">
+		<h4>考勤表</h4>
+		<ol>
+			<foreach name='checkAtt' item='v'>
+				<li><a href="{:U('Index/Personnel/checkAttDetail',array('id'=>$v['id']))}" target='_blank'>
+					[{$v.dep|idToDep}]房山区环境保护局{$v.title_time|date='Y',###}年{$v.title_time|date='m',###}月考勤
+				</a></li>
+			</foreach>
+		</ol>
+		{$page}<if condition='$checkAtt eq null'>暂无考勤表</if>
+	</div>
+	<div align="center" style="background-color:white;" width="400px">
+		<h4>请假名册</h4>
+		<ol>
+			<foreach name='askleave' item='v'>
+				<li><a href="{:U('Index/Personnel/askLeaveDetail',array('id'=>$v['id']))}" target='_blank'>
+					北京市房山区环境保护局 <b>{$v.title_year}</b> 年请假名册 
+				</a></li>
+			</foreach>
+		</ol>
+		{$page2}<if condition='$askleave eq null'>暂无考勤表</if>
+	</div>
+</div>
+
+<include file='Common:footer'/>

@@ -1,0 +1,62 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>督察事项</li>
+			<li><a href="{:U('Index/Inspect/show_inspect',array('flag'=>$flag))}">折子工程</a></li>
+			<li><a href="#">修改</a></li>
+		</ul>
+    </div>
+<div id='inspect'>
+	<a href="{:U('Index/Inspect/show_inspect',array('flag'=>$flag))}"><button>返回</button></a>
+	<form action="{:U('Index/Inspect/handle',array('flag'=>$flag,'id'=>$ins['id'],'from'=>'modify'))}" method='post' enctype='multipart/form-data'>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+			<tr><th colspan='2'>督查事项</th></tr>
+			<tr>
+				<td>类型：</td>
+				<td>
+					<select name="type">
+						<option value="0">==请选择==</option>
+						<option value="1" <if condition='$flag eq 1'>selected</if>>市折子工程</option>
+						<option value="2" <if condition='$flag eq 2'>selected</if>>区折子工程</option>
+						<option value="3" <if condition='$flag eq 3'>selected</if>>局折子工程</option>
+						<option value="4" <if condition='$flag eq 4'>selected</if>>其它重要事项</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>标题：</td>
+				<td><input type="text" name='title' value='{$ins.title}'></td>
+			</tr>
+			<!-- <tr>
+				<td>定时发送时间：</td>
+				<td>
+					<input class="Wdate" type="text" name='set_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$ins.set_time|date='Y-m-d',###}' >
+				</td>
+			</tr>
+			<tr>
+				<td>发送人员：</td>
+				<td>
+					<textarea   class='contact_input' disabled>{$ins.send_to_people|IdsToNames=','}</textarea>
+					<input type="hidden" name='send_to_people' class='hidden' value='{$ins.send_to_people}'>
+					<a href="#" class='contact'>通讯录</a>
+					<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a>					
+				</td>
+			</tr> -->
+			
+			<tr>
+				<td>上传文件：(<span style='color:blue;'>若无更新，可不重新上传</span>)</td>
+				<td>
+					[<a href="UPLOAD_PATH{$ins.file_savename}">原文件下载</a>]
+					<input type="file" name='inspect_file'></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value='保存'></td>
+				<td><input type="reset"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<include file='Common:footer'/>

@@ -1,0 +1,61 @@
+#duty_input input[type=text]{
+	width:70px;
+}
+#duty_input input[class=Wdate],
+#duty_input input[class=duty_leader]{
+	width:100px;
+}
+#duty_input textarea{
+	width:150px;
+	height:25px;
+}
+
+#duty_search #duty_search_search{
+	width:95%;
+	text-align: left;
+	margin:20px auto;
+}
+#duty_search table{
+	width:95%;
+	margin:5px auto;
+}
+#duty_search table tr{
+	width:90%;
+	height:20px;
+	text-align: center;
+}	
+
+#dutyUrgent{
+	font:normal 15px '宋体';
+	margin-top: 20px;
+}
+#dutyUrgent input[type=text],
+#dutyUrgent input[name*=dutyer]{
+	width:200px;
+	height:20px;
+	margin-top: 3px;
+}
+#dutyUrgent input[type=submit]{
+	width:100px;
+	height:25px;
+	margin-top: 15px;
+}
+
+#duty #dutyer_manage,#dutytable_manage,#dutyUrgent_manage{
+	width:150px;
+	height:25px;
+	background: #198AD8;
+	border-radius: 5px;
+	text-align: center;
+	padding-top: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	float:left;
+}
+#duty #dutyer_manage a,
+#duty #dutytable_manage a,
+#dutyUrgent #dutyUrgent_manage a{font:bold 15px "宋体";color:white;text-decoration: none;}
+#duty #dutyer_manage a:hover,
+#duty #dutytable_manage a:hover,
+#dutyUrgent #dutyUrgent_manage a:hover{text-decoration: underline;}
+

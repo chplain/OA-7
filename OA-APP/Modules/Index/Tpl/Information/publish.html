@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/info.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/info.js'/>
+	<script>
+		$(document).ready(function(){
+			$('input[type=submit]').click(function(e){
+				if(!confirm('确定要发布吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>发布公告</title>
+</head>
+<body  id='pub_table'>
+	<div>
+		<form action="{:U('Index/Information/publish_handle')}" method='post'>
+			<table  width="546" height="310" border="1" align="center" cellpadding="1" cellspacing="0">
+				  <tr>
+				    <td width="116" height="35"><div align="right">标题：</div></td>
+				    <td width="380"><input name="title" type="text" value="" style='width:350px;height:25px;'/></td>
+				  </tr>
+				  <tr>
+				    <td height="29"><div align="right">是否置顶：</div></td>
+				    <td>
+				       <input type='radio' name='isSetTop' value='1'/>是
+				       <input type='radio' name='isSetTop' value='0' checked/>否
+				    &nbsp;</td>
+				  </tr>
+				  <tr>
+				    <td height="185"><div align="right">内容：</div></td>
+				    <td><textarea name='content' cols="48" rows='13'></textarea></td>
+				  </tr>
+				  <tr>
+				    <td height="57" colspan="2"><div align="center">
+				      <input type='submit' value='发布' />
+				      <input type='reset' value='重置' />
+				      <input type='button' value='关闭窗口' id='close' />
+				    </div></td>
+				  </tr>
+				</table>
+		</form>
+
+	</div>
+	
+
+	
+</body>
+</html>

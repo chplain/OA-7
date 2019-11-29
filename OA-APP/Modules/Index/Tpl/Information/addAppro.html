@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/info.css' />
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>
+	<js file='__PUBLIC__/js/info.js' />
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<script>
+		$(document).ready(function(){
+			$('#addDep').click(function(e){
+				e.preventDefault();
+				var clone = $('#dep_spec').clone();
+				clone.removeAttr('id');
+				clone.insertBefore($('#addDep'));
+			});
+			$('#removeDep').click(function(e){
+				e.preventDefault();
+				var clone = $('#addDep').prev('select');
+				if(!clone.is('#dep_spec')){
+					clone.remove();
+				}
+			});
+			$('input[type=submit]').click(function(e){
+				if(!confirm('确定要添加吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>添加约稿任务</title>
+</head>
+<body id='rep_table'>
+	<div id='appro_table_div' style='padding-top:50px;'>
+	<form action="{:U('Index/Information/appro_handle')}" method='post'>
+	<table width="541" height="329" border="1" align="center" cellpadding="1" cellspacing="0">
+		  <tr>
+		    <td width="136" height="38"><div align="right">主题：</div></td>
+		    <td width="395"><input type="text" name='subject' style='height:30px;width:350px;'/></td>
+		  </tr>
+		  <tr>
+		    <td height="46"><div align="right">指定科室：</div></td>
+		    <td>
+				<select name="dep[]" style='height:30px;' id='dep_spec'>
+					  <option value="0">======请选择======</option>
+					  <foreach name='dep' item='v'>
+					  		<option value="{$v.id}">{$v.name}</option>
+					  </foreach>
+				 </select>
+				 <a href="" id='addDep' style='font-size:12px;'>增加</a>
+				 <a href="" id='removeDep' style='font-size:12px;'>删除</a>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="49"><div align="right">指定人员：(可不填)</div></td>
+		    <td>
+		    	<textarea name="recvContact" class='newContact_input' id="" style='width:200px;height:20px;' disabled></textarea>					
+					<input type="hidden" name='group_id'>
+					<input type="hidden" name='individual_id'>
+					<a href="#" class='newContact'>添加</a>	
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="30"><div align="right">截止日期：</div></td>
+		    <td>
+				<input class="Wdate" type="text" name='deadline' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="92"><div align="right">附加内容：</div></td>
+		    <td>
+				<textarea name="content" cols="45" rows="4" placeholder='附加内容，可以不填写'></textarea>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="59" colspan="2"><div align="center">
+		    	<input type="submit" value='添加任务'/>
+		    	<input type="reset" value='重置'/>
+		    	<input type="button" value='关闭窗口' id='close'/>
+		    </div></td>
+		  </tr>
+		</table>
+		<span id='rep_hint'>您可以在“信息约稿”中查看子任务完成进度</span>
+	</form>
+
+		</div>
+</body>
+</html>

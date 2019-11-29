@@ -1,0 +1,84 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<style>
+	.setLarge{
+		width:150px;
+		height:17px;
+	}
+	.hint{
+		font-size: 12px;
+		color:blue;
+	}
+</style>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>督察事项</li>
+			<li><a href="{:U('Index/Inspect/show_inspect',array('flag'=>3,'dep'=>$dep,'flag_index'=>1))}">折子工程</a></li>
+			<li>{$dep|idToDep} 工作指标设定</li>
+		</ul>
+    </div>
+<div class='someSpace'> 
+	<a href="{:U('Index/Inspect/show_inspect',array('dep'=>$dep,'flag_index'=>1,'flag'=>3))}"><button>返回</button></a>
+	<h2 align="center">{$dep|idToDep} 工作指标管理</h2>
+	
+		<h3>项目管理（
+					<select name="year" id="" onchange='self.location.href=options[selectedIndex].value' style='width:70px;height:30px; font:900 15px "宋体";'>
+						<!-- <option value="{:U('Index/Inspect/target_modify',array('year'=>'2015','dep'=>$dep))}" <if condition='$year eq "2015"'>selected</if>>2015</option>
+						<option value="{:U('Index/Inspect/target_modify',array('year'=>'2016','dep'=>$dep))}" <if condition='$year eq "2016"'>selected</if>>2016</option>
+						<option value="{:U('Index/Inspect/target_modify',array('year'=>'2017','dep'=>$dep))}" <if condition='$year eq "2017"'>selected</if>>2017</option>
+						<option value="{:U('Index/Inspect/target_modify',array('year'=>'2018','dep'=>$dep))}" <if condition='$year eq "2018"'>selected</if>>2018</option> -->
+						<foreach name='listInt' item='v'>
+							<option value="{:U('Index/Inspect/target_modify',array('year'=>$v,'dep'=>$dep))}" <if condition='$year eq $v'>selected</if>>{$v}</option>
+						</foreach>
+					</select>
+					年）</h3>
+		<table class='completePro' >
+			<volist name='arr' id='v'>
+				<tr>
+					<td>{$v.name}						
+						[<a href="{:U('Index/Inspect/modifyProject',array('level'=>1,'id'=>$v['id'],'dep'=>$dep))}">修改</a>]
+						[<a href="{:U('Index/Inspect/deleteProject',array('level'=>1,'id'=>$v['id'],'dep'=>$dep))}" class='delete'>删除</a>]
+						[<a href="{:U('Index/Inspect/addProject',array('level'=>1,'id'=>$v['id'],'dep'=>$dep,'add'=>'class'))}">添加分类</a>]
+						[<a href="{:U('Index/Inspect/addProject',array('level'=>1,'id'=>$v['id'],'dep'=>$dep,'add'=>'item'))}">添加指标</a>]
+					</td>
+					<td>
+					<table align='center' >
+						<volist name='v.child' id='vv'>
+							<tr>
+								<if condition='$vv["name"] neq "NONE"'>
+									<td>
+										{$vv.name}
+										[<a href="{:U('Index/Inspect/modifyProject',array('level'=>2,'id'=>$vv['id'],'dep'=>$dep))}">修改</a>]
+										[<a href="{:U('Index/Inspect/deleteProject',array('level'=>2,'id'=>$vv['id'],'dep'=>$dep))}" class='delete'>删除</a>]
+										[<a href="{:U('Index/Inspect/addProject',array('level'=>2,'id'=>$vv['id'],'dep'=>$dep,'add'=>'item'))}">添加指标</a>]
+									</td>
+								
+								</if>
+								<td>
+									<table >
+										<volist name='vv.child' id='vvv'>
+											<tr>
+												<td style='border:none;'>{$vvv.name}</td>
+												<td>
+													[<a href="{:U('Index/Inspect/modifyProject',array('level'=>3,'id'=>$vvv['id'],'dep'=>$dep))}">修改</a>]
+													[<a href="{:U('Index/Inspect/deleteProject',array('level'=>3,'id'=>$vvv['id'],'dep'=>$dep))}" class='delete'>删除</a>]													
+												</td>
+											</tr>
+										</volist>
+									</table>
+								</td>
+							</tr>
+						</volist>
+					</table>
+					</td>
+				</tr>
+			</volist>
+			<if condition='$arr eq null'>
+				<tr>
+					<td style='font:bold 14px "宋体";'>暂无新项目</td>
+				</tr>
+			</if>
+		</table>
+</div>
+<include file='Common:foot'/>

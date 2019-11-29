@@ -1,0 +1,34 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/gatherAskLeave')}">请假统计</a></li>
+			<li><a href="#">生成全局请假名册</a></li>
+		</ul>
+    </div>
+<div align='center'>
+	<div align='center'>
+		<a href="{:U('Index/Personnel/gatherAskLeave')}" style='float:left;'><button>返回</button></a>
+		<form action="{:U('Index/Personnel/gatherAskLeaveHandle')}" method='post'>
+			<table class="bordered"  id="tableNodifyManage" align='center'>
+				<tr>
+					<th colspan='2'>生成某一月份全局请假名册</th>
+				</tr>
+				<tr>
+					<td>选择时间</td>
+					<td>
+						<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM'})" value='' >
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value='生成该月份的全局请假名册'>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+<include file='Common:footer'/>

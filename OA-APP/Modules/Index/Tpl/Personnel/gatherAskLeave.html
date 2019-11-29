@@ -1,0 +1,43 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/gatherAskLeave')}">请假统计</a></li>
+			
+		</ul>
+    </div>
+<div class='someSpace'>
+	<div id='add_file'><a href="{:U('Index/Personnel/generateAskLeave')}">生成全局请假名册</a></div>
+	<div>
+		<form action="{:U('Index/Personnel/gatherAskLeave',array('from'=>'search'))}" method='post'>
+			<span>标题</span><input type="text" name='title' value='{$title}'>
+			<input type="submit" value='查询'>
+		</form>
+	</div>
+	<br>
+	<div align='left'>
+		<table class="bordered"  id="tableNodifyManage">
+			<tr>
+				<th>标题</th>
+				<th>更新时间</th>
+				<th>操作</th>
+			</tr>
+			<foreach name='gather' item='v'>
+				<tr>
+					<td> <a href="{:U('Index/Personnel/detailAllAsk',array('id'=>$v['id']))}" target='_blank'>{$v.title}</a> </td>
+					<td>{$v.fresh_time|date='Y-m-d',###}</td>
+					<td>
+						[<a href="{:U('Index/Personnel/modifyAllAsk',array('id'=>$v['id']))}">修改</a>]
+						[<a href="{:U('Index/Personnel/deleteAllAsk',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="3">{$page}<if condition='$gather eq null'>暂无数据</if></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<include file='Common:footer'/>

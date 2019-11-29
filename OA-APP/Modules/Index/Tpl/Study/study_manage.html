@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>学习园地</title>
+</head>
+<body>
+		<div id='study_content'>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+			<tr>
+				<th>序号</th>
+				<th>标题</th>
+				<th>分享人</th>
+				<th>分享日期</th>
+				<th>操作</th>
+			</tr>
+			
+			<volist name='study' id='v' key='key'>
+				<tr>
+					<td>{$key}</td>
+					<td><a href="{:U('Index/Study/manage_detail',array('id'=>$v['id']))}">[{$v.type}]{$v.title}</a></td>
+					<td>{$v.suber|IdToName}</td>
+					<td>{$v.time|date='Y/m/d',###}</td>
+					<td>
+						[<a href="{:U('Index/Study/deleteStudy',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+			<tr>
+				<td colspan="5" align="center">
+					{$page}
+					<if condition='$study eq null'>暂无分享信息</if>
+				</td>
+			</tr>
+		</table>
+		<div align="center"><button onclick='javascript:window.close();'>关闭窗口</button></div>
+	</div>
+</body>
+</html>

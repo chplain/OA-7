@@ -1,0 +1,65 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>学习园地</li>
+			<li><a href="{:U('Index/Study/view')}">查看共享</a></li>
+			<li><a href="#">详情</a></li>
+		</ul>
+    </div>
+<div id='study'>
+	<h3 align='center'>共享知识</h3>
+	<div id='sudy_content'>
+		<h3 align="center">[{$study.type}]&nbsp;&nbsp;{$study.title}</h3>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:75%;">
+			<tr>
+				<td>
+					 上传者：
+				</td>
+				<td>
+					{$study.suber|IdToName}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					上传日期：
+				</td>
+				<td>
+					{$study.time|date='Y-m-d',###}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					内容描述:
+				</td>
+				<td width="400px" height="150px">
+					{$study.content|htmlspecialchars_decode}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					上传文件：
+				</td>
+				<td>
+					<a href="UPLOAD_PATH{$study.file_savename}" target='_blank'>{$study.file_name}</a>
+				</td>
+			</tr>
+		</table>
+		<!--
+		<h3 align="center">[{$study.type}]&nbsp;&nbsp;{$study.title}</h3>
+		<div>
+			<span>上传者：{$study.suber|IdToName}</span>&nbsp;&nbsp;
+			<span>上传日期：{$study.time|date='Y-m-d',###}</span>&nbsp;&nbsp;
+		</div>
+		<div>
+			<span>内容描述</span>
+			{$study.content|htmlspecialchars_decode}
+		</div>
+		<div>
+			上传文件：<a href="UPLOAD_PATH{$study.file_savename}" target='_blank'>{$study.file_name}</a>
+		</div>
+		-->
+	</div>
+</div>
+<include file='Common:footer'/>

@@ -1,0 +1,50 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/show_personnelinfo')}">人事信息</a></li>
+			<!-- <li><a href="#">修改</a></li> -->
+		</ul>
+    </div>
+<div class='someSpace'>
+	<div id='add_file' style='float:right;'><a href="{:U('Index/Personnel/setModifyDeadline')}">设置</a></div>
+	<div id='add_file' style='float:right;'><a href="{:U('Index/Personnel/personnelInfoDetail',array('flag'=>1))}" target='_blank'>全局汇总</a></div><br><br><br>
+	<div align='left'>
+		<table class="bordered"  id="tableNodifyManage" width='90%'>
+			<tr>
+				<th width='10%'>姓名</th>
+				<th width='25%'>科室</th>
+				<th width='10%'>更新时间</th>
+				<th width='10%'>查看</th>
+				<th width='10%'>操作</th>
+			</tr>
+			<foreach name='pinfo' item='v'>
+				<tr>
+					<td width='10%'>{$v.name}</td>
+					<td width='25%'>{$v.dep|idToDep}</td>
+					<td width='10%'>{$v.sub_time|date='Y-m-d',###}</td>
+					<td width='10%'><a href="{:U('Index/Personnel/personnelInfoDetail',array('id'=>$v['id']))}" target='_blank'>查看</a></td>
+					<td width='10%'>
+						[<a href="{:U('Index/Personnel/modifyPersonnelInfoItem',array('id'=>$v['id']))}">修改</a>]
+						[<a href="{:U('Index/Personnel/deletePersonnelInfoItem',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="5">
+					{$page}
+					<if condition='$pinfo eq null'>暂无数据</if>
+					<!-- <form action="{:U('Index/Personnel/personnelInfo_excel')}" method='post' style='float:right;'>
+						<foreach name='pinfo' item='v'>
+							<input type="hidden" name='excel[]' value='{$v.id}'>
+						</foreach>
+						<input type="submit" value='导出Excel'>
+					</form> -->
+				</td>
+			</tr>
+		</table>		
+	</div>
+</div>
+<include file='Common:footer'/>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>季度考核分数汇总表</title>
+</head>
+<body>
+	<div>
+		<h3 align="center">季度考核分数汇总表</h3>
+		<form action="{:U('Index/Personnel/quarterJudgeGatherHandle')}" method='post'>
+			<table class="table" align="center">
+				<tr>
+					<td>姓名</td>
+					<td><input type="text" name='name'/></td>
+				</tr>
+				<tr>
+					<td>所在部门</td>
+					<td>
+						<select name="dep" id="">
+							<option value="-1">===请选择===</option>
+							<option value="0">局领导</option>
+							<foreach name='dep' item='v'>
+								<option value="{$v.id}">{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>现任职务</td>
+					<td>
+						<select name="pos" id="">
+							<option value="0">===请选择===</option>
+							<foreach name='pos' item='v'>
+								<option value="{$v.id}">{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>身份</td>
+					<td>
+						<select name="identify" id="">
+							<option value="0">===请选择===</option>
+							<foreach name='identify' item='v'>
+								<option value="{$v.id}">{$v.name}</option>
+							</foreach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>季度</td>
+					<td>
+						<select name="quarter" id="">
+							<option value="0">===请选择===</option>
+							<option value="1">第一季度</option>
+							<option value="2">第二季度</option>
+							<option value="3">第三季度</option>
+							<option value="4">第四季度</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>考核得分</td>
+					<td><input type="text" name='score'/></td>
+				</tr>
+				<tr>
+					<td>备注</td>
+					<td><textarea name="remark" id="" cols="30" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value='保存'/>
+						<input type="reset" value='重置'/>
+					</td>
+				</tr>
+			</table>
+		</form>
+
+		<div align='center'><button onclick='javascript:window.close();'>关闭窗口</button></div>
+		<div>
+			<span style='font:normal 13px "宋体";color:blue;'>您可以在“人事管理”下的“季度考核--查看”中查看</span>
+		</div>
+	</div>
+</body>
+</html>

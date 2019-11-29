@@ -1,0 +1,604 @@
+<include file='Common:header'/>
+<link rel="stylesheet"  href="__PUBLIC__/js/tab_style/css/webwidget_scroller_tab.css" type="text/css" />
+<script>
+	$(document).ready(function(){
+		var reurl = window.location.href;		
+		var index = reurl.lastIndexOf('flag_index');
+		var last = reurl.substr(index,reurl.length);
+		var arr = last.split('.');
+		var arr2 = arr[0].split('/');
+		var i = arr2[1] - 1;
+		$('.webwidget_scroller_tab .tabContainer li').eq(i).addClass('currentBtn');
+		$('.webwidget_scroller_tab .tabContainer li').click(function(){
+			
+			$('.webwidget_scroller_tab .tabContainer li').removeClass('currentBtn');
+			$(this).addClass('currentBtn');
+		});
+		$('.submitPage').click(function(e){
+			if(!confirm('确定要提交吗？'))
+				e.preventDefault();
+		});
+	});
+</script>
+
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>督察事项</li>
+			<li><a href="{:U('Index/Inspect/show_inspect',array('flag'=>$flag,'dep'=>1,'flag_index'=>1))}">折子工程</a></li>
+		</ul>
+    </div>
+<div>
+
+	<if condition='$flag eq 3'>
+		 <div class="webwidget_scroller_tab" id="webwidget_scroller_tab">
+	          <div class="tabContainer">
+	            <ul class="tabHead">
+	              <li><a href="{:U('Index/Inspect/show_inspect',array('flag_index'=>1,'flag'=>3,'dep'=>$dep))}">工作指标</a></li>
+	              <li><a href="{:U('Index/Inspect/show_inspect',array('flag_index'=>2,'flag'=>3,'dep'=>$dep))}">任务分工表</a></li>
+	            </ul>
+	          </div>
+	      </div>
+	</if>
+
+<div class='someSpace'>
+	<if condition='$flag_index eq 1 and $dep neq 5'>
+		<br>
+		<h2 align="center">房山区环保局
+			<select name="year" id="" onchange='self.location.href=options[selectedIndex].value' style='width:70px;height:30px; font:900 15px "宋体";'>
+				<!-- <option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2015','dep'=>$dep))}" <if condition='$year eq "2015"'>selected</if>>2015</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2016','dep'=>$dep))}" <if condition='$year eq "2016"'>selected</if>>2016</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2017','dep'=>$dep))}" <if condition='$year eq "2017"'>selected</if>>2017</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2018','dep'=>$dep))}" <if condition='$year eq "2018"'>selected</if>>2018</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2019','dep'=>$dep))}" <if condition='$year eq "2019"'>selected</if>>2019</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2020','dep'=>$dep))}" <if condition='$year eq "2020"'>selected</if>>2020</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2021','dep'=>$dep))}" <if condition='$year eq "2021"'>selected</if>>2021</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2022','dep'=>$dep))}" <if condition='$year eq "2022"'>selected</if>>2022</option> -->
+				<foreach name='listInt' item='v'>
+					<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>$v,'dep'=>$dep))}" <if condition='$year eq $v'>selected</if>>{$v}</option>
+				</foreach>
+			</select>
+			年折子工程具体工作指标情况一览表</h2>
+			<h4 align='left'>牵头领导：{$dep|idToFindLeader}   [<a href="{:U('Index/Inspect/modifyleader',array('dep'=>$dep))}">修改</a>]</h4>
+			<h4 align='left'>责任科室：{$dep|idToDep}
+			<div id='add_file' style='margin-bottom:0px;float:right;'><a href="{:U('Index/Inspect/target_modify',array('dep'=>$dep))}">工作指标管理</a></div>
+			<div id='add_file' style='margin-bottom:0px;float:right;'><a href="{:U('Index/Inspect/target_set',array('dep'=>$dep))}">工作指标设定</a></div>
+			<br><br>
+			</h4>
+			
+		<form action="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'dep'=>$dep))}" method='post'>
+		<if condition='$dep eq 11 or $dep eq 12'>
+		<table class="bordered" id="tableNodifyManage" style='width:1325px;'>
+		<else/>
+		<table class="bordered" id="tableNodifyManage" style='width:1175px;'>
+		</if>
+			<tr>
+				<th style='width:270px;text-align:center;'>项目名称</th>
+				<th style='width:160px;text-align:center;'>
+					<select name="con1" id="">
+						<!-- <option value="2013" <if condition="$con1 eq 2013">selected</if>>2013</option>
+						<option value="2014" <if condition="$con1 eq 2014">selected</if>>2014</option>
+						<option value="2015" <if condition="$con1 eq 2015">selected</if>>2015</option>
+						<option value="2016" <if condition="$con1 eq 2016">selected</if>>2016</option>
+						<option value="2017" <if condition="$con1 eq 2017">selected</if>>2017</option>
+						<option value="2018" <if condition="$con1 eq 2018">selected</if>>2018</option> -->
+						<foreach name='listInt' item='v'>
+							<option value="{$v}" <if condition="$con1 eq $v">selected</if>>{$v}</option>
+						</foreach>
+					</select>
+					年完成情况
+				</th>
+				<th style='width:160px;text-align:center;'>
+					<select name="con2" id="">
+						<!-- <option value="2014" <if condition="$con2 eq 2014">selected</if>>2014</option>
+						<option value="2015" <if condition="$con2 eq 2015">selected</if>>2015</option>
+						<option value="2016" <if condition="$con2 eq 2016">selected</if>>2016</option>
+						<option value="2017" <if condition="$con2 eq 2017">selected</if>>2017</option>
+						<option value="2018" <if condition="$con2 eq 2018">selected</if>>2018</option>
+						<option value="2019" <if condition="$con2 eq 2019">selected</if>>2019</option> -->
+						<foreach name='listInt' item='v'>
+							<option value="{$v}" <if condition="$con2 eq $v">selected</if>>{$v}</option>
+						</foreach>
+					</select>
+					年完成情况
+				</th>
+				<th style='width:160px;text-align:center;'>
+					<select name="con3" id="">
+						<!-- <option value="2013" <if condition="$con3 eq 2013">selected</if>>2013</option>
+						<option value="2014" <if condition="$con3 eq 2014">selected</if>>2014</option>
+						<option value="2015" <if condition="$con3 eq 2015">selected</if>>2015</option>
+						<option value="2016" <if condition="$con3 eq 2016">selected</if>>2016</option>
+						<option value="2017" <if condition="$con3 eq 2017">selected</if>>2017</option>
+						<option value="2018" <if condition="$con3 eq 2018">selected</if>>2018</option>
+						<option value="2019" <if condition="$con3 eq 2019">selected</if>>2019</option>
+						<option value="2020" <if condition="$con3 eq 2020">selected</if>>2020</option> -->
+						<foreach name='listInt' item='v'>
+							<option value="{$v}" <if condition="$con3 eq $v">selected</if>>{$v}</option>
+						</foreach>
+					</select>
+					年同期
+				</th>
+				<th style='width:160px;text-align:center;'>
+					<select name="con4" id="">
+						<!-- <option value="2013" <if condition="$con4 eq 2013">selected</if>>2013</option>
+						<option value="2014" <if condition="$con4 eq 2014">selected</if>>2014</option>
+						<option value="2015" <if condition="$con4 eq 2015">selected</if>>2015</option>
+						<option value="2016" <if condition="$con4 eq 2016">selected</if>>2016</option>
+						<option value="2017" <if condition="$con4 eq 2017">selected</if>>2017</option>
+						<option value="2018" <if condition="$con4 eq 2018">selected</if>>2018</option>
+						<option value="2019" <if condition="$con4 eq 2019">selected</if>>2019</option>
+						<option value="2020" <if condition="$con4 eq 2020">selected</if>>2020</option>
+						<option value="2021" <if condition="$con4 eq 2021">selected</if>>2021</option> -->
+						<foreach name='listInt' item='v'>
+							<option value="{$v}" <if condition="$con4 eq $v">selected</if>>{$v}</option>
+						</foreach>
+					</select>
+					年完成情况 &nbsp;&nbsp;&nbsp;（
+					<select name="mon" id="">
+						<option value="1" <if condition="$mon eq 1">selected</if>>1</option>
+						<option value="2" <if condition="$mon eq 2">selected</if>>2</option>
+						<option value="3" <if condition="$mon eq 3">selected</if>>3</option>
+						<option value="4" <if condition="$mon eq 4">selected</if>>4</option>
+						<option value="5" <if condition="$mon eq 5">selected</if>>5</option>
+						<option value="6" <if condition="$mon eq 6">selected</if>>6</option>
+						<option value="7" <if condition="$mon eq 7">selected</if>>7</option>
+						<option value="8" <if condition="$mon eq 8">selected</if>>8</option>
+						<option value="9" <if condition="$mon eq 9">selected</if>>9</option>
+						<option value="10" <if condition="$mon eq 10">selected</if>>10</option>
+						<option value="11" <if condition="$mon eq 11">selected</if>>11</option>
+						<option value="12" <if condition="$mon eq 12">selected</if>>12</option>
+					</select>
+					月）
+				</th>
+				<th style='width:160px;text-align:center;'>
+					<select name="con5" id="">
+						<!-- <option value="2015" <if condition="$con5 eq 2015">selected</if>>2015</option>
+						<option value="2016" <if condition="$con5 eq 2016">selected</if>>2016</option>
+						<option value="2017" <if condition="$con5 eq 2017">selected</if>>2017</option>
+						<option value="2018" <if condition="$con5 eq 2018">selected</if>>2018</option>
+						<option value="2019" <if condition="$con5 eq 2019">selected</if>>2019</option>
+						<option value="2020" <if condition="$con5 eq 2020">selected</if>>2020</option>
+						<option value="2021" <if condition="$con5 eq 2021">selected</if>>2021</option> -->
+						<foreach name='listInt' item='v'>
+							<option value="{$v}" <if condition="$con5 eq $v">selected</if>>{$v}</option>
+						</foreach>
+					</select>
+					年任务目标
+				</th>
+				<if condition='$dep eq 11 or $dep eq 12'>
+					<th style='width:160px;text-align:center;'>完成比例</th>
+				</if>
+				<th style='width:100px;text-align:center;'>
+					<button>确定</button>
+				</th>
+			</tr>
+		</table>
+		</form>
+		<form action="{:U('Index/Inspect/saveContrast',array('dep'=>$dep,'year'=>$year))}" method='post' style='width:1175px;'>
+		<if condition='$dep eq 11 or $dep eq 12'>
+			<table style='width:1240px;'>
+		<else/>
+			<table style='width:1175px;'>
+		</if>
+			<volist name='arr' id='v' key='key'>
+				<tr>
+					<td colspan='4'>
+						<table  class='completePro'>
+							<tr>
+								<td style='width:60px;'>{$v.name}</td>
+								<td>
+								<table align='center'>
+									<volist name='v.child' id='vv'>
+										<tr>
+											<if condition='$vv["name"] neq "NONE"'>
+												<td style='width:60px;'>{$vv.name}</td>
+												<td>
+											<else/>
+												<td>
+											</if>
+											
+												<table>
+													<volist name='vv.child' id='vvv'>
+														<tr>
+															<if condition='$vv["name"] neq "NONE"'>
+																<td style='width:100px;'>{$vvv.name}</td>
+															<else/>
+																<td style='width:165px;'>{$vvv.name}</td>
+															</if>
+															<td style='width:160px;'>{$vvv.con1}</td>
+															<td style='width:160px;'>{$vvv.con2}</td>
+															<td><input type="text" name='first[{$vvv.id}]' value="{$vvv.con3}"></td>
+															<td><input type="text" name='second[{$vvv.id}]' value="{$vvv.con4}"></td>
+															<td style='width:160px;'>{$vvv.con5}</td>
+															<if condition='$dep eq 11 or $dep eq 12'>
+																<td style='width:160px;'><input type="text" name='third[{$vvv.id}]' value='{$vvv.con6}'></td>
+															</if>
+														</tr>
+													</volist>
+												</table>
+											</td>
+										</tr>
+									</volist>
+								</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</volist>
+			<if condition='$arr eq null'>
+				<tr>
+					<td><h3>本科室该年份无新项目</h3></td>
+				</tr>
+			<else/>
+				<tr>
+					<td>
+						科室负责人：
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+
+						<button class='submitPage'>提交科室负责人审核</button>
+						<input type="hidden" name='con3' value='{$con3}'>
+						<input type="hidden" name='mon' value='{$mon}'>
+						<input type="hidden" name='con4' value='{$con4}'>
+						<input type="hidden" name='year' value='{$year}'>
+					</td>
+				</tr>
+			</if>
+		</table>
+	</form>
+	 </if>
+	 <if condition='$flag_index eq 1 and $dep eq 5'>
+	 	<h2 align="center">房山区环保局
+			<select name="year" id="" onchange='self.location.href=options[selectedIndex].value' style='width:70px;height:30px; font:900 15px "宋体";'>
+				<!-- <option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2015','dep'=>$dep))}" <if condition='$year eq "2015"'>selected</if>>2015</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2016','dep'=>$dep))}" <if condition='$year eq "2016"'>selected</if>>2016</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2017','dep'=>$dep))}" <if condition='$year eq "2017"'>selected</if>>2017</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2018','dep'=>$dep))}" <if condition='$year eq "2018"'>selected</if>>2018</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2019','dep'=>$dep))}" <if condition='$year eq "2019"'>selected</if>>2019</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2020','dep'=>$dep))}" <if condition='$year eq "2020"'>selected</if>>2020</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2021','dep'=>$dep))}" <if condition='$year eq "2021"'>selected</if>>2021</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>'2022','dep'=>$dep))}" <if condition='$year eq "2022"'>selected</if>>2022</option> -->
+				<foreach name='listInt' item='v'>
+					<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>1,'year'=>$v,'dep'=>$dep))}" <if condition='$year eq $v'>selected</if>>{$v}</option>
+				</foreach>
+			</select>
+			年折子工程具体工作指标情况一览表</h2>
+			<h4 align='left'>牵头领导：{$dep|idToFindLeader}   [<a href="{:U('Index/Inspect/modifyleader',array('dep'=>$dep))}">修改</a>]</h4>
+			<h4 align='left'>责任科室：{$dep|idToDep}</h4>
+			
+			<table class='bordered' id='tableNodifyManage' style='width:1180px;'>
+				<form action="{:U('Index/Inspect/show_inspect',array('dep'=>$dep,'flag'=>3,'flag_index'=>1))}" method='post'>
+				<tr>
+					<th rowspan='2' colspan='2' style='width:200px;text-align:center;'>
+						项目跟踪进度&nbsp;
+						<button>确定</button>
+					</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_1}年审批建设项目进展情况</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_2}年审批建设项目进展情况</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_3}年审批建设项目进展情况</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_4}年审批建设项目进展情况</th>
+					<th rowspan='2' style='width:80px;text-align:center;'>{$year_5}年审批建设项目进展情况</th>
+					
+					<th rowspan="2" style='width:80px;text-align:center;'>
+						<select name="period1" id="">
+							<option value="125" <if condition='$period1 eq "125"'>selected</if>>“十二五”</option>
+							<option value="135" <if condition='$period1 eq "135"'>selected</if>>“十三五”</option>
+						</select>期间审批建设项目进展情况
+					</th>
+					<th colspan='5' style='width:500px;text-align:center;'>
+						<select name="period2" id="">
+							<option value="125" <if condition='$period2 eq "125"'>selected</if>>“十二五”</option>
+							<option value="135" <if condition='$period2 eq "135"'>selected</if>>“十三五”</option>
+						</select>前审批的建设项目验收情况
+					</th>
+				</tr>
+				<tr>
+					<th style='text-align:center;'>2011年</th>
+					<th style='text-align:center;'>2012年</th>
+					<th style='text-align:center;'>2013年</th>
+					<th style='text-align:center;'>2014年</th>
+					<th style='text-align:center;'>2015年</th>
+				</tr>
+				</form>
+				<form action="{:U('Index/Inspect/saveContrast',array('dep'=>$dep))}" method='post'>
+				<tr>
+					<td rowspan="10" style='text-align:center;background-color:#CCCCCC;'>建设项目竣工环境保护验收</td>
+					<td style='text-align:center;'>审批数</td>
+					<td><input type="text" name='one_line[]' style='width:95%;' value='{$one[0]}'></td>
+					<td><input type="text" name='one_line[]' style='width:95%;' value='{$one[1]}'></td>
+					<td><input type="text" name='one_line[]' style='width:95%;' value='{$one[2]}'></td>
+					<td><input type="text" name='one_line[]' style='width:95%;' value='{$one[3]}'></td>
+					<td><input type="text" name='one_line[]' style='width:95%;' value='{$one[4]}'></td>
+					<td><input type="text" name='one_line[]' style='width:95%;' value='{$one[5]}'></td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+					<td rowspan="6" style='text-align:center;'>---</td>
+				</tr>
+				<tr>
+					<td  style='text-align:center;'>需要验收数</td>
+					<td><input type="text" name='two_line[]' style='width:95%;' value='{$two[0]}'></td>
+					<td><input type="text" name='two_line[]' style='width:95%;' value='{$two[1]}'></td>
+					<td><input type="text" name='two_line[]' style='width:95%;' value='{$two[2]}'></td>
+					<td><input type="text" name='two_line[]' style='width:95%;' value='{$two[3]}'></td>
+					<td><input type="text" name='two_line[]' style='width:95%;' value='{$two[4]}'></td>
+					<td><input type="text" name='two_line[]' style='width:95%;' value='{$two[5]}'></td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>未建</td>
+					<td><input type="text" name='three_line[]' style='width:95%;' value='{$three[0]}'></td>
+					<td><input type="text" name='three_line[]' style='width:95%;' value='{$three[1]}'></td>
+					<td><input type="text" name='three_line[]' style='width:95%;' value='{$three[2]}'></td>
+					<td><input type="text" name='three_line[]' style='width:95%;' value='{$three[3]}'></td>
+					<td><input type="text" name='three_line[]' style='width:95%;' value='{$three[4]}'></td>
+					<td><input type="text" name='three_line[]' style='width:95%;' value='{$three[5]}'></td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>在建</td>
+					<td><input type="text" name='four_line[]' style='width:95%;' value='{$four[0]}'></td>
+					<td><input type="text" name='four_line[]' style='width:95%;' value='{$four[1]}'></td>
+					<td><input type="text" name='four_line[]' style='width:95%;' value='{$four[2]}'></td>
+					<td><input type="text" name='four_line[]' style='width:95%;' value='{$four[3]}'></td>
+					<td><input type="text" name='four_line[]' style='width:95%;' value='{$four[4]}'></td>
+					<td><input type="text" name='four_line[]' style='width:95%;' value='{$four[5]}'></td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>竣工</td>
+					<td><input type="text" name='five_line[]' style='width:95%;' value='{$five[0]}'></td>
+					<td><input type="text" name='five_line[]' style='width:95%;' value='{$five[1]}'></td>
+					<td><input type="text" name='five_line[]' style='width:95%;' value='{$five[2]}'></td>
+					<td><input type="text" name='five_line[]' style='width:95%;' value='{$five[3]}'></td>
+					<td><input type="text" name='five_line[]' style='width:95%;' value='{$five[4]}'></td>
+					<td><input type="text" name='five_line[]' style='width:95%;' value='{$five[5]}'></td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>具备验收条件</td>
+					<td><input type="text" name='six_line[]' style='width:95%;' value='{$six[0]}'></td>
+					<td><input type="text" name='six_line[]' style='width:95%;' value='{$six[1]}'></td>
+					<td><input type="text" name='six_line[]' style='width:95%;' value='{$six[2]}'></td>
+					<td><input type="text" name='six_line[]' style='width:95%;' value='{$six[3]}'></td>
+					<td><input type="text" name='six_line[]' style='width:95%;' value='{$six[4]}'></td>
+					<td><input type="text" name='six_line[]' style='width:95%;' value='{$six[5]}'></td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>验收数</td>
+					<td><input type="text" name='seven_line[]' style='width:95%;' value='{$seven[0]}'></td>
+					<td><input type="text" name='seven_line[]' style='width:95%;' value='{$seven[1]}'></td>
+					<td><input type="text" name='seven_line[]' style='width:95%;' value='{$seven[2]}'></td>
+					<td><input type="text" name='seven_line[]' style='width:95%;' value='{$seven[3]}'></td>
+					<td><input type="text" name='seven_line[]' style='width:95%;' value='{$seven[4]}'></td>
+					<td><input type="text" name='seven_line[]' style='width:95%;' value='{$seven[5]}'></td>	
+					<td><input type="text" name='accept[]' style='width:95%;' value='{$accept[0]}'></td>	
+					<td><input type="text" name='accept[]' style='width:95%;' value='{$accept[1]}'></td>
+					<td><input type="text" name='accept[]' style='width:95%;' value='{$accept[2]}'></td>	
+					<td><input type="text" name='accept[]' style='width:95%;' value='{$accept[3]}'></td>
+					<td><input type="text" name='accept[]' style='width:95%;' value='{$accept[4]}'></td>					
+				</tr>
+				<tr>
+					<td style='text-align:center;'>截至
+						<select name='over_year1' >
+							<volist	name='year_arr' id='v' offset='0' length='9'>
+								<option value="{$v}" <if condition='$over_year1 eq $v'>selected</if>>{$v}</option>
+							</volist>
+						</select>
+						年底竣工验收率</td>
+					<td><input type="text" name='eight_line[]' style='width:95%;' value='{$eight[0]}'></td>
+					<td><input type="text" name='eight_line[]' style='width:95%;' value='{$eight[1]}'></td>
+					<td><input type="text" name='eight_line[]' style='width:95%;' value='{$eight[2]}'></td>
+					<td><input type="text" name='eight_line[]' style='width:95%;' value='{$eight[3]}'></td>
+					<td><input type="text" name='eight_line[]' style='width:95%;' value='{$eight[4]}'></td>
+					<td><input type="text" name='eight_line[]' style='width:95%;' value='{$eight[5]}'></td>
+					<td colspan='5' rowspan='3' style='text-align:center;'>—— —— ——</td>				
+				</tr>
+				<tr>
+					<td style='text-align:center;'>截至
+						<select name='over_year2'>
+							<volist	name='year_arr' id='v' offset='1' length='9'>
+								<option value="{$v}" <if condition='$over_year2 eq $v'>selected</if>>{$v}</option>
+							</volist>
+						</select>
+						年底竣工验收率</td>
+					<td><input type="text" name='nine_line[]' style='width:95%;' value='{$nine[0]}'></td>
+					<td><input type="text" name='nine_line[]' style='width:95%;' value='{$nine[1]}'></td>
+					<td><input type="text" name='nine_line[]' style='width:95%;' value='{$nine[2]}'></td>
+					<td><input type="text" name='nine_line[]' style='width:95%;' value='{$nine[3]}'></td>
+					<td><input type="text" name='nine_line[]' style='width:95%;' value='{$nine[4]}'></td>
+					<td><input type="text" name='nine_line[]' style='width:95%;' value='{$nine[5]}'></td>			
+				</tr>
+				<tr>
+					<td style='text-align:center;'>截至目前竣工验收率</td>
+					<td><input type="text" name='ten_line[]' style='width:95%;' value='{$ten[0]}'></td>
+					<td><input type="text" name='ten_line[]' style='width:95%;' value='{$ten[1]}'></td>
+					<td><input type="text" name='ten_line[]' style='width:95%;' value='{$ten[2]}'></td>
+					<td><input type="text" name='ten_line[]' style='width:95%;' value='{$ten[3]}'></td>
+					<td><input type="text" name='ten_line[]' style='width:95%;' value='{$ten[4]}'></td>
+					<td><input type="text" name='ten_line[]' style='width:95%;' value='{$ten[5]}'></td>					
+				</tr>
+				<tr>
+					<td colspan="13">
+						科室负责人：
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+						<input type="submit" value='提交科室负责人审核'>
+
+						<input type="hidden" name='period1' value='{$period1}'>
+						<input type="hidden" name='period2' value='{$period2}'>
+					</td>
+				</tr>
+				</form>
+
+			</table>
+			
+
+	 </if>
+	<if condition='$flag_index eq 2'>
+	   <br>
+	   <div id='add_file' style='margin-bottom:0px;float:right;'><a href="{:U('Index/Inspect/separate_modify',array('dep'=>$dep))}">任务分工管理</a></div>
+		<div id='add_file' style='margin-bottom:0px;float:right;'><a href="{:U('Index/Inspect/separate_set',array('dep'=>$dep))}">任务分工设定</a></div><br><br>
+		<h2 align="center">房山区环保局
+			<select name="year" id="" onchange='self.location.href=options[selectedIndex].value' style='width:70px;height:30px; font:900 15px "宋体";'>
+				<!-- <option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>'2015','dep'=>$dep))}" <if condition='$year eq "2015"'>selected</if>>2015</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>'2016','dep'=>$dep))}" <if condition='$year eq "2016"'>selected</if>>2016</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>'2017','dep'=>$dep))}" <if condition='$year eq "2017"'>selected</if>>2017</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>'2018','dep'=>$dep))}" <if condition='$year eq "2018"'>selected</if>>2018</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>'2019','dep'=>$dep))}" <if condition='$year eq "2019"'>selected</if>>2019</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>'2020','dep'=>$dep))}" <if condition='$year eq "2020"'>selected</if>>2020</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>'2021','dep'=>$dep))}" <if condition='$year eq "2021"'>selected</if>>2021</option>
+				<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>'2022','dep'=>$dep))}" <if condition='$year eq "2022"'>selected</if>>2022</option> -->
+				<foreach name='listInt' item='v'>
+					<option value="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'year'=>$v,'dep'=>$dep))}" <if condition='$year eq $v'>selected</if>>{$v}</option>
+				</foreach>
+			</select>
+			年折子工程科室任务分工表</h2>
+			<h4 align='left'>牵头领导：{$dep|idToFindLeader}</h4>
+			<h4 align='left'>责任科室：{$dep|idToDep}</h4>
+			<form action="{:U('Index/Inspect/show_inspect',array('flag'=>3,'flag_index'=>2,'dep'=>$dep))}" method='post'>
+				<table class="bordered" id="tableNodifyManage" style='width:1120px;'>
+					<tr style='height:10px;'>
+						<th style='width:60px;text-align:center;height:30px;' rowspan='2'>项目名称</th>
+						<th style='width:265px;text-align:center;' rowspan='2'>任务目标</th>
+						<th style='width:300px;text-align:center;' colspan='2'>
+							截至
+							<select name="mon" id="">
+								<option value="1" <if condition="$mon eq 1">selected</if>>1</option>
+								<option value="2" <if condition="$mon eq 2">selected</if>>2</option>
+								<option value="3" <if condition="$mon eq 3">selected</if>>3</option>
+								<option value="4" <if condition="$mon eq 4">selected</if>>4</option>
+								<option value="5" <if condition="$mon eq 5">selected</if>>5</option>
+								<option value="6" <if condition="$mon eq 6">selected</if>>6</option>
+								<option value="7" <if condition="$mon eq 7">selected</if>>7</option>
+								<option value="8" <if condition="$mon eq 8">selected</if>>8</option>
+								<option value="9" <if condition="$mon eq 9">selected</if>>9</option>
+								<option value="10" <if condition="$mon eq 10">selected</if>>10</option>
+								<option value="11" <if condition="$mon eq 11">selected</if>>11</option>
+								<option value="12" <if condition="$mon eq 12">selected</if>>12</option>
+							</select>
+							月份
+						</th>
+						
+						<th style='width:100px;text-align:center;' rowspan='2'>
+							责任人
+						</th>
+						<th style='width:100px;text-align:center;' rowspan='2'>
+							协办科室
+						</th>
+						<th style='width:100px;text-align:center;' rowspan='2'>
+							完成时限
+						</th>
+						<th style='width:100px;text-align:center;' rowspan='2'><button>确定</button></th>
+					</tr>
+					<tr>
+						<th style='width:200px;text-align:center;'>完成情况</th>
+						<th style='width:100px;text-align:center;'>完成比例</th>
+					</tr>
+				</table>
+			</form>
+			<form action="{:U('Index/Inspect/saveContrast2',array('dep'=>$dep))}" method='post'>
+			<table>
+				<volist name='arr' id='v' key='key'>
+					<tr>
+						<td colspan='4'>
+							<table  class='completePro'>
+								<tr>
+									<td style='width:60px;'>{$v.name}</td>
+									<td>
+										<table>
+											<volist name='v.child' id='vvv'>
+												<tr>
+													
+													<td style='width:265px;'>{$vvv.name}</td>								
+													<td style='width:200px;'><textarea name="first[{$vvv.id}]" id="" style='height:95%;'>{$vvv.con1}</textarea></td>
+													<td style='width:100px;'><input type="text" name='second[{$vvv.id}]' style='width:100px;' value='{$vvv.con2}'></td>
+													<td style='width:100px;'><input type="text" name='third[{$vvv.id}]' style='width:100px;' value='{$vvv.con3}'></td>
+													<td style='width:100px;'><input type="text" name='fourth[{$vvv.id}]' style='width:100px;' value='{$vvv.con4}'></td>
+													<td style='width:100px;'><input type="text" name='fifth[{$vvv.id}]' style='width:100px;' value='{$vvv.con5}'></td>
+												</tr>
+											</volist>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</volist>
+				<if condition='$arr eq null'>
+					<tr>
+						<td><h3>本科室该年份无新项目</h3></td>
+					</tr>
+				<else/>
+				<tr>
+					<td>
+						科室负责人：
+						<input type="text" class='contact_input1'>
+						<input type="hidden" name='receiver' class='hidden'>
+
+						<button class='submitPage'>提交科室负责人审核</button>
+						<input type="hidden" name='mon' value='{$mon}'>
+						<input type="hidden" name='year' value='{$year}'>
+					</td>
+				</tr>
+			</if>
+				</if>
+			</table>
+		</if>
+	</if>
+
+
+
+
+
+
+
+
+
+
+    <if condition='($flag eq "1") or ($flag eq "2") or ($flag eq "4")'>
+
+	<div id='add_file' class="button blue round"><a href="{:U('Index/Inspect/add_inspect',array('flag'=>$flag))}">添加督查事项</a></div>
+	<div>
+		<form action="{:U('Index/Inspect/show_inspect',array('flag'=>$flag,'from'=>'search'))}" method='post'>
+			<span>主题：</span><input type="text" name='subject' value="{$subject}">
+			<input type="submit" value='搜索'>
+		</form>
+	</div>
+	<br><br>
+	<div>
+		<table class="bordered" id="tableNodifyManage" style='width:100%;'>
+			<tr>
+				<th style='width:450px;'>标题</th>
+				<th style='width:150px;'>发布时间</th>
+				<th style='width:100px;'>发送人</th>
+				<!-- <th>接收人</th> -->
+				<th style='width:150px;'>查看</th>
+				<th style='width:150px;'>操作</th>
+			</tr>
+			<foreach name='inspect' item='v'>
+				<tr>
+					<td>{$v.title}</td>
+					<td>{$v.send_time|date='Y-n-j',###}</td>
+					<td>{$v.send_person|IdToName}</td>
+					<!-- <td>{$v.send_to_people|IdsToNames=','}</td> -->
+					<!-- <td><if condition='$v["isSent"] eq 1'>已发送<else/>未发送</if></td> -->
+					<td>[<a href="UPLOAD_PATH{$v.file_savename}">下载</a>]</td>
+					<td>
+						[<a href="{:U('Index/Inspect/modify_inspect',array('id'=>$v['id']))}">修改</a>]
+						[<a href="{:U('Index/Inspect/deleteInspect',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan='7'>
+					{$page}
+					<if condition='$inspect eq null'>暂无数据</if>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</if>
+</div>
+<include file='Common:footer'/>
+
+

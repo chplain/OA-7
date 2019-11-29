@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>值班人员管理</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div>
+		<div id='add_file'><a href="{:U('Index/Duty/addDutyer')}">添加值班项</a></div>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;" >
+			<tr>
+				<th>序号</th>
+				<th>带班领导</th>
+				<th>值班人员</th>
+				<th>操作</th>
+			</tr>
+			<volist name='duty' id='v' key='key'>
+				<tr>
+					<td>{$key}</td>
+					<td>{$v.leader|IdToName}</td>
+					<td>
+						<foreach name='v.dutyer' item='vv'>
+							{$vv|IdToName}&nbsp;
+						</foreach>
+					</td>
+					<td>
+						[<a href="{:U('Index/Duty/modifyDutyer',array('id'=>$v['id']))}">修改</a>]
+						[<a href="{:U('Index/Duty/deleteDutyer',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+			<tr>
+				<td align='center' colspan='4'>
+					<if condition='$duty eq null'>暂无值班人员项</if>
+					<button onclick="javascript:window.close();">关闭窗口</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file="__PUBLIC__/js/SimpleTree/jquery-1.6.min.js"/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/style.css"/>
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js"/>
+	<script type="text/javascript">
+		$(function(){
+			$(".st_tree").SimpleTree({
+				
+			});
+		});
+	</script>
+	<script type="text/javascript">
+	$(function(){	
+		//导航切换
+		$(".menuson li").click(function(){
+			$(".menuson li.active").removeClass("active")
+			$(this).addClass("active");
+		});
+		
+		$('.title').click(function(){
+			var $ul = $(this).next('ul');
+			$('dd').find('ul').slideUp();
+			if($ul.is(':visible')){
+				$(this).next('ul').slideUp();
+			}else{
+				$(this).next('ul').slideDown();
+			}
+		});
+		$(".leftmenu dd div div").click(function(){
+            $(".yijibeijing").removeClass("yijibeijing");
+            $(this).addClass("yijibeijing");
+        });
+	})	
+	</script>
+	<title>left</title>
+</head>
+<body style="background:#D1EEEE;">
+	<div class="lefttop"><span></span>学习园地</div>
+	<dl class="leftmenu">
+		<dd>
+			<div class="title">
+			<div class="yijibeijing">
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico01.png" /></span><a href="{:U('Index/Study/study_index')}" target='right'>上传共享</a>
+			</div>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico02.png" /></span><a href="{:U('Index/Study/view')}" target='right'>查看共享</a>
+			</div>
+			</div>	
+		</dd>
+	</dl>
+</body>
+</html>

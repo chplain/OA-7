@@ -1,0 +1,40 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<script>
+	$(document).ready(function(){
+		$('input[type=image]').click(function(e){
+			if($('input[name=textfield]').val() == ''){
+				confirm('搜索内容不能为空');
+				e.preventDefault();
+			}
+		});
+	});
+</script>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>日常公务</li>
+			<li><a href="{:U('Index/Search/search_index')}">站内搜索</a></li>
+		</ul>
+    </div>
+<div id='search'>
+	<div>
+		<form action="{:U('Index/Search/search')}" method='post'>			
+			<div class="seach-in" style='float:left;'>
+				站内搜索
+			 	<label>
+				 	<input type="text" name="textfield" id="textfield" />
+			 	</label>			    	
+		    	<label></label>
+			</div>
+			<div class="seach-right" style='float:left;'>
+				<input type='image' src="__PUBLIC__/images/images/sea.jpg" width="53" height="21" border="0"/>
+			</div>
+		 </form>
+	</div>
+	<br><br><br><br>
+	<div>
+		<p style='color:blue;'>站内搜索将在“规章制度”、“通知公告”、“重要文件”中查找</p>
+	</div>
+</div>
+<include file='Common:footer'/>

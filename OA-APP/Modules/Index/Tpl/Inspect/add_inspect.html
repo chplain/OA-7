@@ -1,0 +1,55 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>督察事项</li>
+			<li><a href="{:U('Index/Inspect/show_inspect',array('flag'=>$flag))}">折子工程</a></li>
+			<li><a href="#">添加</a></li>
+		</ul>
+    </div>
+<div id='inspect'>
+	<a href="{:U('Index/Inspect/show_inspect',array('flag'=>$flag))}"><button>返回</button></a><br><br>
+	<form action="{:U('Index/Inspect/handle',array('flag'=>$flag))}" method='post' enctype='multipart/form-data'>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+			<tr><th colspan='2'>督查事项</th></tr>
+			<tr>
+				<td>类型：</td>
+				<td>
+					{$flag|idToInspectType}
+				</td>
+			</tr>
+			<tr>
+				<td>标题：</td>
+				<td><input type="text" name='title' style='width:500px; height:20px;'></td>
+			</tr>
+			<!-- <tr>
+				<td>定时发送时间：</td>
+				<td>
+					<input class="Wdate" type="text" name='set_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" value='' >
+				</td>
+			</tr>
+			<tr>
+				<td>发送人员：</td>
+				<td>
+					<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled></textarea>					
+					<input type="hidden" name='group_id'>
+					<input type="hidden" name='individual_id'>
+					<a href="#" class='newContact'>添加</a>	
+						
+				</td>
+			</tr> -->
+			
+			<tr>
+				<td>上传文件：</td>
+				<td><input type="file" name='inspect_file'></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value='保存'></td>
+				<td><input type="reset"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<include file='Common:footer'/>

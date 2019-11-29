@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/Rbac.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/Rbac.js'/>
+	
+	<title>权限管理平台</title>
+</head>
+<body style='background-color:#B6D7F1;'>
+	<div id='container'>
+		<!-- <div id='top'>
+			<div id='top1'>
+				<p class='p1'>权限控制平台</p>
+				<p class='p2'>THE PLATFORM OF ACCESS CONTROL</p>
+			</div>
+			<div id='top2'>
+				<span><a href="{:U('Index/Index/index')}">OA首页</a></span>
+				<span><a href="{:U('Index/Rbac/index')}">权限首页</a></span>
+				<span>当前用户:{$_SESSION['id']|IdToName}</span>
+			</div>
+		</div>
+		<div id='left'>
+			<div id='l_top'>权限控制</div>
+			<div>&nbsp;</div>
+			<dl>
+				<dd><a href="{:U('Index/Rbac/index')}">用户列表</a></dd>
+				<dd><a href="{:U('Index/Rbac/role')}">角色列表</a></dd>
+				<dd><a href="{:U('Index/Rbac/addRole')}">添加角色</a></dd>
+				<if condition="$Think.config.RBAC_SUPERADMIN eq IdToUserid($_SESSION['id'])">
+					<dd><a href="{:U('Index/Rbac/node')}">权限列表</a></dd>
+					<dd><a href="{:U('Index/Rbac/addNode')}">添加权限</a></dd>
+				</if>
+			</dl>
+		</div> -->

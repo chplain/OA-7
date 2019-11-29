@@ -1,0 +1,51 @@
+<include file='Common:header'/>
+<!-- <css file="__PUBLIC__/js/SimpleTree/tree_themes/style.css"/> -->
+<include file='Common:top'/>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>日常公务</li>
+			<li><a href="{:U('Index/Regulation/regulation_index')}">规章制度</a></li>
+		</ul>
+    </div>
+	<div id='regulation'>
+		<div style='float:right;margin-right:50px;' id='reg_manage'><a href="#" target='_blank'>规章制度管理</a></div>
+		<h2 style='font-size:20px;' align="center">规章制度 </h2>
+		<table class="bordered"align='left' id="tableNodifyManage" style="width:95%" clear='both'>
+			<tr>
+				<th width='60%'>
+					制度名称
+				</th>
+				<th width='40%'>
+					发布时间
+				</th>
+			</tr>
+			<foreach name='regulation' item='v'>
+			<tr>
+				<td width='60%'>
+					<!-- <a href="UPLOAD_PATH{$v.file_savename}" target='_blank'>{$v.file_name}</a> -->
+					<a href="{:U('Index/Regulation/detail',array('id'=>$v['id']))}">{$v.title}</a>
+					<if condition="$v['isSetTop'] eq true"><font style='color:blue;'>【置顶】</font></if>
+				</td>
+				<td width='40%'>{$v.time|date='Y-m-d',###}</td>
+			</tr>
+			</foreach>
+		</table>
+
+
+		<!--
+		<ul>
+			<foreach name='regulation' item='v'>
+				<li><a href="UPLOAD_PATH{$v.file_savename}" target='_blank'>{$v.file_name}</a></li>
+			</foreach>
+		</ul>
+		-->
+		<div align="left" style="margin-right:50px;">
+			{$page}
+			<if condition='$regulation eq null'>
+				暂时没有上传规章制度
+			</if>
+		</div>
+
+	</div>
+<include file='Common:footer'/>

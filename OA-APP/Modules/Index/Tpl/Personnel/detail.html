@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>{$title}</title>
+	<style type='text/css'>
+		.intab1{width:140px;height:50px;}
+		.intab2{width:260px;height:50px;}
+		.intab{width:90%;height:30px;}
+		.intab3{width:95%;height:400px;}
+		.intab4{width:95%;height:200px;}
+		.intab5{width:95%;height:100px;}
+	</style>	
+</head>
+<body>
+	<div>
+		<h3 align='center'>
+			{$title}({$monOrQua}) 
+			<span><a href="{:U('Index/Personnel/download_quarter',array('id'=>$detail['id'],'table'=>$table))}"><button>下载</button></a></span>
+		</h3>
+		<table width="735" height="922" border="1" align="center" cellpadding="1" cellspacing="0">
+			  <tr>
+			    <td width="50" height="54"><div align="center"><span class="STYLE1">姓名</span></div></td>
+			    <td colspan="8"><div align="center">
+			      <table style='width:100%;' frame='void' height="54" border="1" cellpadding="1" cellspacing="0">
+			        <tr>
+			          <td width="148">{$detail.name|IdToName}</td>
+			          <td width="234"><div align="center"><span class="STYLE1">部门及职务</span></td>
+			          <td width="270">{$detail.dep}</td>
+			        </tr>
+			      </table>
+			    </div>      <div align="center"></div>      <div align="center"></div></td>
+			  </tr>
+			  <tr>
+			    <td height="91" rowspan="2"><div align="center" class="STYLE2">
+			      <p>出勤</p>
+			      <p>情况</p>
+			    </div></td>
+			    <td width="61" height="49"><div align="center">出勤</div></td>
+			    <td width="82"><div align="center">加班</div></td>
+			    <td width="72"><div align="center">休假</div></td>
+			    <td width="73"><div align="center">事假</div></td>
+			    <td width="90"><div align="center">病假</div></td>
+			    <td width="108"><div align="center">迟到</div></td>
+			    <td width="66" height="49"><div align="center">早退</div></td>
+			    <td width="95" height="49"><div align="center">培训</div></td>
+			  </tr>
+			  <tr>
+			    <td height="47"><div align="center">{$att[0]}</div></td>
+			    <td><div align="center">{$att[1]}</div></td>
+			    <td><div align="center">{$att[2]}</div></td>
+			    <td><div align="center">{$att[3]}</div></td>
+			    <td><div align="center">{$att[4]}</div></td>
+			    <td><div align="center">{$att[5]}</div></td>
+			    <td><div align="center">{$att[6]}</div></td>
+			    <td><div align="center">{$att[7]}</div></td>
+			  </tr>
+			  <if condition='$table eq "record"'>
+				  	<tr>
+				    <td height="238"><div align="center" class="STYLE2">
+				      <p>月度</p>
+				      <p>工作</p>
+				      <p>计划</p>
+				    </div></td>
+				    <td colspan="8"><div align="left">{$detail.sche}</div></td>
+				  </tr>
+				  <tr>
+				    <td height="419"><div align="center" class="STYLE2">
+				      <p>月度</p>
+				      <p>工作</p>
+				      <p>小结</p>
+				    </div></td>
+				    <td colspan="8"><div align="left">{$detail.summary}</div></td>
+				  </tr>
+			  </if>
+			  <if condition='$table eq "judge"'>
+				  <tr>
+				    <td height="419"><div align="center" class="STYLE2">
+				      <p>季度</p>
+				      <p>工作</p>
+				      <p>小结</p>
+				    </div></td>
+				    <td colspan="8"><div align="left">{$detail.summary}</div></td>
+				  </tr>
+				  <tr>
+				    <td height="238"><div align="center" class="STYLE2">
+				      <p>领导</p>
+				      <p>考核</p>
+				      <p>评鉴</p>
+				      <p>意见</p>
+				    </div></td>
+				    <td colspan="8"><div align="left">{$detail.opinion}</div></td>
+				  </tr>
+				  
+				  <tr>
+				    <td height="109"><div align="center" class="STYLE2">
+				    	<p>考核</p>
+				    	<p>得分</p>
+				    </div></td>
+				    <td colspan="8"><div align="left">{$detail.score}</div></td>
+				  </tr>
+			   </if>
+			  <tr>
+			    <td height="109"><div align="center" class="STYLE2">备注</div></td>
+			    <td colspan="8"><div align="left">{$detail.remark}</div></td>
+			  </tr>
+			</table>
+			<div align='left' style='margin-left:300px;margin-bottom:20px;'><b>备注：{$tab_remark}</b></div>
+	</div>
+</body>
+</html>

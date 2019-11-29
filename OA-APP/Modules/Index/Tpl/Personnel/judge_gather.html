@@ -1,0 +1,165 @@
+<include file='Common:header'/>
+<link rel="stylesheet"  href="__PUBLIC__/js/tab_style/css/webwidget_scroller_tab.css" type="text/css" />
+<script>
+	$(document).ready(function(){
+		var reurl = window.location.href;		
+		var index = reurl.lastIndexOf('flag');
+		var last = reurl.substr(index,reurl.length);
+		var arr = last.split('.');
+		var arr2 = arr[0].split('/');
+		var i = arr2[1] - 1;
+		$('.webwidget_scroller_tab .tabContainer li').eq(i).addClass('currentBtn');
+		$('.webwidget_scroller_tab .tabContainer li').click(function(){
+			
+			$('.webwidget_scroller_tab .tabContainer li').removeClass('currentBtn');
+			$(this).addClass('currentBtn');
+		});
+	});
+</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/judge_gather')}">季度考核统计</a></li>
+		</ul>
+    </div>
+<div>
+	 <div class="webwidget_scroller_tab" id="webwidget_scroller_tab">
+          <div class="tabContainer">
+            <ul class="tabHead">
+             	<li><a href="{:U('Index/Personnel/judge_gather',array('flag'=>1))}">季度考核表查询</a></li>	
+				<li><a href="{:U('Index/Personnel/judge_gather',array('flag'=>2))}">季度考核分数汇总表</a></li>
+            </ul>
+          </div>
+      </div>
+<div class='someSpace' align='left'>	
+	<if condition='$flag eq 1'>
+		<div id='judge_gather_left'>
+			<h2 align="center">季度考核表查询</h2>
+			<div>
+				<form action="{:U('Index/Personnel/judge_gather',array('flag'=>1,'from'=>'search'))}" method='post'>
+					<span>姓名</span><input type="text" name='name' value='{$name}'>
+					<span>科室</span>
+						<select name="dep" >
+			          		<option value="">请选择科室</option>
+			          		<option value="局领导">局领导</option>
+			          		<foreach name='dep' item='v'>
+			          			<option value="{$v.id}" <if condition="$v['id'] eq $depselect">selected</if>>{$v.name}</option>
+			          		</foreach>
+			          	</select>
+					<span>身份</span>
+						<select name="type" id="">
+							<option value="">请选择</option>
+							<option value="civil" <if condition="'civil' eq $typeselect">selected</if>>公务员</option>
+							<option value="public" <if condition="'public' eq $typeselect">selected</if>>事业单位人员</option>
+						</select><br><br>
+					<span>更新时间：起始日期</span>
+					<input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' >
+					<span>终止日期</span>
+						<input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' >
+					<input type="submit" value='查询'>
+					
+				</form>
+				<br>	
+			</div>
+			<table class="bordered"  id="tableNodifyManage" style='width:100%;'>
+				<tr>
+					<th width='10%'>姓名</th>
+					<th width='25%'>科室-职务</th>
+					<th width='15%'>身份</th>
+					<th width='10%'>时间</th>
+					<th width='10%'>更新时间</th>
+					<th width='10%'>操作</th>
+				</tr>
+				<foreach name='judge' item='v'>
+					<tr>
+						<td width='10%'>{$v.name|IdToName}</td>
+						<td width='25%'>{$v.dep}</td>
+						<td width='15%'><if condition='$v["type"] eq "civil"'>公务员<else/>事业单位人员</if></td>
+						<td width='10%'>{$v.year}年{$v.quarter}季度</td>
+						<td width='10%'>{$v.time|date='Y-m-d',###}</td>
+						<td  width='10%' align='center'>
+							[<a href="{:U('Index/Personnel/detail',array('id'=>$v['id'],'table'=>'judge'))}" target='_blank'>查看</a>]
+							[<a href="{:U('Index/Personnel/modify_judge',array('id'=>$v['id'],'flag'=>$v['type']))}">修改</a>]
+						</td>
+					</tr>
+					
+				</foreach>
+				<tr>
+					<td colspan="6">{$page}<if condition='$judge eq null'>暂无数据</if></td>
+				</tr>
+			</table>
+		</div>
+	</if>
+	<if condition='$flag eq 2'>
+		<div id='judge_gather_right'>
+			<h2 align='center'>季度考核分数汇总表</h2>
+			<div>
+				<form action="{:U('Index/Personnel/judge_gather',array('flag'=>'2','from'=>'search'))}" method='post'>
+					<span>姓名</span><input type="text" name='name' value='{$name}'>
+					<span>科室</span>
+						<select name="dep" >
+			          		<option value="">请选择科室</option>
+			          		<option value="局领导">局领导</option>
+			          		<foreach name='dep' item='v'>
+			          			<option value="{$v.id}"  <if condition="$v['id'] eq $depselect">selected</if>>{$v.name}</option>
+			          		</foreach>
+			          	</select>
+					<span>身份</span>
+						<select name="type" id="">
+							<option value="">请选择</option>
+							<option value="civil" <if condition="'civil' eq $typeselect">selected</if>>公务员</option>
+							<option value="public" <if condition="'public' eq $typeselect">selected</if>>事业单位人员</option>
+						</select>
+					<span>选择年份：</span>
+					<input class="Wdate" type="text" name='year' onClick="WdatePicker({dateFmt:'yyyy'})" value='{$year}' >
+					
+					<input type="submit" value='查询'>
+				</form>
+			</div>
+			<table class="bordered"  id="tableNodifyManage" style='width:100%;text-align:center;'>
+				<tr>
+					<th rowspan='2'>姓名</th>
+					<th rowspan='2'>所在部门</th>
+					<th rowspan='2'>现任职务</th>
+					<th rowspan='2'>身份</th>
+					<th colspan='4'>考核得分({$year}年)</th>
+					<th rowspan='2'>备注</th>
+				</tr>
+				<tr>
+					<th>第1季度</th>
+					<th>第2季度</th>
+					<th>第3季度</th>
+					<th>第4季度</th>
+				</tr>
+				<foreach name='arr_group' item='v'>
+					<tr>
+						<td>{$v.name|IdToName}</td>
+						<td>{$v.dep_dep}</td>
+						<td>{$v.dep_pos}</td>
+						<td><if condition='$v["type"] eq "civil"'>公务员<else/>事业单位人员</if></td>
+						<td>{$v.first}</td>
+						<td>{$v.second}</td>
+						<td>{$v.third}</td>
+						<td>{$v.fourth}</td>
+						<td>{$v.remark}</td>
+					</tr>
+					
+				</foreach>
+				<tr>
+					<td colspan="9">
+						<!-- {$page} -->
+						<if condition='$judge eq null'>暂无数据</if>
+						<form action="{:U('Index/Personnel/judge_excel')}" method='post'>
+							<input type="hidden" name='where' value='{$where}'>
+							<button style='float:right;'>导出excel</button>
+						</form>
+						
+					</td>
+				</tr>
+			</table>
+		</div>
+	</if>
+</div>
+<include file='Common:footer'/>

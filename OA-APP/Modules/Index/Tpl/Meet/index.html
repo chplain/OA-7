@@ -1,0 +1,113 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+	<div id='meet_apply'>
+		&nbsp;
+		<form action="{:U('Index/Meet/handle')}" method='post'>
+			
+			<table width="438" height="464" border="1" cellpadding="1" cellspacing="0">
+				  <tr>
+				    <td height="41" colspan="2"><div align="center">
+				      <h1><strong>会议室申请</strong></h1>
+				    </div></td>
+				  </tr>
+				  <tr>
+				    <td width="89"><div align="center">申请会议室：</div></td>
+				    <td width="339">
+						<select name="meet_place">
+						  <option value="0">==请选择==</option>
+						  <option value="2">二楼会议室</option>
+						  <option value="3">三楼会议室</option>
+						  <option value="4">四楼会议室</option>
+					    </select>
+						&nbsp;</td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">申请科室：</div></td>
+				    <td>
+						<select name="apply_department">
+						  <option value="0">======请选择======</option>
+						  <option value="1">办公室</option>
+						  <option value="2">总量控制科</option>
+						  <option value="3">大气污染防治办公室</option>
+						  <option value="4">综合管理科</option>
+						  <option value="5">规划和环境影响评价科</option>
+						  <option value="6">监控中心</option>
+						  <option value="7">辐射所</option>
+						  <option value="8">机关服务部</option>
+						  <option value="9">环保协会</option>
+						  <option value="10">环境监查支队</option>
+						  <option value="11">环境保护检测站</option>
+						  <option value="12">机动车排放管理站</option>
+					    </select>
+						&nbsp;</td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">会议日期：</div></td>
+				    <td>
+				    	<input class="Wdate" type="text" name='meet_date' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+				    </td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">会议时间：</div></td>
+				    <td><input class="Wdate" type="text" name='meet_time' onClick="WdatePicker({dateFmt:'HH:mm'})" value='' ></td>
+				  </tr>
+				  <tr>
+				    <td height="64"><div align="center">会议内容：</div></td>
+				    <td>
+				    	<textarea name="meet_content" id="meet_content" cols="38" rows='5'></textarea>
+				   </td>
+				  </tr>
+				  <tr>
+				    <td height="44"><div align="center">参会人员：</div></td>
+				    <td>
+						<textarea  class='contact_input_meet1' disabled></textarea>
+						<input type="hidden" name='attend_people' class='hidden'>
+						<a href="#" class='contact'>通讯录</a>
+						<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td height="41"><div align="center">参会领导：</div></td>
+				    <td>
+				    	<textarea   class='contact_input_meet2' disabled></textarea>
+						<input type="hidden" name='attend_leader' class='hidden'>
+						<a href="#" class='contact'>通讯录</a>
+						<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">联系方式：</div></td>
+				    <td>
+				    	<input type="text" name='meet_contact' placeholder='联系方式'>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td><div align="center">会议服务：</div></td>
+				    <td>
+				    	<input type="checkbox" name='meet_service[]' value='0' checked="true">无
+				    	<input type="checkbox" name='meet_service[]' value='1'>倒水
+						<input type="checkbox" name='meet_service[]' value='2'>音响
+						<input type="checkbox" name='meet_service[]' value='3'>投影
+				    </td>
+				  </tr>
+				  <tr>
+				    <td height="40" colspan="2"><div align="justify">
+				      <table width="427" height="38" border="0" cellpadding="0">
+				        <tr>
+				          <td width="190" height="34"><div align="center">
+				            <input value="提交申请" type="submit" />
+				            &nbsp;</div></td>
+				          <td width="215"><div align="center">
+				            <input value="重新填写" type="reset" />
+				            &nbsp;</div></td>
+				          </tr>
+				      </table>
+				    </div></td>
+				  </tr>
+				</table>
+
+			
+		</form>
+	</div>
+
+<include file='Common:footer'/>

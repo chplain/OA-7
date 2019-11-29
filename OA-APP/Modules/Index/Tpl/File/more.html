@@ -1,0 +1,19 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div id='file'>
+	<h3 align="center">重要文件列表<if condition='$type neq null'>---{$type}</if></h3>
+	<div>
+		<ul>
+			<foreach name='file' item='v'>
+				<if condition='$v["display"] eq true'>
+					<li><a href="UPLOAD_PATH{$v.file_savename}" target='_blank'>【{$v.type}】{$v.title}</a></li>
+				</if>
+			</foreach>
+		</ul>
+		<div>
+			{$page}
+			<if condition='$file eq null'> 暂无重要文件 </if>
+		</div>
+	</div>
+</div>
+<include file='Common:footer'/>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/mail.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/mail.js?t=Math.random()'/>
+
+	<title>Document</title>
+</head>
+<body>
+	<div id='mail_right'>
+		<div id='bar'></div>
+		<div id='detail_mail'>
+		<a href="javascript:history.go(-1);"><button>&lt;&lt;返回</button></a>
+		<if condition='$from eq "receive"'>
+			<a href="{:U('Index/Mail/deleteMail',array('id'=>$dmail['id']))}"><button>删除邮件</button></a>
+			<a href="{:U('Index/Mail/write',array('id'=>$dmail['id'],'backMail'=>true))}"><button>回复邮件</button></a>
+			<a href="{:U('Index/Mail/write',array('id'=>$dmail['id'],'forward'=>true))}"><button>转发</button></a>
+		</if>
+		<if condition='$from eq "deleted"'>
+			<a href="{:U('Index/Mail/recoverMail',array('id'=>$dmail['id']))}">
+				<button>这不是垃圾邮件</button>
+			</a>
+			<a href="{:U('Index/Mail/deleteMailTotally',array('id'=>$dmail['id']))}">
+				<button>彻底删除</button>
+			</a>
+		</if>
+		<if condition='$from eq "draft"'>
+			<a href="{:U('Index/Mail/write',array('id'=>$dmail['id'],'fromDraft'=>true))}">
+				<button>继续编辑</button>
+			</a>
+			<a href="{:U('Index/Mail/deleteDraft',array('id'=>$dmail['id']))}">
+				<button>删除该草稿</button>
+			</a>
+		</if>
+		<if condition='$from eq "sent"'>
+			<a href="{:U('Index/Mail/deleteMail',array('id'=>$dmail['id'],'from'=>'sent'))}">
+				<button>删除邮件</button>
+			</a>
+		</if>
+		<table>
+			<tr>
+				<th colspan='2' align='right'>{$dmail.mail_subject}</th>
+			</tr>
+			<tr>
+				<td><span>发件人：</span></td>
+				<td>{$dmail.mail_sender}</td>
+			</tr>
+			<tr>
+				<td><span>时间：</span></td>
+				<td>{$dmail.mail_send_time|date='Y-m-d H:i:s',###}</td>
+			</tr>
+			<tr>
+				<td><span>收件人：</span></td>
+				<td>{$dmail.mail_receiver}</td>
+			</tr>
+			<tr>
+				<td><span>选项：</span></td>
+				<td>
+					<if condition='$sms neq null'>短信</if>
+					<if condition='$urgent neq null'>紧急</if>
+					<if condition='$sms eq null and $urgent eq null'>无</if>
+				</td>
+			</tr>
+			<if condition='$dmail["send_cc"] neq NULL'>
+				<tr>
+					<td><span>抄送：</span></td>
+					<td>{$dmail.mail_cc}</td>
+				</tr>
+			</if>
+		</table>
+		<if condition='$from neq "draft" and $from neq "sent"'>
+			<if condition='$isBcc eq 1 '>
+				<span>您是通过密送收到该邮件的，您的名字不会显示在其他收件人的列表中</span>
+			</if>
+		<else/>
+			<tr>
+					<td><span>密送：</span></td>
+					<td>{$dmail.mail_bcc}</td>
+				</tr>
+		</if>
+		<hr />
+		<div class='detail_mail_content'>
+			{$dmail.mail_content|htmlspecialchars_decode}
+
+		</div>
+		</div>
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/info.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<js file='__PUBLIC__/js/info.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>	
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<script>
+		$(document).ready(function(){
+			$('input[type=submit]').click(function(e){
+				if(!confirm('确定要上报吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>添加上报信息</title>
+</head>
+<body id='rep_table'>
+	<div id='rep_table_div'>
+	<!-- <if condition='$from eq "message"'> -->
+		<!-- <a href="{$_SERVER['HTTP_REFERER']}"><button style='width:50px;height:25px;'>返回</button></a> -->
+	<!-- </if> -->
+	<form action="{:U('Index/Information/modifyInfoReportHandle',array('id'=>$rep['id'],'updater'=>$updater))}" method='post' enctype='multipart/form-data'>
+			<table width="640"  align="center"  class='bordered' id="tableNodifyManage">
+		  <tr>
+		    <td width="100" height="43"><div align="right">标题：</div></td>
+		    <td width="530"><div align="left"><input type='text' name='title' style='width:520px;height:35px;' value='{$rep.title}'/></div></td>
+		  </tr>
+		  <tr>
+		    <td height="186"><div align="right">内容：</div></td>
+		    <td><div align="left"><textarea name='content' cols='63' rows='10'>{$rep.content}</textarea></div></td>
+		  </tr>
+		  <tr>
+		    <td><div align="right">上报时间：</div></td>
+		    <td><div align="left"><input class="Wdate" type="text" name='rep_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" value='{$rep.rep_time|date="Y-m-d H:i",###}'></div></td>
+		  </tr>
+		  <tr>
+		    <td height="36"><div align="right">报送人：</div></td>
+		    <td>
+		    	<input type='text'  value='{$rep.reporter|IdToName}'style='width:150px;height:25px;' class='contact_input_reporter'/>
+		    	<input type="hidden" name='reporter' value='{$rep.reporter}'/>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="31"><div align="right">报送科室：</div></td>
+		    <td>
+		    	<div align="left">
+		    		<select name="rep_dep" style='height:25px;'>
+						  <option value="0">======请选择======</option>
+						  <option value="1" <if condition='$rep["rep_dep"] eq 1'>selected</if>>办公室</option>
+						  <option value="2" <if condition='$rep["rep_dep"] eq 2'>selected</if>>总量控制科</option>
+						  <option value="3" <if condition='$rep["rep_dep"] eq 3'>selected</if>>大气污染防治办公室</option>
+						  <option value="4" <if condition='$rep["rep_dep"] eq 4'>selected</if>>综合管理科</option>
+						  <option value="5" <if condition='$rep["rep_dep"] eq 5'>selected</if>>规划和环境影响评价科</option>
+						  <option value="6" <if condition='$rep["rep_dep"] eq 6'>selected</if>>监控中心</option>
+						  <option value="7" <if condition='$rep["rep_dep"] eq 7'>selected</if>>辐射所</option>
+						  <option value="8" <if condition='$rep["rep_dep"] eq 8'>selected</if>>机关服务部</option>
+						  <option value="9" <if condition='$rep["rep_dep"] eq 9'>selected</if>>环保协会</option>
+						  <option value="10" <if condition='$rep["rep_dep"] eq 10'>selected</if>>环境监查支队</option>
+						  <option value="11" <if condition='$rep["rep_dep"] eq 11'>selected</if>>环境保护检测站</option>
+						  <option value="12" <if condition='$rep["rep_dep"] eq 12'>selected</if>>机动车排放管理站</option>
+					 </select>
+			    </div>
+			</td>
+		  </tr>
+		  <tr>
+		    <td height="71"><div align="right">附件信息：<br>(<span style='color:red;'>若无更新，可不用上传</span>)</div></td>
+		    <td>
+		    	<div align="left">
+		    		<a href="UPLOAD_PATH{$rep.attach_savename}">[<span style='color:blue;'>原附件信息下载</span>]</a>
+		    		<input type="file" name='attach'/>
+		    	</div>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="41" colspan="2">
+		    	<div align="center">
+		    		<input type="submit" value='修改并同意上报'/>
+		    		<input type="reset" value='重置'/>
+		    	</div>
+		    </td>
+		  </tr>
+		</table>
+	</form>
+
+	</div>
+</body>
+</html>

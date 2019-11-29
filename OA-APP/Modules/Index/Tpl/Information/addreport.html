@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/info.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<js file='__PUBLIC__/js/info.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>	
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<script>
+		$(document).ready(function(){
+			$('input[type=submit]').click(function(e){
+				if(!confirm('确定要上报吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>添加上报信息</title>
+</head>
+<body id='rep_table'>
+	<div id='rep_table_div'>
+		
+	
+	<form action="{:U('Index/Information/report_handle')}" method='post' enctype='multipart/form-data'>
+			<table width="640" border="1" align="center" cellpadding="1" cellspacing="0">
+		  <tr>
+		    <td width="100" height="43"><div align="right">标题：</div></td>
+		    <td width="530"><div align="left"><input type='text' name='title' style='width:520px;height:35px;'/></div></td>
+		  </tr>
+		  <tr>
+		    <td height="186"><div align="right">内容：</div></td>
+		    <td><div align="left"><textarea name='content' cols='63' rows='10'></textarea></div></td>
+		  </tr>
+		  <tr>
+		    <td><div align="right">上报时间：</div></td>
+		    <td><div align="left"><input class="Wdate" type="text" name='rep_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" value='{:now_time()}'></div></td>
+		  </tr>
+		  <tr>
+		    <td height="36"><div align="right">报送人：</div></td>
+		    <td>
+		    	<input type='text'  value='{$_SESSION["id"]|IdToName}'style='width:150px;height:25px;' class='contact_input_reporter'/>
+		    	<input type="hidden" name='reporter' value='{$_SESSION["id"]}' class='hidden'/>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="31"><div align="right">报送科室：</div></td>
+		    <td>
+		    	<div align="left">
+		    		<select name="rep_dep" style='height:25px;'>
+						  <option value="0">======请选择======</option>
+						  <foreach name='dep' item='v'>
+						  	<option value="{$v.id}" <if condition='useridToDep($_SESSION["id"]) eq $v["id"]'>selected</if>>{$v.name}</option>
+						  </foreach>
+						 <!--  <option value="1" >办公室</option>
+						  <option value="2">总量控制科</option>
+						  <option value="3">大气污染防治办公室</option>
+						  <option value="4">综合管理科</option>
+						  <option value="5">规划和环境影响评价科</option>
+						  <option value="6">监控中心</option>
+						  <option value="7">辐射所</option>
+						  <option value="8">机关服务部</option>
+						  <option value="9">环保协会</option>
+						  <option value="10">环境监查支队</option>
+						  <option value="11">环境保护检测站</option>
+						  <option value="12">机动车排放管理站</option> -->
+					 </select>
+			    </div>
+			</td>
+		  </tr>
+		  <tr>
+		    <td height="71"><div align="right">附件信息：</div></td>
+		    <td>
+		    	<div align="left">
+		    		<input type="file" name='attach'/>
+		    	</div>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td height="41" colspan="2">
+		    	<div align="center">
+		    		<input type="submit" value='上报'/>		
+		    		<input type="reset" value='重置'/>	
+		    		<input type="button" value='关闭窗口' id='close'/>		
+		    	</div>
+		    </td>
+		  </tr>
+		</table>
+		<span id='rep_hint'>您可以在“我的上报”中导出上报信息</span>
+	</form>
+
+	</div>
+</body>
+</html>

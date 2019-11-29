@@ -1,0 +1,121 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/outmeet_gather')}">局外会议汇总</a></li>
+		</ul>
+    </div>
+<div>
+	<style>
+		.repeat-head tr td{
+			padding-left:10px;
+		}
+	</style>
+<div class='someSpace'>
+	<h2 align='center'>局外会议汇总</h2>
+	<div margin-bottom='10px'>
+		<form action="{:U('Index/Meet/outmeet_gather',array('from'=>'search'))}" method='post'>
+			<table align='left' class='repeat-head'>
+				<tr>
+					<td><b>来文时间：</b><span>起始日期</span></td>
+					<td><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' ></td>
+					<td><span>终止日期&nbsp;</span></td>
+					<td><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' ></td>
+					<td style='width:70px;text-align:right;'><span><b>关键字：</b></span></td>
+					<td><input type="text" name='keyword' value='{$keyword}'></td>
+					<td></td>
+					<td><input type="submit" value='查询'></td>
+				</tr>
+				
+			</table>
+			
+			<!-- <span>参会领导：</span><input type="text" name='leader'> -->
+			
+		</form>
+		
+	</div>
+	<br/><br/><br/>
+	<br/>
+	<style>
+		.bordered{
+			margin:0px;
+			padding:0px;
+		}
+		.bordered td, .bordered th {
+		    border-left: 1px solid #ccc;
+		    border-top: 1px solid #ccc;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		    padding-left: 0px;
+		    padding-right: 0px;
+		    text-align: left;
+		}
+		.repeat-again{
+			
+		}
+		.repeat-again table tr th,.repeat-again table tr td{
+			text-align: center;
+			word-break:break-all;
+		}
+		#tableNodifyManage2 {
+			margin:0px auto;
+		    *border-collapse: collapse; /* IE7 and lower */
+		    border-spacing: 0;
+		    background-color: white;
+
+		}
+		
+	</style>
+	<div align='left' class='repeat-again'>
+		<table class="bordered" id="tableNodifyManage2" style='table-layout:fixed;'>
+			<tr>
+				<th><div style='width:40px;'>方式</div></th>
+				<th><div style='width:95px;'>日期</div></th>
+				<th><div style='width:120px;'>机关</div></th>
+				<th><div style='width:100px;'>会议时间</div></th>
+				<th><div style='width:120px;'>会议地点</div></th>
+				<th><div style='width:280px;'>会议内容</div></th>
+				<th><div style='width:60px;'>联系人</div></th>
+				<th><div style='width:115px;'>联系方式</div></th>
+				<th><div style='width:80px;'>参会领导</div></th>
+				<th><div style='width:77px;'>操作</div></th>
+			</tr>
+			<foreach name='outmeet' item='v'>
+				<tr>
+					<td><div><if condition='$v["recordType"] eq 1'>来文<else/>来电</if></div></td>
+					<td><div>{$v.outmeet_come_time|date='Y-m-d',###}</div></td>
+					<td><div>{$v.outmeet_from}</div></td>
+					<td><div>{$v.outmeet_time|date='H:i',###}<br>{$v.outmeet_time|date='Y-m-d',###}</div></td>
+					<td><div>{$v.outmeet_place}</div></td>
+					<td><div>{$v.outmeet_content}</div></td>
+					<td><div>{$v.outmeet_contact_person}</div></td>
+					<td><div>{$v.outmeet_contact}</div></td>
+					<td style='text-align:center;'><div>{$v.outmeet_leader|IdsToNames=','}</div></td>
+					<td><div>
+						[<a href="{:U('Index/Meet/outmeet_detail',array('id'=>$v['id']))}">详情</a>]
+						[<a href="{:U('Index/Meet/modify_outmeet',array('id'=>$v['id']))}">修改</a>]
+						[<a href="{:U('Index/Meet/delete_outmeet',array('id'=>$v['id']))}" class='delete'>删除</a>]
+						[<a href="{:U('Index/Meet/download_outmeet',array('id'=>$v['id']))}">下载</a>]
+
+					</div></td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="10"><div>
+					{$page}
+					<if condition='$outmeet eq null'>暂无数据</if>
+					<form action="{:U('Index/Meet/excel')}" method='post'>
+						<foreach name='forExcel' item='v'>
+							<input type="hidden" name='outMeetid[]' value='{$v.id}'>
+						</foreach>
+						<input type="submit" value='导出excel' style='float:right;'>
+					</form>
+				</div></td>
+			</tr>
+		</table>	
+	</div>
+
+</div>
+<include file='Common:footer'/>

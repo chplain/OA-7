@@ -1,0 +1,105 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/show_all_judge')}">科室季度考核登记</a></li>
+		</ul>
+    </div>
+<div class='someSpace'>
+
+	<div>
+		<!-- 选择科室：
+		<select name="dep" class="intab2-1" onchange='self.location.href=options[selectedIndex].value'>
+			<option value="">===请选择科室===</option>
+      		<option value="{:U('Index/Personnel/show_all_judge',array('dep_id'=>-1))}">所有科室</option>
+      		<option value="{:U('Index/Personnel/show_all_judge',array('dep_id'=>0))}">局领导</option>
+      		<foreach name='dep' item='v'>
+      			<option value="{:U('Index/Personnel/show_all_judge',array('dep_id'=>$v['id']))}">{$v.name}</option>
+      		</foreach>
+      	</select> -->
+      	<form action="{:U('Index/Personnel/show_all_judge')}" method='post'>
+	      	<table>
+	      		<tr>
+	      			<td>
+	      				科室：
+	      				<select name="dep_id" class="intab2-1">
+							<option value="">===请选择科室===</option>
+				      		<option value="-1">所有科室</option>
+				      		<option value="0">局领导</option>
+				      		<foreach name='dep' item='v'>
+				      			<option value="{$v.id}" <if condition="$v['id'] eq $depselect">selected</if>>{$v.name}</option>
+				      		</foreach>
+				      	</select>
+	      			</td>
+	      			<td>
+	      				年份：
+	      				<select name="year" id="">
+	      					<option value="">===请选择年份===</option>
+	      					<foreach name='yearInt' item='v'>
+	      						<option value="{$v}" <if condition="$v eq $yearselect">selected</if>>{$v}</option>
+	      					</foreach>
+	      				</select>
+	      			</td>
+	      			<td>
+	      				季度：
+	      				<select name="quarter" id="">
+	      					<option value="">===请选择季度===</option>
+	      					<option value="1" <if condition="1 eq $quarterselect">selected</if>>第一季度</option>
+	      					<option value="2" <if condition="2 eq $quarterselect">selected</if>>第二季度</option>
+	      					<option value="3" <if condition="3 eq $quarterselect">selected</if>>第三季度</option>
+	      					<option value="4" <if condition="4 eq $quarterselect">selected</if>>第四季度</option>
+	      				</select>
+	      			</td>
+	      			<td><input type="submit" value='搜索'></td>
+	      		</tr>
+	      	</table>
+      	</form>
+	</div>
+	<div>
+		<table class="bordered"  id="tableNodifyManage" style='width:100%;'>
+			<tr>
+				<th width='7%'>姓名</th>
+				<th width='13%'>科室-职务</th>
+				<th width='10%'>年份季度</th>
+				<th width='7%'>类别</th>
+				<th width='10%'>领导同意</th>
+				<th width='13%'>领导考核评鉴意见</th>
+				<th width='10%'>考核得分</th>
+				<th width='10%'>备注</th>
+				<th width='10%'>操作</th>
+			</tr>
+			<foreach name='judge' item='v'>
+				<form action="{:U('Index/Personnel/judge_handle',array('id'=>$v['id']))}" method='post'>
+					<tr>
+						<td width='7%'>{$v.name|IdToName}</td>
+						<td width='13%'>{$v.dep}</td>
+						<td width='10%'>{$v.year}年{$v.quarter}季度</td>
+						<td width='7%'><if condition='$v["type"] eq "civil"'>公务员<else/>事业单位人员</if></td>
+						<td width='10%'><if condition='$v["isApproved"] eq 1'>已同意<else/>未同意</if></td>
+						<td width='13%'>
+							<textarea name="opinion" id="">{$v.opinion}</textarea>
+						</td>
+						<td width='10%'><textarea name="score" id="" cols='10'>{$v.score}</textarea></td>
+						<td width='10%'><textarea name="remark" id="">{$v.remark}</textarea></td>
+						
+						<td  width='10%' align='center'>
+							<if condition='$v["isSubed"] eq 0'>
+								<input type="submit" value='提交'>
+							</if>  
+							<a href="{:U('Index/Personnel/detail',array('id'=>$v['id'],'table'=>'judge'))}" target='_blank'>详情</a>
+							<if condition='$v["isSubed"] eq 1'>
+								<input type="submit" value='修改'>	<a href="{:U('Index/Personnel/agree_judge',array('id'=>$v['id']))}">同意</a>
+							</if>
+						</td>
+					</tr>
+				</form>
+			</foreach>
+			<tr>
+				<td colspan="6">{$page}<if condition='$judge eq null'>暂无数据</if></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<include file='Common:footer'/>

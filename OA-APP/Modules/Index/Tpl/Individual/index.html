@@ -1,0 +1,65 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="{:U('Index/Individual/index')}">个人设置</a></li>
+		</ul>
+    </div>
+<div id='individual'>
+	<!-- <div class='ind_head'>用户基本信息</div> -->
+	<div class='ind_content'>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;margin-top:5px;margin-bottom:5px;">
+			<tr>
+				<td align='right'>登录名：</td>
+				<td><if condition='$user["userid"] eq ""'>还没有设置登录名<else/>{$user.userid}</if></td>
+			</tr>
+			<tr>
+				<td align='right'>密码：</td>
+				<td><button id='alterPwd'>修改密码</button></td>
+			</tr>
+			<tr>
+				<td align='right'>本名：</td>
+				<td>{$user.name}</td>
+			</tr>
+			<tr>
+				<td align="right">所在科室：</td>
+				<td><if condition='$user["department"] eq 0'>空<else/>{$user.department|idToDep}</if></td>
+			</tr>
+			<tr>
+				<td align="right">权限中所属角色：</td>
+				<td><if condition='$role eq ""'>空<else/>{$role}</if></td>
+			</tr>
+			<tr>
+				<td align="right">手机号码：</td>
+				<td><if condition='$user["phone_number"] eq ""'>空<else/>{$user.phone_number}</if></td>
+			</tr>
+			<tr>
+				<td align="right">住宅号码：</td>
+				<td><if condition='$user["home_number"] eq ""'>空<else/>{$user.home_number}</if></td>
+			</tr>
+			<tr>
+				<td align="right">办公号码：</td>
+				<td><if condition='$user["office_number"] eq ""'>空<else/>{$user.office_number}</if></td>
+			</tr>
+			<tr>
+				<td align='center' colspan='2'>
+					<button id='alterInfo'>修改个人基本信息</button></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- <div class='ind_head'>人事信息</div>
+	<div class='ind_content'>
+		<if condition='$flag eq false'>
+			你还没有填写人事表
+			<a href="{:U('Index/Personnel/personnelInfo')}">现在填写</a>
+		<else/>
+			你已经填写人事表
+			<a href="{:U('Index/Personnel/personnelInfo')}">查看人事表</a>
+		</if>
+	</div> -->
+</div>
+
+<include file='Common:footer'/>

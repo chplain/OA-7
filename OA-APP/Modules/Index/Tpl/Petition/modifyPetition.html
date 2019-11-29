@@ -1,0 +1,575 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信访管理</li>
+			<if condition='$from neq "index"'>
+				<li><a href="{:U('Index/Petition/petition_search')}">信访查询</a></li>
+			<else/>
+				<li><a href="{:U('Index/Petition/petition_index',array('flag'=>1))}">信访登记</a></li>
+			</if>
+			<li><a href="#">修改</a></li>
+		</ul>
+    </div>
+<div id='petition'>
+	<h3>信访内容</h3>
+	<form action="{:U('Index/Petition/handle',array('id'=>$pet['id'],'from'=>'modify'))}" method='post' enctype='multipart/form-data'>
+		<if condition='$flag eq 1'>
+	
+	<div id='type1'>		
+		<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+			<tr>
+				<th colspan='2' align='center'>信访单</th>
+			</tr>
+			<tr>
+				<td>编号：</td>
+				<td><input type="text" name='number' value='{$pet.petition_number}'></td>
+			</tr>
+			<tr>
+				<td>责任科室：</td>
+				<td>
+					<select name="department">
+						<option value="">===请选择===</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition='$pet["petition_department"] eq $v["id"]'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>信访方式：</td>
+				<td><input type="hidden" name='method' value='4'>政风行风
+				</td>
+			</tr>
+			<tr>
+				<td>接件时间：</td>
+				<td>
+					<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_recv_time|date='Y-m-d',###}' >
+				</td>
+			</tr>
+			<tr>
+				<td>类型：</td>
+				<td>
+					<select name="type" id="" style='width:150px;height:20px;'>
+						<option value="1" <if condition='$pet["petition_type"] eq 1'>selected</if>>解决问题</option>
+						<option value="2" <if condition='$pet["petition_type"] eq 2'>selected</if>>意见建议</option>
+						<option value="3" <if condition='$pet["petition_type"] eq 3'>selected</if>>咨询</option>
+						<option value="4" <if condition='$pet["petition_type"] eq 4'>selected</if>>政风行风投诉</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>留言人信息：（非必填）</td>
+				<td>
+					姓名：<input type="text" name='peter_name' value='{$pet.peter_name}'>&nbsp;&nbsp;&nbsp;
+					电话：<input type="text" name='peter_contact' value='{$pet.peter_contact}'>&nbsp;&nbsp;&nbsp;
+					<!-- 地址（选填）：<input type="text" name='peter_address'> -->
+				</td>
+			</tr>
+			<tr>
+				<td>到期日：</td>
+				<td>
+					<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_should_time|date='Y-m-d',###}' >
+				</td>
+			</tr>
+
+			<tr>
+				<td>接件人：</td>
+				<td>
+					<input type="text" class='contact_input1' value='{$pet.petition_receiver|IdToName}'>
+					<input type="hidden" name='receiver' class='hidden' value='{$pet.petition_receiver}'>
+				</td>
+			</tr>
+			<tr>
+				<td>科室接办人：</td>
+				<td>
+					<input type='text' name='dep_receiver' class='contact_input2' value='{$pet.petition_dep_receiver|IdToName}'>
+					<input type="hidden" name='dep_receiver' class='hidden' value='{$pet.petition_dep_receiver}'>
+				</td>
+			</tr>
+
+			<tr class='brighter'>
+				<td>标题：</td>
+				<td>
+					<input type="text" name='title' style='width:400px;' value='{$pet.petition_title}'>
+				</td>
+			</tr>
+			<tr class='brighter'>
+				<td>内容：</td>
+				<td>
+					<textarea name="content" id="" style='width:400px;'>{$pet.petition_content}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value='保存修改'></td>
+				<td><input type="reset" value='重置'></td>
+			</tr>
+
+		</table>	
+	</div>
+	</if>
+	<if condition='$flag eq 2'>
+	
+	<div id='type2'>
+		
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+				<td>编号：</td>
+				<td><input type="text" name='number' value='{$pet.petition_number}'></td>
+			</tr>
+			<tr>
+				<td>责任科室：</td>
+				<td>
+					<select name="department">
+						<option value="">===请选择===</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition='$pet["petition_department"] eq $v["id"]'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>		
+				<tr>
+					<td>信访方式：</td>
+					<td><input type="hidden" name='method' value='10'>局长信箱
+					</td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>
+						<select name="type" id="" style='width:150px;height:20px;'>
+							<option value="1" <if condition='$pet["petition_type"] eq 1'>selected</if>>解决问题</option>
+							<option value="2" <if condition='$pet["petition_type"] eq 2'>selected</if>>意见建议</option>
+							<option value="3" <if condition='$pet["petition_type"] eq 3'>selected</if>>咨询</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>收到日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_recv_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td>投诉人信息：</td>
+					<td>
+						姓名：<input type="text" name='peter_name' value='{$pet.peter_name}'>&nbsp;&nbsp;&nbsp;
+						电话：<input type="text" name='peter_contact' value='{$pet.peter_contact}'>&nbsp;&nbsp;&nbsp;
+						邮箱：<input type="text" name='peter_address' value='{$pet.peter_address}'>
+					</td>
+				</tr>
+				
+
+				<tr>
+					<td>接件人：</td>
+					<td>
+						<input type="text" class='contact_input1' value='{$pet.petition_receiver|IdToName}'>
+						<input type="hidden" name='receiver' class='hidden' value='{$pet.petition_receiver}'>
+					</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2' value='{$pet.petition_dep_receiver|IdToName}'>
+						<input type="hidden" name='dep_receiver' class='hidden' value='{$pet.petition_dep_receiver}'>
+					</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;' value='{$pet.petition_title}'>
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>
+						<textarea name="content" id="" style='width:400px;'>{$pet.petition_content}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>办公室转办时间：</td>
+					<td>
+						<input class="Wdate" type="text" name='turn_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_turn_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>承办科室书面报送办公室时间：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_should_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value='保存修改'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+
+			</table>	
+	</div>
+	</if>
+	<if condition='$flag eq 3'>
+
+	<div id='type3'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td><input type="text" name='number' value='{$pet.petition_number}'></td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>
+						<select name="department">
+						<option value="">===请选择===</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition='$pet["petition_department"] eq $v["id"]'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+					</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td><input type="hidden" name='method' value='6'>来电/来信
+					</td>
+				</tr>
+				
+				<tr>
+					<td>信访日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_recv_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_should_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>
+						<select name="type" id="" style='width:150px;height:20px;'>
+							<option value="1" <if condition='$pet["petition_type"] eq 1'>selected</if>>解决问题</option>
+						<option value="2" <if condition='$pet["petition_type"] eq 2'>selected</if>>意见建议</option>
+						<option value="3" <if condition='$pet["petition_type"] eq 3'>selected</if>>咨询</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>记录人：</td>
+					<td>
+						<input type="text" class='contact_input1' value='{$pet.petition_receiver|IdToName}'>
+						<input type="hidden" name='receiver' class='hidden' value='{$pet.petition_receiver}'>
+					</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：<input type="text" name='peter_name' value='{$pet.peter_name}'>&nbsp;&nbsp;&nbsp;
+						电话：<input type="text" name='peter_contact' value='{$pet.peter_contact}'>&nbsp;&nbsp;&nbsp;
+						地址：<input type="text" name='peter_address' value='{$pet.peter_address}'>
+					</td>
+				</tr>
+				
+
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;' value='{$pet.petition_title}'>
+					</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2' value='{$pet.petition_dep_receiver|IdToName}'>
+						<input type="hidden" name='dep_receiver' class='hidden' value='{$pet.petition_dep_receiver}'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><input type="submit" value='保存修改'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+			</table>
+	</div>
+	</if>
+	<if condition='$flag eq 4'>
+	<div id='type4'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td><input type="text" name='number' value='{$pet.petition_number}'></td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>
+						<select name="department">
+						<option value="">===请选择===</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition='$pet["petition_department"] eq $v["id"]'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+					</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td><input type="hidden" name='method' value='7'>来访
+					</td>
+				</tr>
+				<tr>
+					<td>人数：</td>
+					<td><input type="text" name='people_num' value='{$pet.people_num}'></td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_recv_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_should_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>
+						<select name="type" id="" style='width:150px;height:20px;'>
+							<option value="1" <if condition='$pet["petition_type"] eq 1'>selected</if>>解决问题</option>
+						<option value="2" <if condition='$pet["petition_type"] eq 2'>selected</if>>意见建议</option>
+						<option value="3" <if condition='$pet["petition_type"] eq 3'>selected</if>>咨询</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>接待人：</td>
+					<td>
+						<input type="text" class='contact_input1' value='{$pet.petition_receiver|IdToName}'>
+						<input type="hidden" name='receiver' class='hidden' value='{$pet.petition_receiver}'>
+					</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：<input type="text" name='peter_name' value='{$pet.peter_name}'>&nbsp;&nbsp;&nbsp;
+						电话：<input type="text" name='peter_contact' value='{$pet.peter_contact}'>&nbsp;&nbsp;&nbsp;
+						地址：<input type="text" name='peter_address' value='{$pet.peter_address}'>
+					</td>
+				</tr>
+				
+
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;' value='{$pet.petition_title}'>
+					</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2' value='{$pet.petition_dep_receiver|IdToName}'>
+						<input type="hidden" name='dep_receiver' class='hidden' value='{$pet.petition_dep_receiver}'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><input type="submit" value='保存修改'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+			</table>
+	</div>
+	</if>
+	<if condition='$flag eq 5'>
+	<div id='type5'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td><input type="text" name='number' value='{$pet.petition_number}'></td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>
+						<select name="department">
+						<option value="">===请选择===</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition='$pet["petition_department"] eq $v["id"]'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+					</td>
+				</tr>		
+				<tr>
+					<td>信访方式：</td>
+					<td>
+					<select name="method">
+						<option value="0">===请选择===</option>
+						<option value="1" <if condition='$pet["petition_method"] eq 1'>selected</if>>人大政协</option>
+						<option value="2" <if condition='$pet["petition_method"] eq 2'>selected</if>>12345</option>
+						<option value="5" <if condition='$pet["petition_method"] eq 5'>selected</if>>12369热线</option>						
+						<option value="9" <if condition='$pet["petition_method"] eq 9'>selected</if>>区转</option>
+						<option value="11" <if condition='$pet["petition_method"] eq 11'>selected</if>>其他信访</option>
+					</select>
+				</td>
+				</tr>
+				<tr>
+					<td>批办单附件：（若无修改，可不上传）</td>
+					<td>
+						[<a href="UPLOAD_PATH{$pet.petition_file}" target='_blank'>原文件下载</a>]
+						<input type="file" name='file'>
+					</td>
+				</tr>				
+				
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>
+						<input type="text" name='title' style='width:400px;' value='{$pet.petition_title}'>
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>
+						<textarea name="content" id="" style='width:400px;'>{$pet.petition_content}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>
+						<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_recv_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>应办结日期：</td>
+					<td>
+						<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_should_time|date='Y-m-d',###}' >
+					</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>
+						<input type="text" class='contact_input1' value='{$pet.petition_receiver|IdToName}'>
+						<input type="hidden" name='receiver' class='hidden' value='{$pet.petition_receiver}'>
+					</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>
+						<input type='text' name='dep_receiver' class='contact_input2' value='{$pet.petition_dep_receiver|IdToName}'>
+						<input type="hidden" name='dep_receiver' class='hidden' value='{$pet.petition_dep_receiver}'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><input type="submit" value='保存修改'></td>
+					<td><input type="reset" value='重置'></td>
+				</tr>
+			</table>
+	</div>
+	</if>
+
+		<!-- <table  class="bordered" align='center' id="tableNodifyManage" style="width:95%;">
+			<tr>
+				<td>编号：</td>
+				<td><input type="text" name='number' value='{$pet.petition_number}'></td>
+			</tr>
+			<tr>
+				<td>责任科室：</td>
+				<td>
+					<select name="department">
+						<option value="">===请选择===</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition='$pet["petition_department"] eq $v["id"]'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>信访方式：</td>
+				<td>
+					<select name="method">
+						<option value="0">===请选择===</option>
+						<option value="1" <if condition='$pet["petition_method"] eq 1'>selected</if>>人大政协</option>
+						<option value="2" <if condition='$pet["petition_method"] eq 2'>selected</if>>12345</option>
+						<option value="5" <if condition='$pet["petition_method"] eq 5'>selected</if>>12369热线</option>						
+						<option value="9" <if condition='$pet["petition_method"] eq 9'>selected</if>>区转</option>
+						<option value="11" <if condition='$pet["petition_method"] eq 11'>selected</if>>其他信访</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>标题：</td>
+				<td>
+					<input type="text" name='title' style='width:400px;' value='{$pet.petition_title}'>
+				</td>
+			</tr>
+			<tr>
+				<td>文件：(非必填,<span style='color:blue;'>重新选择</span>)</td>
+				<td>
+					[<a href="UPLOAD_PATH{$pet.petition_file}" target='_blank'>源文件下载</a>]
+					<input type="file" name='file'>
+				</td>
+			</tr>
+			<tr>
+				<td>内容：</td>
+				<td>
+					<textarea name="content" id="" style='width:400px;'>{$pet.petition_content}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>接件时间：</td>
+				<td>
+					<input class="Wdate" type="text" name='recv_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_recv_time|date='Y-m-d',###}' >
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td>转办时间：</td>
+				<td>
+					<input class="Wdate" type="text" name='turn_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_turn_time|date='Y-m-d',###}'>
+				</td>
+			</tr>
+			<tr>
+				<td>应办结日期：（非必填）</td>
+				<td>
+					<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_should_time|date='Y-m-d',###}'>
+				</td>
+			</tr>
+			<tr>
+				<td>接件人：</td>
+				<td>
+					<input type="text" class='contact_input1' value='{$pet.petition_receiver|IdToName}'>
+					<input type="hidden" name='receiver' class='hidden' value='{$pet.petition_receiver}'>
+				</td>
+			</tr>
+			<tr>
+				<td>科室接办人：</td>
+				<td>
+					<input type='text' name='dep_receiver' class='contact_input2' value='{$pet.petition_dep_receiver|IdToName}'>
+					<input type="hidden" name='dep_receiver' class='hidden' value='{$pet.petition_dep_receiver}'>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value='提交'></td>
+				<td><input type="reset" value='重置'></td>
+			</tr>
+		</table> -->
+	</form>
+	
+</div>
+
+<include file='Common:footer'/>

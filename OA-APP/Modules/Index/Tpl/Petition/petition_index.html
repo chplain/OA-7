@@ -1,0 +1,98 @@
+<include file='Common:header'/>
+<link rel="stylesheet"  href="__PUBLIC__/js/tab_style/css/webwidget_scroller_tab.css" type="text/css" />
+<include file='Common:top'/>
+<script>
+	$(document).ready(function(){
+		var reurl = window.location.href;		
+		var index = reurl.lastIndexOf('flag');
+		var last = reurl.substr(index,reurl.length);
+		var arr = last.split('.');
+		var arr2 = arr[0].split('/');
+		var i = arr2[1] - 1;
+		$('.webwidget_scroller_tab .tabContainer li').eq(i).addClass('currentBtn');
+		$('.webwidget_scroller_tab .tabContainer li').click(function(){
+			
+			$('.webwidget_scroller_tab .tabContainer li').removeClass('currentBtn');
+			$(this).addClass('currentBtn');
+		});
+	});
+</script>
+<style>
+	.dark{
+		background-color:#E5E0E0; 
+	}
+</style>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信访管理</li>
+			<li><a href="{:U('Index/Petition/petition_index',array('flag'=>1))}">信访登记</a></li>
+		</ul>
+    </div>
+<div id=''>
+	<!-- <div class='block'><a href="#" id='petition_manage'>信访单管理</a></div> -->
+
+	 <div class="webwidget_scroller_tab" id="webwidget_scroller_tab">
+          <div class="tabContainer">
+            <ul class="tabHead">
+              <li><a href="{:U('Index/Petition/petition_index',array('flag'=>1))}">政风行风</a></li>
+              <li><a href="{:U('Index/Petition/petition_index',array('flag'=>2))}">局长信箱</a></li>
+              <li><a href="{:U('Index/Petition/petition_index',array('flag'=>3))}">来电/来信</a></li>
+			  <li><a href="{:U('Index/Petition/petition_index',array('flag'=>4))}">来访</a></li>
+			  <li><a href="{:U('Index/Petition/petition_index',array('flag'=>5))}">其他</a></li>
+            </ul>
+          </div>
+      </div>
+	<br>
+<div class='someSpace'>
+	<div id='add_file'><a href="{:U('Index/Petition/addPetition_index',array('flag'=>$flag))}">添加信访登记</a></div>
+      <div>
+		<table  class="bordered"  id="tableNodifyManage" style="width:100%;">
+	    	<tr>
+	    		<th width='10%'>序号</th>
+	    		<th width='20%'>标题</th>
+	    		<th width='10%'>信访方式</th>
+	    		<th width='10%'>信访日期</th>
+	    		<th width='10%'>要求办结日期</th>
+	    		<th width='10%'>状态</th>
+	    		<th width='20%'>操作</th>
+	    		<th width='10%'>批办单下载</th>
+	    	</tr>
+	    	<foreach name='petition' item='v'>
+	    		<tr>
+		    		<td width='10%'>{$v.petition_number}</td>
+		    		<td width='20%'>{$v.petition_title}</td>
+		    		<td width='10%'>{$v.petition_method|idToPetitionMethod}</td>
+		    		<td width='10%'>{$v.petition_recv_time|date='Y-m-d',###}</td>
+		    		<td width='10%'>{$v.petition_should_time|date='Y-m-d',###}</td>
+		    		<td width='10%'>
+		    			<if condition="$v['isDone'] eq true">已办结
+		    				<elseif condition="$v['isWaiting'] eq true"/>待答复
+		    				<elseif condition="$v['isProcessed'] eq true"/>已受理
+		    				<else/>未受理
+		    			</if>
+		    		</td>
+		    		<td width='20%'>
+		    			[<a href="{:U('Index/Petition/detailPetition',array('id'=>$v['id'],'flag'=>0))}">查看</a>]
+		    			[<a href="{:U('Index/Petition/modifyPetition',array('id'=>$v['id'],'method'=>$v['petition_method'],'from'=>'index'))}">修改</a>]
+		    			[<a href="{:U('Index/Petition/deletePetition',array('id'=>$v['id']))}" class='delete'>删除</a>]
+		    		</td>
+		    		<td width='10%'>
+		    			<if condition='$flag neq 5'>
+		    				<a href="{:U('Index/Petition/ask_word',array('flag'=>$flag,'id'=>$v['id']))}" target='_blank'>批办单</a>
+		    				<else/>
+		    				<a href="UPLOAD_PATH{$v['petition_result']}">批办单</a>
+		    			</if>
+		    		</td>
+	    		</tr>
+	    	</foreach>
+	    	<tr>
+	    		<td colspan="8">{$page}<if condition='$petition eq null'>暂无数据</if></td>
+	    	</tr>
+	    </table>
+    </div>
+	
+	
+</div>
+
+<include file='Common:footer'/>

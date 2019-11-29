@@ -1,0 +1,93 @@
+<include file='Common:header'/>
+<js file='__PUBLIC__/js/duty.js'/>
+<script type='text/javascript'>
+	$(document).ready(function(){
+		$('fieldset').hide();
+		$('#fromDailyDuty').click(function(){
+			$('fieldset').show();
+		});
+		$('#hideFieldset').click(function(){
+			$('fieldset').hide();
+		});
+	});
+	
+</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/dutyUrgent')}">应急值班表管理</a></li>
+		</ul>
+    </div>
+<div id='dutyUrgent'>
+	<!-- <div id='notify_manage' class="button blue round"> <div id='dutyUrgent_manage'><a href="#" id='dutyUrgentManage'>应急值班表管理</a></div> </div> <br> --><br>
+	<h3 align='center'>应急值班表填写</h3>
+	<form action="{:U('Index/Duty/dutyUrgentHandle')}" method='post'>
+		<table class="bordered" id="tableNodifyManage" style='width:100%;'>
+			<tr>
+				<th colspan="8">
+					<span>标题：房山区环境保护局</span><input type="text" name='title'>应急值班表
+					<div align='right' style='font-size:12px;'>
+						<a href="#" id='addOneRow'>增加一行</a>
+						<a href="#" id='deleteOneRow'>删除一行</a>
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<th>序号</th>
+				<th>值班日期</th>
+				<th>带班领导</th>
+				<th>职务</th>
+				<th>值班人员</th>
+				<th>监测组</th>
+				<th>监察组</th>
+				<th>辐射组</th>
+			</tr>
+			<tr id='first'>
+				<td>1</td>
+				<td>
+					<input class="Wdate" type="text" name='duty[time][]' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value=''>
+					<!-- <a href="#" class='createUrgentDutyer' style='font-size:12px;'>生成</a> -->
+				</td>
+				<td>
+					<!-- <span class='msg_leader'></span> -->
+					<input type="text"  class='contact_input1' placeholder='点击选择'>
+		    		<input type="hidden" name='leader[]' class='hidden'/>
+				</td>
+				<td>
+					<!-- <span class='msg_pos'></span> -->
+					<input type="text" name='pos[]' style='width:30px;'>
+				</td>
+				<td style='width:300px;' >
+					<!-- <span class='msg_dutyer_000'> -->
+						<textarea name="recvContact[]" class='newContact_input_1' id="" style='width:400px;' disabled></textarea>					
+						<input type="hidden" name='group_id[]'>
+						<input type="hidden" name='individual_id[]'>
+						<a href="#" class='newContact'>增加</a>	
+					<!-- </span> -->
+				</td>
+				<td>
+				
+			    	{$jiancers}
+				</td>
+				<td>
+					
+			    	{$jianchaers}
+				</td>
+				<td>
+					
+				    {$fushers}
+				</td>
+			</tr>
+			<tr id='last'>
+				<td colspan='8' align='center'>
+					<input type="submit" value='发布值班表'>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+
+<include file='Common:footer'/>

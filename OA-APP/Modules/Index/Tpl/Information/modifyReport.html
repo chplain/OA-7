@@ -1,0 +1,91 @@
+<include file='top'/>
+<!-- index默认是公告 -->
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint1.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/report')}">信息上报</a></li>
+			<li>上报修改</li>
+		</ul>
+    </div>
+
+	<div class='middle' style='padding-top:20px;padding-left:20px;width:100%;'>
+		
+		<button onclick='javascript:history.go(-1);'>返回</button>
+		<div class='content'>
+			<form action="{:U('Index/Information/report_handle',array('id'=>$report['id'],'from'=>'modify'))}" method='post'>
+				<table class="bordered" align='center' id="tableNodifyManage" style="width:90%;">
+					<tr>
+						<th colspan="2">上报修改</th>
+					</tr>
+					<tr>
+						<td style='width:150px;'>标题：</td>
+						<td><input type="text" name='title' value='{$report.title}' style='width:95%;height:20px;'></td>
+					</tr>					
+					<tr>
+						<td>内容：</td>
+						<td>
+							<textarea name="content" id="" style='width:95%; height:200px;'>{$report.content}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>上报时间：</td>
+						<td>
+							<input class="Wdate" type="text" name='rep_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" value='{$report.rep_time|date="Y-m-d H:i",###}'>
+						</td>
+					</tr>
+					<tr>
+						<td>报送人：</td>
+						<td>
+							<input type='text'  value='{$report.reporter|IdToName}'style='width:150px;height:25px;' class='contact_input_reporter'/>
+		    				<input type="hidden" name='reporter' value='{$report.reporter}' class='hidden'/>
+						</td>
+					</tr>
+					<tr>
+						<td>报送科室：</td>
+						<td>
+							<select name="rep_dep" style='height:25px;'>
+								  <option value="0">======请选择======</option>
+								  <foreach name='dep' item='v'>
+								  	<option value="{$v.id}" <if condition='$report["rep_dep"] eq $v["id"]'>selected</if>>{$v.name}</option>
+								  </foreach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+					    <td>附件信息：<br>(<span style='color:red;margin-top:5px;'>若无更新，可不用上传</span>)</td>
+					    <td>
+				    		<a href="UPLOAD_PATH{$report.attach_savename}">[<span style='color:blue;'>原附件信息下载</span>]</a>
+				    		<input type="file" name='attach'/>
+					    	
+					    </td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" value='保存修改'>
+							<input type="reset" value='重置'>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+
+<include file='foot'/>

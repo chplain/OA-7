@@ -1,0 +1,1530 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<script>
+	$(document).click(function(){
+		$('.confirmForAcpt').click(function(e){
+			if(!confirm('确定受理吗？'))
+				e.preventDefault();
+		});
+	});
+</script>
+<if condition='$flag neq 0'>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信访管理</li>
+			<li><a href="{:U('Index/Petition/petition_search')}">信访查询</a></li>
+			<li><a href="#">详情</a></li>
+		</ul>
+    </div>
+<else/>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信访管理</li>
+			<li><a href="{:U('Index/Petition/petition_index',array('flag'=>1))}">信访登记</a></li>
+			<li><a href="#">详情</a></li>
+		</ul>
+    </div>
+</if>
+<div id='petition'>
+	<if condition='$from eq "notify"'>
+		<a href="{:U('Index/Notify/moreMessage')}"><button>返回</button></a>
+		<else/>
+		<!-- <a href="{:U('Index/Petition/petition_search',array('flag'=>$flag))}"><button>返回</button></a> -->
+		<button onclick='javascript:history.go(-1);'>返回</button>
+	</if>
+	<if condition='$flag eq 0'>
+		<if condition='$method eq 4'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:70%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td>政风行风</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>留言人信息：（非必填）</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						<!-- 地址（选填）：<input type="text" name='peter_address'> -->
+					</td>
+				</tr>
+				<tr>
+					<td>到期日：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+			</table>	
+		
+		<elseif condition='$method eq 10'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td>局长信箱</td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				
+				<tr>
+					<td>收到日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>				
+				
+				<tr>
+					<td>投诉人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						邮箱：{$pet.peter_address}
+					</td>
+				</tr>				
+
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>办公室转办时间：</td>
+					<td>{$pet.petition_turn_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>承办科室书面报送办公室时间：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+			</table>
+		
+		<elseif condition='$method eq 6 or $method eq 8'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>		
+				<tr>
+					<td>信访方式：</td>
+					<td>来电/来信</td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>记录人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						地址：{$pet.peter_address}
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+		
+		<elseif condition='$method eq 7'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>			
+				<tr>
+					<td>信访方式：</td>
+					<td>来访</td>
+				</tr>
+				<tr>
+					<td>人数：</td>
+					<td>{$pet.people_num}</td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>接待人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						地址：{$pet.peter_address}
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+
+		<else/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td>{$pet.petition_method|idToPetitionMethod}</td>
+				</tr>
+				<tr>
+					<td>批办单附件：</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_file}" target='_blank'>{$pet.petition_moto_filename}</a></td>
+				</tr>				
+				
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>应办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+		</if>
+
+		<a href="{:U('Index/Petition/confirmAccept',array('id'=>$pet['id']))}" class='confirmForAcpt'><button>确认受理</button></a>
+
+	</if>
+	<if condition='$flag eq 1'>
+		<div>
+			<h3>信访内容：</h3>
+			<!-- <table  class="bordered" id="tableNodifyManage">
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				<tr>
+				<td>信访人基本情况：</td>
+				<td>
+					姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+					联系方式：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+					地址（选填）：{$pet.peter_address}
+				</td>
+			</tr>
+				<tr>
+					<td>信访方式：</td>
+					<td><span style='color:red;font:bold 13px "微软雅黑";'>{$pet.petition_method|idToPetitionMethod}</span></td>
+				</tr>
+				<tr>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>文件：</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_file}">{$pet.petition_moto_filename}</a></td>
+				</tr>
+				<tr>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>转办时间：</td>
+					<td>{$pet.petition_turn_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table> -->
+			<if condition='$method eq 4'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:70%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>政风行风</b></td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>留言人信息：（非必填）</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						<!-- 地址（选填）：<input type="text" name='peter_address'> -->
+					</td>
+				</tr>
+				<tr>
+					<td>到期日：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+			</table>	
+		
+		<elseif condition='$method eq 10'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>局长信箱</b></td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				
+				<tr>
+					<td>收到日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>				
+				
+				<tr>
+					<td>投诉人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						邮箱：{$pet.peter_address}
+					</td>
+				</tr>				
+
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>办公室转办时间：</td>
+					<td>{$pet.petition_turn_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>承办科室书面报送办公室时间：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+			</table>
+		
+		<elseif condition='$method eq 6 or $method eq 8'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>		
+				<tr>
+					<td>信访方式：</td>
+					<td><b>来电/来信</b></td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>记录人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						地址：{$pet.peter_address}
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+		
+		<elseif condition='$method eq 7'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>			
+				<tr>
+					<td>信访方式：</td>
+					<td><b>来访</b></td>
+				</tr>
+				<tr>
+					<td>人数：</td>
+					<td>{$pet.people_num}</td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>接待人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						地址：{$pet.peter_address}
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+
+		<else/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>{$pet.petition_method|idToPetitionMethod}</b></td>
+				</tr>
+				<tr>
+					<td>批办单附件：</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_file}" target='_blank'>{$pet.petition_moto_filename}</a></td>
+				</tr>				
+				
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>应办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+		</if>
+			<h3>转发信息：</h3>
+			<form action="{:U('Index/Petition/secondHandle',array('id'=>$pet['id'],'flag'=>$flag))}" method='post'>
+				<table  class="bordered" id="tableNodifyManage" style='width:100%;'>
+					<tr>
+						<td>举报类型：</td>
+						<td>
+							<input type="text" name='report_type'> 
+							<button id='report_type'>点击选择</button>
+							 <button id='modifyReportType'>修改分类</button>
+						</td>
+						<td>乡镇:</td>
+						<td>
+							<input type="text" name='town'>
+							<button id='town_select'>点击选择</button>
+							<button id='add_town'>添加乡镇</button>
+						</td>
+					</tr>
+					<tr>
+						<td>应办结时间:</td>
+						<td>
+							<input class="Wdate" type="text" name='should_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$pet.petition_should_time|date="Y-m-d",###}' >
+						</td>
+						<td>办理人:</td>
+						<td>
+							<!-- <input type='text' name="trasactor" class='contact_input3'>
+							<input type="hidden" name='trasactor' class='hidden'> -->
+							<textarea name="recvContact" class='newContact_input' id="" style='width:400px;' disabled></textarea>					
+							<input type="hidden" name='group_id'>
+							<input type="hidden" name='individual_id'>
+							<a href="#" class='newContact'>增加</a>	
+						</td>
+					</tr>
+					<tr>
+						<td colspan='4' align='right'>
+							<input type="submit" value='提交'>
+							<input type="reset" value='重置'>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</if>
+
+	<if condition='$flag eq 2'>
+		<div>
+			<h3>信访内容：</h3>
+			<!-- <table  class="bordered" id="tableNodifyManage">
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				<tr>
+					<td>信访方式：</td>
+					<td>{$pet.petition_method|idToPetitionMethod}</td>
+				</tr>
+				<tr>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>文件：</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_file}">{$pet.petition_moto_filename}</a></td>
+				</tr>
+				<tr>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>转办时间：</td>
+					<td>{$pet.petition_turn_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table> -->
+			<if condition='$method eq 4'>
+			<table  class="bordered"  id="tableNodifyManage" >
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>政风行风</b></td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>留言人信息：（非必填）</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						<!-- 地址（选填）：<input type="text" name='peter_address'> -->
+					</td>
+				</tr>
+				<tr>
+					<td>到期日：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+			</table>	
+		
+		<elseif condition='$method eq 10'/>
+			<table  class="bordered"  id="tableNodifyManage" >
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>局长信箱</b></td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				
+				<tr>
+					<td>收到日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>				
+				
+				<tr>
+					<td>投诉人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						邮箱：{$pet.peter_address}
+					</td>
+				</tr>				
+
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>办公室转办时间：</td>
+					<td>{$pet.petition_turn_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>承办科室书面报送办公室时间：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+			</table>
+		
+		<elseif condition='$method eq 6 or $method eq 8'/>
+			<table  class="bordered"  id="tableNodifyManage" >
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>		
+				<tr>
+					<td>信访方式：</td>
+					<td><b>来电/来信</b></td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>记录人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						地址：{$pet.peter_address}
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+		
+		<elseif condition='$method eq 7'/>
+			<table  class="bordered"  id="tableNodifyManage" >
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>			
+				<tr>
+					<td>信访方式：</td>
+					<td><b>来访</b></td>
+				</tr>
+				<tr>
+					<td>人数：</td>
+					<td>{$pet.people_num}</td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>接待人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						地址：{$pet.peter_address}
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+
+		<else/>
+			<table  class="bordered"  id="tableNodifyManage" >
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>{$pet.petition_method|idToPetitionMethod}</b></td>
+				</tr>
+				<tr>
+					<td>批办单附件：</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_file}" target='_blank'>{$pet.petition_moto_filename}</a></td>
+				</tr>				
+				
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>应办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+			</table>
+		</if>
+			<h3>转发信息：</h3>
+			
+			<table  class="bordered" id="tableNodifyManage">
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				<tr>
+					<td>信访方式：</td>
+					<td><b>{$pet.petition_method|idToPetitionMethod}</b></td>
+				</tr>
+				<tr>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>文件：</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_file}">{$pet.petition_moto_filename}</a></td>
+				</tr>
+				<tr>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>转办时间：</td>
+					<td>{$pet.petition_turn_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>举报类型：</td>
+					<td>{$pet.petition_report_type|idToPetitionReportType}</td>					
+				</tr>
+				<tr>
+					<td>乡镇:</td>
+					<td>{$pet.petition_town|idToPetitionTown}</td>
+				</tr>
+				<tr>
+					<td>应办结时间:</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>办理人:</td>
+					<td>{$pet.petition_trasactor|IdsToNames=','}</td>
+				</tr>
+			</table>
+
+			<h3>答复内容(可二选一填写)</h3>
+			<form action="{:U('Index/Petition/thirdHandle',array('id'=>$pet['id'],'flag'=>$flag))}" method='post' enctype='multipart/form-data'>
+				<table  class="bordered" id="tableNodifyManage">
+					<tr>
+						<td>办结时间</td>
+						<td>
+							<input class="Wdate" type="text" name='done_time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='' >
+						</td>
+					</tr>
+					<tr>
+						<td>答复内容</td>
+						<td><textarea name="answer" id="" style='width:500px;'></textarea></td>
+					</tr>
+					<tr>
+						<td>处理结果</td>
+						<td><input type="file" name='file'></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" value='提交'>
+							<input type="reset" value='重置'>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</if>
+
+	<if condition='$flag eq 3'>
+		<h3>信访内容：<span style='color:red;font:bold 13px "微软雅黑";'>{$pet.petition_method|idToPetitionMethod}</span></h3>
+		<!-- <table  class="bordered" id="tableNodifyManage">
+			<tr>
+				<td>编号：</td>
+				<td>{$pet.petition_number}</td>
+			</tr>
+			<tr>
+				<td>责任科室：</td>
+				<td>{$pet.petition_department|idToDep}</td>
+			</tr>
+			<tr>
+				<td>信访方式：</td>
+				<td>{$pet.petition_method|idToPetitionMethod}</td>
+			</tr>
+			<tr>
+				<td>标题：</td>
+				<td>{$pet.petition_title}</td>
+			</tr>
+			<tr>
+				<td>文件：</td>
+				<td><a href="UPLOAD_PATH{$pet.petition_file}">{$pet.petition_moto_filename}</a></td>
+			</tr>
+			<tr>
+				<td>内容：</td>
+				<td>{$pet.petition_content}</td>
+			</tr>
+			<tr>
+				<td>接件时间：</td>
+				<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+			</tr>
+			<tr>
+				<td>转办时间：</td>
+				<td>{$pet.petition_turn_time|date='Y-m-d',###}</td>
+			</tr>
+			<tr>
+				<td>接件人：</td>
+				<td>{$pet.petition_receiver|IdToName}</td>
+			</tr>
+			<tr>
+				<td>科室接办人：</td>
+				<td>{$pet.petition_dep_receiver|IdToName}</td>
+			</tr>
+			<tr>
+				<td>举报类型：</td>
+				<td>{$pet.petition_report_type|idToPetitionReportType}</td>					
+			</tr>
+			<tr>
+				<td>乡镇:</td>
+				<td>{$pet.petition_town|idToPetitionTown}</td>
+			</tr>
+			<tr>
+				<td>应办结时间:</td>
+				<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+			</tr>
+			<tr>
+				<td>办理人:</td>
+				<td>{$pet.petition_trasactor|IdsToNames=','}</td>
+			</tr>
+			<tr>
+				<td>办结时间</td>
+				<td>{$pet.petition_done_time|date='Y-m-d',###}</td>
+			</tr>
+			<tr>
+				<td>答复内容</td>
+				<td>{$pet.petition_answer}</td>
+			</tr>
+			<tr>
+				<td>办理结果</td>
+				<td><a href="UPLOAD_PATH{$pet.petition_result}">{$pet.petition_moto_resultfilename}</a></td>
+			</tr>
+		</table> -->
+		<if condition='$method eq 4'>
+			<table  class="bordered"  id="tableNodifyManage" style="width:70%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>政风行风</b></td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>留言人信息：（非必填）</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						<!-- 地址（选填）：<input type="text" name='peter_address'> -->
+					</td>
+				</tr>
+				<tr>
+					<td>到期日：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>办理人:</td>
+					<td>{$pet.petition_trasactor|IdsToNames=','}</td>
+				</tr>
+				<tr>
+					<td>办结时间</td>
+					<td>{$pet.petition_done_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>答复内容</td>
+					<td>{$pet.petition_answer}</td>
+				</tr>
+				<tr>
+					<td>办理结果</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_result}">{$pet.petition_moto_resultfilename}</a></td>
+				</tr>
+			</table>	
+		
+		<elseif condition='$method eq 10'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>
+				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>局长信箱</b></td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				
+				<tr>
+					<td>收到日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>				
+				
+				<tr>
+					<td>投诉人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						邮箱：{$pet.peter_address}
+					</td>
+				</tr>				
+
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>办公室转办时间：</td>
+					<td>{$pet.petition_turn_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>承办科室书面报送办公室时间：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>办理人:</td>
+					<td>{$pet.petition_trasactor|IdsToNames=','}</td>
+				</tr>
+				<tr>
+					<td>办结时间</td>
+					<td>{$pet.petition_done_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>答复内容</td>
+					<td>{$pet.petition_answer}</td>
+				</tr>
+				<tr>
+					<td>办理结果</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_result}">{$pet.petition_moto_resultfilename}</a></td>
+				</tr>
+			</table>
+		
+		<elseif condition='$method eq 6 or $method eq 8'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>		
+				<tr>
+					<td>信访方式：</td>
+					<td><b>来电/来信</b></td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>记录人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						地址：{$pet.peter_address}
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>办理人:</td>
+					<td>{$pet.petition_trasactor|IdsToNames=','}</td>
+				</tr>
+				<tr>
+					<td>办结时间</td>
+					<td>{$pet.petition_done_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>答复内容</td>
+					<td>{$pet.petition_answer}</td>
+				</tr>
+				<tr>
+					<td>办理结果</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_result}">{$pet.petition_moto_resultfilename}</a></td>
+				</tr>
+			</table>
+		
+		<elseif condition='$method eq 7'/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>			
+				<tr>
+					<td>信访方式：</td>
+					<td><b>来访</b></td>
+				</tr>
+				<tr>
+					<td>人数：</td>
+					<td>{$pet.people_num}</td>
+				</tr>				
+				<tr>
+					<td>信访日期：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>要求办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>{$pet.petition_type|idToPetitionType}</td>
+				</tr>
+				<tr>
+					<td>接待人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>信访人信息：</td>
+					<td>
+						姓名：{$pet.peter_name}&nbsp;&nbsp;&nbsp;
+						电话：{$pet.peter_contact}&nbsp;&nbsp;&nbsp;
+						地址：{$pet.peter_address}
+					</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容摘要：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>办理人:</td>
+					<td>{$pet.petition_trasactor|IdsToNames=','}</td>
+				</tr>
+				<tr>
+					<td>办结时间</td>
+					<td>{$pet.petition_done_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>答复内容</td>
+					<td>{$pet.petition_answer}</td>
+				</tr>
+				<tr>
+					<td>办理结果</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_result}">{$pet.petition_moto_resultfilename}</a></td>
+				</tr>
+			</table>
+
+		<else/>
+			<table  class="bordered"  id="tableNodifyManage" style="width:90%;">
+				<tr>
+					<th colspan='2' align='center'>信访单</th>
+				</tr>
+				<tr>
+					<td>编号：</td>
+					<td>{$pet.petition_number}</td>
+				</tr>
+				<tr>
+					<td>责任科室：</td>
+					<td>{$pet.petition_department|idToDep}</td>
+				</tr>				
+				<tr>
+					<td>信访方式：</td>
+					<td><b>{$pet.petition_method|idToPetitionMethod}</b></td>
+				</tr>
+				<tr>
+					<td>批办单附件：</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_file}" target='_blank'>{$pet.petition_moto_filename}</a></td>
+				</tr>				
+				
+				<tr class='brighter'>
+					<td>标题：</td>
+					<td>{$pet.petition_title}</td>
+				</tr>
+				<tr class='brighter'>
+					<td>内容：</td>
+					<td>{$pet.petition_content}</td>
+				</tr>
+				<tr>
+					<td>接件时间：</td>
+					<td>{$pet.petition_recv_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>应办结日期：</td>
+					<td>{$pet.petition_should_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>接件人：</td>
+					<td>{$pet.petition_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>科室接办人：</td>
+					<td>{$pet.petition_dep_receiver|IdToName}</td>
+				</tr>
+				<tr>
+					<td>办理人:</td>
+					<td>{$pet.petition_trasactor|IdsToNames=','}</td>
+				</tr>
+				<tr>
+					<td>办结时间</td>
+					<td>{$pet.petition_done_time|date='Y-m-d',###}</td>
+				</tr>
+				<tr>
+					<td>答复内容</td>
+					<td>{$pet.petition_answer}</td>
+				</tr>
+				<tr>
+					<td>办理结果</td>
+					<td><a href="UPLOAD_PATH{$pet.petition_result}">{$pet.petition_moto_resultfilename}</a></td>
+				</tr>
+			</table>
+		</if>
+	</if>
+</div>
+<include file='Common:footer'/>

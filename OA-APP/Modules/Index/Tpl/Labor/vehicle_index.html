@@ -1,0 +1,339 @@
+<include file='Common:header' />
+<css file='__PUBLIC__/css/labor.css'/>
+<js file='__PUBLIC__/js/jquery.min.js'/>
+<js file='__PUBLIC__/js/labor.js'/>
+<include file='Common:top' />
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>劳资管理</li>
+			<li><a href="{:U('Index/Labor/vehicle_index')}">车辆管理</a></li>
+			
+		</ul>
+    </div>
+<div id='itemApply_index'  class='someSpace'>
+	<if condition='$type eq 1'>
+		<span class='addStock_btn'><a href="#" id='vehicleMaintainTable'>车辆维修单</a></span>
+	</if>
+	<if condition='$type eq 2'>
+		<span class='addStock_btn'><a href="#" id='OilTable'>油料充值单</a></span>
+	</if>
+	<if condition='$type eq 3'>
+		<span class='addStock_btn'><a href="#" id='ETCTable'>ETC卡充值单</a></span>
+	</if>
+	<br><br><br>
+	<if condition='$type eq 1'>
+		<table class="bordered"  id="tableNodifyManage" style="width:90%;">
+			<tr>
+				<th width='7%'>序号</th>
+				<th width='10%'>车牌号</th>
+				<th width='10%'>维修时间</th>
+				<th width='10%'>维修内容</th>
+				<th width='10%'>科室</th>
+				<th width='10%'>金额</th>
+				<th width='10%'>操作</th>
+			</tr>
+			<volist name='maintain' id='v' key='key'>
+				<tr>
+					<td width='7%'>{$key}</td>
+					<td width='10%'>{$v.platenum|plateToName}</td>
+					<td width='10%'>{$v.time|date='Y-m-d',###}</td>
+					<td width='10%'>{$v.content}</td>
+					<td width='10%'>{$v.dep|idToDep}</td>
+					<td width='10%'>{$v.money}</td>
+					<td width='10%'>[<a href="#" vid='{$v["id"]}' class='modifyVehicleMaintain_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteVehicleMaintain',array('id'=>$v['id']))}" class='delete'>删除</a>]</td>
+				</tr>
+			</volist>
+			<tr><td><b>合计</b></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>{$sum_money1}&nbsp;</b></td>
+			<td></td></tr>
+			<tr>
+				<td colspan="7">
+					{$page1}
+					<if condition='$maintain eq NULL'>暂无车辆维修信息</if>
+					<form action="{:U('Index/Labor/excel_vehicle_1')}" method='post' align='right' style='float:right;margin-right:20px;'>
+						<foreach name='forExcel_mai' item='v'>
+							<input type="hidden" name='forExcel[]' value='{$v.id}'>
+						</foreach>
+						<button>导出Excel</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	<!-- <div class='common_list'>
+		<h3 align='center'>车辆维修统计表</h3>
+		<div class='common_list_bar'>
+			<div class='common_list_bar0'>序号</div>
+			<div class='common_list_bar1'>车牌号</div>
+			<div class='common_list_bar2'>维修时间</div>
+			<div class='common_list_bar3'>&nbsp;</div>
+			<div class='common_list_bar4'>维修内容</div>
+			<div class='common_list_bar5'>&nbsp;</div>
+			<div class='common_list_bar6'>科室</div>
+			<div class='common_list_bar7'>&nbsp;</div>
+			<div class='common_list_bar8'>金额</div>
+			<div class='common_list_bar9'>操作</div>
+		</div>
+		
+		<volist name='maintain' id='v' key='key'>
+			<if condition='is_odd($key)'>
+				<div class='common_list_content' style='background-color:#E0FFFF;'>
+				<else/>
+				<div class='common_list_content' style='background-color:#CCCCCC;'>
+			</if>
+			
+				<div class='common_list_bar0'>{$key}&nbsp;</div>
+				<div class='common_list_bar1'>{$v.platenum|plateToName}&nbsp;</div>
+				<div class='common_list_bar2'>{$v.time|date='Y-m-d',###}&nbsp;</div>
+				<div class='common_list_bar3'>&nbsp;</div>
+				<div class='common_list_bar4'>{$v.content}&nbsp;</div>
+				<div class='common_list_bar5'>&nbsp;</div>
+				<div class='common_list_bar6'>{$v.dep|idToDep}&nbsp;</div>
+				<div class='common_list_bar7'>&nbsp;</div>
+				<div class='common_list_bar8'>{$v.money}&nbsp;</div>
+				<div class='common_list_bar9'>
+					[<a href="#" vid='{$v["id"]}' class='modifyVehicleMaintain_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteVehicleMaintain',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</div>
+			</div>
+		</volist>
+		<div class='common_list_content'>
+				<div class='common_list_bar0'><b>合计</b></div>
+				<div class='common_list_bar1'><b>&nbsp;</b></div>
+				<div class='common_list_bar2'><b>&nbsp;</b></div>
+				<div class='common_list_bar3'><b>&nbsp;</b></div>
+				<div class='common_list_bar4'><b>&nbsp;</b></div>
+				<div class='common_list_bar5'><b>&nbsp;</b></div>
+				<div class='common_list_bar6'><b>&nbsp;</b></div>
+				<div class='common_list_bar7'><b>&nbsp;</b></div>
+				<div class='common_list_bar8'><b>{$sum_money1}&nbsp;</b></div>
+				<div class='common_list_bar9'><b>&nbsp;</b></div>
+			</div>
+		<div class='common_list_foot'>
+			{$page1}
+			<if condition='$maintain eq NULL'>暂无车辆维修信息</if>
+			<form action="{:U('Index/Labor/excel_vehicle_1')}" method='post' align='right' style='float:right;margin-right:20px;'>
+				<foreach name='maintain' item='v'>
+					<input type="hidden" name='forExcel[]' value='{$v.id}'>
+				</foreach>
+				<button>导出Excel</button>
+			</form>			
+		</div> 
+	</div>-->
+	</if>
+	<if condition='$type eq 2'>
+		<table class="bordered"  id="tableNodifyManage" style="width:90%;">
+			<tr>
+				<th width='5%'>序号</th>
+				<th width='10%'>车牌号</th>
+				<th width='10%'>充值时间</th>
+				<th width='10%'>充值金额</th>
+				<th width='10%'>使用科室</th>
+				<th width='10%'>操作</th>
+			</tr>
+			<volist name='oil' id='v' key='key'>
+				<tr>
+					<td width='5%'>{$key}</td>
+					<td width='10%'>{$v.platenum|plateToName}</td>
+					<td width='10%'>{$v.time|date='Y-m-d',###}</td>
+					<td width='10%'>{$v.money}</td>
+					<td width='10%'>{$v.dep|idToDep}</td>
+					<td width='10%'>
+						[<a href="#" vid='{$v["id"]}' class='modifyOil_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteOil',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+			<tr>
+				<td><b>合计</b></td>
+				<td></td>
+				<td></td>
+				<td><b>{$sum_money2}</b></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					{$page2}
+					<if condition='$oil eq NULL'>暂无油料充值信息</if>
+					<form action="{:U('Index/Labor/excel_vehicle_2')}" method='post' align='right' style='float:right;margin-right:20px;'>
+						<foreach name='forExcel_oil' item='v'>
+							<input type="hidden" name='forExcel[]' value='{$v.id}'>
+						</foreach>
+						<button>导出Excel</button>
+					</form>	
+				</td>
+			</tr>
+		</table>
+	<!-- <div class='common_list'>
+		<h3 align='center'>油料充值统计表</h3>
+		<div class='common_list_bar'>
+			<div class='common_list_bar0'>序号</div>
+			<div class='common_list_bar1'>车牌号</div>
+			<div class='common_list_bar2'>充值时间</div>
+			<div class='common_list_bar3'>充值金额</div>
+			<div class='common_list_bar4'>&nbsp;</div>
+			<div class='common_list_bar5'>&nbsp;</div>
+			<div class='common_list_bar6'>使用科室&nbsp;</div>
+			<div class='common_list_bar7'>&nbsp;</div>
+			<div class='common_list_bar8'>&nbsp;</div>
+			<div class='common_list_bar9'>操作</div>
+		</div>
+		
+		<volist name='oil' id='v' key='key'>
+			<if condition='is_odd($key)'>
+				<div class='common_list_content' style='background-color:#E0FFFF;'>
+				<else/>
+				<div class='common_list_content' style='background-color:#CCCCCC;'>
+			</if>
+				<div class='common_list_bar0'>{$key}&nbsp;</div>
+				<div class='common_list_bar1'>{$v.platenum|plateToName}&nbsp;</div>
+				<div class='common_list_bar2'>{$v.time|date='Y-m-d',###}&nbsp;</div>
+				<div class='common_list_bar3'>{$v.money}&nbsp;</div>
+				<div class='common_list_bar4'>&nbsp;</div>
+				<div class='common_list_bar5'>&nbsp;</div>
+				<div class='common_list_bar6'>{$v.dep|idToDep}&nbsp;</div>
+				<div class='common_list_bar7'>&nbsp;</div>
+				<div class='common_list_bar8'>&nbsp;</div>
+				<div class='common_list_bar9'>
+					[<a href="#" vid='{$v["id"]}' class='modifyOil_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteOil',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</div>
+			</div>
+		</volist>
+		<div class='common_list_content'>
+				<div class='common_list_bar0'><b>合计</b></div>
+				<div class='common_list_bar1'><b>&nbsp;</b></div>
+				<div class='common_list_bar2'><b>&nbsp;</b></div>
+				<div class='common_list_bar3'><b>{$sum_money2}</b></div>
+				<div class='common_list_bar4'><b>&nbsp;</b></div>
+				<div class='common_list_bar5'><b>&nbsp;</b></div>
+				<div class='common_list_bar6'><b>&nbsp;</b></div>
+				<div class='common_list_bar7'><b>&nbsp;</b></div>
+				<div class='common_list_bar8'><b>&nbsp;</b></div>
+				<div class='common_list_bar9'><b>&nbsp;</b></div>
+			</div>
+		<div class='common_list_foot'>
+			{$page2}
+			<if condition='$oil eq NULL'>暂无油料充值信息</if>
+			<form action="{:U('Index/Labor/excel_vehicle_2')}" method='post' align='right' style='float:right;margin-right:20px;'>
+				<foreach name='oil' item='v'>
+					<input type="hidden" name='forExcel[]' value='{$v.id}'>
+				</foreach>
+				<button>导出Excel</button>
+			</form>			
+		</div>
+	</div> -->
+	</if>
+	<if condition='$type eq 3'>
+		<table class="bordered"  id="tableNodifyManage" style="width:90%;">
+			<tr>
+				<th width='5%'>序号</th>
+				<th width='10%'>车牌号</th>
+				<th width='10%'>充值时间</th>
+				<th width='10%'>充值金额</th>
+				<th width='10%'>使用科室</th>
+				<th width='10%'>操作</th>
+			</tr>
+			<volist name='etc' id='v' key='key'>
+				<tr>
+					<td width='5%'>{$key}</td>
+					<td width='10%'>{$v.platenum|plateToName}</td>
+					<td width='10%'>{$v.time|date='Y-m-d',###}</td>
+					<td width='10%'>{$v.money}</td>
+					<td width='10%'>{$v.dep|idToDep}</td>
+					<td width='10%'>
+						[<a href="#" vid='{$v["id"]}' class='modifyETC_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteETC',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+			<tr>
+				<td><b>合计</b></td>
+				<td></td>
+				<td></td>
+				<td><b>{$sum_money3}</b></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					{$page3}
+					<if condition='$etc eq NULL'>暂无ETC信息</if>
+					<form action="{:U('Index/Labor/excel_vehicle_3')}" method='post' align='right' style='float:right;margin-right:20px;'>
+						<foreach name='forExcel_etc' item='v'>
+							<input type="hidden" name='forExcel[]' value='{$v.id}'>
+						</foreach>
+						<button>导出Excel</button>
+					</form>		
+				</td>
+			</tr>
+		</table>
+	<!-- <div class='common_list'>
+		<h3 align='center'>ETC充值统计表</h3>
+		<div class='common_list_bar'>
+			<div class='common_list_bar0'>序号</div>
+			<div class='common_list_bar1'>车牌号</div>
+			<div class='common_list_bar2'>充值时间</div>
+			<div class='common_list_bar3'>充值金额</div>
+			<div class='common_list_bar4'>&nbsp;</div>
+			<div class='common_list_bar5'>&nbsp;</div>
+			<div class='common_list_bar6'>使用科室&nbsp;</div>
+			<div class='common_list_bar7'>&nbsp;</div>
+			<div class='common_list_bar8'>&nbsp;</div>
+			<div class='common_list_bar9'>操作</div>
+		</div>
+		
+		<volist name='etc' id='v' key='key'>
+			<if condition='is_odd($key)'>
+				<div class='common_list_content' style='background-color:#E0FFFF;'>
+				<else/>
+				<div class='common_list_content' style='background-color:#CCCCCC;'>
+			</if>
+				<div class='common_list_bar0'>{$key}&nbsp;</div>
+				<div class='common_list_bar1'>{$v.platenum|plateToName}&nbsp;</div>
+				<div class='common_list_bar2'>{$v.time|date='Y-m-d',###}&nbsp;</div>
+				<div class='common_list_bar3'>{$v.money}&nbsp;</div>
+				<div class='common_list_bar4'>&nbsp;</div>
+				<div class='common_list_bar5'>&nbsp;</div>
+				<div class='common_list_bar6'>{$v.dep|idToDep}&nbsp;</div>
+				<div class='common_list_bar7'>&nbsp;</div>
+				<div class='common_list_bar8'>&nbsp;</div>
+				<div class='common_list_bar9'>
+					[<a href="#" vid='{$v["id"]}' class='modifyETC_btn'>修改</a>]
+					[<a href="{:U('Index/Labor/deleteETC',array('id'=>$v['id']))}" class='delete'>删除</a>]
+				</div>
+			</div>
+		</volist>
+		<div class='common_list_content'>
+				<div class='common_list_bar0'><b>合计</b></div>
+				<div class='common_list_bar1'><b>&nbsp;</b></div>
+				<div class='common_list_bar2'><b>&nbsp;</b></div>
+				<div class='common_list_bar3'><b>{$sum_money3}</b></div>
+				<div class='common_list_bar4'><b>&nbsp;</b></div>
+				<div class='common_list_bar5'><b>&nbsp;</b></div>
+				<div class='common_list_bar6'><b>&nbsp;</b></div>
+				<div class='common_list_bar7'><b>&nbsp;</b></div>
+				<div class='common_list_bar8'><b>&nbsp;</b></div>
+				<div class='common_list_bar9'><b>&nbsp;</b></div>
+			</div>
+		<div class='common_list_foot'>
+			{$page3}
+			<if condition='$etc eq NULL'>暂无车辆维修信息</if>
+			<form action="{:U('Index/Labor/excel_vehicle_3')}" method='post' align='right' style='float:right;margin-right:20px;'>
+				<foreach name='etc' item='v'>
+					<input type="hidden" name='forExcel[]' value='{$v.id}'>
+				</foreach>
+				<button>导出Excel</button>
+			</form>		
+		</div>
+	</div> -->
+	</if>
+	
+</div>
+<include file='Common:footer' />

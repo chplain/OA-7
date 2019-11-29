@@ -1,0 +1,73 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>文件管理</li>
+			<li><a href="{:U('Index/File/show_outfile')}">外部来文登记</a></li>
+		</ul>
+    </div>
+<div class='someSpace'>
+	<div id='add_file' ><a href="{:U('Index/File/add_outfile')}">添加外部来文</a></div>
+
+	<div>
+		<form action="{:U('Index/File/show_outfile',array('from'=>'search'))}" method='post'>
+			<span>起始日期：</span><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' >&nbsp;&nbsp;
+			<span>终止日期：</span><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' >&nbsp;&nbsp;
+			<span>关键字：<input type="text" name='keyword' value="{$keyword}"></span>
+			
+			<input type="submit" value='搜索'>
+		</form>
+	</div>
+    <br>
+	<div>
+		<table class="bordered"  id="tableNodifyManage" style='width:1100px;'>
+			<tr>
+				<th width='100px'>日期</th>
+				<th width='100px'>来文机关</th>
+				<th width='70px'>文件字属</th>
+				<th width='70px'>年发号</th>
+				<th width='300px'>文件标题</th>
+				<th width='100px'>联系人</th>
+				<th width='100px'>联系方式</th>
+				<th width='100px'>备注</th>
+				<th width='100px'>局领导</th>
+				<th width='100px'>附件</th>
+				<th width='150px'>操作</th>
+			</tr>
+			<foreach name='outfile' item='v'>
+				<tr>
+					<td>{$v.time|date='Y-m-d',###}</td>
+					<td>{$v.fromOffice}</td>
+					<td>{$v.belong}</td>
+					<td>{$v.year}</td>
+					<td>{$v.title}</td>
+					<td>{$v.contactor}</td>
+					<td>{$v.contact}</td>
+					<td>{$v.remark}</td>
+					<td>{$v.leader|IdsToNames=','}</td>
+					<td>[<a href="UPLOAD_PATH{$v.file_savename}" target='_blank'>下载</a>]</td>
+					<td>
+						[<a href="{:U('Index/File/detail_outfile',array('id'=>$v['id']))}">查看</a>]
+						[<a href="{:U('Index/File/modify_outfile',array('id'=>$v['id']))}">修改</a>]
+						[<a href="{:U('Index/File/file_delete',array('id'=>$v['id'],'from'=>'outfile'))}" class='delete'>删除</a>]
+						[<a href="{:U('Index/File/excel_outfile',array('id'=>$v['id']))}">下载</a>]
+					</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan="11">
+					{$page}
+					<if condition='$outfile eq null'>暂无数据</if>
+					<form action="{:U('Index/File/outfile_excel')}" method='post' style='float:right;'>
+						<foreach name='forExcel' item='v'>
+							<input type="hidden" name='file[]' value='{$v.id}'>
+						</foreach>
+						<input type="submit" value='导出excel'>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<include file='Common:footer'/>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/reg.css'/>
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<!-- <css file="__PUBLIC__/js/SimpleTree/tree_themes/style.css"/> -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>规章制度管理</title>
+</head>
+<body>
+
+	<div id='container' align='center' style='width:990px;'>
+		<p>&nbsp;</p>
+		<div id='add_file' style='float:left;'><a href="{:U('Index/Regulation/addRegulation')}" style='font:bold 20px "宋体";'>上传规章制度</a></div><br /><br /><br />
+		<h2 align="center">规章制度</h2>
+		<p>&nbsp;</p>
+		<table class="bordered" align='center' id="tableNodifyManage" width='90%' style='float:none;'>
+			<tr>
+				<th>序号</th>
+				<th>名称</th>
+				<th>上传者</th>
+				<th>上传日期</th>
+				<th>操作</th>
+			</tr>
+			<volist name='regulation' id='v' key='key'>
+				<tr>
+					<td>{$key}</td>
+					<td>
+						<a href="{:U('Index/Regulation/detail',array('id'=>$v['id']))}">{$v.title}</a>
+						<if condition="$v['isSetTop'] eq true">【<span style='color:blue;'>置顶</span>】</if>
+					</td>
+					<td>{$v.suber|IdToName}</td>
+					<td>{$v.time|date='Y/m/d',###}</td>
+					<td>
+						[<a href="{:U('Index/Regulation/regulation_modify',array('id'=>$v['id']))}">修改</a>]
+						[<a href="UPLOAD_PATH{$v['file_savename']}" target='_blank'>下载附件</a>]&nbsp;&nbsp;
+						[<a href="{:U('Index/Regulation/delete',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+			<tr><td colspan="5" align='center'>
+				{$page}
+				<if condition='$regulation eq null'>还没有上传规章制度</if>
+				<button id='close' onclick='javascript:window.close();'>关闭窗口</button>
+			</td></tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/outmeet_gather')}">局外会议汇总</a></li>
+			<li><a href="#">详情</a></li>
+		</ul>
+    </div>
+    <br>
+<button class='reback' onclick='javascript:history.go(-1);'>返回</button>
+<div align='center'>	
+	<h2>局外会议通知</h2>
+		<if condition='$out["recordType"] eq 1'>
+		<div>
+			<table class="bordered" id="tableNodifyManage" style='height:90%; text-align:center;'>
+				<tr>
+					<td style='font-weight:bold;'>收文顺序号</td>
+					<td>{$out.recvNum}</td>
+					<td style='font-weight:bold;'>收文日期</td>
+					<td>{$out.outmeet_come_time|date='Y年m月d日',###}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>发文单位</td>
+					<td colspan='3'>{$out.outmeet_from}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>文件标题</td>
+					<td colspan='3'>{$out.outmeet_content}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>会议时间</td>
+					<td>{$out.outmeet_time|date='Y-m-d H:i',###}}</td>
+					<td style='font-weight:bold;'>会议地点</td>
+					<td>{$out.outmeet_place}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>文件字属</td>
+					<td>{$out.belong}字{$out.yearNum}号</td>
+					<td style='font-weight:bold;'>份数：{$out.copyNum1}</td>
+					<td style='font-weight:bold;'>号数：{$out.copyNum2}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>联系人</td>
+					<td>{$out.outmeet_contact_person}</td>
+					<td style='font-weight:bold;'>联系方式</td>
+					<td>{$out.outmeet_contact}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>参会领导</td>
+					<td colspan='3'>{$out.outmeet_leader|IdsToNames}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>备注</td>
+					<td colspan='3'>{$out.remark}</td>			
+				</tr>
+				<form action="{:U('Index/Meet/confirmHandle',array('id'=>$out['id']))}" method='post'>
+				<tr>
+					<td>提醒</td>
+					<td colspan='3'>						
+							<input type="checkbox" name='attentionType[]' value='1' <if condition='$attention1 eq true'>checked</if>>系统提醒
+							<input type="checkbox" name='attentionType[]' value='2' <if condition='$attention2 eq true'>checked</if>>短息提醒
+							<input type="checkbox" name='attentionType[]' value='3' <if condition='$attention3 eq true'>checked</if>>邮件提醒						
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<if condition='$out["isSent"] eq false'>
+							<button>确定发送给领导</button>
+						<else/>
+							<button>重新发送给领导</button>
+						</if>
+
+					</td>
+				</tr>
+				</form>
+			</table>
+		</div>
+		</if>
+		<if condition='$out["recordType"] eq 2'>
+		<div> 
+			<table class="bordered" id="tableNodifyManage" style='height:90%; text-align:center;'>
+
+				<tr>
+					<td style='font-weight:bold;'>来电单位</td>
+					<td>{$out.outmeet_from}</td>
+					<td style='font-weight:bold;'>来电时间</td>
+					<td>{$out.outmeet_come_time|date='Y年m月d日 H:i',###}</td>
+
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>会议时间</td>
+					<td>{$out.outmeet_time|date='Y年m月d日 H:i',###}</td>
+					<td style='font-weight:bold;'>会议地点</td>
+					<td>{$out.outmeet_place}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>会议内容</td>
+					<td colspan='3'>{$out.outmeet_content}</td>
+				</tr>				
+				<tr>
+					<td style='font-weight:bold;'>联系人</td>
+					<td>{$out.outmeet_contact_person}</td>
+					<td style='font-weight:bold;'>联系方式</td>
+					<td>{$out.outmeet_contact}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>参会领导</td>
+					<td colspan='3'>{$out.outmeet_leader|IdsToNames}</td>
+				</tr>
+				<tr>
+					<td style='font-weight:bold;'>备注</td>
+					<td colspan='3'>{$out.remark}</td>			
+				</tr>
+				<form action="{:U('Index/Meet/confirmHandle',array('id'=>$out['id']))}" method='post'>
+				<tr>
+					<td style='font-weight:bold;'>提醒</td>
+					<td colspan='3'>						
+							<input type="checkbox" name='attentionType[]' value='1' <if condition='$attention1 eq true'>checked</if>>系统提醒
+							<input type="checkbox" name='attentionType[]' value='2' <if condition='$attention2 eq true'>checked</if>>短息提醒
+							<input type="checkbox" name='attentionType[]' value='3' <if condition='$attention3 eq true'>checked</if>>邮件提醒						
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<if condition='$out["isSent"] eq false'>
+							<button>确定发送给领导</button>
+						<else/>
+							<button>重新发送给领导</button>
+						</if>
+					</td>
+				</tr>
+				</form>
+			</table>
+		</div>
+		</if>
+</div>
+
+<include file='Common:footer'/>

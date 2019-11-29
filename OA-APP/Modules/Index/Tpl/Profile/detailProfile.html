@@ -1,0 +1,35 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li>个人文档管理</li>
+			<li><a href="#">文档详情</a></li>
+		</ul>
+    </div>
+<div class='someSpace'>
+	<button onclick='javascript:history.go(-1);'>返回</button>
+	<div>
+		<div align="center">
+			<h2>{$profile.title}</h2>
+		</div>
+		<br>
+		<div align='center'>
+			<b>编写人：</b>{$profile.suber|IdToName}&nbsp;&nbsp;
+			<b>时间：</b>{$profile.time|date='Y-m-d',###}&nbsp;&nbsp;
+			<b>类型：</b><if condition='$profile["type"] eq 1'>文本<else/>传送类型</if>
+		</div>
+		<div style='margin-left:70px;'>
+			{$profile.content|htmlspecialchars_decode}
+		</div>
+		<if condition='$profile["type"] eq 2'>
+			<div style='margin-left:70px;'>
+				<b>传送范围：</b> {$profile.group_id|idsToDeps}&nbsp;&nbsp;&nbsp;
+						  {$profile.individual_id|IdsToNames=','}
+			</div>
+		</if>
+		
+	</div>
+</div>
+<include file='Common:footer'/>

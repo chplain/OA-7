@@ -1,0 +1,51 @@
+<include file='top' />
+
+<div id='right'>
+	<div id='r_top'>
+		<!-- <img src="" alt="添加节点"> -->
+		<h3 style='font:bold 17px "微软雅黑";'>添加节点</h3>
+	</div>
+	<div id='r_content'>
+		<div id='addUser'>
+			<form action="{:U('Index/Rbac/addUserHandle')}" method='post'>
+				<table class="table">
+					<tr>
+						<th colspan='2' align='center'>添加用户</th>
+					</tr>
+					<tr>
+						<td align='right'>姓名(真实姓名)：</td>
+						<td><input type="text" name='name'></td>
+					</tr>
+					<tr>
+						<td align='right'>密码：</td>
+						<td><input type="password" name='password'></td>
+					</tr>
+					<tr>
+						<td align='right'>重复密码：</td>
+						<td><input type="password" name='password_again'></td>
+					</tr>
+					<tr id='first_role'>
+						<td align='right'>所属角色：</td>
+						<td>
+							<select name="role[]">
+								<option value="0">==请选择==</option>
+								<foreach name='role' item='v'>
+									<option value="{$v.id}">{$v.remark}</option>
+								</foreach>
+							</select>
+							<button id='clone'>添加一个角色</button>
+							<button id='dele_clone'>删除一个角色</button>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align='center'>
+							<input type="submit" value='保存添加'>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+
+<include file='foot' />

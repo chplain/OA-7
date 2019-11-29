@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/right_nav.css"/>
+	<title>会议室申请详情</title>
+</head>
+<body>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>会议管理</li>
+			<li><a href="{:U('Index/Meet/meet_gather')}">会议汇总</a></li>
+			<li><a href="#">详情</a></li>
+		</ul>
+    </div>
+    <div class='someSpace'>
+	<div><button onclick='javascript:history.go(-1);'>返回</button>	</div>
+	<div align="center">
+		<div class='detail_title'>
+			<h3>会议(活动)通知单</h3>
+		</div>
+		<div>
+
+			<table width="600" height="339" border="1" cellpadding="1" cellspacing="0" style="background-color:white;">
+			  <tr>
+			    <td width="277">会议时间：{$meet.meet_time|date='Y年n月j日',###}&nbsp;
+			    	{$meet.meet_time|date='w',###|numToWeek}&nbsp;
+			    {$meet.meet_time|date='H时i分',###}</td>
+			    <td width="324">会议地点：{$meet.meet_place|idToMeetPlace}</td>
+			  </tr>
+			  <tr>
+			  	<td colspan='2'>会议主题：{$meet.meet_subject}</td>
+			  </tr>
+			  <tr>
+			    <td height="60" colspan="2"><p>会议内容：{$meet.meet_content}</p>
+			    <p>&nbsp;</p></td>
+			  </tr>
+			  <tr>
+			    <td height="76" colspan="2"><p>与会人员：{$meet.attend_people}</p>
+			    <p>&nbsp;</p></td>
+			  </tr>
+			  <tr>
+			    <td colspan="2"><table width="613" height="31" border="0" cellpadding="0">
+			      <tr>
+			        <td width="277">通知会议科室：{$meet.apply_department|idToDep}</td>
+			        <td width="326">通知会议日期：{$meet.publish_time|date='Y-m-d H:i',###}</td>
+			      </tr>
+			    </table></td>
+			  </tr>
+			  <tr>
+			    <td colspan="2"><table width="614" height="28" border="0" cellpadding="0">
+			      <tr>
+			        <td width="249">会务联系人：{$meet.apply_person|IdToName}</td>
+			        <td width="358">联系电话：{$meet.meet_contact}</td>
+			      </tr>
+			    </table></td>
+			  </tr>
+			  <tr>
+			    <td height="39" colspan="2"><p>备注：{$meet.meet_service|idToMeetService}</p></td>
+			  </tr>
+			</table>
+
+			
+		</div>
+		</div>
+		</div>
+</body>
+</html>

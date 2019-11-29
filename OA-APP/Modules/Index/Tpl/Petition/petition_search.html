@@ -1,0 +1,305 @@
+<include file='Common:header'/>
+<link rel="stylesheet"  href="__PUBLIC__/js/tab_style/css/webwidget_scroller_tab.css" type="text/css" />
+<script>
+	$(document).ready(function(){
+		var reurl = window.location.href;		
+		var index = reurl.lastIndexOf('flag');
+		var last = reurl.substr(index,reurl.length);
+		var arr = last.split('.');
+		var arr2 = arr[0].split('/');
+		var i = arr2[1] - 1;
+		$('.webwidget_scroller_tab .tabContainer li').eq(i).addClass('currentBtn');
+		$('.webwidget_scroller_tab .tabContainer li').click(function(){
+			
+			$('.webwidget_scroller_tab .tabContainer li').removeClass('currentBtn');
+			$(this).addClass('currentBtn');
+		});
+	});
+</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信访管理</li>
+			<li><a href="{:U('Index/Petition/petition_search')}">信访查询</a></li>
+		</ul>
+    </div>
+<div>
+	<div class="webwidget_scroller_tab" id="webwidget_scroller_tab">
+          <div class="tabContainer">
+            <ul class="tabHead">
+              <li><a href="{:U('Index/Petition/petition_search',array('flag'=>1))}">已受理</a></li>
+              <li><a href="{:U('Index/Petition/petition_search',array('flag'=>2))}">待答复</a></li>
+              <li><a href="{:U('Index/Petition/petition_search',array('flag'=>3))}">已办结</a></li>
+            </ul>
+          </div>
+      </div>
+<div class='someSpace'>
+	<if condition='$flag eq 1'>
+		<div>
+			<form action="{:U('Index/Petition/petition_search',array('from'=>'search','flag'=>$flag))}" method='post'>
+				<table >
+					<tr>
+						<td>标题：</td><td><input type="text" name='title' value='{$title}'><td>
+						<td></td>
+						<th colspan="2">受理日期</th>
+					</tr>
+					<tr>
+						<td>信访方式：</td>
+						<td><select name="method">
+							<option value="0">===请选择===</option>
+							<option value="1" <if condition='1 eq $methodselect'>selected</if>>人大政协</option>
+							<option value="2" <if condition='2 eq $methodselect'>selected</if>>12345</option>
+							<option value="4" <if condition='3 eq $methodselect'>selected</if>>政风行风</option>
+							<option value="5" <if condition='4 eq $methodselect'>selected</if>>12369热线</option>
+							<option value="6" <if condition='6 eq $methodselect'>selected</if>>来电</option>
+							<option value="7" <if condition='7 eq $methodselect'>selected</if>>来访</option>
+							<option value="8" <if condition='8 eq $methodselect'>selected</if>>来信</option>
+							<option value="9" <if condition='9 eq $methodselect'>selected</if>>区转</option>
+							<option value="10" <if condition='10 eq $methodselect'>selected</if>>局长信箱</option>
+							<option value="11" <if condition='11 eq $methodselect'>selected</if>>其他信访</option>
+						</select></td>
+						<td></td>
+						<td>起始日期</td>
+						<td><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' ></td>
+					</tr>
+					<tr>
+						<td>责任科室：</td>
+						<td>
+							<select name="dep">
+								<option value="">===请选择===</option>
+								<foreach name='dep' item='v'>
+									<option value="{$v.id}" <if condition='$v["id"] eq $depselect'>selected</if>>{$v.name}</option>
+								</foreach>
+							</select>
+						</td>
+						<td></td>
+						<td>终止日期</td>
+						<td><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' ></td>
+						<td><input type="submit" value='查询'></td>
+					</tr>
+				</table>			
+				
+			</form>
+			<table  class="bordered" align='left' id="tableNodifyManage" width='90%'>
+				<tr>
+					<th width='10%'>序号</th>
+					<th width='20%'>编号</th>
+					<th width='20%'>信访标题</th>
+					<th width='10%'>信访方式</th>
+					<th width='10%'>责任科室</th>
+					<th width='10%'>受理时间</th>
+					<!-- <th>转发状态</th> -->
+					<th width='10%'>操作</th>
+				</tr>
+				<volist name='pet' id='v' key='key'>
+					<tr>
+						<td width='10%' width='10%'>{$key}</td>
+						<td width='20%'>{$v.petition_number}</td>
+						<td width='20%'>
+							<a href="{:U('Index/Petition/detailPetition',array('id'=>$v['id'],'flag'=>1))}">
+								{$v.petition_title}
+							</a>
+						</td>
+						<td width='10%'>{$v.petition_method|idToPetitionMethod}</td>
+						<td width='10%'>{$v.petition_department|idToDep}</td>
+						<td width='10%'>{$v.petition_recv_time|date='Y-m-d',###}</td>
+						<!-- <td>
+							<if condition='$v["isWaiting"] eq true'>已转发<else/>未转发</if>
+						</td> -->
+						<td width='10%'>
+							[<a href="{:U('Index/Petition/modifyPetition',array('id'=>$v['id'],'method'=>$v['petition_method']))}">修改</a>]
+							[<a href="{:U('Index/Petition/deletePetition',array('id'=>$v['id']))}" class='delete'>删除</a>]
+						</td>
+					</tr>
+				</volist>
+				<tr>
+					<td colspan="7">{$page}<if condition='$pet eq null'>暂无数据</if></td>
+				</tr>
+			</table>
+		</div>
+	</if>
+
+	<if condition='$flag eq 2'>
+		<div>
+			<form action="{:U('Index/Petition/petition_search',array('from'=>'search','flag'=>$flag))}" method='post'>
+				<table >
+					<tr>
+						<td>标题：</td><td><input type="text" name='title' value='{$title}'><td>
+						<td></td>
+						<th colspan="2">受理日期</th>
+					</tr>
+					<tr>
+						<td>信访方式：</td>
+						<td><select name="method">
+							<option value="0">===请选择===</option>
+							<option value="1" <if condition='1 eq $methodselect'>selected</if>>人大政协</option>
+							<option value="2" <if condition='2 eq $methodselect'>selected</if>>12345</option>
+							<option value="4" <if condition='4 eq $methodselect'>selected</if>>政风行风</option>
+							<option value="5" <if condition='5 eq $methodselect'>selected</if>>12369热线</option>
+							<option value="6" <if condition='6 eq $methodselect'>selected</if>>来电</option>
+							<option value="7" <if condition='7 eq $methodselect'>selected</if>>来访</option>
+							<option value="8" <if condition='8 eq $methodselect'>selected</if>>来信</option>
+							<option value="9" <if condition='9 eq $methodselect'>selected</if>>区转</option>
+							<option value="10" <if condition='10 eq $methodselect'>selected</if>>局长信箱</option>
+							<option value="11" <if condition='11 eq $methodselect'>selected</if>>其他信访</option>
+						</select></td>
+						<td></td>
+						<td>起始日期</td>
+						<td><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' ></td>
+					</tr>
+					<tr>
+						<td>责任科室：</td>
+						<td>
+							<select name="dep">
+								<option value="">===请选择===</option>
+								<foreach name='dep' item='v'>
+									<option value="{$v.id}"  <if condition='$v["id"] eq $depselect'>selected</if>>{$v.name}</option>
+								</foreach>
+							</select>
+						</td>
+						<td></td>
+						<td>终止日期</td>
+						<td><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' ></td>
+						<td><input type="submit" value='查询'></td>
+					</tr>
+				</table>			
+				
+			</form>
+			<table  class="bordered" align='left' id="tableNodifyManage" width='90%'>
+				<tr>
+					<th width='10%'>序号</th>
+					<th width='20%'>编号</th>
+					<th width='20%'>信访标题</th>
+					<th width='10%'>信访方式</th>
+					<th width='10%'>责任科室</th>
+					<th width='10%'>受理时间</th>
+					<th width='10%'>应办结时间</th>
+					<!-- <th>答复状态</th> -->
+					<th>操作</th>
+				</tr>
+				<volist name='pet' id='v' key='key'>
+					<tr>
+						<td width='10%'>{$key}</td>
+						<td width='20%'>{$v.petition_number}</td>
+						<td width='20%'>
+							<a href="{:U('Index/Petition/detailPetition',array('id'=>$v['id'],'flag'=>2))}">
+								{$v.petition_title}
+							</a>
+						</td>
+						<td width='10%'>{$v.petition_method|idToPetitionMethod}</td>
+						<td width='10%'>{$v.petition_department|idToDep}</td>
+						<td width='10%'>{$v.petition_recv_time|date='Y-m-d',###}</td>
+						<td width='10%'>{$v.petition_should_time|date='Y-m-d',###}</td>
+						<!-- <td>
+							<if condition='$v["isDone"] eq true'>已答复<else/>未答复</if>
+						</td> -->
+						<td width='10%'>
+							[<a href="{:U('Index/Petition/rollback',array('id'=>$v['id'],'flag'=>$flag))}" class='rollback'>退回</a>]
+							[<a href="{:U('Index/Petition/deletePetition',array('id'=>$v['id']))}" class='delete'>删除</a>]
+						</td>
+					</tr>
+				</volist>
+				<tr>
+					<td colspan="8">{$page}<if condition='$pet eq null'>暂无数据</if></td>
+				</tr>
+			</table>
+			
+
+		</div>
+	</if>
+
+	<if condition='$flag eq 3'>
+		<div>
+			<form action="{:U('Index/Petition/petition_search',array('from'=>'search','flag'=>$flag))}" method='post'>
+				<table >
+					<tr>
+						<td>标题：</td><td><input type="text" name='title' value='{$title}'><td>
+						<td></td>
+						<th colspan="2">办结日期</th>
+					</tr>
+					<tr>
+						<td>信访方式：</td>
+						<td><select name="method">
+							<option value="0">===请选择===</option>
+							<option value="1" <if condition='1 eq $methodselect'>selected</if>>人大政协</option>
+							<option value="2" <if condition='2 eq $methodselect'>selected</if>>12345</option>
+							<option value="4" <if condition='4 eq $methodselect'>selected</if>>政风行风</option>
+							<option value="5" <if condition='5 eq $methodselect'>selected</if>>12369热线</option>
+							<option value="6" <if condition='6 eq $methodselect'>selected</if>>来电</option>
+							<option value="7" <if condition='7 eq $methodselect'>selected</if>>来访</option>
+							<option value="8" <if condition='8 eq $methodselect'>selected</if>>来信</option>
+							<option value="9" <if condition='9 eq $methodselect'>selected</if>>区转</option>
+							<option value="10" <if condition='10 eq $methodselect'>selected</if>>局长信箱</option>
+							<option value="11" <if condition='11 eq $methodselect'>selected</if>>其他信访</option>
+						</select></td>
+						<td></td>
+						<td>起始日期</td>
+						<td><input class="Wdate" type="text" name='stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$stime}' ></td>
+					</tr>
+					<tr>
+						<td>责任科室：</td>
+						<td>
+							<select name="dep">
+								<option value="">===请选择===</option>
+								<foreach name='dep' item='v'>
+									<option value="{$v.id}"  <if condition='$v["id"] eq $depselect'>selected</if>>{$v.name}</option>
+								</foreach>
+							</select>
+						</td>
+						<td></td>
+						<td>终止日期</td>
+						<td><input class="Wdate" type="text" name='etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$etime}' ></td>
+						<td>	<input type="submit" value='查询'></td>
+					</tr>
+				</table>			
+			
+			</form>
+			<table  class="bordered" align='left' id="tableNodifyManage" width='90%'>
+				<tr>
+					<th width='10%'>序号</th>
+					<th width='20%'>编号</th>
+					<th width='20%'>信访标题</th>
+					<th width='10%'>信访方式</th>
+					<th width='10%'>责任科室</th>
+					<th width='10%'>受理时间</th>
+					<th width='10%'>办结时间</th>
+					<th width='10%'>操作</th>
+				</tr>
+				<volist name='pet' id='v' key='key'>
+					<tr>
+						<td width='10%'>{$key}</td>
+						<td width='20%'>{$v.petition_number}</td>
+						<td width='20%'>
+							<a href="{:U('Index/Petition/detailPetition',array('id'=>$v['id'],'flag'=>3))}">
+								{$v.petition_title}
+							</a>
+						</td>
+						<td width='10%'>{$v.petition_method|idToPetitionMethod}</td>
+						<td width='10%'>{$v.petition_department|idToDep}</td>
+						<td width='10%'>{$v.petition_recv_time|date='Y-m-d',###}</td>
+						<td width='10%'>{$v.petition_done_time|date='Y-m-d',###}</td>
+						<td width='10%'>
+							[<a href="{:U('Index/Petition/rollback',array('id'=>$v['id'],'flag'=>$flag))}" class='rollback'>退回</a>]
+							[<a href="{:U('Index/Petition/deletePetition',array('id'=>$v['id']))}" class='delete'>删除</a>]
+						</td>
+					</tr>
+				</volist>
+				<tr>
+					<td colspan="8">
+						{$page}<if condition='$pet eq null'>暂无数据</if>
+						<form action="{:U('Index/Petition/done_excel')}" method='post' style='float:right;'>
+							<foreach name='forExcel' item='v'>
+								<input type="hidden" name='forExcel[]' value='{$v.id}'>
+							</foreach>
+							<button>导出excel</button>
+						</form>
+						
+					</td>
+				</tr>
+			</table>
+		</div>
+	</if>
+</div>
+
+<include file='Common:footer'/>

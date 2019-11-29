@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<style type="text/css">
+		.STYLE1{width:88%;}
+		.STYLE2{width:88%;}
+		.STYLE3{width:90%;}
+	</style>
+	<title>请假名册详情</title>
+</head>
+<body>
+	<h3 align="center">北京市房山区环境保护局{$ask[0].title_year}年请假名册 </h3>
+		<div style='width:100%;'>
+			<span align='left'>单位：（天）</span>
+		</div>		
+		<table width="2100"   border="1" cellpadding="1" cellspacing="0">
+			  <tr>
+			  	<if condition='$from eq "manage"'>
+				    <td width="47" rowspan="2"><div align="center"><strong>操作</strong></div></td>
+				</if>
+			    <td width="47" rowspan="2"><div align="center"><strong>编号</strong></div></td>
+			    <td width="70" rowspan="2"><div align="center"><strong>姓名</strong></div></td>
+			    <td width="160" rowspan="2"><div align="center"><strong>科室</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>1月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>2月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>3月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>4月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>5月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>6月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>7月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>8月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>9月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>10月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>11月</strong></div></td>
+			    <td colspan="3"><div align="center"><strong>12月</strong></div></td>
+			    <td width="84" rowspan="2"><div align="center"><strong>备注</strong></div></td>
+			  </tr>
+			  <tr>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			    <td width="40"><div align="center"><strong>天数</strong></div></td>
+			    <td width="40"><div align="center"><strong>日期</strong></div></td>
+			    <td width="60"><div align="center"><strong>事由</strong></div></td>
+			  </tr>
+			  <volist name='ask' id='v' key='key'>
+			  <tr height='25' id='first_input'>
+			  	<if condition='$from eq "manage"'>
+			  		<td><div align="center">
+			  			<a href="{:U('Index/Personnel/deleteAskLeaveItem',array('id'=>$v['id']))}" class='delete'>删除</a>
+			  		</div></td>
+			  	</if>
+			    <td><div align="center">{$key}</div></td>
+			    <td><div align="center">{$v.name}</div></td>
+			    <td><div align="center">{$v.dep|idToDep}</div></td>
+			    <foreach name='v.input' item='vv'>
+			    	<td><div align="center">{$vv}</div></td>
+			    </foreach>			    
+			    <td><div align="center">{$v.remark}</div></td>
+			  </tr>
+			</volist>
+			</table>
+			<if condition='$from eq "manage"'>
+				<div align='center'>
+					<button onclick="javascript:window.close();">关闭窗口</button>
+				</div>
+			</if>
+			
+			
+</body>
+</html>

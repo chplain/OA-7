@@ -1,0 +1,63 @@
+<include file='Common:header'/>
+<script type='text/javascript'>
+		window.UEDITOR_HOME_URL = '__CLASS__/ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameWidth = 750;
+			window.UEDITOR_CONFIG.initialFrameHeight = 250;
+			UE.getEditor('content');
+		};
+	</script>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li>个人文档管理</li>
+			<li><a href="{:U('Index/Profile/modifyProfile')}">修改文档</a></li>
+		</ul>
+    </div>
+<div id='profile'>
+	<h2 align="center">修改个人文档</h2>
+	<form action="{:U('Index/Profile/addProfileHandle',array('id'=>$profile['id'],'from'=>'modify'))}" method='post'>
+		<table class="bordered" id="tableNodifyManage" align="center">
+			<tr>
+				<td colspan='2'>
+					<span>时间</span>
+					<input class="Wdate" type="text" name='time' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$profile.time|date="Y-m-d",###}' >
+					<span>类别</span>
+					<select name="type" id="">
+						<option value="1" <if condition='$profile["type"] eq 1'>checked</if>>文本</option>
+						<option value="2" <if condition='$profile["type"] eq 2'>checked</if>>传送</option>
+					</select>
+					<span>原发布者{$profile.suber|IdToName}</span>
+				</td>
+			</tr>
+			<tr id='scope'>
+				<td><span>发布范围</span></td>
+				<td>
+					<textarea name="recvContact" class='newContact_input' id="" style='width:400px;'></textarea>					
+					<input type="hidden" name='group_id'>
+					<input type="hidden" name='individual_id'>
+					<a href="#" class='newContact'>增加</a>	
+				</td>
+			</tr>
+			<tr>
+				<td>标题</td>
+				<td align='left'><input type="text" name='title' style='width:400px;' value='{$profile.title}'></td>
+			</tr>
+			<tr>
+				<td>摘要(在此处添加附件)</td>
+				<td>
+					<textarea name="content" id="content">{$profile.content|htmlspecialchars_decode}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value='提交'>
+					<input type="reset" value='重置'>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<include file='Common:footer'/>

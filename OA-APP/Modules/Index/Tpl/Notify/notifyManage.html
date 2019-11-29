@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+
+		//个人消息全选
+		$('input[name=checkAll]').click(function(){			
+			
+				$('input[name*=deleteId]').each(function(){
+					this.checked = true;
+				});
+				
+		});
+		//全不选
+		$('input[name=checkNone]').click(function(){	
+			$('input[name*=deleteId]').attr('checked',false);
+		});
+		$('a[deleteAttr=delete]').click(function(e){
+			if(!confirm('确定要删除吗？')){
+				e.preventDefault();
+			}
+		});
+		$('input[name=deleteGroupMessage]').click(function(e){
+			if(!confirm('确定要批量删除吗？')){
+				e.preventDefault();
+			}
+		});
+		});
+	</script>
+	<title>通知公告管理</title>
+	<css file='__PUBLIC__/css/common.css'/>
+</head>
+<body>
+	<div id='div_notifyManage' align="center">
+		<form action="{:U('Index/Notify/deleteGroupNotify')}" method='post'>
+		<h3 align="center">通知公告管理</h3>
+		<div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkAll" value="全选" />
+            <input type="button" class="button button-small checkall" name="checkNone" value="全不选" />
+            <input type="submit" class="button button-small border-yellow" name="deleteGroupMessage" value="批量删除" />
+        </div>
+		<table class="bordered"align='center' id="tableNodifyManage" style='width:100%;'>
+			<tr>
+				<th>选择</th>
+				<th>标题</th>
+				<th>发布时间</th>
+				<th>操作</th>
+			</tr>
+			<volist name='notify' id='v' key='key'>
+				<tr>
+					<td><input type="checkbox" name="deleteId[]" value="{$v.id}" /></td>
+					<td>
+						<a href="{:U('Index/Notify/detailNotify',array('id'=>$v['id'],'manage'=>1))}">{$v.meeting_title}</a>
+					</td>
+					<td>{$v.publish_time|date='Y-m-d H:i',###}</td>
+					<td>
+						<if condition='$v["meeting_source"] eq "notify"'>
+							[<a href="{:U('Index/Notify/modifyNotify',array('id'=>$v['id']))}">修改</a>]
+						<else/>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</if>
+						[<a href="{:U('Index/Notify/deleteNotify',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+			<tr>
+				<td colspan="4" align="center">
+					{$page}&nbsp;|&nbsp;<if condition='$notify eq null'>暂无数据</if>
+					<button onclick='javascript:window.close();'>关闭窗口</button>
+				</td>
+			</tr>
+		</table>
+		</form>
+	</div>
+</body>
+</html>

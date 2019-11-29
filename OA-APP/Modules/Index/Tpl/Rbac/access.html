@@ -1,0 +1,42 @@
+<include file='top' />
+
+
+<div id='right'>
+	<div id='r_top'>
+		<!-- <img src="" alt="节点列表"> -->
+		<h3 style='font:bold 17px "微软雅黑";'>节点列表</h3>
+	</div>
+	<div id='r_content'>
+		<div style='font:bold 15px "宋体";margin:10px;'>角色名称：{$role_name}</div>
+		<div id='setAccess'>
+			<form action="{:U('Index/Rbac/setAccess')}" method='post'>
+				<foreach name='node' item='app'>
+					<div class='level1'>
+						{$app.remark}
+						<input type="checkbox" name='access[]' value='{$app.id}_1' level='1' <if condition='$app["access"]'>checked='checked'</if>>
+						<foreach name='app.child' item='action'>
+							<dl>
+							<dt class='level2'>
+								{$action.remark}
+								<input type="checkbox" name='access[]' value='{$action.id}_2' level='2' <if condition='$action["access"]'>checked='checked'</if>>
+								<foreach name='action.child' item='method'>
+									<dd class='level3'>
+										{$method.remark}
+										<input type="checkbox" name='access[]' value='{$method.id}_3' level='3' <if condition='$method["access"]'>checked='checked'</if>>
+									</dd>
+								</foreach>
+							</dt>
+							</dl>
+						</foreach>
+					</div>
+				</foreach>
+				<div align='center'>
+					<input type="hidden" name='role_id' value='{$rid}'>
+					<input type="submit" value='保存配置'>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<include file='foot' />

@@ -1,0 +1,332 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<if condition='$manage eq null'>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>日常公务</li>
+			<li><a href="{:U('Index/Notify/show_notify')}">通知公告</a></li>
+			<li><a href="#">通知公告详情</a></li>
+		</ul>
+    </div>
+</if>
+<div class='detail' >
+
+	<button class='reback' onclick='javascript:history.go(-1);'>返回</button>
+	<if condition='$source eq "notify"'>
+
+		
+		<!-- <div class='detail_title' >
+			<h3>{$notify.meeting_title}</h3>
+			<table class='bordered' id='tableNotifyManage' style='width:1000px;'>
+				<tr>
+					<th colspan="2">详细内容</th>
+				</tr>
+				<tr>
+					<td>
+						<b>发布范围：</b>
+					</td>
+					<td>
+						{$notify.group_id|idsToDeps}&nbsp;
+						{$notify.individual_id|IdsToNames=','}&nbsp;
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>内容：</b>
+					</td>
+					<td>
+						{$notify.meeting_content|htmlspecialchars_decode}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>发布人：</b>
+					</td>
+					<td>
+						{$notify.publisher|IdToName}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>发布时间：</b>
+					</td>
+					<td>
+						{$notify.publish_time|date='Y-m-d H:i',###}
+					</td>
+				</tr>	
+			</table>
+		</div> -->
+		<div class='more_space'>
+			<if condition='$inRange eq true'>
+				<h3 class='title' align='center' style='font:bold 25px "黑体";'>
+					{$notify.meeting_title}
+				</h3>
+				<h4 class='title' align='center'>
+					发布时间：{$notify.publish_time|date='Y-m-d H:i',###}&nbsp;&nbsp;
+					
+				</h4>
+				<div class='content' style='margin-left:20px;'>
+					{$notify.meeting_content|htmlspecialchars_decode}
+				</div>
+				<div  class='content' style='margin-left:10px;'>
+					<b>发布范围：</b>{$notify.group_id|idsToDeps}&nbsp;
+							{$notify.individual_id|IdsToNames=','}&nbsp;
+				</div>
+				<div style='margin-right:20px;float:right;'>
+					发布人：{$notify.publisher|IdToName} <br>
+					发布时间：{$notify.publish_time|date='Y-m-d H:i',###}
+				</div>
+			<else/>
+				<span class='message_hint'>对不起，你没有在可以查看该通知的范围内</span>
+			</if>
+			<br>
+		</div>
+	</if>
+
+
+
+	<if condition='$source eq "meet"'>
+	<div align="center">
+		<div class='detail_title'>
+			<h3>会议(活动)通知单</h3>
+		</div>
+		<div>
+
+			<table width="600" height="339" border="1" cellpadding="1" cellspacing="0" style="background-color:white;">
+			  <tr>
+			    <td width="277">会议时间：{$meet.meet_time|date='Y年n月j日',###}&nbsp;
+			    	{$meet.meet_time|date='w',###|numToWeek}&nbsp;
+			    {$meet.meet_time|date='H时i分',###}</td>
+			    <td width="324">会议地点：{$meet.meet_place|idToMeetPlace}</td>
+			  </tr>
+			  <tr>
+			  	<td colspan='2'>会议主题：{$meet.meet_subject}</td>
+			  </tr>
+			  <tr>
+			    <td height="60" colspan="2"><p>会议内容：{$meet.meet_content}</p>
+			    <p>&nbsp;</p></td>
+			  </tr>
+			  <tr>
+			    <td height="76" colspan="2"><p>与会人员：{$meet.attend_people}</p>
+			    <p>&nbsp;</p></td>
+			  </tr>
+			  <tr>
+			    <td colspan="2"><table width="613" height="31" border="0" cellpadding="0">
+			      <tr>
+			        <td width="277">通知会议科室：{$meet.apply_department|idToDep}</td>
+			        <td width="326">通知会议日期：{$notify.publish_time|date='Y-m-d H:i',###}</td>
+			      </tr>
+			    </table></td>
+			  </tr>
+			  <tr>
+			    <td colspan="2"><table width="614" height="28" border="0" cellpadding="0">
+			      <tr>
+			        <td width="249">会务联系人：{$meet.apply_person}</td>
+			        <td width="358">联系电话：{$meet.meet_contact}</td>
+			      </tr>
+			    </table></td>
+			  </tr>
+			  <tr>
+			    <td height="39" colspan="2"><p>备注：{$meet.meet_service|idToMeetService}</p></td>
+			  </tr>
+			</table>
+
+			
+		</div>
+		</div>
+
+		<!--
+		<div class='detail_title'>
+			<u><h3>会议(活动)通知单</h3></u>
+		</div>
+		<div>
+
+			<table width="621" height="339" border="1" cellpadding="1" cellspacing="0">
+			  <tr>
+			    <td width="277">会议时间：{$meet.meet_time|date='Y年m月d日 H时i分',###}</td>
+			    <td width="324">会议地点：{$meet.meet_place|idToMeetPlace}</td>
+			  </tr>
+			  <tr>
+			    <td height="60" colspan="2"><p>会议内容：{$meet.meet_content}</p>
+			    <p>&nbsp;</p></td>
+			  </tr>
+			  <tr>
+			    <td height="76" colspan="2"><p>我局参加会议科室或人员：{$meet.attend_people|IdsToNames=','}</p>
+			    <p>&nbsp;</p></td>
+			  </tr>
+			  <tr>
+			    <td colspan="2"><table width="613" height="31" border="0" cellpadding="0">
+			      <tr>
+			        <td width="277">通知会议科室：{$meet.apply_department|idToDep}</td>
+			        <td width="326">通知会议日期：{$notify.publish_time|date='Y-m-d H:i',###}</td>
+			      </tr>
+			    </table></td>
+			  </tr>
+			  <tr>
+			    <td colspan="2"><table width="614" height="28" border="0" cellpadding="0">
+			      <tr>
+			        <td width="249">会务联系人：{$meet.apply_person|IdToName}</td>
+			        <td width="358">联系电话：{$meet.meet_contact}</td>
+			      </tr>
+			    </table></td>
+			  </tr>
+			  <tr>
+			    <td height="39" colspan="2"><p>备注：{$meet.meet_service|idToMeetService}</p></td>
+			  </tr>
+			</table>
+
+			
+		</div>
+		-->
+	</if>
+
+
+
+	<if condition='$source eq "inspect"'>
+
+<div align="center">
+			<h3 >督察事项</h3>
+			<table width="600" height="200" border="1" cellpadding="1" cellspacing="0" style="background-color:white;">
+				<tr>
+					<td>标题：</td>
+					<td>{$inspect.title}</td>
+				</tr>
+				<tr>
+					<td>发布人：	</td>
+					<td>{$inspect.send_person|IdToName}</td>
+				</tr>
+				<tr>
+					<td>发布时间：</td>
+					<td>{$inspect.send_time|date='Y-m-d H:i:s',###}</td>
+				</tr>
+				<tr>
+					<td>文件内容：</td>
+					<td><a href="UPLOAD_PATH{$inspect['file_savename']}" target='_blank'>{$inspect.file_name}</a></td>
+				</tr>
+			</table>
+
+
+
+			<!--
+			<div>发布人：{$inspect.send_person|IdToName}</div>
+			<div>&nbsp;</div>
+			<div>发布时间：{$inspect.send_time|date='Y-m-d H:i:s',###}</div>
+			<div>&nbsp;</div>
+			<div>
+				文件内容：
+				<a href="UPLOAD_PATH{$inspect['file_savename']}" target='_blank'>{$inspect.file_name}</a>
+			</div>
+			-->
+			</div>
+
+
+			<!--
+			<u><h3>督察事项</h3></u>
+			<div>发布人：{$inspect.send_person|IdToName}</div>
+			<div>&nbsp;</div>
+			<div>发布时间：{$inspect.send_time|date='Y-m-d H:i:s',###}</div>
+			<div>&nbsp;</div>
+			<div>
+				文件内容：
+				<a href="UPLOAD_PATH{$inspect['file_savename']}" target='_blank'>{$inspect.file_name}</a>
+			</div>
+			-->
+	</if>
+	<if condition='$source eq "dutyurgent" and $allow eq true'>
+		<h3 align='center'>{$duty['title']}</h3>
+		<table class="bordered" id="tableNodifyManage" style='width:100%;'>
+			<tr>
+				<th rowspan='2'>日期</th>
+				<th colspan='8'>应急值班</th>
+				<th colspan='3'>应急备班</th>
+			</tr>
+			<tr>
+				<th>带班领导</th>
+				<th>职务</th>
+				<th colspan="6">值班员(值班电话：60342001)</th>
+				<th>监测组</th>
+				<th>监察组</th>
+				<th>辐射组</th>
+			</tr>
+			<volist name='duty_item' id='v' key='key'>
+				<tr>
+					<td>{$v.duty_time|date='Y-m-d',###}{$v.duty_time|date='w',###|numToWeek}</td>
+					<td>{$v.leader|idToUrgentDutyNeed}</td>
+					<td>{$v.urgen_position}</td>
+					<td colspan='6'>
+						{$v.dutyer|idsToUrgentDutyNeed}
+					</td>
+					<td>
+						{$v.jianceDutyer|idsToUrgentDutyNeed}
+						
+					</td>
+					<td>
+						{$v.jianchaDutyer|idsToUrgentDutyNeed}
+						
+					</td>
+					<td>
+						{$v.fusheDutyer|idsToUrgentDutyNeed}
+						
+					</td>
+				</tr>
+			</volist>
+		</table>
+		<p>
+		<b>注意事项:</b>    <br>                                                                                                                                                                                                         1、24小时不能离岗，保证安全，保证联络畅通；2、加强巡逻，防止火灾和盗窃事件发生；<br>
+		3、有事及时向区委办公室和区政府办公室汇报；4、有事及时向局长或副局长汇报；<br>
+		5、值班时间从当天上午9：00至次日上午9：00。 <br>
+		6、监察组、监测组、辐射组人员备勤，当日不准外出。<br><br>
+		市环保局值班电话：68461267      顾金锁电话： 13901057303       孙爱华电话： 13910779292 <br>
+		市环保局应急办：  82566523      李素明电话： 13501168918       常云鹏电话： 13901228138 <br>
+		区委办电话：      89350001      于德华电话： 13601072048       <br>
+		区政府办电话：    89350012      胡玉江电话： 13910606192       <br>
+		区政府应急办电话：81381800      李  静电话： 13621016105      <br>
+		</p>
+	</if>
+	<if condition='$source eq "dutyurgent" and $allow eq false'>
+		<span class='message_hint'>对不起，你没有在可以查看该表的范围内</span>
+	</if>
+
+	<if condition='$source eq "dutygather"'>
+		<h2 align="center">{$gather.title}</h2>
+		<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+			<tr>
+				<th>值班日期</th>
+				<th>星期</th>
+				<th>带班领导</th>
+				<th>值班人员</th>
+				<th>备注</th>
+			</tr>
+			<foreach name='dutyx' item='v'>
+				<tr>
+					<td>{$v.time|date='Y-m-d',###}</td>
+					<td>{$v.time|date='w',###|numToWeek}</td>
+					<td>{$v.leader|IdToName}</td>
+					<td>{$v.dutyer|IdsToNames=','}</td>
+					<td>{$v.remark}</td>
+				</tr>
+			</foreach>
+			<tr>
+				<td colspan='5' align='left'>
+					{$page}	
+					<if condition='$dutyx eq null or date("Y-m-d",$dutyx[0]["time"]) eq "1970-01-01"'>值班表不存在或已删除</if>		
+					<form action="{:U('Index/Duty/excel')}" method='post' style='float:right;'>
+						<foreach name='dutyx' item='v'>
+							<input type="hidden" name='id[]' value='{$v.id}'>
+						</foreach>
+						<input type="submit" value='Excel导出'>
+					</form>					
+				</td>
+			</tr>
+
+		</table>
+	</if>
+
+
+</div>
+
+
+
+<include file='Common:footer'/>

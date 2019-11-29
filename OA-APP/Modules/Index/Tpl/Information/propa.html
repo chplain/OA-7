@@ -1,0 +1,72 @@
+<include file='top'/>
+<script>
+	$(document).ready(function(){
+		$('.deletePropa').click(function(e){
+			if(!confirm('删除宣传任务的同时，会将各科室或个人提交的稿件同时删除，确定要删除吗？'))
+				e.preventDefault();
+		});
+	});
+</script>
+<!-- 上报 -->
+<div id='right' style='width:100%;'>
+	<!-- <div class='top_banner'>
+		<div class='l'></div>
+		<div class='m'>
+			<img src="__PUBLIC__/images/info/hint7.jpg" alt="hint">
+		</div>
+		<div class='r'></div>
+	</div> -->
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>信息管理</li>
+			<li><a href="{:U('Index/Information/propa')}">宣传任务</a></li>
+		</ul>
+    </div>
+
+	<div class='middle'>
+		<div class='content'>
+			<a href="{:U('Index/Information/addPropa')}" id='propa'>添加宣传任务</a><br><br><br>
+			<div class='list'>
+				<table>
+					<tr>
+						<th class='th1'><span>任务主题</span></th>
+						<th class='th2' style='width:150px;'><span>发布时间</span></th>
+						<th class='th2'><span>操作</span></th>
+					</tr>
+					<foreach name='appro' item='v'>
+						<tr>
+							<td align='left'  style='padding-left:15px;'>
+								<a href="{:U('Index/Information/propadetail',array('id'=>$v['id'],'from'=>'propa'))}">
+									{$v.title|truncate_cn=50}
+								</a>
+								<if condition='$v["isSetTop"] eq 1'>
+									<img src="__PUBLIC__/images/info/new.gif" alt="top">
+								</if>
+							</td>
+							<td align='center'>{$v.send_time|date='Y-n-j',###}</td>
+							<td align='center'>
+								[<a href="{:U('Index/Information/modifyInfoPropa',array('id'=>$v['id']))}">修改</a>]
+								[<a href="{:U('Index/Information/deleteInfoPropa',array('id'=>$v['id']))}" class='deletePropa'>删除</a>]
+							</td>
+						</tr>
+					</foreach>
+					<tr>
+						<td align='left'>{$page}<if condition='$appro eq NULL'>暂无宣传任务</if></td>
+						<td></td><td></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+	</div>
+	
+	<div class='foot_banner'>
+		<div class='l'></div>
+		<div class='m'></div>
+		<div class='r'></div>
+	</div>
+
+</div>
+<include file='foot'/>

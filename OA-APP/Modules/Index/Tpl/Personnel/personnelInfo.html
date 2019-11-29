@@ -1,0 +1,139 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>个人事务</li>
+			<li><a href="{:U('Index/Personnel/personnelInfo')}">个人基本信息</a></li>
+		</ul>
+    </div>
+<div id='personnel'>
+	<if condition='$info eq null'>
+		<span class='block'><a href="#" id='personnelInfo'>填写信息表</a></span>
+	</if>
+	<br><br><br><br>
+	<h3 align='center'>
+		我的基本信息
+		<if condition='$info neq null and $outtime eq false'>
+			[<a href="{:U('Index/Personnel/modifyPersonnelInfoItem',array('id'=>$info['id'],'from'=>'personnal'))}">修改</a>] 
+			<span>还有<span style='color:blue;'>{$diff}</span>天可以修改</span>
+		</if>
+
+	</h3>
+	<if condition='$info eq null'>
+		<table  class="bordered"  align="center"  id="tableNodifyManage">
+			<tr>
+				<td><span style='color:blue;'>信息尚未填写，点击上方的“填写信息表”完善个人信息</span></td>
+			</tr>
+		</table>
+	</if>
+	<if condition='$info neq null'>
+		<table class="bordered"  id="tableNodifyManage" align='center' >
+			<tr>
+				<td>姓名：{$info.name}</td>
+				<td>性别：<if condition='$info["sex"] eq 1'>男<else/>女</if></td>
+				<td>民族：{$info.nation}</td>
+				<td>出生日期：{$info.birth}</td>
+				<td colspan='2'>身份证号：{$info.identify}</td>
+			</tr>
+			<tr>
+				<td>本人身份：{$info.shenfen}</td>
+				<td>政治面貌：{$info.politic}</td>
+				<td>参加组织时间：{$info.part_group}</td>
+				<td>单位全称：{$info.dep|IdToDep}</td>
+				<td>参加工作时间：{$info.part_work}</td>
+				<td>退休时间：{$info.retire_time}</td>
+				
+			</tr>
+		</table>
+		<br>
+		<table class="bordered"  id="tableNodifyManage" align='center'>
+			<tr>
+				<td>现任职务：{$info.now_pos}</td>
+				<td>任现职时间：{$info.now_pos_time}</td>
+				<td>现任级别：{$info.now_level}</td>
+				<td>任现级别时间：{$info.now_level_time}</td>
+			</tr>
+		</table>
+		<br>
+		<table class="bordered"  id="tableNodifyManage" align='center'>
+			<tr>
+				<td>第一学历：{$info.first_edu}</td>
+				<td>第一学历取得时间：{$info.first_edu_time}</td>
+				<td>第一学历毕业学校：{$info.first_edu_school}</td>
+			</tr>
+			<tr>
+				<td>现学历：{$info.now_edu}</td>
+				<td>现学历取得时间：{$info.now_edu_time}</td>
+				<td>现学历毕业学校：{$info.now_edu_school}</td>
+			</tr>
+		</table>
+		<br>
+		<table class="bordered"  id="tableNodifyManage" align='center'>
+			<tr>
+				<td>到本单位方式：{$info.come_type}</td>
+				<td>到本单位时间：{$info.come_time}</td>
+				<td>到本单位前工作单位名称：{$info.come_ahead_unit}</td>
+				<td>原单位级别及职务：{$info.come_ahead_level_pos}</td>
+				<td>籍贯：{$info.hometown}</td>				
+			</tr>
+		</table>
+		<br>
+		<table class="bordered"  id="tableNodifyManage" align='center'>
+			<tr>
+				<td>技术职称：{$info.tech_pos}</td>
+				<td>原岗位等级：{$info.old_poslevel}</td>
+				<td>现岗位等级：{$info.now_poslevel}</td>
+				<td>首次聘在现岗位等级的时间：{$info.first_nowpos_time}</td>
+				<td>聘用现岗位期限{$info.now_term_stime}至{$info.now_term_etime}</td>
+			</tr>
+			<tr>
+				<td>现岗位聘用续签时间：{$info.now_continue_time}</td>
+				<td>是否执行聘用岗位的工资：<if condition='$info["isUseWage"] eq 1'>是<else/>否</if></td>
+				<td>事业人员聘用合同期限：{$info.public_continue_time_stime}至{$info.public_continue_time_etime}</td>
+				<td>事业人员聘用合同续签时间：{$info.public_again_time}</td>
+				<td>转正定级时间：{$info.covert_regular_time}</td>
+			</tr>
+		</table>
+		<br>
+		<table class="bordered"  id="tableNodifyManage" align='center'>
+			<tr>
+				<td>编制所在科室：{$info.come_dep|IdToDep}</td>
+				<td>现在所在科室：{$info.now_dep|IdToDep}</td>
+			</tr>
+			<tr>
+				<td>职级信息（任职）---职级：{$info.rankInfo_rank}</td>
+				<td>职级信息（任职）---批准时间：{$info.rankInfo_approve_time}</td>
+				<td>职级信息（任职）---终止时间：{$info.now_term_stime}至{$info.rankInfo_end_time}</td>
+			</tr>
+			<tr>
+				<td>专业技术职务信息---技术等级：{$info.pro_rank}</td>
+				<td>专业技术职务信息---批准时间：{$info.pro_approve_time}</td>
+				<td>专业技术职务信息---终止时间：{$info.pro_end_time}</td>
+			</tr>
+			<tr>
+				<td colspan='3'>学历信息：{$info.edu}</td>
+			</tr>
+			<tr>
+				<td colspan='3'>家庭成员信息信息：{$info.family}</td>
+			</tr>
+			<tr>
+				<td colspan='3'>培训信息：{$info.train}</td>
+			</tr>
+			<tr>
+				<td colspan='3'>奖惩信息：{$info.reward}</td>
+			</tr>
+			<tr>
+				<td colspan='3'>工作履历信息：{$info.work_experience}</td>
+			</tr>
+			<tr>
+				<td colspan='3'>备注：{$info.remark}</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		<br>
+		<br>
+	</if>
+</div>
+<include file='Common:footer'/>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/labor.css'/>
+	<title>添加乡镇</title>
+</head>
+<body>
+	<div  id='stockClass_table'>
+		<div><a href="{:U('Index/Petition/add_town')}"><button>返回</button></a></div>
+		<div id='stockClass-in'>
+			<form action="{:U('Index/Petition/addTownHandle')}" method='post'>
+				<table align='center'>
+					<tr>
+						<th colspan="2" align="center">添加乡镇</th>
+					</tr>
+					<tr>
+						<td>名称</td>
+						<td><input type="text" name='name'/></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<input type="submit" value='保存'/>
+							<input type="reset" value='重置'/>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

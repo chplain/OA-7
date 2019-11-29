@@ -1,0 +1,39 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>学习园地</li>
+			<li><a href="{:U('Index/Study/view')}">查看共享</a></li>
+			
+		</ul>
+    </div>
+<div id='study'  class='someSpace'>
+	<h3 align='center'>共享知识</h3>
+	<div id='study_content'>
+		<table class="bordered"align='left' id="tableNodifyManage" style="width:90%;">
+			<tr>
+				<th width='7%'>序号</th>
+				<th width='30%'>标题</th>
+				<th width='10%'>分享人</th>
+				<th width='10%'>分享日期</th>
+			</tr>
+			
+			<volist name='study' id='v' key='key'>
+				<tr>
+					<td width='7%'>{$key}</td>
+					<td width='30%'><a href="{:U('Index/Study/detail',array('id'=>$v['id']))}">[{$v.type}]{$v.title}</a></td>
+					<td width='10%'>{$v.suber|IdToName}</td>
+					<td width='10%'>{$v.time|date='Y/m/d',###}</td>
+				</tr>
+			</volist>
+			<tr>
+				<td colspan="4" align="left">
+					{$page}
+					<if condition='$study eq null'>暂无分享信息</if>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<include file='Common:footer'/>

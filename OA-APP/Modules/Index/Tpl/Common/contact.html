@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+<!-- *************通讯录*************************************************************** -->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/>
+	<script type="text/javascript" src="__PUBLIC__/js/SimpleTree/SimpleTree.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// 使用url，找到点击后，要接收值的位置,用class来作接收
+			var reurl = window.location.href;
+			var r = window.location.search;
+			var index = r.indexOf('=')+1;
+			var sub = r.substring(index,r.length); 
+			
+
+			//这里规定：当名字为contact_input时，可以选择多个名字，否则，只能选择单个名字
+			var single = false;
+			if(sub != 'contact_input' && sub != 'contact_input_meet1' && sub != 'contact_input_meet2'){
+				single = true;
+			}
+
+			$('.st_tree span').hide();
+			$(".st_tree").SimpleTree({
+				
+			});
+			
+			$('.contactor').click(function(e){
+				e.preventDefault();
+
+				var msg = $('.'+sub,window.parent.document).val();
+				var text_span = $(this).find('span').text();
+				var text = $(this).text();
+				var index = text.lastIndexOf(text_span);
+				text = text.substring(0,index);
+								
+				var hideMsg = $('.'+sub,window.parent.document).parent('td').find('input[type=hidden]').val();
+				
+				if(!single && msg != ''){
+					//判断重复
+					var arr = msg.split(',');
+					var flag = false; //是否有重复，默认为无
+					for(var i in arr){
+						if(text == arr[i]){
+							flag = true;
+							break;
+						}
+					}
+					if(!flag){
+						msg += ',' + text;
+						hideMsg += ','+ text_span;
+					}
+				}else{
+					msg = text;
+					hideMsg = text_span;
+				}
+
+				//全选
+				if($(this).is('#allSelect')){
+					var a = $('.st_tree ul a b');
+					var b = $('.st_tree ul a span');
+					var stra = '';
+					var strb = '';
+					a.each(function(index){
+						stra += $(this).html() + ',';
+					});
+					msg = stra;
+
+					b.each(function(index){
+						strb += $(this).html() + ',';
+					});
+					hideMsg = strb;
+
+				}else if($(this).is('#noneSelect')){
+					msg = '';
+					hideMsg = '';
+				}
+				
+				$('.'+sub,window.parent.document).val(msg);
+				$('.'+sub,window.parent.document).parent('td').find('input[class=hidden]').val(hideMsg);
+				var index = parent.layer.getFrameIndex(); 
+				parent.layer.close(index);
+			});
+
+		});
+	</script>
+	<style type="text/css">
+		
+	</style>
+	<title>通讯录</title>
+</head>
+<body>
+	<div class="st_tree">
+		<div align='right'>
+			<!-- <b style='font:normal 12px "宋体";'>【<a href="#" class='contactor' id='allSelect'>全选</a>】</b> -->
+			<b style='font:normal 12px "宋体";'>【<a href="#" class='contactor' id='noneSelect'>取消选择</a>】</b>
+		</div>
+		<ul>
+			<li>局领导</li>
+			<ul>
+				<foreach name='leader' item='v'>
+					<a href="#" class='contactor'><li><b  style='font:normal 12px "宋体";'>{$v.name}</b><span>{$v.id}</span></li></a>
+				</foreach>
+			</ul>
+			<volist name='dep' id='v' key='key'>
+				<li>{$v.name}</li>
+				<ul>
+					<volist name="group[$v['id']]" id='vv'>
+						<a href="#" class='contactor'><li><b  style='font:normal 12px "宋体";'>{$vv.name}</b><span>{$vv.id}</span></li></a>
+					</volist>
+				</ul>
+			</volist>
+		</ul>
+	</div>
+</body>
+</html>

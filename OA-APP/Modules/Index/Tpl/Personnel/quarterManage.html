@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/jquery.timers.js'/>
+	<js file='__PUBLIC__/js/common.js'/>
+	<title>季度考核表管理</title>
+</head>
+<body>
+	<div id='personnel'>
+		<div>
+			<span>选择要查看的内容</span>
+			<select name="type" id='personnel_select'>
+				<option value="cr">公务员月工作记实表</option>
+				<option value="cj">公务员平时考核领导评鉴表</option>
+				<option value="pr">事业单位人员月工作记实表</option>
+				<option value="pj">事业单位人员平时考核领导评鉴表</option>
+			</select>
+		</div>
+		<div id='cr'>
+			<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+				<foreach name='civilRecord' item='v'>
+					<tr>
+						<td>{$v.name}---{$v.month}月份</td>
+						<td>
+							[<a href="{:U('Index/Personnel/detail',array('id'=>$v['id'],'table'=>'record'))}">查看</a>]
+						</td>
+						<td>
+							[<a href="{:U('Index/Personnel/quarterDelete',array('id'=>$v['id'],'table'=>'record'))}"class='delete'>删除</a>]
+						</td>
+					</tr>
+				</foreach>
+			</table>
+			<span>{$page1}<if condition='$civilRecord eq null'>暂无记录</if></span>
+		</div>
+		<div id='cj'>
+			<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+				<foreach name='civilJudge' item='v'>
+					<tr>
+						<td>{$v.name}---{$v.quarter}季度</td>
+						<td>
+							[<a href="{:U('Index/Personnel/detail',array('id'=>$v['id'],'table'=>'judge'))}">查看</a>]
+						</td>
+						<td>
+							[<a href="{:U('Index/Personnel/quarterDelete',array('id'=>$v['id'],'table'=>'judge'))}" class='delete'>删除</a>]
+						</td>
+					</tr>
+				</foreach>
+			</table>
+			<span>{$page2}<if condition='$civilJudge eq null'>暂无记录</if></span>
+		</div>
+		<div id='pr'>
+			<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+				<foreach name='publicRecord' item='v'>
+					<tr>
+						<td>{$v.name}---{$v.month}月份</td>
+						<td>[<a href="{:U('Index/Personnel/detail',array('id'=>$v['id'],'table'=>'record'))}">查看</a>]</td>
+						<td>[<a href="{:U('Index/Personnel/quarterDelete',array('id'=>$v['id'],'table'=>'record'))}" class=
+						'delete'>删除</a>]</td>
+					</tr>
+				</foreach>
+			</table>
+			<span>{$page3}<if condition='$publicRecord eq null'>暂无记录</if></span>
+		</div>
+		<div id='pj'>
+			<table class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+				<foreach name='publicJudge' item='v'>
+					<tr>
+						<td>{$v.name}---{$v.quarter}季度</td>
+						<td>
+							[<a href="{:U('Index/Personnel/detail',array('id'=>$v['id'],'table'=>'judge'))}">查看</a>]
+						</td>
+						<td>
+							[<a href="{:U('Index/Personnel/quarterDelete',array('id'=>$v['id'],'table'=>'judge'))}" class='delete'>删除</a>]
+						</td>
+					</tr>
+				</foreach>
+			</table>
+			<span>{$page4}<if condition='$publicJudge eq null'>暂无记录</if></span>
+		</div>
+
+		<div>
+			<h4>季度考核分数汇总表</h4>
+			<ul>
+				<a href="{:U('Index/Personnel/judgeGatherManage')}">查看汇总表</a>
+			</ul>
+		</div>
+		 <div align='center'><button onclick='javascript:window.close();'>关闭窗口</button></div>
+	</div>
+</body>
+</html>

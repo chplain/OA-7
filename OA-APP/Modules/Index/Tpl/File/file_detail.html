@@ -1,0 +1,31 @@
+<include file='Common:header'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>文件管理</li>
+			<li><a href="{:U('Index/File/show_file')}">局内红头文件</a></li>			
+			<li><a href="#">详情</a></li>			
+		</ul>
+    </div>
+<div class='someSpace'>
+	<button class='reback' onclick='javascript:history.go(-1);'>返回</button>
+	<h2 align='center'>
+		{$file.number}:{$file.title}
+	</h2>
+	<div align='center'>
+		<!-- <span>年份：{$file.year}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span>文号：{$file.number}</span>&nbsp;&nbsp;&nbsp;&nbsp; -->
+		<span>起草科室：{$file.dep|idToDep}</span>
+		<!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+	<!-- 	<span>类型：{$file.type}</span> -->
+	</div>
+	<div  style='margin-left:70px;'>
+		{$file.content|htmlspecialchars_decode}
+	</div>
+	<div align='right'>
+		<span>联系人：{$file.contactor|IdToName}</span><br>
+		<span>发布时间：{$file.pub_time|date='Y-m-d',###}</span>
+	</div>
+</div>
+<include file='Common:footer'/>

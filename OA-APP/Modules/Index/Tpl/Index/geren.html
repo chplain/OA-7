@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file="__PUBLIC__/js/SimpleTree/jquery-1.6.min.js"/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/>
+	<css file='__PUBLIC__/css/navi.css'/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/style.css"/>
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js"/>
+	<script type="text/javascript">
+		$(function(){
+			$(".st_tree").SimpleTree({
+				
+			});
+		});
+	</script>
+	<script type="text/javascript">
+	$(function(){	
+		//导航切换
+		$(".menuson li").click(function(){
+			$(".menuson li.active").removeClass("active")
+			$(this).addClass("active");
+		});
+		
+		$('.title').click(function(){
+			var $ul = $(this).next('ul');
+			$('dd').find('ul').slideUp();
+			if($ul.is(':visible')){
+				$(this).next('ul').slideUp();
+			}else{
+				$(this).next('ul').slideDown();
+			}
+		});
+		$(".leftmenu dd div div").click(function(){
+            $(".yijibeijing").removeClass("yijibeijing");
+            $(this).addClass("yijibeijing");
+        });
+	})	
+	</script>
+	<title>left</title>
+</head>
+<body class='navigation'style="background:#D1EEEE;">
+	<div class="lefttop"><span></span>个人事务</div>
+	<dl class="leftmenu">
+		<dd>
+			<div class="title">
+			<div class="yijibeijing">
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico01.png" /></span><a href="{:U('Index/Notify/show_message')}" target='right'>待办事项</a>
+			</div>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico02.png" /></span>个人文档管理
+			</div>
+			</div>	
+			<ul class="menuson">
+				<li class="active"><cite></cite><a href="{:U('Index/Profile/addProfile')}" target='right'>添加文档</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Profile/lookProfile',array('type'=>1))}" target='right'>查看文档</a><i></i></li>
+				<!-- <li ><cite></cite><a href="{:U('Index/Profile/lookProfile',array('type'=>2))}" target='right'>传送文档</a><i></i></li> -->
+			</ul>
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico03.png" /></span>考核记录
+			</div>
+			</div>	
+			<ul class="menuson">
+				<li class="active"><cite></cite><a href="{:U('Index/Personnel/show_record')}" target='right'>月纪实表</a><i></i></li>
+				<li ><cite></cite><a href="{:U('Index/Personnel/show_judge')}" target='right'>季度考核表</a><i></i></li>
+			</ul>
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico04.png" /></span><a href="{:U('Index/Notify/memo')}" target='right'>备忘录</a>
+			</div>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico01.png" /></span><a href="{:U('Index/Personnel/personnelinfo')}" target='right'>个人基本信息</a>
+			</div>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico02.png" /></span><a href="{:U('Index/Individual/index')}" target='right'>个人设置</a>
+			</div>
+			</div>	
+		</dd>
+		<if condition="$Think.config.RBAC_SUPERADMIN eq IdToUserid($_SESSION['id'])">
+			<dd>
+				<div class="title">
+				<div>
+					<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico03.png" /></span>权限管理
+				</div>
+				</div>	
+				<ul class="menuson">
+				<li class="active"><cite></cite><a href="{:U('Index/Rbac/index')}" target='right'>用户列表</a><i></i></li>
+				<li class=""><cite></cite><a href="{:U('Index/Rbac/index')}" target='right'><a href="{:U('Index/Rbac/role')}" target='right'>角色列表</a><i></i></li>
+				<li class=""><cite></cite><a href="{:U('Index/Rbac/index')}" target='right'><a href="{:U('Index/Rbac/addRole')}" target='right'>添加角色</a><i></i></li>
+				<!-- <if condition="$Think.config.RBAC_SUPERADMIN eq IdToUserid($_SESSION['id'])">
+					<li class=""><cite></cite><a href="{:U('Index/Rbac/index')}" target='right'><a href="{:U('Index/Rbac/node')}" target='right'>权限列表</a><i></i></li> 
+					<li class=""><cite></cite><a href="{:U('Index/Rbac/index')}" target='right'><a href="{:U('Index/Rbac/addNode')}" target='right'>添加权限</a><i></i></li>
+				</if> -->
+				</ul>
+			</dd>
+			<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico04.png" /></span><a href="{:U('Index/System/setInterval')}" target='right'>系统设置</a>
+			</div>
+			</div>	
+		</dd>
+		<dd>
+			<div class="title">
+			<div>
+				<span><img src="__PUBLIC__/js/SimpleTree/tree_themes/images/leftico04.png" /></span><a href="#" target='right'>预留接口</a>
+			</div>
+			</div>	
+		</dd>
+		</if>
+	</dl>
+
+</body>
+</html>

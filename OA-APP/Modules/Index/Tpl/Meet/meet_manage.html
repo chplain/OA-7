@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.delete').click(function(e){
+				if(!confirm('确定要删除吗？')){
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
+	<title>会议室申请管理</title>
+</head>
+<body>
+	<div>
+		<table class="bordered"align='center' id="tableNodifyManage">
+			<tr>
+				<td>序号</td>
+				<td>会议时间</td>
+				<td>会议室</td>
+				<td>申请人</td>
+				<td>操作</td>
+			</tr>
+			<volist name='meet' id='v' key='key'>
+				<tr>
+					<td>{$key}</td>
+					<td>{$v.meet_time|date='Y/m/d H:i',###}</td>
+					<td>{$v.meet_place|idToMeetPlace}</td>
+					<td>{$v.apply_person|IdToName}</td>
+					<td>
+						[<a href="{:U('Index/Meet/manage_detail',array('id'=>$v['id']))}">详情</a>]
+						[<a href="{:U('Index/Meet/deleteMeet',array('id'=>$v['id']))}" class='delete'>删除</a>]
+					</td>
+				</tr>
+			</volist>
+			<tr>
+				<td colspan="5">
+					{$page}
+					<button onclick='javascript:window.close();'>关闭窗口</button>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<include file='Common:header'/>
+<js file='__PUBLIC__/js/duty.js'/>
+<include file='Common:top'/>
+<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/dutyUrgentSearch')}">应急值班表查询</a></li>
+			<li><a href="#">修改</a></li>
+		</ul>
+    </div>
+<div id='dutyUrgent'>
+	<form action="{:U('Index/Duty/dutyUrgentHandle',array('id'=>$duty['id'],'from'=>'modify'))}" method='post'>
+		<table class="bordered" id="tableNodifyManage" style='width:100%;'>
+			<tr>
+				<th colspan="8">
+					<span>标题：</span>{$duty["title"]}
+					<div align='right' style='font-size:12px;'>
+						<a href="#" id='addOneRow'>增加一行</a>
+						<a href="#" id='deleteOneRow'>删除一行</a>
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<th>序号</th>
+				<th>值班日期</th>
+				<th>带班领导</th>
+				<th>职务</th>
+				<th>值班人员</th>
+				<th>监测组</th>
+				<th>监察组</th>
+				<th>辐射组</th>
+			</tr>
+			<tr id='first'>
+				<td>1</td>
+				<td>
+					<input class="Wdate" type="text" name='duty[time][]' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$duty_item[0]["duty_time"]|date="Y-m-d",###}'>
+				</td>
+			<!-- 	<td>
+					<input type="text"  class='contact_input1' placeholder='点击选择' value='{$duty_item[0]["leader"]|IdToName}'>
+		    		<input type="hidden" name='leader[]' class='hidden' value='{$duty_item[0]["leader"]}'/>
+				</td> -->
+				<td style='width:70px;'>
+					<textarea name="recvContact_4" class='newContact_input_41' id="" style='width:80px;' disabled>{$duty_item[0]["leader"]|IdsToNames=','}</textarea>		
+					<input type="hidden" name='group_id_4[]'>
+					<input type="hidden" name='individual_id_4[]' value='{$duty_item[0]["leader"]}'/>
+					<a href="#" class='newContact'>选择</a>
+				</td>
+				<td>
+					<input type="text" name='pos[]' style='width:70px;'  value='{$duty_item[0]["urgen_position"]}'>
+				</td>
+				<td style='width:300px;'>
+					<textarea name="recvContact[]" class='newContact_input_1' id="" style='width:400px;' disabled>{$duty_item[0]["dutyer"]|IdsToNames=','}</textarea>					
+					<input type="hidden" name='group_id[]'>
+					<input type="hidden" name='individual_id[]' value='{$duty_item[0]["dutyer"]}'>
+					<a href="#" class='newContact'>增加</a>
+				</td>
+				<td>
+			    	<textarea name="recvContact_1" class='newContact_input_11' id="" style='width:400px;' disabled>{$duty_item[0]["jianceDutyer"]|IdsToNames=','}</textarea>
+					<input type="hidden" name='group_id_1[]'>
+					<input type="hidden" name='individual_id_1[]' value='{$duty_item[0]["jianceDutyer"]}'>
+					<a href="#" class='newContact'>选择</a>	
+					<!-- <input type="hidden" name='dono' value='jiance'> -->
+				</td>
+				<td>
+					
+			    	<!-- {$duty_item[0]["jianchaDutyer"]|IdsToNames=','} -->
+			    	<textarea name="recvContact_2" class='newContact_input_21' id="" style='width:400px;' disabled>{$duty_item[0]["jianchaDutyer"]|IdsToNames=','}</textarea>
+					<input type="hidden" name='group_id_2[]'>
+					<input type="hidden" name='individual_id_2[]' value='{$duty_item[0]["jianchaDutyer"]}'>
+					<a href="#" class='newContact'>选择</a>	
+				</td>
+				<td>
+					
+				   <!-- {$duty_item[0]["fusheDutyer"]|IdsToNames=','} -->
+				   <textarea name="recvContact_3" class='newContact_input_31' id="" style='width:400px;' disabled>{$duty_item[0]["fusheDutyer"]|IdsToNames=','}</textarea>
+					<input type="hidden" name='group_id_3[]'>
+					<input type="hidden" name='individual_id_3[]' value='{$duty_item[0]["fusheDutyer"]}'>
+					<a href="#" class='newContact'>选择</a>	
+				</td>
+			</tr>
+			<volist name='duty_item' id='v' key='key' offset='1'>
+				<tr>
+					<td>{$key}</td>
+					<td>
+						<input class="Wdate" type="text" name='duty[time][]' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$v.duty_time|date="Y-m-d",###}'>
+					</td>
+					<!-- <td>
+						<input type="text"  class='contact_input2' placeholder='点击选择' value='{$v["leader"]|IdToName}'>
+		    			<input type="hidden" name='leader[]' class='hidden' value='{$v["leader"]}'/>
+					</td> -->
+					<td style='width:70px;'>
+						<textarea name="recvContact_4[]" class='newContact_input_4{$key}' id="" style='width:80px;' disabled>{$v["leader"]|IdToName=','}</textarea>					
+						<input type="hidden" name='group_id_4[]'>
+						<input type="hidden" name='individual_id_4[]' value='{$v.leader}'/>
+						<a href="#" class='newContact'>选择</a>
+					</td>
+					<td>
+						<input type="text" name='pos[]' style='width:70px;'  value='{$v["urgen_position"]}'>
+					</td>
+					<td style='width:300px;'>
+						<textarea name="recvContact[]" class='newContact_input_{$key}' id="" style='width:400px;' disabled>{$v.dutyer|IdsToNames=','}</textarea>					
+						<input type="hidden" name='group_id[]'>
+						<input type="hidden" name='individual_id[]' value='{$v.dutyer}'>
+						<a href="#" class='newContact'>增加</a>
+					</td>
+					<td>
+						<!-- <if condition='$jiance eq true'> -->
+					   		<!--  <textarea   class='contact_input' disabled></textarea>
+							<input type='hidden' name='jianceDutyer[]'  class='hidden'/>
+							<a href="#" class='contact'>通讯录</a>
+							<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a>		 -->    
+				    	<!-- <else/> -->
+				    		<!-- {$v.jianceDutyer|IdsToNames=','} -->
+			    		<textarea name="recvContact_1" class='newContact_input_1{$key}' id="" style='width:400px;' disabled>{$v.jianceDutyer|IdsToNames=','}</textarea>
+						<input type="hidden" name='group_id_1[]'>
+						<input type="hidden" name='individual_id_1[]' value="{$v.jianceDutyer}">
+						<a href="#" class='newContact'>选择</a>	
+				   		<!-- </if> -->
+					</td>
+					<td>
+						<!-- <if condition='$jiancha eq true'> -->
+					     	<!-- <textarea   class='contact_input' disabled></textarea>
+							<input type='hidden' name='jianchaDutyer[]'  class='hidden'/>
+							<a href="#" class='contact'>通讯录</a>
+							<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a> -->
+				    	<!-- <else/> -->
+				    	<!-- {$v.jianchaDutyer|IdsToNames=','} -->
+				    	<textarea name="recvContact_2" class='newContact_input_2{$key}' id="" style='width:400px;' disabled>{$v.jianchaDutyer|IdsToNames=','}</textarea>
+						<input type="hidden" name='group_id_2[]'>
+						<input type="hidden" name='individual_id_2[]' value="{$v.jianchaDutyer}">
+						<a href="#" class='newContact'>选择</a>	
+						<!-- </if> -->
+					</td>
+					<td>
+						<!-- <if condition='$fushe eq true'> -->
+					    <!--  <textarea   class='contact_input' disabled></textarea>
+							<input type='hidden' name='fusheDutyer[]'  class='hidden'/>
+							<a href="#" class='contact'>通讯录</a>
+							<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a> -->	
+					    <!-- <else/> -->
+					    <!-- {$v.fusheDutyer|IdsToNames=','} -->
+					    <textarea name="recvContact_3" class='newContact_input_3{$key}' id="" style='width:400px;' disabled>{$v.fusheDutyer|IdsToNames=','}</textarea>
+						<input type="hidden" name='group_id_3[]'>
+						<input type="hidden" name='individual_id_3[]' value="{$v.fusheDutyer}">
+						<a href="#" class='newContact'>选择</a>	
+					    <!-- </if> -->
+					</td>
+				</tr>
+			</volist>
+			
+			<tr id='last'>
+				<td colspan='8' align='center'>
+					<input type="submit" value='保存修改'>
+					<!-- <span style='color:blue;font-size:12px;'>保存修改后，会重新走“应急值班表”处理的流程</span> -->
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<include file='Common:footer'/>

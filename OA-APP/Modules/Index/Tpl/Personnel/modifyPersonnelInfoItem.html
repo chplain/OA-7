@@ -1,0 +1,409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style type="text/css">
+		.hint{font-size:13px;}
+	</style>
+	<css file='__PUBLIC__/css/common.css'/>
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/My97DatePicker/WdatePicker.js'/>
+		<css file="__PUBLIC__/js/SimpleTree/tree_themes/right_nav.css"/>
+	<title>修改人事信息</title>
+</head>
+<body>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>人事管理</li>
+			<li><a href="{:U('Index/Personnel/show_personnelinfo')}">人事信息</a></li>
+			<li><a href="#">修改</a></li>
+		</ul>
+    </div>
+	<if condition='$personnal eq "personnal"'>
+		<a href="{:U('Index/Personnel/personnelinfo')}"><button>返回</button></a>
+		<else/>
+		<a href="{:U('Index/Personnel/show_personnelinfo')}"><button>返回</button></a>
+	</if>
+	
+	<h3 align="center">人员基本情况表修改</h3>
+		<form action="{:U('Index/Personnel/addPersonnelInfoHandle',array('id'=>$info['id'],'from'=>'modify'))}" method='post'>
+		<table class="bordered"  id="tableNodifyManage" align='center'>
+			<tr>
+				<td>姓名</td>
+				<td>{$info.name}</td>
+			</tr>
+			<tr>
+				<td>身份证号</td>
+				<td><input type="text" name='identify' value='{$info.identify}'/></td>
+			</tr>
+			<tr>
+				<td>单位全称</td>
+				<td>
+					<select name="dep" id="">
+						<option value="-1">===请选择===</option>
+						<option value="0"   <if condition='$info_dep eq 0'>selected</if> >局领导</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition="$info_dep eq $v['id']">selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>性别</td>
+				<td>
+					<input type="radio" name='sex' value='1' <if condition='$info["sex"] eq 1'>checked</if>/>男
+					<input type="radio" name='sex' value='2'<if condition='$info["sex"] eq 2'>checked</if>/>女
+				</td>
+			</tr>
+			<tr>
+				<td>民族</td>
+				<td>
+					<select name="nation"  style="width:150px;">
+						<option value="汉族">汉族</option>
+						<option value="蒙古族">蒙古族</option>
+						<option value="彝族">彝族</option>
+						<option value="侗族">侗族</option>
+						<option value="哈萨克族">哈萨克族</option>
+						<option value="畲族">畲族</option>
+						<option value="纳西族">纳西族</option>
+						<option value="仫佬族">仫佬族</option>
+						<option value="仡佬族">仡佬族</option>
+						<option value="怒族">怒族</option>
+						<option value="保安族">保安族</option>
+						<option value="鄂伦春族">鄂伦春族</option>
+						<option value="回族">回族</option>
+						<option value="壮族">壮族</option>
+						<option value="瑶族">瑶族</option>
+						<option value="傣族">傣族</option>
+						<option value="高山族">高山族</option>
+						<option value="景颇族">景颇族</option>
+						<option value="羌族">羌族</option>
+						<option value="锡伯族">锡伯族</option>
+						<option value="乌孜别克族">乌孜别克族</option>
+						<option value="裕固族">裕固族</option>
+						<option value="赫哲族">赫哲族</option>
+						<option value="藏族">藏族</option>
+						<option value="布依族">布依族</option>
+						<option value="白族">白族</option>
+						<option value="黎族">黎族</option>
+						<option value="拉祜族">拉祜族</option>
+						<option value="柯尔克孜族">柯尔克孜族</option>
+						<option value="布朗族">布朗族</option>
+						<option value="阿昌族">阿昌族</option>
+						<option value="俄罗斯族">俄罗斯族</option>
+						<option value="京族">京族</option>
+						<option value="门巴族">门巴族</option>
+						<option value="维吾尔族">维吾尔族</option>
+						<option value="朝鲜族">朝鲜族</option>
+						<option value="土家族">土家族</option>
+						<option value="傈僳族">傈僳族</option>
+						<option value="水族">水族</option>
+						<option value="土族">土族</option>
+						<option value="撒拉族">撒拉族</option>
+						<option value="普米族">普米族</option>
+						<option value="鄂温克族">鄂温克族</option>
+						<option value="塔塔尔族">塔塔尔族</option>
+						<option value="珞巴族">珞巴族</option>
+						<option value="苗族">苗族</option>
+						<option value="满族">满族</option>
+						<option value="哈尼族">哈尼族</option>
+						<option value="佤族">佤族</option>
+						<option value="东乡族">东乡族</option>
+						<option value="达斡尔族">达斡尔族</option>
+						<option value="毛南族">毛南族</option>
+						<option value="塔吉克族">塔吉克族</option>
+						<option value="德昂族">德昂族</option>
+						<option value="独龙族">独龙族</option>
+						<option value="基诺族">基诺族</option>
+					</select> 
+				</td>
+			</tr>
+			<tr>
+				<td>出生日期</td>
+				<td><input type="text" name='birth'  value='{$info.birth}'/></td>
+			</tr>
+			<tr>
+				<td>参加工作时间</td>
+				<td><input type="text" name='part_work'  value='{$info.part_work}'/></td>
+			</tr>
+			<tr>
+				<td>退休年月</td>
+				<td><input type="text" name='retire_time'  value='{$info.retire_time}'/></td>
+			</tr>
+			<tr>
+				<td>本人身份</td>
+				<td>
+					<select name="shenfen" id="">
+						<option value="0">===请选择===</option>
+						<option value="公务员" <if condition='$info["shenfen"] eq "公务员"'>selected</if>>公务员</option>
+						<option value="参照公务员" <if condition='$info["shenfen"] eq "参照公务员"'>selected</if>>参照公务员</option>
+						<option value="事业干部" <if condition='$info["shenfen"] eq "事业干部"'>selected</if>>事业干部</option>
+						<option value="事业工人" <if condition='$info["shenfen"] eq "事业工人"'>selected</if>>事业工人</option>
+						<option value="机关工勤" <if condition='$info["shenfen"] eq "机关工勤"'>selected</if>>机关工勤</option>
+						<option value="复退兵" <if condition='$info["shenfen"] eq "复退兵"'>selected</if>>复退兵</option>
+						<option value="劳务派遣" <if condition='$info["shenfen"] eq "劳务派遣"'>selected</if>>劳务派遣</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>政治面貌</td>
+				<td><input type="text" name='politic' value='{$info.politic}'/></td>
+			</tr>
+			<tr>
+				<td>参加组织时间</td>
+				<td><input type="text" name='part_group' value='{$info.part_group}'/></td>
+			</tr>
+			<tr>
+				<td>现任职务</td>
+				<td>
+					<select name="now_pos" id="">
+						<option value="0">===请选择===</option>
+						<foreach name='position' item='v'>
+							<option value="{$v.id}" <if condition='$info["now_pos"] eq $v["id"]'>selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>任现职时间</td>
+				<td><input type="text" name='now_pos_time' value='{$info.now_pos_time}'/></td>
+			</tr>
+			<tr>
+				<td>现任级别</td>
+				<td><input type="text" name='now_level' value='{$info.now_level}'/></td>
+			</tr>
+			<tr>
+				<td>任现级别时间</td>
+				<td><input type="text" name='now_level_time' value='{$info.now_level_time}'/></td>
+			</tr>
+			<tr>
+				<td>第一学历</td>
+				<td><input type="text" name='first_edu' value='{$info.first_edu}'/></td>
+			</tr>
+			<tr>
+				<td>第一学历取得时间</td>
+				<td><input type="text" name='first_edu_time' value='{$info.first_edu_time}'/></td>
+			</tr>
+			<tr>
+				<td>第一学历毕业学校</td>
+				<td><input type="text" name='first_edu_school' value='{$info.first_edu_school}'/></td>
+			</tr>
+			<tr>
+				<td>现学历</td>
+				<td><input type="text" name='now_edu' value='{$info.now_edu}'/></td>
+			</tr>
+			<tr>
+				<td>现学历取得时间</td>
+				<td><input type="text" name='now_edu_time' value='{$info.now_edu_time}'/></td>
+			</tr>
+			<tr>
+				<td>现学历毕业学校</td>
+				<td><input type="text" name='now_edu_school' value='{$info.now_edu_school}'/></td>
+			</tr>
+			<tr>
+				<td>到本单位方式</td>
+				<td>
+					<select name="come_type" id="">
+						<option value="0">===请选择===</option>
+						<option value="分配" <if condition='$info["come_type"] eq "分配"'>selected</if>>分配</option>
+						<option value="调入" <if condition='$info["come_type"] eq "调入"'>selected</if>>调入</option>
+						<option value="公招" <if condition='$info["come_type"] eq "公招"'>selected</if>>公招</option>
+						<option value="军转干部" <if condition='$info["come_type"] eq "军转干部"'>selected</if>>军转干部</option>
+						<option value="军嫂安置" <if condition='$info["come_type"] eq "军嫂安置"'>selected</if>>军嫂安置</option>
+						<option value="复退兵" <if condition='$info["come_type"] eq "复退兵"'>selected</if>>复退兵</option>
+						<option value="临时工" <if condition='$info["come_type"] eq "临时工"'>selected</if>>临时工</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>到本单位时间</td>
+				<td><input type="text" name='come_time' value='{$info.come_time}'/></td>
+			</tr>
+			<tr>
+				<td>到本单位前工作单位名称 </td>
+				<td><input type="text" name='come_ahead_unit' value='{$info.come_ahead_unit}'/></td>
+			</tr>
+			<tr>
+				<td>原单位级别及职务</td>
+				<td><input type="text" name='come_ahead_level_pos' value='{$info.come_ahead_level_pos}'/></td>
+			</tr>
+			<tr>
+				<td>籍贯</td>
+				<td><input type="text" name='hometown' value='{$info.hometown}'/></td>
+			</tr>
+			<tr>
+				<td>技术职称</td>
+				<td><input type="text" name='tech_pos' value='{$info.tech_pos}'/></td>
+			</tr>
+			<tr>
+				<td>原岗位等级</td>
+				<td>
+					<select name="old_poslevel" id="">
+						<option value="0">===请选择===</option>
+						<option value="专业技术岗位六级" <if condition='$info["old_poslevel"] eq "专业技术岗位六级"'>selected</if>>专业技术岗位六级</option>
+						<option value="专业技术岗位七级" <if condition='$info["old_poslevel"] eq "专业技术岗位七级"'>selected</if>>专业技术岗位七级</option>
+						<option value="专业技术岗位八级" <if condition='$info["old_poslevel"] eq "专业技术岗位八级"'>selected</if>>专业技术岗位八级</option>
+						<option value="专业技术岗位九级" <if condition='$info["old_poslevel"] eq "专业技术岗位九级"'>selected</if>>专业技术岗位九级</option>
+						<option value="专业技术岗位十级" <if condition='$info["old_poslevel"] eq "专业技术岗位十级"'>selected</if>>专业技术岗位十级</option>
+						<option value="专业技术岗位十一级" <if condition='$info["old_poslevel"] eq "专业技术岗位十一级"'>selected</if>>专业技术岗位十一级</option>
+						<option value="专业技术岗位十二级" <if condition='$info["old_poslevel"] eq "专业技术岗位十二级"'>selected</if>>专业技术岗位十二级</option>
+						<option value="专业技术岗位十三级" <if condition='$info["old_poslevel"] eq "专业技术岗位十三级"'>selected</if>>专业技术岗位十三级</option>
+						<option value="管理岗位七级" <if condition='$info["old_poslevel"] eq "管理岗位七级"'>selected</if>>管理岗位七级</option>
+						<option value="管理岗位八级" <if condition='$info["old_poslevel"] eq "管理岗位八级"'>selected</if>>管理岗位八级</option>
+						<option value="管理岗位九级" <if condition='$info["old_poslevel"] eq "管理岗位九级"'>selected</if>>管理岗位九级</option>
+						<option value="管理岗位十级" <if condition='$info["old_poslevel"] eq "管理岗位十级"'>selected</if>>管理岗位十级</option>
+						<option value="见习期专业技术人员" <if condition='$info["old_poslevel"] eq "见习期专业技术人员"'>selected</if>>见习期专业技术人员</option>
+						<option value="试用期职员" <if condition='$info["old_poslevel"] eq "试用期职员"'>selected</if>>试用期职员</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>现岗位等级</td>
+				<td>
+					<select name="now_poslevel" id="">
+						<option value="0">===请选择===</option>
+						<option value="专业技术岗位五级" <if condition='$info["now_poslevel"] eq "专业技术岗位五级"'>selected</if>>专业技术岗位五级</option>
+						<option value="专业技术岗位六级" <if condition='$info["now_poslevel"] eq "专业技术岗位六级"'>selected</if>>专业技术岗位六级</option>
+						<option value="专业技术岗位七级" <if condition='$info["now_poslevel"] eq "专业技术岗位七级"'>selected</if>>专业技术岗位七级</option>
+						<option value="专业技术岗位八级" <if condition='$info["now_poslevel"] eq "专业技术岗位八级"'>selected</if>>专业技术岗位八级</option>
+						<option value="专业技术岗位九级" <if condition='$info["now_poslevel"] eq "专业技术岗位九级"'>selected</if>>专业技术岗位九级</option>
+						<option value="专业技术岗位十级" <if condition='$info["now_poslevel"] eq "专业技术岗位十级"'>selected</if>>专业技术岗位十级</option>
+						<option value="专业技术岗位十一级" <if condition='$info["now_poslevel"] eq "专业技术岗位十一级"'>selected</if>>专业技术岗位十一级</option>
+						<option value="专业技术岗位十二级" <if condition='$info["now_poslevel"] eq "专业技术岗位十二级"'>selected</if>>专业技术岗位十二级</option>
+						<option value="专业技术岗位十三级" <if condition='$info["now_poslevel"] eq "专业技术岗位十三级"'>selected</if>>专业技术岗位十三级</option>
+						<option value="管理岗位六级" <if condition='$info["now_poslevel"] eq "管理岗位六级"'>selected</if>>管理岗位六级</option>
+						<option value="管理岗位七级" <if condition='$info["now_poslevel"] eq "管理岗位七级"'>selected</if>>管理岗位七级</option>
+						<option value="管理岗位八级" <if condition='$info["now_poslevel"] eq "管理岗位八级"'>selected</if>>管理岗位八级</option>
+						<option value="管理岗位九级" <if condition='$info["now_poslevel"] eq "管理岗位九级"'>selected</if>>管理岗位九级</option>
+						<option value="管理岗位十级" <if condition='$info["now_poslevel"] eq "管理岗位十级"'>selected</if>>管理岗位十级</option>
+						<option value="见习期专业技术人员" <if condition='$info["now_poslevel"] eq "见习期专业技术人员"'>selected</if>>见习期专业技术人员</option>
+						<option value="试用期职员" <if condition='$info["now_poslevel"] eq "试用期职员"'>selected</if>>试用期职员</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>首次聘在现岗位等级的时间</td>
+				<td><input type="text" name='first_nowpos_time' value='{$info.first_nowpos_time}'/></td>
+			</tr>
+			<tr>
+				<td>聘用现岗位期限</td>
+				<td>
+					<input class="Wdate" type="text" name='now_term_stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$info.now_term_stime}' >至
+					<input class="Wdate" type="text" name='now_term_etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$info.now_term_etime}' >
+					<!-- <input type="text" name='now_term' value='{$info.now_term}'/> -->
+				</td>
+			</tr>
+			<tr>
+				<td>现岗位聘用续签时间</td>
+				<td><input type="text" name='now_continue_time' value='{$info.now_continue_time}'/></td>
+			</tr>
+			<tr>
+				<td>是否执行聘用岗位的工资</td>
+				<td>
+					<input type="radio" name='isUseWage' value='1' <if condition='$info["isUseWage"] eq 1'>checked</if>/>是
+					<input type="radio" name='isUseWage' value='0' <if condition='$info["isUseWage"] eq 0'>checked</if>/>否
+				</td>
+			</tr>
+			<tr>
+				<td>事业人员聘用合同期限</td>
+				<td>
+					<input class="Wdate" type="text" name='now_term_stime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$info.public_continue_time_stime}' >至
+					<input class="Wdate" type="text" name='now_term_etime' onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='{$info.public_continue_time_etime}' >
+					<!-- <input type="text" name='public_continue_time' value='{$info.public_continue_time}'/> -->
+				</td>
+			</tr>
+			<tr>
+				<td>事业人员聘用合同续签时间</td>
+				<td><input type="text" name='public_again_time' value='{$info.public_again_time}'/></td>
+			</tr>
+			<tr>
+				<td>转正定级时间</td>
+				<td><input type="text" name='covert_regular_time' value='{$info.covert_regular_time}'/></td>
+			</tr>
+			<tr>
+				<td>编制所在科室</td>
+				<td>
+					<select name="come_dep" id="">
+						<option value="-1">===请选择===</option>
+						<option value="0"   <if condition='$info_come_dep eq 0'>selected</if> >局领导</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition="$info_come_dep eq $v['id']">selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+
+					<!-- <input type="text" name='come_dep' value='{$info.come_dep}'/> -->
+				</td>
+			</tr>
+			<tr>
+				<td>现在所在科室</td>
+				<td>
+					<select name="come_dep" id="">
+						<option value="-1">===请选择===</option>
+						<option value="0"   <if condition='$info_now_dep eq 0'>selected</if> >局领导</option>
+						<foreach name='dep' item='v'>
+							<option value="{$v.id}" <if condition="$info_now_dep eq $v['id']">selected</if>>{$v.name}</option>
+						</foreach>
+					</select>
+					<!-- <input type="text" name='now_dep' value='{$info.now_dep}'/> -->
+				</td>
+			</tr>
+			<tr>
+				<td>职级信息（任职）---职级</td>
+				<td><input type="text" name='rankInfo_rank' value='{$info.rankInfo_rank}'/></td>
+			</tr>
+			<tr>
+				<td>职级信息（任职）---批准时间</td>
+				<td><input type="text" name='rankInfo_approve_time' value='{$info.rankInfo_approve_time}'/></td>
+			</tr>
+			<tr>
+				<td>职级信息（任职）---终止时间</td>
+				<td><input type="text" name='rankInfo_end_time' value='{$info.rankInfo_end_time}'/></td>
+			</tr>
+			<tr>
+				<td>专业技术职务信息---技术等级</td>
+				<td><input type="text" name='pro_rank' value='{$info.pro_rank}'/></td>
+			</tr>
+			<tr>
+				<td>专业技术职务信息---批准时间</td>
+				<td><input type="text" name='pro_approve_time' value='{$info.pro_approve_time}'/></td>
+			</tr>
+			<tr>
+				<td>专业技术职务信息---终止时间</td>
+				<td><input type="text" name='pro_end_time' value='{$info.pro_end_time}'/></td>
+			</tr>
+			<tr>
+				<td>学历信息</td>
+				<td><textarea name="edu" id="" cols="45" rows="10">{$info.edu}</textarea></td>
+			</tr>
+			<tr>
+				<td>家庭成员信息</td>
+				<td><textarea name="family" id="" cols="45" rows="10">{$info.family}</textarea></td>
+			</tr>
+			<tr>
+				<td>培训信息</td>
+				<td><textarea name="train" id="" cols="45" rows="10">{$info.train}</textarea></td>
+			</tr>
+			<tr>
+				<td>奖惩信息</td>
+				<td><textarea name="reward" id="" cols="45" rows="10">{$info.reward}</textarea></td>
+			</tr>
+			<tr>
+				<td>工作履历信息</td>
+				<td><textarea name="work_experience" id="" cols="45" rows="10">{$info.work_experience}</textarea></td>
+			</tr>
+			<tr>
+				<td>备注</td>
+				<td><textarea name="remark" id="" cols="45" rows="10">{$info.remark}</textarea></td>
+			</tr>
+			<tr>
+				<td align="center" colspan='2'>
+					<input type="submit" value='修改'/>
+					<input type="reset" value='重置'/>
+				</td>
+			</tr>
+		</table>
+		</form>
+</body>
+</html>

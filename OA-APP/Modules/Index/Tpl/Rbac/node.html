@@ -1,0 +1,48 @@
+<include file='top' />
+
+<div id='right'>
+	<div id='r_top'>
+		<!-- <img src="" alt="节点列表"> -->
+		<h3 style='font:bold 17px "微软雅黑";'>节点列表</h3>
+	</div>
+	<div id='r_content'>
+
+			<foreach name='node' item='app'>
+				<div class='level1'>
+					<span>{$app.remark}</span>
+					<span>
+						[<a href="{:U('Index/Rbac/addNode',array('pid'=>$app['id'],'level'=>2))}">添加控制器</a>]
+						[<a href="{:U('Index/Rbac/alterNode',array('id'=>$app['id']))}">修改</a>]
+						[<a href="{:U('Index/Rbac/deleteNode',array('id'=>$app['id']))}" id='delete'>删除</a>]
+					</span>
+				<foreach name='app.child' item='action'>
+					<dl>
+					<dt class='level2'>
+						<span>{$action.remark}</span>
+						<span>
+							[<a href="{:U('Index/Rbac/addNode',array('pid'=>$action['id'],'level'=>3))}">添加方法</a>]
+							[<a href="{:U('Index/Rbac/alterNode',array('id'=>$action['id']))}">修改</a>]
+							[<a href="{:U('Index/Rbac/deleteNode',array('id'=>$action['id']))}"  id='delete'>删除</a>]
+						</span>
+					
+					<foreach name='action.child' item='method'>
+						<dd class='level3'>
+							<span>{$method.remark}</span>
+							<span>
+								[<a href="{:U('Index/Rbac/alterNode',array('id'=>$method['id']))}">修改</a>]
+								[<a href="{:U('Index/Rbac/deleteNode',array('id'=>$method['id']))}"  id='delete'>删除</a>]
+							</span>
+						</dd>
+					</foreach>
+					</dt>
+					</dl>
+					<br/>
+					<br/>
+				</foreach>
+				</div>
+			</foreach>
+		</table>
+	</div>
+</div>
+
+<include file='foot' />

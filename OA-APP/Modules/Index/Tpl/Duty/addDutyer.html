@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<js file='__PUBLIC__/js/jquery.min.js'/>
+	<js file='__PUBLIC__/js/jquery.timers.js' />
+	<js file='__PUBLIC__/js/common.js'/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/SimpleTree/tree_themes/SimpleTree.css"/> 
+	<js file="__PUBLIC__/js/SimpleTree/SimpleTree.js" />
+	<js file='__PUBLIC__/js/layer/layer.min.js'/>
+	<css file='__PUBLIC__/css/common.css'/>
+	<css file="__PUBLIC__/js/SimpleTree/tree_themes/right_nav.css"/>
+	<title>添加值班人员</title>
+</head>
+<body>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li>值班管理</li>
+			<li><a href="{:U('Index/Duty/duty_index')}">值班表管理</a></li>
+			<li><a href="#">添加值班项</a></li>
+		</ul>
+    </div>
+	<div>
+		<div><button onclick='javascript:history.go(-1);'>返回</button></div>
+		<form action="{:U('Index/Duty/addDutyerHandle')}" method='post'>
+			<table  class="bordered"align='center' id="tableNodifyManage" style="width:95%;">
+				<tr><th colspan='2' align='center'><h2>添加值班人员</h2></th></tr>
+				<tr>
+					<td>带班领导</td>
+					<td>
+						<input type="text" name='' class='contact_input_leader'/>
+						<input type="hidden" class='hidden' name='leader'/>
+					</td>
+				</tr>
+				<tr>
+					<td>值班人员</td>
+					<td>
+						<!-- <textarea type="text" name='' class='contact_input' style='width:500px;' disabled></textarea><br/>
+						<a href="#" class='contact'>通讯录</a>
+						<input type="hidden" class='hidden' name='dutyer'/>
+						<a href="#" title='删除最后一次输入' class='delContactLastInput'>删除</a> -->
+						
+						<textarea name="recvContact" class='newContact_input' id="" style='width:400px;'></textarea>
+						<input type="hidden" name='group_id'>
+						<input type="hidden" name='individual_id'>
+						<a href="#" class='newContact'>添加</a>	
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2' align='center'>
+						<input type="submit" value='保存'/>
+						<input type="reset" value='重置'/>
+					</td>
+				</tr>			
+			</table>
+		</form>
+	</div>
+</body>
+</html>
